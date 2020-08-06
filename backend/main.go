@@ -16,11 +16,12 @@
 package main
 
 import (
-	"github.com/sinnrrr/loonify/datastore"
-	"github.com/sinnrrr/loonify/graphql"
-	"github.com/sinnrrr/loonify/handler"
-	"github.com/sinnrrr/loonify/model"
+	"gitlab.com/loonify/web/datastore"
+	"gitlab.com/loonify/web/graphql"
+	"gitlab.com/loonify/web/handler"
+	"gitlab.com/loonify/web/model"
 
+	"path/filepath"
 	"log"
 	"os"
 
@@ -50,18 +51,25 @@ func main() {
 	h, err := graphql.NewHandler(db)
 	logFatal(err)
 
-	// routes
-	e.GET("/", handler.Welcome())
-	e.POST("/graphql", echo.WrapHandler(h))
+	path, err := filepath.Abs("frontend/dist/index.html")
+	logFatal(err)
 
-	users := e.Group("/users")
+	e.File("/", path)
+
+	// routes
+	api := e.Group("/api")
+
+	api.GET("/", handler.Welcome())
+	api.POST("/graphql", echo.WrapHandler(h))
+
+	users := api.Group("/users")
 	users.GET("/", handler.GetUsers(db))
 	users.POST("/", handler.CreateUser(db))
 	users.GET("/users/:id", handler.ReadUser(db))
 	users.PUT("/users/:id", handler.UpdateUser(db))
 	users.DELETE("/users/:id", handler.DeleteUser(db))
 
-	posts := e.Group("/posts")
+	posts := api.Group("/posts")
 	posts.GET("/", handler.GetPosts(db))
 
 	// starting router

@@ -1,4 +1,4 @@
-module github.com/sinnrrr/loonify
+module gitlab.com/loonify/web
 
 go 1.14
 

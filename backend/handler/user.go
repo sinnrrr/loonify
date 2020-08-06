@@ -6,7 +6,7 @@ import (
 	
 	"net/http"
 
-	"github.com/sinnrrr/loonify/model"
+	"gitlab.com/loonify/web/model"
 )
 
 /*GetUsers handler*/
