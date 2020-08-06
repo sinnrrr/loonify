@@ -27,4 +27,5 @@ EXPOSE 8002
 # Command to run when starting the container
 CMD ["/dist/main"]
 
+# Changing directory for app access
 WORKDIR /build

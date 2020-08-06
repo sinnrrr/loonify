@@ -21,9 +21,9 @@ import (
 	"gitlab.com/loonify/web/handler"
 	"gitlab.com/loonify/web/model"
 
-	"path/filepath"
 	"log"
 	"os"
+	"path/filepath"
 
 	"github.com/labstack/echo"
 	"github.com/labstack/echo/middleware"
@@ -55,6 +55,7 @@ func main() {
 	logFatal(err)
 
 	e.File("/", path)
+	e.File("/office/", path)
 
 	// routes
 	api := e.Group("/api")
