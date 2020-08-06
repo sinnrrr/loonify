@@ -1,0 +1,47 @@
+version: '3'
+services:
+  # db:
+  #   image: mysql
+  #   volumes:
+  #     - mysqldata:/var/lib/mysql
+  #   command: mysqld --character-set-server=utf8mb4 --collation-server=utf8mb4_general_ci --default-authentication-plugin=mysql_native_password
+  #   container_name: db
+  #   environment:
+  #     MYSQL_USER: root
+  #     MYSQL_ROOT_PASSWORD: root
+  #   ports:
+  #     - 3306:3306
+  adminer:
+    image: adminer
+    container_name: adminer
+    # depends_on:
+    #   - db
+    ports:
+      - 8080:8080
+  nginx:
+    image: nginx
+    build: 
+      context: ./nginx
+    container_name: nginx
+    restart: always
+    ports:
+      - 80:80
+      - 443:443
+    volumes: 
+      - ./frontend/dist:/var/www/:ro
+  golang:
+    container_name: golang
+    restart: always
+    ports:
+      - 8002:8002
+    build:
+      context: ./backend
+    environment: 
+      PORT: 8002
+      CLEARDB_DATABASE_URL: "b0f268306164fd:608b8268@tcp(eu-cdbr-west-03.cleardb.net:3306)/heroku_1a9f0ee75262bd7?parseTime=true"
+    depends_on:
+      # - db
+      - nginx
+# volumes:
+#   mysqldata:
+#     driver: local

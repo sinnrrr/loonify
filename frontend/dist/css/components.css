@@ -1,0 +1,12 @@
+input {
+  padding: 5px 15px;
+  transition: all 0.5s;
+  border-radius: 5px;
+  outline: 0;
+  border: 0;
+}
+
+h1, h2, h3, h4, h5, h6, span, a {
+  color: var(--bs-gray-dark);
+  opacity: 90%;
+}
