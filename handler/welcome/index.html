@@ -12,7 +12,14 @@
         justify-content: center;
         align-items: center;
         height: 100vh;
+        font-weight: 900;
+    }
 
+    ::selection {
+        color: white;
+    }
+
+    html {
         background: linear-gradient(124deg, #ff2400, #e81d1d, #e8b71d, #e3e81d, #1de840, #1ddde8, #2b1de8, #dd00f3, #dd00f3);
         background-size: 1800% 1800%;
 
@@ -20,10 +27,6 @@
         -z-animation: rainbow 18s ease infinite;
         -o-animation: rainbow 18s ease infinite;
         animation: rainbow 18s ease infinite;
-    }
-
-    ::selection {
-        color: white;
     }
 
     * {
@@ -77,6 +80,18 @@
             background-position: 0 82%
         }
     }
+
+    /*@media screen and (min-width: 1060px){*/
+    /*    pre {*/
+    /*        font-size: 1vmin;*/
+    /*    }*/
+    /*}*/
+
+    /*@media screen and (min-width: 1400px){*/
+    /*    pre {*/
+    /*        font-size: 1.5vmin;*/
+    /*    }*/
+    /*}*/
 </style>
 </body>
 </html>

@@ -22,8 +22,6 @@
     <list default="true" id="26644a7f-d1e5-42ca-8279-7fd42886f23a" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/handler/welcome/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/handler/welcome/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/handler/welcome/styles.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/routes.go" beforeDir="false" afterPath="$PROJECT_DIR$/routes.go" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -105,9 +103,9 @@
       <screen x="0" y="0" width="1920" height="1080" />
     </state>
     <state x="464" y="175" key="SettingsEditor/0.0.1920.1080@0.0.1920.1080" timestamp="1596808496027" />
-    <state x="511" y="72" width="1156" height="962" key="find.popup" timestamp="1596799769918">
+    <state x="511" y="72" width="1156" height="962" key="find.popup" timestamp="1596810780251">
       <screen x="0" y="0" width="1920" height="1080" />
     </state>
-    <state x="511" y="72" width="1156" height="962" key="find.popup/0.0.1920.1080@0.0.1920.1080" timestamp="1596799769918" />
+    <state x="511" y="72" width="1156" height="962" key="find.popup/0.0.1920.1080@0.0.1920.1080" timestamp="1596810780251" />
   </component>
 </project>
