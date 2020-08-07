@@ -11,7 +11,16 @@ import (
 )
 
 func InitRoutes(e *echo.Echo, db *gorm.DB) {
+	nuxtStatic, err := filepath.Abs("frontend/dist/_nuxt")
+	logFatal(err)
+
+	myStatic, err := filepath.Abs("frontend/static")
+	logFatal(err)
+
 	htmlPath, err := filepath.Abs("handler/welcome/*.html")
+	logFatal(err)
+
+	sitePath, err := filepath.Abs("frontend/dist/index.html")
 	logFatal(err)
 
 	t := &Template{
@@ -19,23 +28,16 @@ func InitRoutes(e *echo.Echo, db *gorm.DB) {
 	}
 
 	e.Renderer = t
+	e.File("/", sitePath)
+	e.Static("/static", myStatic)
+	e.Static("/_nuxt", nuxtStatic)
 
 	// creating new instance of graphql handler
 	h, err := graphql.NewHandler(db)
 	logFatal(err)
 
-	sitePath, err := filepath.Abs("frontend/dist/index.html")
-	logFatal(err)
-
-	//stylePath, err := filepath.Abs("handler/welcome/styles.css")
-	//logFatal(err)
-
-	e.File("/", sitePath)
-
 	// routes
 	api := e.Group("/api")
-
-	//api.File("/", stylePath)
 
 	api.GET("/", handler.Welcome())
 	api.POST("/graphql", echo.WrapHandler(h))

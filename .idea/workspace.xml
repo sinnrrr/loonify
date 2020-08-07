@@ -20,36 +20,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="26644a7f-d1e5-42ca-8279-7fd42886f23a" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/handler/welcome/index.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/handler/welcome/styles.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Dockerfile" beforeDir="false" afterPath="$PROJECT_DIR$/Dockerfile" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build.sh" beforeDir="false" afterPath="$PROJECT_DIR$/build.sh" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/config.go" beforeDir="false" afterPath="$PROJECT_DIR$/config.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docker-compose.yml" beforeDir="false" afterPath="$PROJECT_DIR$/docker-compose.yml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/dist/200.html" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/dist/200.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/dist/_nuxt/9.11e35cd.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/dist/_nuxt/app.83d6bd1.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/dist/_nuxt/commons.app.0e9f082.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/dist/_nuxt/manifest.097c2775.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/dist/_nuxt/pages/about.d94055c.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/dist/_nuxt/pages/account.19cffa9.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/dist/_nuxt/pages/index.91c3740.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/dist/_nuxt/pages/language.f1cc29c.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/dist/_nuxt/pages/office.2ab7d63.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/dist/_nuxt/pages/search.2489d73.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/dist/_nuxt/runtime.61eb5a7.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/dist/about/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/dist/about/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/dist/account/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/dist/account/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/dist/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/dist/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/dist/language/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/dist/language/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/dist/office/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/dist/office/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/dist/search/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/dist/search/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/static/sw.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/static/sw.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/handler/user.go" beforeDir="false" afterPath="$PROJECT_DIR$/handler/user.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/handler/welcome.go" beforeDir="false" afterPath="$PROJECT_DIR$/handler/welcome.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/handler/welcome.txt" beforeDir="false" afterPath="$PROJECT_DIR$/handler/welcome/main.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/handler/welcome/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/handler/welcome/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/handler/welcome/styles.css" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/routes.go" beforeDir="false" afterPath="$PROJECT_DIR$/routes.go" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -93,7 +66,7 @@
     <property name="go.tried.to.enable.integration.vgo.integrator" value="true" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="nodejs_package_manager_path" value="npm" />
-    <property name="settings.editor.selected.configurable" value="go.sdk" />
+    <property name="settings.editor.selected.configurable" value="com.goide.configuration.GoLibrariesConfigurableProvider" />
   </component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
@@ -128,10 +101,10 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="752" y="353" key="#Go_Modules/0.0.1920.1040@0.0.1920.1040" timestamp="1596734112741" />
-    <state x="464" y="175" key="SettingsEditor" timestamp="1596800566373">
+    <state x="464" y="175" key="SettingsEditor" timestamp="1596808496027">
       <screen x="0" y="0" width="1920" height="1080" />
     </state>
-    <state x="464" y="175" key="SettingsEditor/0.0.1920.1080@0.0.1920.1080" timestamp="1596800566373" />
+    <state x="464" y="175" key="SettingsEditor/0.0.1920.1080@0.0.1920.1080" timestamp="1596808496027" />
     <state x="511" y="72" width="1156" height="962" key="find.popup" timestamp="1596799769918">
       <screen x="0" y="0" width="1920" height="1080" />
     </state>
