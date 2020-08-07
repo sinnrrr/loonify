@@ -1,4 +1,4 @@
-package datastore
+package main
 
 import (
 	"os"

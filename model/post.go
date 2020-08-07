@@ -2,15 +2,15 @@ package model
 
 /*Post struct*/
 type Post struct {
-	ID        uint       `gorm:"primary_key" json:"id"`
+	ID          uint   `gorm:"primary_key" json:"id"`
 	UserID      uint   `json:"user_id"`
-	AddressID uint       `gorm:"default:null" json:"post_id"`
-	CategoryID  string `json:"category_id"`
-	Title       string `json:"title"`
-	Description string `json:"description"`
+	AddressID   uint   `json:"post_id"`
+	CategoryID  uint   `json:"category_id"`
+	Title       MyString `json:"title"`
+	Description MyString `json:"description"`
 	Latitude    int64  `json:"lat"`
 	Longitude   int64  `json:"lng"`
-	Status      string `json:"status"`
+	Status      string `gorm: "type:enum" json:"status"`
 	Reward      string `json:"reward"`
 }
 

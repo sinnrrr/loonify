@@ -16,17 +16,12 @@
 package main
 
 import (
-	"gitlab.com/loonify/web/datastore"
-	"gitlab.com/loonify/web/graphql"
-	"gitlab.com/loonify/web/handler"
 	"gitlab.com/loonify/web/model"
-
-	"log"
-	"os"
-	"path/filepath"
 
 	"github.com/labstack/echo"
 	"github.com/labstack/echo/middleware"
+	"log"
+	"os"
 )
 
 func main() {
@@ -39,7 +34,7 @@ func main() {
 	e.Pre(middleware.AddTrailingSlash())
 
 	// setting up connection to db
-	db, err := datastore.NewDB()
+	db, err := NewDB()
 	logFatal(err)
 
 	db.LogMode(true)
@@ -47,31 +42,7 @@ func main() {
 
 	defer db.Close()
 
-	// creating new instance of graphql handler
-	h, err := graphql.NewHandler(db)
-	logFatal(err)
-
-	path, err := filepath.Abs("frontend/dist/index.html")
-	logFatal(err)
-
-	e.File("/", path)
-	e.File("/office/", path)
-
-	// routes
-	api := e.Group("/api")
-
-	api.GET("/", handler.Welcome())
-	api.POST("/graphql", echo.WrapHandler(h))
-
-	users := api.Group("/users")
-	users.GET("/", handler.GetUsers(db))
-	users.POST("/", handler.CreateUser(db))
-	users.GET("/users/:id", handler.ReadUser(db))
-	users.PUT("/users/:id", handler.UpdateUser(db))
-	users.DELETE("/users/:id", handler.DeleteUser(db))
-
-	posts := api.Group("/posts")
-	posts.GET("/", handler.GetPosts(db))
+	InitRoutes(e, db)
 
 	// starting router
 	e.Logger.Fatal(e.Start(":" + os.Getenv("PORT")))

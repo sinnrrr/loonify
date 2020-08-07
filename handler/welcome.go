@@ -27,7 +27,7 @@ func Welcome() echo.HandlerFunc {
 			http.StatusOK,
 			fmt.Sprintf(
 				"<pre>%s</pre>" +
-				"<style>pre{font-size: 0.8vmin; display: flex; justify-content:center; align-items: center; height: 100vh} *{margin: 0}</style>",
+				"<style>pre{font-size:0.8vmin;display:flex;justify-content:center;align-items:center;height:100vh}*{margin: 0}</style>",
 				 string(data),
 			),
 		)

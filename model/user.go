@@ -1,11 +1,8 @@
 package model
 
 import (
-	"database/sql/driver"
 	"time"
 )
-
-type MyString string
 
 /*User struct*/
 type User struct {
@@ -17,13 +14,6 @@ type User struct {
 	CreatedAt time.Time  `json:"created_at"`
 	UpdatedAt time.Time  `json:"updated_at"`
 	DeletedAt *time.Time `json:"deleted_at"`
-}
-
-func (s MyString) Value() (driver.Value, error) {
-	if s == "" {
-		return nil, nil
-	}
-	return string(s), nil
 }
 
 /*TableName function*/
