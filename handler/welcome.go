@@ -1,11 +1,9 @@
 package handler
 
 import (
-	"path/filepath"
-	"net/http"
 	"io/ioutil"
-	"fmt"
-
+	"net/http"
+	"path/filepath"
 
 	"github.com/labstack/echo"
 )
@@ -13,23 +11,19 @@ import (
 /*Welcome handler*/
 func Welcome() echo.HandlerFunc {
 	return func(c echo.Context) error {
-		path, err := filepath.Abs("handler/welcome.txt")
+		path, err := filepath.Abs("handler/welcome/main.txt")
 		if err != nil {
 			return c.String(http.StatusOK, "Welcome!")
 		}
 
-		data, err := ioutil.ReadFile(path)
+		welcome, err := ioutil.ReadFile(path)
 		if err != nil {
 			return c.String(http.StatusOK, "Welcome!")
 		}
 
-		return c.HTML(
-			http.StatusOK,
-			fmt.Sprintf(
-				"<pre>%s</pre>" +
-				"<style>pre{font-size:0.8vmin;display:flex;justify-content:center;align-items:center;height:100vh}*{margin: 0}</style>",
-				 string(data),
-			),
-		)
+		return c.Render(http.StatusOK, "index.html", map[string]interface{}{
+			"title":   "Awesome as FUCK API",
+			"welcome": string(welcome),
+		})
 	}
 }

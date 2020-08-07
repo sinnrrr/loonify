@@ -1,8 +1,8 @@
 version: '3'
 
 services:
-  golang:
-      container_name: golang
+  loonify:
+      container_name: loonify
       restart: always
       ports:
         - 80:80

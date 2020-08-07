@@ -5,22 +5,37 @@ import (
 	"github.com/labstack/echo"
 	"gitlab.com/loonify/web/graphql"
 	"gitlab.com/loonify/web/handler"
+	"html/template"
+	"io"
 	"path/filepath"
 )
 
 func InitRoutes(e *echo.Echo, db *gorm.DB) {
+	htmlPath, err := filepath.Abs("handler/welcome/*.html")
+	logFatal(err)
+
+	t := &Template{
+		templates: template.Must(template.ParseGlob(htmlPath)),
+	}
+
+	e.Renderer = t
+
 	// creating new instance of graphql handler
 	h, err := graphql.NewHandler(db)
 	logFatal(err)
 
-	path, err := filepath.Abs("frontend/dist/index.html")
+	sitePath, err := filepath.Abs("frontend/dist/index.html")
 	logFatal(err)
 
-	e.File("/", path)
-	e.File("/office/", path)
+	//stylePath, err := filepath.Abs("handler/welcome/styles.css")
+	//logFatal(err)
+
+	e.File("/", sitePath)
 
 	// routes
 	api := e.Group("/api")
+
+	//api.File("/", stylePath)
 
 	api.GET("/", handler.Welcome())
 	api.POST("/graphql", echo.WrapHandler(h))
@@ -34,4 +49,12 @@ func InitRoutes(e *echo.Echo, db *gorm.DB) {
 
 	posts := api.Group("/posts")
 	posts.GET("/", handler.GetPosts(db))
+}
+
+type Template struct {
+	templates *template.Template
+}
+
+func (t *Template) Render(w io.Writer, name string, data interface{}, c echo.Context) error {
+	return t.templates.ExecuteTemplate(w, name, data)
 }

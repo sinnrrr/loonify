@@ -2,15 +2,16 @@ package main
 
 import (
 	"github.com/joho/godotenv"
+	"log"
 	"os"
 )
 
 func init() {
-	if err := godotenv.Load(); err != nil { logFatal(err) }
+	if err := godotenv.Load(); err != nil { log.Fatal(err) }
 
 	if os.Getenv("PORT") == "" {
 		err := os.Setenv("PORT", "80")
-		logFatal(err)
+		log.Fatal(err)
 	}
 
 	if os.Getenv("CLEARDB_DATABASE_URL") == "" {

@@ -13,19 +13,19 @@ RUN go mod download
 COPY . .
 
 # Build the application
-RUN go build -o main .
+RUN go build -o loonify .
 
 # Move to /dist directory as the place for resulting binary folder
 WORKDIR /dist
 
 # Copy binary from build to main folder
-RUN cp /build/main .
+RUN cp /build/loonify .
 
 # Export necessary port
 EXPOSE 8002
 
 # Command to run when starting the container
-CMD ["/dist/main"]
+CMD ["/dist/loonify"]
 
 # Changing directory for app access
 WORKDIR /build
