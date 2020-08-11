@@ -1,4 +1,4 @@
-package model
+package models
 
 type Address struct {
 	ID       uint     `gorm:"primary_key" json:"id"`

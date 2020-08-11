@@ -1,14 +1,12 @@
 package main
 
 import (
-	"github.com/joho/godotenv"
+	_ "github.com/joho/godotenv/autoload"
 	"log"
 	"os"
 )
 
 func init() {
-	if err := godotenv.Load(); err != nil { log.Fatal(err) }
-
 	if os.Getenv("PORT") == "" {
 		err := os.Setenv("PORT", "80")
 		log.Fatal(err)

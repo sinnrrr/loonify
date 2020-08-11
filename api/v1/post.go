@@ -1,18 +1,16 @@
-package handler
+package v1
 
 import (
 	"github.com/jinzhu/gorm"
-	"github.com/labstack/echo"
-
+	"github.com/labstack/echo/v4"
+	"gitlab.com/sinnrrr/loonify/models"
 	"net/http"
-
-	"gitlab.com/loonify/web/model"
 )
 
 /*GetPosts handler*/
 func GetPosts(db *gorm.DB) echo.HandlerFunc {
 	return func(c echo.Context) error {
-		var u []*model.Post
+		var u []*models.Post
 
 		if err := db.Find(&u).Error; err != nil {
 			return err

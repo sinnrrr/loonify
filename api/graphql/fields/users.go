@@ -1,4 +1,4 @@
-package field
+package fields
 
 import (
 	"github.com/graphql-go/graphql"
@@ -6,7 +6,7 @@ import (
 
 	"log"
 
-	"gitlab.com/loonify/web/model"
+	"gitlab.com/sinnrrr/loonify/models"
 )
 
 var user = graphql.NewObject(
@@ -32,7 +32,7 @@ func NewUsers(db *gorm.DB) *graphql.Field {
 		Description: "user",
 		Type: graphql.NewList(user),
 		Resolve: func(p graphql.ResolveParams) (i interface{}, e error) {
-			var u []*model.User
+			var u []*models.User
 			if err := db.Find(&u).Error; err != nil {
 				log.Fatal(err)
 			}

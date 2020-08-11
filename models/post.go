@@ -1,4 +1,4 @@
-package model
+package models
 
 /*Post struct*/
 type Post struct {

@@ -1,4 +1,4 @@
-package field
+package fields
 
 import (
 	"github.com/graphql-go/graphql"
@@ -6,7 +6,7 @@ import (
 
 	"log"
 
-	"gitlab.com/loonify/web/model"
+	"gitlab.com/sinnrrr/loonify/models"
 )
 
 var post = graphql.NewObject(
@@ -36,7 +36,7 @@ func NewPosts(db *gorm.DB) *graphql.Field {
 		Description: "post",
 		Type: graphql.NewList(post),
 		Resolve: func(p graphql.ResolveParams) (i interface{}, e error) {
-			var u[]*model.Post
+			var u[]*models.Post
 			if err := db.Find(&u).Error; err != nil {
 				log.Fatal(err)
 			}
