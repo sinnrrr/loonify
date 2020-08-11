@@ -3,7 +3,7 @@ package main
 import (
 	"github.com/jinzhu/gorm"
 	"github.com/labstack/echo/v4"
-	"gitlab.com/sinnrrr/loonify/api"
+	"gitlab.com/loonify/web/api"
 	"html/template"
 	"io"
 	"path/filepath"

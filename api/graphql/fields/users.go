@@ -6,7 +6,7 @@ import (
 
 	"log"
 
-	"gitlab.com/sinnrrr/loonify/models"
+	"gitlab.com/loonify/web/models"
 )
 
 var user = graphql.NewObject(

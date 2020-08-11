@@ -20,8 +20,8 @@ import (
 	"github.com/labstack/echo/v4"
 	"net/http"
 
-	//"gitlab.com/sinnrrr/loonify/api/graphql"
-	"gitlab.com/sinnrrr/loonify/api/v1"
+	//"gitlab.com/loonify/web/api/graphql"
+	"gitlab.com/loonify/web/api/v1"
 )
 
 func Init(e *echo.Group, db *gorm.DB) {

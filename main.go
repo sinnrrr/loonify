@@ -1,7 +1,7 @@
 package main
 
 import (
-	"gitlab.com/sinnrrr/loonify/models"
+	"gitlab.com/loonify/web/models"
 
 	"github.com/labstack/echo-contrib/prometheus"
 	"github.com/labstack/echo/v4"
