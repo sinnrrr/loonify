@@ -20,36 +20,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="26644a7f-d1e5-42ca-8279-7fd42886f23a" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/api/api.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dictionaries/sinnrrr.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dictionaries/sinnrrr.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/config.go" beforeDir="false" afterPath="$PROJECT_DIR$/config.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/.gitignore" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/.nuxt/dist/client/pages/index.5d846ea.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/.nuxt/dist/client/pages/index.5d846ea.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/dist/_nuxt/pages/index.5d846ea.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/dist/_nuxt/pages/index.5d846ea.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/node_modules/regenerate-unicode-properties/Binary_Property/Default_Ignorable_Code_Point.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/node_modules/regenerate-unicode-properties/Binary_Property/Default_Ignorable_Code_Point.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/node_modules/terser-webpack-plugin/dist/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/node_modules/terser-webpack-plugin/dist/index.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/node_modules/vue-router/dist/vue-router.min.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/node_modules/vue-router/dist/vue-router.min.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/node_modules/workbox-cdn/workbox/workbox-navigation-preload.dev.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/node_modules/workbox-cdn/workbox/workbox-navigation-preload.dev.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/go.mod" beforeDir="false" afterPath="$PROJECT_DIR$/go.mod" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/go.sum" beforeDir="false" afterPath="$PROJECT_DIR$/go.sum" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/graphql/field/posts.go" beforeDir="false" afterPath="$PROJECT_DIR$/api/graphql/fields/posts.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/graphql/field/users.go" beforeDir="false" afterPath="$PROJECT_DIR$/api/graphql/fields/users.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/graphql/handler.go" beforeDir="false" afterPath="$PROJECT_DIR$/api/graphql/handler.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/graphql/query.go" beforeDir="false" afterPath="$PROJECT_DIR$/api/graphql/query.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/handler/address.go" beforeDir="false" afterPath="$PROJECT_DIR$/api/v1/address.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/handler/post.go" beforeDir="false" afterPath="$PROJECT_DIR$/api/v1/post.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/handler/user.go" beforeDir="false" afterPath="$PROJECT_DIR$/api/v1/user.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/handler/welcome.go" beforeDir="false" afterPath="$PROJECT_DIR$/api/v1/welcome.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/handler/welcome/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/api/v1/welcome/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/handler/welcome/main.txt" beforeDir="false" afterPath="$PROJECT_DIR$/api/v1/welcome/main.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/main.go" beforeDir="false" afterPath="$PROJECT_DIR$/main.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/model/address.go" beforeDir="false" afterPath="$PROJECT_DIR$/models/address.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/model/post.go" beforeDir="false" afterPath="$PROJECT_DIR$/models/post.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/model/type.go" beforeDir="false" afterPath="$PROJECT_DIR$/models/type.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/model/user.go" beforeDir="false" afterPath="$PROJECT_DIR$/models/user.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/routes.go" beforeDir="false" afterPath="$PROJECT_DIR$/routes.go" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
