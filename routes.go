@@ -33,7 +33,7 @@ func InitRoutes(e *echo.Echo, db *gorm.DB) {
 
 	// routes
 	apiGroup := e.Group("/api")
-	api.Init(apiGroup, db)
+	api.Init(apiGroup, db, e)
 }
 
 type Template struct {

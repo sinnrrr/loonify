@@ -18,20 +18,20 @@ package api
 import (
 	"github.com/jinzhu/gorm"
 	"github.com/labstack/echo/v4"
-	"net/http"
-
-	//"gitlab.com/loonify/web/api/graphql"
 	"gitlab.com/loonify/web/api/v1"
+	"net/http"
 )
 
-func Init(e *echo.Group, db *gorm.DB) {
-	e.GET("/", RedirectToCurrent)
-
+func Init(e *echo.Group, db *gorm.DB, echo *echo.Echo) {
 	v1Group := e.Group("/v1")
 	V1Group(v1Group, db)
 
+	e.GET("/", RedirectToCurrent(echo.Reverse("api.current")))
+
 	//h, err := graphql.NewHandler(db)
-	//logFatal(err)
+	//if err != nil {
+	//	log.Fatal(err)
+	//}
 	//
 	//e.POST("/graphql", e.WrapHandler(h))
 }
@@ -58,6 +58,8 @@ func PostsV1Group(e *echo.Group, db *gorm.DB) {
 	e.GET("/", v1.GetPosts(db))
 }
 
-func RedirectToCurrent(c echo.Context) error {
-	return c.Redirect(http.StatusSeeOther, "/api/v1")
+func RedirectToCurrent(current string) echo.HandlerFunc {
+	return func(c echo.Context) error {
+		return c.Redirect(http.StatusSeeOther, current)
+	}
 }
