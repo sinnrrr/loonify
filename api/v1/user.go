@@ -9,7 +9,17 @@ import (
 	"gitlab.com/loonify/web/models"
 )
 
-/*GetUsers handler*/
+// swagger:route GET /users
+//
+// Gets all users from table
+//
+//     Produces:
+//     - application/json
+//
+//     Responses:
+//       default: genericError
+//       200: someResponse
+//       422: validationError
 func GetUsers(db *gorm.DB) echo.HandlerFunc {
 	return func(c echo.Context) error {
 		var u []*models.User
