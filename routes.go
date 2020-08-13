@@ -22,7 +22,7 @@ import (
 	_ "gitlab.com/loonify/web/docs"
 	"html/template"
 	"io"
-	"mime"
+	//"mime"
 	"path/filepath"
 )
 
