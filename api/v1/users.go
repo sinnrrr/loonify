@@ -1,30 +1,26 @@
 package v1
 
 import (
+	"github.com/go-bongo/bongo"
 	"github.com/jinzhu/gorm"
 	"github.com/labstack/echo/v4"
-	
+	"gopkg.in/mgo.v2/bson"
+
 	"net/http"
 
 	"gitlab.com/loonify/web/models"
 )
 
 /*GetUsers handler*/
-func GetUsers(db *gorm.DB) echo.HandlerFunc {
+func GetUsers(usersCollection *bongo.Collection) echo.HandlerFunc {
 	return func(c echo.Context) error {
-		var u []*models.User
-
-		if err := db.Find(&u).Error; gorm.IsRecordNotFoundError(err) {
-			return echo.NewHTTPError(http.StatusNotFound, err)
-		}
-
-		return c.JSON(http.StatusOK, u)
+		return c.JSON(http.StatusOK, usersCollection.Find(bson.M{}))
 	}
 }
 
 
 /*CreateUser handler*/
-func CreateUser(db *gorm.DB) echo.HandlerFunc {
+func CreateUser(usersCollection *bongo.Collection) echo.HandlerFunc {
 	return func(c echo.Context) error {
 		u := new(models.User)
 
@@ -32,9 +28,6 @@ func CreateUser(db *gorm.DB) echo.HandlerFunc {
 			return echo.NewHTTPError(http.StatusUnprocessableEntity, err)
 		}
 
-		if err := db.Create(u).Error; err != nil {
-			return echo.NewHTTPError(http.StatusUnprocessableEntity, err)
-		}
 
 		return c.JSON(http.StatusOK, u)
 	}

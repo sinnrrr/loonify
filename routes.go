@@ -1,15 +1,16 @@
 package main
 
 import (
-	"github.com/jinzhu/gorm"
+	"github.com/go-bongo/bongo"
 	"github.com/labstack/echo/v4"
 	"gitlab.com/loonify/web/api"
+	"go.mongodb.org/mongo-driver/mongo"
 	"html/template"
 	"io"
 	"path/filepath"
 )
 
-func InitRoutes(e *echo.Echo, db *gorm.DB) {
+func InitRoutes(e *echo.Echo, client *bongo.Connection) {
 	nuxtStatic, err := filepath.Abs("frontend/dist/_nuxt")
 	logFatal(err)
 
@@ -33,7 +34,7 @@ func InitRoutes(e *echo.Echo, db *gorm.DB) {
 
 	// routes
 	apiGroup := e.Group("/api")
-	api.Init(apiGroup, db, e)
+	api.Init(apiGroup, client, e)
 }
 
 type Template struct {

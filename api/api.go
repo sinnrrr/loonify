@@ -16,46 +16,51 @@
 package api
 
 import (
-	"github.com/jinzhu/gorm"
+	"github.com/go-bongo/bongo"
 	"github.com/labstack/echo/v4"
+	//"gitlab.com/loonify/web/api/graphql"
 	"gitlab.com/loonify/web/api/v1"
 	"net/http"
 )
 
-func Init(e *echo.Group, db *gorm.DB, echo *echo.Echo) {
-	v1Group := e.Group("/v1")
-	V1Group(v1Group, db)
+func Init(api *echo.Group, client *bongo.Connection, echo *echo.Echo) {
+	v1Group := api.Group("/v1")
+	V1Group(v1Group, client)
 
-	e.GET("/", RedirectToCurrent(echo.Reverse("api.current")))
+	api.GET("/", RedirectToCurrent(echo.Reverse("api.current")))
 
 	//h, err := graphql.NewHandler(db)
 	//if err != nil {
 	//	log.Fatal(err)
 	//}
 	//
-	//e.POST("/graphql", e.WrapHandler(h))
+	//e.POST("/graphql", h.WrapHandler(h))
 }
 
-func V1Group(e *echo.Group, db *gorm.DB) {
-	e.GET("/", v1.Welcome()).Name = "api.current"
+func V1Group(v1 *echo.Group, client *bongo.Connection) {
+	v1.GET("/", v1.Welcome()).Name = "api.current"
 
-	users := e.Group("/users")
-	UsersV1Group(users, db)
+	users := v1.Group("/users")
+	UsersV1Group(users, client)
 
-	posts := e.Group("/posts")
-	PostsV1Group(posts, db)
+	posts := v1.Group("/posts")
+	PostsV1Group(posts, client)
 }
 
-func UsersV1Group(e *echo.Group, db *gorm.DB) {
-	e.GET("/", v1.GetUsers(db))
-	e.POST("/", v1.CreateUser(db))
-	e.GET("/users/:id", v1.ReadUser(db))
-	e.PUT("/users/:id", v1.UpdateUser(db))
-	e.DELETE("/users/:id", v1.DeleteUser(db))
+func UsersV1Group(users *echo.Group, client *bongo.Connection) {
+	usersCollection := client.Collection("users")
+
+	users.GET("/", v1.GetUsers(usersCollection))
+	users.POST("/", v1.CreateUser(usersCollection))
+	users.GET("/users/:id", v1.ReadUser(usersCollection))
+	users.PUT("/users/:id", v1.UpdateUser(usersCollection))
+	users.DELETE("/users/:id", v1.DeleteUser(usersCollection))
 }
 
-func PostsV1Group(e *echo.Group, db *gorm.DB) {
-	e.GET("/", v1.GetPosts(db))
+func PostsV1Group(posts *echo.Group, client *bongo.Connection) {
+	postsCollection := client.Collection("posts")
+
+	posts.GET("/", v1.GetPosts(postsCollection))
 }
 
 func RedirectToCurrent(current string) echo.HandlerFunc {

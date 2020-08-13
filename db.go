@@ -1,13 +1,20 @@
 package main
 
 import (
+	"fmt"
+	"github.com/go-bongo/bongo"
 	"os"
-
-	_ "github.com/go-sql-driver/mysql"
-	"github.com/jinzhu/gorm"
 )
 
-/*NewDB method*/
-func NewDB() (*gorm.DB, error) {
-	return gorm.Open("mysql", os.Getenv("CLEARDB_DATABASE_URL"))
+func NewDB() *bongo.Connection {
+	config := &bongo.Config{
+		ConnectionString: os.Getenv("MONGODB_DATABASE_URL"),
+		Database:         os.Getenv("DATABASE_NAME"),
+	}
+
+	client, err := bongo.Connect(config)
+	logFatal(err)
+
+	fmt.Printf("%s Connection to MongoDB established successfully\n", PREFIX)
+	return client
 }

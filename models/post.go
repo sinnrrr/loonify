@@ -1,18 +1,29 @@
 package models
 
+import (
+	"github.com/go-bongo/bongo"
+)
+
 /*Post struct*/
 type Post struct {
-	ID          uint   `gorm:"primary_key" json:"id"`
-	UserID      uint   `json:"user_id"`
-	AddressID   uint   `json:"post_id"`
-	CategoryID  uint   `json:"category_id"`
-	Title       MyString `json:"title"`
-	Description MyString `json:"description"`
-	Latitude    int64  `json:"lat"`
-	Longitude   int64  `json:"lng"`
-	Status      string `gorm: "type:enum" json:"status"`
-	Reward      string `json:"reward"`
+	bongo.DocumentBase `bson:",inline"`
+	UserID             uint
+	AddressID          uint
+	CategoryID         uint
+	LocationID         uint
+	Title              MyString
+	Description        MyString
+	Status             MyString
+	Reward             MyString
+	diffTracker        *bongo.DiffTracker
 }
 
-/*TableName function*/
-func (Post) TableName() string { return "posts" }
+func (m *Post) GetDiffTracker() *bongo.DiffTracker {
+	if m.diffTracker == nil {
+		m.diffTracker = bongo.NewDiffTracker(m)
+	}
+
+	return m.diffTracker
+}
+
+var post = &Post{}
