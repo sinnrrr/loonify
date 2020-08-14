@@ -1,20 +1,23 @@
 package main
 
 import (
-	"fmt"
-	"github.com/go-bongo/bongo"
+	"context"
+	"go.mongodb.org/mongo-driver/mongo"
+	"go.mongodb.org/mongo-driver/mongo/options"
 	"os"
+	"time"
 )
 
-func NewDB() *bongo.Connection {
-	config := &bongo.Config{
-		ConnectionString: os.Getenv("MONGODB_DATABASE_URL"),
-		Database:         os.Getenv("DATABASE_NAME"),
-	}
-
-	client, err := bongo.Connect(config)
+func NewDB() *mongo.Database {
+	ctx, _ := context.WithTimeout(context.Background(), 10*time.Second)
+	client, err := mongo.NewClient(options.Client().ApplyURI(""))
 	logFatal(err)
 
-	fmt.Printf("%s Connection to MongoDB established successfully\n", PREFIX)
-	return client
+	ctx, _ = context.WithTimeout(context.Background(), 10*time.Second)
+	err = client.Connect(ctx)
+	logFatal(err)
+
+	defer client.Disconnect(ctx)
+
+	return client.Database(os.Getenv("DATABASE_NAME"))
 }

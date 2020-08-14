@@ -3,6 +3,7 @@ package v1
 import (
 	"github.com/labstack/echo/v4"
 	"io/ioutil"
+	"log"
 	"net/http"
 	"path/filepath"
 )
@@ -24,5 +25,11 @@ func Welcome() echo.HandlerFunc {
 			"title":   "Awesome as FUCK API",
 			"welcome": string(welcome),
 		})
+	}
+}
+
+func logFatal(err error) {
+	if err != nil {
+		log.Fatal(err)
 	}
 }

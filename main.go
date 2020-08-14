@@ -8,7 +8,7 @@ import (
 	"os"
 )
 
-const PREFIX = "--->"
+const PREFIX = "---> "
 
 func init() {
 	f, err := os.OpenFile("loonify.log", os.O_RDWR|os.O_CREATE|os.O_APPEND, 0666)
@@ -32,9 +32,9 @@ func main() {
 	p.Use(e)
 
 	// setting up connection to db
-	client := NewDB()
+	db := NewDB()
 
-	InitRoutes(e, client)
+	InitRoutes(e, db)
 
 	// starting router
 	e.Logger.Fatal(e.Start(":" + os.Getenv("PORT")))

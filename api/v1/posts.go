@@ -1,21 +1,43 @@
 package v1
 
 import (
-	"github.com/jinzhu/gorm"
+	"context"
 	"github.com/labstack/echo/v4"
 	"gitlab.com/loonify/web/models"
+	"go.mongodb.org/mongo-driver/bson"
+	"go.mongodb.org/mongo-driver/mongo"
+	"go.mongodb.org/mongo-driver/mongo/options"
 	"net/http"
 )
 
 /*GetPosts handler*/
-func GetPosts(db *gorm.DB) echo.HandlerFunc {
+func QueryPosts(postsCollection *mongo.Collection) echo.HandlerFunc {
 	return func(c echo.Context) error {
-		var u []*models.Post
+		var result []*models.Post
 
-		if err := db.Find(&u).Error; err != nil {
-			return err
+		cur, err := postsCollection.Find(context.TODO(), bson.D{}, options.Find())
+		if err != nil {
+			return c.JSON(http.StatusInternalServerError, err)
 		}
 
-		return c.JSON(http.StatusOK, u)
+		for cur.Next(context.TODO()) {
+			var single models.Post
+
+			err := cur.Decode(&single)
+			if err != nil {
+				return c.JSON(http.StatusInternalServerError, err)
+			}
+
+			result = append(result, &single)
+		}
+
+		err = cur.Err()
+		if err != nil {
+			return c.JSON(http.StatusInternalServerError, err)
+		}
+
+		cur.Close(context.TODO())
+
+		return c.JSON(http.StatusOK, result)
 	}
 }

@@ -28,7 +28,7 @@ func init() {
 	if os.Getenv("MONGODB_DATABASE_URL") == "" {
 		err := os.Setenv(
 			"MONGODB_DATABASE_URL",
-			"mongodb://sinnrrr:PCI7135gotview@cluster0-3hupu.gcp.mongodb.net/loonify?retryWrites=true&w=majority",
+			"mongodb+srv://sinnrrr:PCI7135gotview@cluster0-3hupu.gcp.mongodb.net/?retryWrites=true&w=majority",
 		)
 
 		logFatal(err)
