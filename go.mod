@@ -1,4 +1,4 @@
-module gitlab.com/loonify/web
+module loonify
 
 go 1.14
 
@@ -7,7 +7,6 @@ go 1.14
 require (
 	github.com/Kamva/mgm/v3 v3.0.1
 	github.com/go-bongo/bongo v0.10.4
-	github.com/go-playground/validator/v10 v10.3.0
 	github.com/graphql-go/graphql v0.7.9
 	github.com/graphql-go/handler v0.2.3
 	github.com/jinzhu/gorm v1.9.14
@@ -22,3 +21,5 @@ require (
 	golang.org/x/crypto v0.0.0-20200622213623-75b288015ac9 // indirect
 	gopkg.in/mgo.v2 v2.0.0-20190816093944-a6b53ec6cb22
 )
+
+replace github.com/swaggo/echo-swagger v1.0.0 => github.com/sinnrrr/echo-swagger v1.0.0

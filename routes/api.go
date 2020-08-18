@@ -1,25 +1,9 @@
-// Package classification loonify.
-//
-// Documentation of our awesome API.
-//
-//     Schemes: http
-//     Version: 0.1
-//
-//     Consumes:
-//     - application/json
-//
-//     Produces:
-//     - application/json
-//
-// swagger:meta
-
-package api
+package routes
 
 import (
 	"github.com/labstack/echo/v4"
-
-	//"gitlab.com/loonify/web/api/graphql"
-	"gitlab.com/loonify/web/api/v1"
+	//"loonify/api/graphql"
+	"loonify/api/v1"
 	"net/http"
 )
 
@@ -43,6 +27,7 @@ func V1Group(api *echo.Group) {
 
 	UsersV1Group(v1Group)
 	PostsV1Group(v1Group)
+	LocationsV1Group(v1Group)
 }
 
 func UsersV1Group(v1Group *echo.Group) {
@@ -61,6 +46,15 @@ func PostsV1Group(v1Group *echo.Group) {
 	posts.GET("/:id/", v1.ReadPost())
 	posts.PUT("/:id/", v1.UpdatePost())
 	posts.DELETE("/:id/", v1.DeletePost())
+}
+
+func LocationsV1Group(v1Group *echo.Group) {
+	locations := v1Group.Group("/locations")
+	locations.GET("/", v1.QueryLocations())
+	locations.POST("/", v1.CreateLocation())
+	locations.GET("/:id/", v1.ReadLocation())
+	locations.PUT("/:id/", v1.UpdateLocation())
+	locations.DELETE("/:id/", v1.DeleteLocation())
 }
 
 func RedirectToCurrent(current string) echo.HandlerFunc {

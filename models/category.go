@@ -1,34 +1,9 @@
 package models
 
-import (
-	"github.com/go-bongo/bongo"
-	"go.mongodb.org/mongo-driver/bson"
-	"gopkg.in/mgo.v2"
-)
+import "github.com/Kamva/mgm/v3"
 
 type Category struct {
-	bongo.DocumentBase `bson:",inline"`
-	ParentID           uint
-	Name               string
-	diffTracker        *bongo.DiffTracker
+	mgm.DefaultModel  `bson:",inline"`
+	ParentID           uint `bson:"parent_id" json:"parent_id" validate:"required,numeric"`
+	Name               string `bson:"name" json:"name" validate:"required"`
 }
-
-type CascadeConfig struct {
-	Collection  *mgo.Collection
-	RelType     int
-	ThroughProp string
-	Query       bson.M
-	OldQuery    bson.M
-	Properties  []string
-	Data        interface{}
-}
-
-func (m *Category) GetDiffTracker() *bongo.DiffTracker {
-	if m.diffTracker == nil {
-		m.diffTracker = bongo.NewDiffTracker(m)
-	}
-
-	return m.diffTracker
-}
-
-var category = &Category{}

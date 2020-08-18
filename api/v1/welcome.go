@@ -15,7 +15,7 @@ const KEYS = 7
 func Welcome() echo.HandlerFunc {
 	return func(c echo.Context) error {
 		titles := [KEYS]string{
-			"Awesome as FUCK API",
+			"My Awesome API",
 			"Author of this API gone walking",
 			"Piggy wiggy API",
 			"Smooth sound of API",
