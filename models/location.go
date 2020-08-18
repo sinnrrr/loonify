@@ -16,7 +16,6 @@ type Location struct {
 }
 
 func NewLocation(
-	mapsID uint,
 	placeID uint,
 	url string,
 	name string,
@@ -25,7 +24,6 @@ func NewLocation(
 	geometry types.Array,
 ) *Location {
 	return &Location{
-		MapsID:            mapsID,
 		PlaceID:           placeID,
 		URL:               url,
 		Name:              name,
