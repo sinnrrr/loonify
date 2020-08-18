@@ -1,7 +1,7 @@
 package graphql
 
 import (
-	"gitlab.com/loonify/web/api/graphql/fields"
+	"loonify/api/graphql/fields"
 
 	"github.com/graphql-go/graphql"
 	"github.com/jinzhu/gorm"

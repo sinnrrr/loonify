@@ -2,9 +2,9 @@ package main
 
 import (
 	"github.com/labstack/echo/v4"
-	"gitlab.com/loonify/web/api"
 	"html/template"
 	"io"
+	"loonify/routes"
 	"path/filepath"
 )
 
@@ -30,7 +30,7 @@ func InitRoutes(e *echo.Echo) {
 	e.Static("/static", myStatic)
 	e.Static("/_nuxt", nuxtStatic)
 
-	api.Init(e)
+	routes.Init(e)
 }
 
 type Template struct {

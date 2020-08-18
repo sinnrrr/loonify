@@ -6,7 +6,7 @@ import (
 
 	"log"
 
-	"gitlab.com/loonify/web/models"
+	"loonify/models"
 )
 
 var post = graphql.NewObject(

@@ -3,8 +3,8 @@ package v1
 import (
 	"github.com/Kamva/mgm/v3"
 	"github.com/labstack/echo/v4"
-	"gitlab.com/loonify/web/models"
 	"go.mongodb.org/mongo-driver/bson"
+	"loonify/models"
 	"net/http"
 )
 
