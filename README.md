@@ -8,4 +8,4 @@ To regenerate the pages, run
 or
 ### `yarn generate`
 To compile pages and run docker, then
-# `./build.sh`
+### `./build.sh`
