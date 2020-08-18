@@ -21,14 +21,9 @@
   <component name="ChangeListManager">
     <list default="true" id="26644a7f-d1e5-42ca-8279-7fd42886f23a" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/api/api.go" beforeDir="false" afterPath="$PROJECT_DIR$/api/api.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/api/v1/posts.go" beforeDir="false" afterPath="$PROJECT_DIR$/api/v1/posts.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/api/v1/users.go" beforeDir="false" afterPath="$PROJECT_DIR$/api/v1/users.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/config.go" beforeDir="false" afterPath="$PROJECT_DIR$/config.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/go.mod" beforeDir="false" afterPath="$PROJECT_DIR$/go.mod" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/go.sum" beforeDir="false" afterPath="$PROJECT_DIR$/go.sum" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/models/post.go" beforeDir="false" afterPath="$PROJECT_DIR$/models/post.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/models/user.go" beforeDir="false" afterPath="$PROJECT_DIR$/models/user.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/main.go" beforeDir="false" afterPath="$PROJECT_DIR$/main.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/models/category.go" beforeDir="false" afterPath="$PROJECT_DIR$/models/category.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/models/location.go" beforeDir="false" afterPath="$PROJECT_DIR$/models/location.go" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -131,10 +126,10 @@
     <integration-enabled>true</integration-enabled>
   </component>
   <component name="WindowStateProjectService">
-    <state x="755" y="473" key="#GOROOT" timestamp="1596781815214">
+    <state x="755" y="473" key="#GOROOT" timestamp="1597739585725">
       <screen x="0" y="0" width="1920" height="1080" />
     </state>
-    <state x="755" y="473" key="#GOROOT/0.0.1920.1080@0.0.1920.1080" timestamp="1596781815214" />
+    <state x="755" y="473" key="#GOROOT/0.0.1920.1080@0.0.1920.1080" timestamp="1597739585725" />
     <state x="752" y="353" key="#Go_Modules" timestamp="1596734112741">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
@@ -143,18 +138,18 @@
       <screen x="0" y="0" width="1920" height="1080" />
     </state>
     <state x="543" y="278" width="824" height="522" key="IDE.errors.dialog/0.0.1920.1080@0.0.1920.1080" timestamp="1597736033081" />
-    <state x="464" y="175" key="SettingsEditor" timestamp="1597656571470">
+    <state x="464" y="175" key="SettingsEditor" timestamp="1597739600868">
       <screen x="0" y="0" width="1920" height="1080" />
     </state>
-    <state x="464" y="175" key="SettingsEditor/0.0.1920.1080@0.0.1920.1080" timestamp="1597656571470" />
+    <state x="464" y="175" key="SettingsEditor/0.0.1920.1080@0.0.1920.1080" timestamp="1597739600868" />
     <state x="578" y="153" width="754" height="771" key="com.intellij.openapi.editor.actions.MultiplePasteAction$ClipboardContentChooser" timestamp="1597733234589">
       <screen x="0" y="0" width="1920" height="1080" />
     </state>
     <state x="578" y="153" width="754" height="771" key="com.intellij.openapi.editor.actions.MultiplePasteAction$ClipboardContentChooser/0.0.1920.1080@0.0.1920.1080" timestamp="1597733234589" />
-    <state x="511" y="72" width="1156" height="962" key="find.popup" timestamp="1597668714329">
+    <state x="511" y="72" width="1156" height="962" key="find.popup" timestamp="1597739623669">
       <screen x="0" y="0" width="1920" height="1080" />
     </state>
-    <state x="511" y="72" width="1156" height="962" key="find.popup/0.0.1920.1080@0.0.1920.1080" timestamp="1597668714329" />
+    <state x="511" y="72" width="1156" height="962" key="find.popup/0.0.1920.1080@0.0.1920.1080" timestamp="1597739623669" />
     <state x="623" y="239" width="672" height="678" key="search.everywhere.popup" timestamp="1597735855764">
       <screen x="0" y="0" width="1920" height="1080" />
     </state>
