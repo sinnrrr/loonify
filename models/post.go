@@ -1,18 +1,18 @@
 package models
 
+import (
+	"github.com/Kamva/mgm/v3"
+)
+
 /*Post struct*/
 type Post struct {
-	ID          uint   `gorm:"primary_key" json:"id"`
-	UserID      uint   `json:"user_id"`
-	AddressID   uint   `json:"post_id"`
-	CategoryID  uint   `json:"category_id"`
-	Title       MyString `json:"title"`
-	Description MyString `json:"description"`
-	Latitude    int64  `json:"lat"`
-	Longitude   int64  `json:"lng"`
-	Status      string `gorm: "type:enum" json:"status"`
-	Reward      string `json:"reward"`
+	mgm.DefaultModel `bson:",inline"`
+	UserID           uint   `bson:"user_id" json:"user_id" validate:"required"`
+	AddressID        uint   `bson:"address_id" json:"address_id" validate:"required"`
+	CategoryID       uint   `bson:"category_id" json:"category_id" validate:"required"`
+	LocationID       uint   `bson:"location_id" json:"location_id" validate:"required"`
+	Title            string `bson:"title" json:"title" validate:"required"`
+	Description      string `bson:"description" json:"description" validate:"required"`
+	Status           string `bson:"status" json:"status" validate:"required"`
+	Reward           string `bson:"reward" json:"reward,omitempty"`
 }
-
-/*TableName function*/
-func (Post) TableName() string { return "posts" }

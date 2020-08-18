@@ -9,8 +9,10 @@ import (
 	"os"
 )
 
+const PREFIX = "---> "
+
 func init() {
-	f, err := os.OpenFile("loonify.log", os.O_RDWR | os.O_CREATE | os.O_APPEND, 0666)
+	f, err := os.OpenFile("loonify.log", os.O_RDWR|os.O_CREATE|os.O_APPEND, 0666)
 	logFatal(err)
 
 	defer f.Close()
@@ -30,16 +32,7 @@ func main() {
 	p := prometheus.NewPrometheus("echo", nil)
 	p.Use(e)
 
-	// setting up connection to db
-	db, err := NewDB()
-	logFatal(err)
-
-	db.LogMode(true)
-	db.AutoMigrate(&models.User{}, &models.Post{}, &models.Address{})
-
-	defer db.Close()
-
-	InitRoutes(e, db)
+	InitRoutes(e)
 
 	// starting router
 	e.Logger.Fatal(e.Start(":" + os.Getenv("PORT")))

@@ -1,20 +1,31 @@
 package models
 
 import (
-	"time"
+	"github.com/Kamva/mgm/v3"
 )
 
 /*User struct*/
 type User struct {
-	ID        uint       `gorm:"primary_key" json:"id"`
-	AddressID uint       `gorm:"default:null" json:"post_id"`
-	Email     MyString   `gorm:"unique;not null" json:"email"`
-	Password  MyString   `gorm:"not null" json:"password"`
-	Phone     MyString   `gorm:"default:null;type:varchar(32)" json:"phone"`
-	CreatedAt time.Time  `json:"created_at"`
-	UpdatedAt time.Time  `json:"updated_at"`
-	DeletedAt *time.Time `json:"deleted_at"`
+	mgm.DefaultModel `bson:",inline"`
+	AddressID        uint   `bson:"address_id" json:"address_id,omitempty"`
+	Name             string `bson:"name" json:"name" validate:"required"`
+	Email            string `bson:"email" json:"email,omitempty" validate:"email"`
+	Phone            string `bson:"phone" json:"phone,omitempty" validate:"number"`
+	Password         string `bson:"password" json:"password" validate:"required"`
 }
 
-/*TableName function*/
-func (User) TableName() string { return "users" }
+func NewUser(
+	addressID uint,
+	name string,
+	email string,
+	phone string,
+	password string,
+) *User {
+	return &User{
+		AddressID: addressID,
+		Name:      name,
+		Email:     email,
+		Phone:     phone,
+		Password:  password,
+	}
+}
