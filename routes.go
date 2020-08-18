@@ -2,41 +2,72 @@ package main
 
 import (
 	"github.com/labstack/echo/v4"
-	"html/template"
-	"io"
-	"loonify/routes"
-	"path/filepath"
+	"loonify/api/graphql"
+	"loonify/api/v1"
+	"net/http"
 )
 
 func InitRoutes(e *echo.Echo) {
-	nuxtStatic, err := filepath.Abs("frontend/dist/_nuxt")
-	logFatal(err)
+	api := e.Group("/api")
+	V1Group(api)
 
-	myStatic, err := filepath.Abs("frontend/static")
-	logFatal(err)
-
-	sitePath, err := filepath.Abs("frontend/dist/index.html")
-	logFatal(err)
-
-	htmlV1Path, err := filepath.Abs("api/v1/welcome/*.html")
-	logFatal(err)
-
-	t := &Template{
-		templates: template.Must(template.ParseGlob(htmlV1Path)),
+	h, err := graphql.NewHandler(db)
+	if err != nil {
+		panic(err)
 	}
 
-	e.Renderer = t
-	e.File("/", sitePath)
-	e.Static("/static", myStatic)
-	e.Static("/_nuxt", nuxtStatic)
-
-	routes.Init(e)
+	api.GET("/", RedirectToCurrent(e.Reverse("api.current")))
+	e.POST("/graphql", echo.WrapHandler(h))
 }
 
-type Template struct {
-	templates *template.Template
+func V1Group(api *echo.Group) {
+	v1Group := api.Group("/v1")
+	v1Group.GET("/", v1.Welcome()).Name = "api.current"
+
+	UsersV1Group(v1Group)
+	PostsV1Group(v1Group)
+	LocationsV1Group(v1Group)
+	CategoriesV1Group(v1Group)
 }
 
-func (t *Template) Render(w io.Writer, name string, data interface{}, c echo.Context) error {
-	return t.templates.ExecuteTemplate(w, name, data)
+func UsersV1Group(v1Group *echo.Group) {
+	users := v1Group.Group("/users")
+	users.GET("/", v1.QueryUsers())
+	users.POST("/", v1.CreateUser())
+	users.GET("/:id/", v1.ReadUser())
+	users.PUT("/:id/", v1.UpdateUser())
+	users.DELETE("/:id/", v1.DeleteUser())
+}
+
+func PostsV1Group(v1Group *echo.Group) {
+	posts := v1Group.Group("/posts")
+	posts.GET("/", v1.QueryPosts())
+	posts.POST("/", v1.CreatePost())
+	posts.GET("/:id/", v1.ReadPost())
+	posts.PUT("/:id/", v1.UpdatePost())
+	posts.DELETE("/:id/", v1.DeletePost())
+}
+
+func LocationsV1Group(v1Group *echo.Group) {
+	locations := v1Group.Group("/locations")
+	locations.GET("/", v1.QueryLocations())
+	locations.POST("/", v1.CreateLocation())
+	locations.GET("/:id/", v1.ReadLocation())
+	locations.PUT("/:id/", v1.UpdateLocation())
+	locations.DELETE("/:id/", v1.DeleteLocation())
+}
+
+func CategoriesV1Group(v1Group *echo.Group) {
+	categories := v1Group.Group("/categories")
+	categories.GET("/", v1.QueryLocations())
+	categories.POST("/", v1.CreateLocation())
+	categories.GET("/:id/", v1.ReadLocation())
+	categories.PUT("/:id/", v1.UpdateLocation())
+	categories.DELETE("/:id/", v1.DeleteLocation())
+}
+
+func RedirectToCurrent(current string) echo.HandlerFunc {
+	return func(c echo.Context) error {
+		return c.Redirect(http.StatusSeeOther, current)
+	}
 }
