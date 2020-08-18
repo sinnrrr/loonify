@@ -1,26 +1,31 @@
 package models
 
 import (
-	"github.com/go-bongo/bongo"
+	"github.com/Kamva/mgm/v3"
 )
 
 /*User struct*/
 type User struct {
-	bongo.DocumentBase `bson:",inline"`
-	AddressID          uint `json:"address_id"`
-	Name               MyString `json:"name" validate:"required,uppercase"`
-	Email              MyString `json:"email" validate:"email"`
-	Phone              MyString `json:"phone" validate:"startswith=+,number"`
-	Password           MyString `json:"password"`
-	diffTracker        *bongo.DiffTracker
+	mgm.DefaultModel `bson:",inline"`
+	AddressID        uint   `bson:"address_id" json:"address_id"`
+	Name             string `bson:"name" json:"name"`
+	Email            string `bson:"email" json:"email"`
+	Phone            string `bson:"phone" json:"phone"`
+	Password         string `bson:"password" json:"password"`
 }
 
-func (m *User) GetDiffTracker() *bongo.DiffTracker {
-	if m.diffTracker == nil {
-		m.diffTracker = bongo.NewDiffTracker(m)
+func NewUser(
+	addressID uint,
+	name string,
+	email string,
+	phone string,
+	password string,
+) *User {
+	return &User{
+		AddressID: addressID,
+		Name:      name,
+		Email:     email,
+		Phone:     phone,
+		Password:  password,
 	}
-
-	return m.diffTracker
 }
-
-var user = &User{}

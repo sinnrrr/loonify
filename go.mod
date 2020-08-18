@@ -1,10 +1,11 @@
 module gitlab.com/loonify/web
 
-go 1.14
+go 1.15
 
-// +heroku goVersion go1.14
+// +heroku goVersion go1.15
 
 require (
+	github.com/Kamva/mgm/v3 v3.0.1 // indirect
 	github.com/go-bongo/bongo v0.10.4
 	github.com/graphql-go/graphql v0.7.9
 	github.com/graphql-go/handler v0.2.3

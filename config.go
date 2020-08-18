@@ -1,7 +1,9 @@
 package main
 
 import (
+	"github.com/Kamva/mgm/v3"
 	_ "github.com/joho/godotenv/autoload"
+	"go.mongodb.org/mongo-driver/mongo/options"
 	"os"
 )
 
@@ -28,9 +30,12 @@ func init() {
 	if os.Getenv("MONGODB_DATABASE_URL") == "" {
 		err := os.Setenv(
 			"MONGODB_DATABASE_URL",
-			"mongodb+srv://sinnrrr:PCI7135gotview@cluster0-3hupu.gcp.mongodb.net/?retryWrites=true&w=majority",
+			"mongodb+srv://sinnrrr:1532112351@cluster0.zlo3n.mongodb.net/loonify?retryWrites=true&w=majority",
 		)
 
 		logFatal(err)
 	}
+
+	err := mgm.SetDefaultConfig(nil, "loonify", options.Client().ApplyURI(os.Getenv("MONGODB_DATABASE_URL")))
+	logFatal(err)
 }

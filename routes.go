@@ -3,13 +3,12 @@ package main
 import (
 	"github.com/labstack/echo/v4"
 	"gitlab.com/loonify/web/api"
-	"go.mongodb.org/mongo-driver/mongo"
 	"html/template"
 	"io"
 	"path/filepath"
 )
 
-func InitRoutes(e *echo.Echo, db *mongo.Database) {
+func InitRoutes(e *echo.Echo) {
 	nuxtStatic, err := filepath.Abs("frontend/dist/_nuxt")
 	logFatal(err)
 
@@ -31,9 +30,7 @@ func InitRoutes(e *echo.Echo, db *mongo.Database) {
 	e.Static("/static", myStatic)
 	e.Static("/_nuxt", nuxtStatic)
 
-	// routes
-	apiGroup := e.Group("/api")
-	api.Init(apiGroup, db, e)
+	api.Init(e)
 }
 
 type Template struct {

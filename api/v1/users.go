@@ -3,18 +3,20 @@ package v1
 import (
 	"context"
 	"github.com/labstack/echo/v4"
+	"gitlab.com/loonify/web/db"
 	"gitlab.com/loonify/web/models"
 	"go.mongodb.org/mongo-driver/bson"
 	"go.mongodb.org/mongo-driver/bson/primitive"
-	"go.mongodb.org/mongo-driver/mongo"
 	"go.mongodb.org/mongo-driver/mongo/options"
 	"net/http"
 )
 
 /*GetUsers handler*/
-func QueryUsers(usersCollection *mongo.Collection) echo.HandlerFunc {
+func QueryUsers() echo.HandlerFunc {
 	return func(c echo.Context) error {
 		var result []*models.User
+
+		usersCollection, closeConnection := db.ConnectWithCollection("users")
 
 		cur, err := usersCollection.Find(context.TODO(), bson.D{}, options.Find())
 		if err != nil {
@@ -39,14 +41,17 @@ func QueryUsers(usersCollection *mongo.Collection) echo.HandlerFunc {
 
 		cur.Close(context.TODO())
 
+		defer closeConnection()
 		return c.JSON(http.StatusOK, result)
 	}
 }
 
 /*CreateUser handler*/
-func CreateUser(usersCollection *mongo.Collection) echo.HandlerFunc {
+func CreateUser() echo.HandlerFunc {
 	return func(c echo.Context) error {
 		u := new(models.User)
+
+		usersCollection, closeConnection := db.ConnectWithCollection("users")
 
 		if err := c.Bind(u); err != nil {
 			return c.JSON(http.StatusUnprocessableEntity, err)
@@ -57,13 +62,17 @@ func CreateUser(usersCollection *mongo.Collection) echo.HandlerFunc {
 			return c.JSON(http.StatusInternalServerError, err)
 		}
 
+
+		defer closeConnection()
 		return c.JSON(http.StatusOK, result)
 	}
 }
 
-func ReadUser(usersCollection *mongo.Collection) echo.HandlerFunc {
+func ReadUser() echo.HandlerFunc {
 	return func(c echo.Context) error {
 		var result models.User
+
+		usersCollection, closeConnection := db.ConnectWithCollection("users")
 
 		err := usersCollection.FindOne(
 			context.TODO(),
@@ -74,13 +83,16 @@ func ReadUser(usersCollection *mongo.Collection) echo.HandlerFunc {
 			return c.JSON(http.StatusInternalServerError, err)
 		}
 
+		defer closeConnection()
 		return c.JSON(http.StatusOK, result)
 	}
 }
 
-func UpdateUser(usersCollection *mongo.Collection) echo.HandlerFunc {
+func UpdateUser() echo.HandlerFunc {
 	return func(c echo.Context) error {
 		u := new(models.User)
+
+		usersCollection, closeConnection := db.ConnectWithCollection("users")
 
 		if err := c.Bind(u); err != nil {
 			return c.JSON(http.StatusUnprocessableEntity, err)
@@ -116,12 +128,16 @@ func UpdateUser(usersCollection *mongo.Collection) echo.HandlerFunc {
 			return c.JSON(http.StatusInternalServerError, err)
 		}
 
+
+		defer closeConnection()
 		return c.JSON(http.StatusOK, result)
 	}
 }
 
-func DeleteUser(usersCollection *mongo.Collection) echo.HandlerFunc {
+func DeleteUser() echo.HandlerFunc {
 	return func(c echo.Context) error {
+		usersCollection, closeConnection := db.ConnectWithCollection("users")
+
 		id, err := primitive.ObjectIDFromHex(c.Param("id"))
 		if err != nil {
 			return c.JSON(http.StatusInternalServerError, err)
@@ -138,6 +154,8 @@ func DeleteUser(usersCollection *mongo.Collection) echo.HandlerFunc {
 			return c.JSON(http.StatusInternalServerError, err)
 		}
 
+
+		defer closeConnection()
 		return c.JSON(http.StatusOK, result)
 	}
 }

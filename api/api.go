@@ -17,18 +17,17 @@ package api
 
 import (
 	"github.com/labstack/echo/v4"
-	"go.mongodb.org/mongo-driver/mongo"
 
 	//"gitlab.com/loonify/web/api/graphql"
 	"gitlab.com/loonify/web/api/v1"
 	"net/http"
 )
 
-func Init(api *echo.Group, db *mongo.Database, echo *echo.Echo) {
-	v1Group := api.Group("/v1")
-	V1Group(v1Group, db)
+func Init(e *echo.Echo) {
+	api := e.Group("/api")
+	V1Group(api)
 
-	api.GET("/", RedirectToCurrent(echo.Reverse("api.current")))
+	api.GET("/", RedirectToCurrent(e.Reverse("api.current")))
 
 	//h, err := graphql.NewHandler(db)
 	//if err != nil {
@@ -38,30 +37,26 @@ func Init(api *echo.Group, db *mongo.Database, echo *echo.Echo) {
 	//e.POST("/graphql", h.WrapHandler(h))
 }
 
-func V1Group(v1Group *echo.Group, db *mongo.Database) {
+func V1Group(api *echo.Group) {
+	v1Group := api.Group("/v1")
 	v1Group.GET("/", v1.Welcome()).Name = "api.current"
 
+	UsersV1Group(v1Group)
+	PostsV1Group(v1Group)
+}
+
+func UsersV1Group(v1Group *echo.Group) {
 	users := v1Group.Group("/users")
-	UsersV1Group(users, db)
+	users.GET("/", v1.QueryUsers())
+	users.POST("/", v1.CreateUser())
+	users.GET("/users/:id", v1.ReadUser())
+	users.PUT("/users/:id", v1.UpdateUser())
+	users.DELETE("/users/:id", v1.DeleteUser())
+}
 
+func PostsV1Group(v1Group *echo.Group) {
 	posts := v1Group.Group("/posts")
-	PostsV1Group(posts, db)
-}
-
-func UsersV1Group(users *echo.Group, db *mongo.Database) {
-	usersCollection := db.Collection("users")
-
-	users.GET("/", v1.QueryUsers(usersCollection))
-	users.POST("/", v1.CreateUser(usersCollection))
-	users.GET("/users/:id", v1.ReadUser(usersCollection))
-	users.PUT("/users/:id", v1.UpdateUser(usersCollection))
-	users.DELETE("/users/:id", v1.DeleteUser(usersCollection))
-}
-
-func PostsV1Group(posts *echo.Group, db *mongo.Database) {
-	postsCollection := db.Collection("posts")
-
-	posts.GET("/", v1.QueryPosts(postsCollection))
+	posts.GET("/", v1.QueryPosts())
 }
 
 func RedirectToCurrent(current string) echo.HandlerFunc {

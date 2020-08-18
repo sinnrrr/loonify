@@ -31,10 +31,7 @@ func main() {
 	p := prometheus.NewPrometheus("echo", nil)
 	p.Use(e)
 
-	// setting up connection to db
-	db := NewDB()
-
-	InitRoutes(e, db)
+	InitRoutes(e)
 
 	// starting router
 	e.Logger.Fatal(e.Start(":" + os.Getenv("PORT")))
