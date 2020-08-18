@@ -4,7 +4,6 @@ import (
 	"github.com/labstack/echo-contrib/prometheus"
 	"github.com/labstack/echo/v4"
 	"github.com/labstack/echo/v4/middleware"
-	"gitlab.com/loonify/web/models"
 	"log"
 	"os"
 )

@@ -9,7 +9,7 @@ import (
 type Category struct {
 	bongo.DocumentBase `bson:",inline"`
 	ParentID           uint
-	Name               MyString
+	Name               string
 	diffTracker        *bongo.DiffTracker
 }
 

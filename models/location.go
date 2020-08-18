@@ -9,10 +9,10 @@ type Location struct {
 	bongo.DocumentBase `bson:",inline"`
 	MapsID             uint
 	PlaceID            uint
-	URL                MyString
-	Icon               MyString
-	Name               MyString
-	FormattedAddress   MyString
+	URL                string
+	Icon               string
+	Name               string
+	FormattedAddress   string
 	AddressComponents  types.Array
 	Geometry           types.Array
 	diffTracker        *bongo.DiffTracker
