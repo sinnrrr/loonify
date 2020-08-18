@@ -20,25 +20,11 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="26644a7f-d1e5-42ca-8279-7fd42886f23a" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/api/v1/categories.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/api/api.go" beforeDir="false" afterPath="$PROJECT_DIR$/routes/api.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/api/graphql/fields/posts.go" beforeDir="false" afterPath="$PROJECT_DIR$/api/graphql/fields/posts.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/api/graphql/fields/users.go" beforeDir="false" afterPath="$PROJECT_DIR$/api/graphql/fields/users.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/api/graphql/query.go" beforeDir="false" afterPath="$PROJECT_DIR$/api/graphql/query.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/api/v1/locations.go" beforeDir="false" afterPath="$PROJECT_DIR$/api/v1/locations.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/api/v1/posts.go" beforeDir="false" afterPath="$PROJECT_DIR$/api/v1/posts.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/api/v1/users.go" beforeDir="false" afterPath="$PROJECT_DIR$/api/v1/users.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/api/v1/welcome.go" beforeDir="false" afterPath="$PROJECT_DIR$/api/v1/welcome.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/docs.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/swagger.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/swagger.yaml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/go.mod" beforeDir="false" afterPath="$PROJECT_DIR$/go.mod" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/go.sum" beforeDir="false" afterPath="$PROJECT_DIR$/go.sum" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/models/category.go" beforeDir="false" afterPath="$PROJECT_DIR$/models/category.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/models/location.go" beforeDir="false" afterPath="$PROJECT_DIR$/models/location.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/models/post.go" beforeDir="false" afterPath="$PROJECT_DIR$/models/post.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/models/user.go" beforeDir="false" afterPath="$PROJECT_DIR$/models/user.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/routes.go" beforeDir="false" afterPath="$PROJECT_DIR$/routes.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/db/db.go" beforeDir="false" afterPath="$PROJECT_DIR$/db.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/routes/api.go" beforeDir="false" afterPath="$PROJECT_DIR$/routes/api.go" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -86,11 +72,11 @@
   </component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$" />
       <recent name="$PROJECT_DIR$/routes" />
       <recent name="$PROJECT_DIR$/db" />
       <recent name="$PROJECT_DIR$/api/v1" />
       <recent name="$PROJECT_DIR$/models" />
-      <recent name="$PROJECT_DIR$/api" />
     </key>
   </component>
   <component name="RestClientSettings">

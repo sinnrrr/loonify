@@ -1,4 +1,4 @@
-package db
+package main
 
 import (
 	"context"
@@ -34,17 +34,4 @@ func Disconnect(client *mongo.Client) error {
 	defer cancel()
 
 	return client.Disconnect(ctx)
-}
-
-func ConnectWithCollection(collection string) (*mongo.Collection, func()) {
-	client, err := Connect()
-	if err != nil {
-		panic(err)
-	}
-
-	ctx, cancel := context.WithTimeout(context.Background(), 2*time.Second)
-	defer cancel()
-
-	return client.Database(os.Getenv("DATABASE_NAME")).Collection(collection),
-	   	   func() { client.Disconnect(ctx) }
 }

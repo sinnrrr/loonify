@@ -28,6 +28,7 @@ func V1Group(api *echo.Group) {
 	UsersV1Group(v1Group)
 	PostsV1Group(v1Group)
 	LocationsV1Group(v1Group)
+	CategoriesV1Group(v1Group)
 }
 
 func UsersV1Group(v1Group *echo.Group) {
@@ -55,6 +56,15 @@ func LocationsV1Group(v1Group *echo.Group) {
 	locations.GET("/:id/", v1.ReadLocation())
 	locations.PUT("/:id/", v1.UpdateLocation())
 	locations.DELETE("/:id/", v1.DeleteLocation())
+}
+
+func CategoriesV1Group(v1Group *echo.Group) {
+	categories := v1Group.Group("/categories")
+	categories.GET("/", v1.QueryLocations())
+	categories.POST("/", v1.CreateLocation())
+	categories.GET("/:id/", v1.ReadLocation())
+	categories.PUT("/:id/", v1.UpdateLocation())
+	categories.DELETE("/:id/", v1.DeleteLocation())
 }
 
 func RedirectToCurrent(current string) echo.HandlerFunc {
