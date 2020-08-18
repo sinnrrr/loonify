@@ -16,46 +16,51 @@
 package api
 
 import (
-	"github.com/jinzhu/gorm"
 	"github.com/labstack/echo/v4"
+
+	//"gitlab.com/loonify/web/api/graphql"
 	"gitlab.com/loonify/web/api/v1"
 	"net/http"
 )
 
-func Init(e *echo.Group, db *gorm.DB, echo *echo.Echo) {
-	v1Group := e.Group("/v1")
-	V1Group(v1Group, db)
+func Init(e *echo.Echo) {
+	api := e.Group("/api")
+	V1Group(api)
 
-	e.GET("/", RedirectToCurrent(echo.Reverse("api.current")))
+	api.GET("/", RedirectToCurrent(e.Reverse("api.current")))
 
 	//h, err := graphql.NewHandler(db)
 	//if err != nil {
 	//	log.Fatal(err)
 	//}
 	//
-	//e.POST("/graphql", e.WrapHandler(h))
+	//e.POST("/graphql", h.WrapHandler(h))
 }
 
-func V1Group(e *echo.Group, db *gorm.DB) {
-	e.GET("/", v1.Welcome()).Name = "api.current"
+func V1Group(api *echo.Group) {
+	v1Group := api.Group("/v1")
+	v1Group.GET("/", v1.Welcome()).Name = "api.current"
 
-	users := e.Group("/users")
-	UsersV1Group(users, db)
-
-	posts := e.Group("/posts")
-	PostsV1Group(posts, db)
+	UsersV1Group(v1Group)
+	PostsV1Group(v1Group)
 }
 
-func UsersV1Group(e *echo.Group, db *gorm.DB) {
-	e.GET("/", v1.GetUsers(db))
-	e.POST("/", v1.CreateUser(db))
-	e.GET("/users/:id", v1.ReadUser(db))
-	e.PUT("/users/:id", v1.UpdateUser(db))
-	e.DELETE("/users/:id", v1.DeleteUser(db))
+func UsersV1Group(v1Group *echo.Group) {
+	users := v1Group.Group("/users")
+	users.GET("/", v1.QueryUsers())
+	users.POST("/", v1.CreateUser())
+	users.GET("/:id/", v1.ReadUser())
+	users.PUT("/:id/", v1.UpdateUser())
+	users.DELETE("/:id/", v1.DeleteUser())
 }
 
-func PostsV1Group(e *echo.Group, db *gorm.DB) {
-	e.GET("/", v1.GetPosts(db))
+func PostsV1Group(v1Group *echo.Group) {
+	posts := v1Group.Group("/posts")
+	posts.GET("/", v1.QueryPosts())
+	posts.POST("/", v1.CreatePost())
+	posts.GET("/:id/", v1.ReadPost())
+	posts.PUT("/:id/", v1.UpdatePost())
+	posts.DELETE("/:id/", v1.DeletePost())
 }
 
 func RedirectToCurrent(current string) echo.HandlerFunc {

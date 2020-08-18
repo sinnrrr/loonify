@@ -1,15 +1,22 @@
 package main
 
 import (
+	"github.com/Kamva/mgm/v3"
 	_ "github.com/joho/godotenv/autoload"
-	"log"
+	"go.mongodb.org/mongo-driver/mongo/options"
 	"os"
+	"time"
 )
 
 func init() {
 	if os.Getenv("PORT") == "" {
 		err := os.Setenv("PORT", "80")
-		log.Fatal(err)
+		logFatal(err)
+	}
+
+	if os.Getenv("DATABASE_NAME") == "" {
+		err := os.Setenv("DATABASE_NAME", "loonify")
+		logFatal(err)
 	}
 
 	if os.Getenv("CLEARDB_DATABASE_URL") == "" {
@@ -20,4 +27,16 @@ func init() {
 
 		logFatal(err)
 	}
+
+	if os.Getenv("MONGODB_DATABASE_URL") == "" {
+		err := os.Setenv(
+			"MONGODB_DATABASE_URL",
+			"mongodb+srv://sinnrrr:1532112351@cluster0.zlo3n.mongodb.net/loonify?retryWrites=true&w=majority",
+		)
+
+		logFatal(err)
+	}
+
+	err := mgm.SetDefaultConfig(&mgm.Config{CtxTimeout:12 * time.Second}, "loonify", options.Client().ApplyURI(os.Getenv("MONGODB_DATABASE_URL")))
+	logFatal(err)
 }
