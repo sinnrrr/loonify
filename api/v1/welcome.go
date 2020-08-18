@@ -4,13 +4,26 @@ import (
 	"github.com/labstack/echo/v4"
 	"io/ioutil"
 	"log"
+	"math/rand"
 	"net/http"
 	"path/filepath"
 )
 
+const KEYS = 7
+
 /*Welcome handler*/
 func Welcome() echo.HandlerFunc {
 	return func(c echo.Context) error {
+		titles := [KEYS]string{
+			"Awesome as FUCK API",
+			"Author of this API gone walking",
+			"Piggy wiggy API",
+			"Smooth sound of API",
+			"HAHA API",
+			"API Loonify",
+			"Tea party API",
+		}
+
 		main, err := filepath.Abs("api/v1/welcome/main.txt")
 		if err != nil {
 			return c.String(http.StatusOK, "Welcome!")
@@ -22,7 +35,7 @@ func Welcome() echo.HandlerFunc {
 		}
 
 		return c.Render(http.StatusOK, "index.html", map[string]interface{}{
-			"title":   "Awesome as FUCK API",
+			"title":   titles[rand.Intn(KEYS)],
 			"welcome": string(welcome),
 		})
 	}
