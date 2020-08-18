@@ -49,14 +49,18 @@ func UsersV1Group(v1Group *echo.Group) {
 	users := v1Group.Group("/users")
 	users.GET("/", v1.QueryUsers())
 	users.POST("/", v1.CreateUser())
-	users.GET("/users/:id", v1.ReadUser())
-	users.PUT("/users/:id", v1.UpdateUser())
-	users.DELETE("/users/:id", v1.DeleteUser())
+	users.GET("/:id/", v1.ReadUser())
+	users.PUT("/:id/", v1.UpdateUser())
+	users.DELETE("/:id/", v1.DeleteUser())
 }
 
 func PostsV1Group(v1Group *echo.Group) {
 	posts := v1Group.Group("/posts")
 	posts.GET("/", v1.QueryPosts())
+	posts.POST("/", v1.CreatePost())
+	posts.GET("/:id/", v1.ReadPost())
+	posts.PUT("/:id/", v1.UpdatePost())
+	posts.DELETE("/:id/", v1.DeletePost())
 }
 
 func RedirectToCurrent(current string) echo.HandlerFunc {

@@ -5,8 +5,9 @@ go 1.15
 // +heroku goVersion go1.15
 
 require (
-	github.com/Kamva/mgm/v3 v3.0.1 // indirect
+	github.com/Kamva/mgm/v3 v3.0.1
 	github.com/go-bongo/bongo v0.10.4
+	github.com/go-playground/validator/v10 v10.3.0
 	github.com/graphql-go/graphql v0.7.9
 	github.com/graphql-go/handler v0.2.3
 	github.com/jinzhu/gorm v1.9.14

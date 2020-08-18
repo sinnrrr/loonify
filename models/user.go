@@ -7,11 +7,11 @@ import (
 /*User struct*/
 type User struct {
 	mgm.DefaultModel `bson:",inline"`
-	AddressID        uint   `bson:"address_id" json:"address_id"`
-	Name             string `bson:"name" json:"name"`
-	Email            string `bson:"email" json:"email"`
-	Phone            string `bson:"phone" json:"phone"`
-	Password         string `bson:"password" json:"password"`
+	AddressID        uint   `bson:"address_id" json:"address_id,omitempty"`
+	Name             string `bson:"name" json:"name" validate:"required"`
+	Email            string `bson:"email" json:"email,omitempty" validate:"email"`
+	Phone            string `bson:"phone" json:"phone,omitempty" validate:"number"`
+	Password         string `bson:"password" json:"password" validate:"required"`
 }
 
 func NewUser(

@@ -20,21 +20,15 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="26644a7f-d1e5-42ca-8279-7fd42886f23a" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/db/db.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.env" beforeDir="false" afterPath="$PROJECT_DIR$/.env" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gitlab-ci.yml" beforeDir="false" afterPath="$PROJECT_DIR$/.gitlab-ci.yml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/api/api.go" beforeDir="false" afterPath="$PROJECT_DIR$/api/api.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/api/v1/posts.go" beforeDir="false" afterPath="$PROJECT_DIR$/api/v1/posts.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/api/v1/users.go" beforeDir="false" afterPath="$PROJECT_DIR$/api/v1/users.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/config.go" beforeDir="false" afterPath="$PROJECT_DIR$/config.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/db.go" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/go.mod" beforeDir="false" afterPath="$PROJECT_DIR$/go.mod" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/go.sum" beforeDir="false" afterPath="$PROJECT_DIR$/go.sum" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/main.go" beforeDir="false" afterPath="$PROJECT_DIR$/main.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/models/post.go" beforeDir="false" afterPath="$PROJECT_DIR$/models/post.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/models/user.go" beforeDir="false" afterPath="$PROJECT_DIR$/models/user.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/routes.go" beforeDir="false" afterPath="$PROJECT_DIR$/routes.go" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -55,6 +49,9 @@
   </component>
   <component name="GoLibraries">
     <option name="indexEntireGoPath" value="false" />
+  </component>
+  <component name="HighlightingSettingsPerFile">
+    <setting file="dummy://restClient/response1.json" root0="SKIP_INSPECTION" />
   </component>
   <component name="ProjectId" id="1fjaMfbvtqBlqf7tszPbU5QoKpa" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true">
@@ -89,6 +86,32 @@
       <recent name="$PROJECT_DIR$/handler/welcome" />
     </key>
   </component>
+  <component name="RestClientSettings">
+    <option name="REQUEST_HISTORY">
+      <list>
+        <RestClientRequest>
+          <option name="httpMethod" value="GET" />
+          <option name="urlBase" value="http://localhost" />
+          <option name="urlPath" value="/api/v1/users" />
+          <option name="headers">
+            <list>
+              <KeyValuePair>
+                <option name="key" value="Accept" />
+                <option name="value" value="*/*" />
+              </KeyValuePair>
+              <KeyValuePair>
+                <option name="key" value="Cache-Control" />
+                <option name="value" value="no-cache" />
+              </KeyValuePair>
+            </list>
+          </option>
+          <option name="parametersEnabled" value="true" />
+          <option name="textToSend" value="" />
+          <option name="filesToSend" value="" />
+        </RestClientRequest>
+      </list>
+    </option>
+  </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="2" />
   </component>
@@ -116,6 +139,10 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="752" y="353" key="#Go_Modules/0.0.1920.1040@0.0.1920.1040" timestamp="1596734112741" />
+    <state x="543" y="278" width="824" height="522" key="IDE.errors.dialog" timestamp="1597736033081">
+      <screen x="0" y="0" width="1920" height="1080" />
+    </state>
+    <state x="543" y="278" width="824" height="522" key="IDE.errors.dialog/0.0.1920.1080@0.0.1920.1080" timestamp="1597736033081" />
     <state x="464" y="175" key="SettingsEditor" timestamp="1597656571470">
       <screen x="0" y="0" width="1920" height="1080" />
     </state>
@@ -128,9 +155,9 @@
       <screen x="0" y="0" width="1920" height="1080" />
     </state>
     <state x="511" y="72" width="1156" height="962" key="find.popup/0.0.1920.1080@0.0.1920.1080" timestamp="1597668714329" />
-    <state x="623" y="239" key="search.everywhere.popup" timestamp="1597391749462">
+    <state x="623" y="239" width="672" height="678" key="search.everywhere.popup" timestamp="1597735855764">
       <screen x="0" y="0" width="1920" height="1080" />
     </state>
-    <state x="623" y="239" key="search.everywhere.popup/0.0.1920.1080@0.0.1920.1080" timestamp="1597391749462" />
+    <state x="623" y="239" width="672" height="678" key="search.everywhere.popup/0.0.1920.1080@0.0.1920.1080" timestamp="1597735855764" />
   </component>
 </project>

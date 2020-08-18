@@ -1,0 +1,8 @@
+GET http://localhost/api/v1/users
+Accept: */*
+Cache-Control: no-cache
+
+<> 2020-08-18T103123.200.json
+
+###
+

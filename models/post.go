@@ -1,29 +1,18 @@
 package models
 
 import (
-	"github.com/go-bongo/bongo"
+	"github.com/Kamva/mgm/v3"
 )
 
 /*Post struct*/
 type Post struct {
-	bongo.DocumentBase `bson:",inline"`
-	UserID             uint
-	AddressID          uint
-	CategoryID         uint
-	LocationID         uint
-	Title              MyString
-	Description        MyString
-	Status             MyString
-	Reward             MyString
-	diffTracker        *bongo.DiffTracker
+	mgm.DefaultModel `bson:",inline"`
+	UserID           uint   `bson:"user_id" json:"user_id" validate:"required"`
+	AddressID        uint   `bson:"address_id" json:"address_id" validate:"required"`
+	CategoryID       uint   `bson:"category_id" json:"category_id" validate:"required"`
+	LocationID       uint   `bson:"location_id" json:"location_id" validate:"required"`
+	Title            string `bson:"title" json:"title" validate:"required"`
+	Description      string `bson:"description" json:"description" validate:"required"`
+	Status           string `bson:"status" json:"status" validate:"required"`
+	Reward           string `bson:"reward" json:"reward,omitempty"`
 }
-
-func (m *Post) GetDiffTracker() *bongo.DiffTracker {
-	if m.diffTracker == nil {
-		m.diffTracker = bongo.NewDiffTracker(m)
-	}
-
-	return m.diffTracker
-}
-
-var post = &Post{}

@@ -1,46 +1,88 @@
 package v1
 
 import (
-	"context"
+	"github.com/Kamva/mgm/v3"
 	"github.com/labstack/echo/v4"
-	"gitlab.com/loonify/web/db"
 	"gitlab.com/loonify/web/models"
 	"go.mongodb.org/mongo-driver/bson"
-	"go.mongodb.org/mongo-driver/mongo/options"
 	"net/http"
 )
 
 /*GetPosts handler*/
 func QueryPosts() echo.HandlerFunc {
 	return func(c echo.Context) error {
-		var result []*models.Post
+		var post []models.Post
 
-		postsCollection, closeConnection := db.ConnectWithCollection("users")
-
-		cur, err := postsCollection.Find(context.TODO(), bson.D{}, options.Find())
+		err := mgm.Coll(&models.Post{}).SimpleFind(&post, bson.D{})
 		if err != nil {
 			return c.JSON(http.StatusInternalServerError, err)
 		}
 
-		for cur.Next(context.TODO()) {
-			var single models.Post
+		return c.JSON(http.StatusOK, post)
+	}
+}
 
-			err := cur.Decode(&single)
-			if err != nil {
-				return c.JSON(http.StatusInternalServerError, err)
-			}
+/*CreatePost handler*/
+func CreatePost() echo.HandlerFunc {
+	return func(c echo.Context) error {
+		post := new(models.Post)
 
-			result = append(result, &single)
+		if err := c.Bind(post); err != nil {
+			return c.JSON(http.StatusUnprocessableEntity, err)
 		}
 
-		err = cur.Err()
+		err := mgm.Coll(post).Create(post)
 		if err != nil {
 			return c.JSON(http.StatusInternalServerError, err)
 		}
 
-		cur.Close(context.TODO())
+		return c.JSON(http.StatusOK, post)
+	}
+}
 
-		defer closeConnection()
-		return c.JSON(http.StatusOK, result)
+func ReadPost() echo.HandlerFunc {
+	return func(c echo.Context) error {
+		post := &models.Post{}
+		coll := mgm.Coll(post)
+
+		_ = coll.FindByID(c.Param("id"), post)
+
+		return c.JSON(http.StatusOK, post)
+	}
+}
+
+func UpdatePost() echo.HandlerFunc {
+	return func(c echo.Context) error {
+		post := &models.Post{}
+		coll := mgm.Coll(post)
+
+		_ = coll.FindByID(c.Param("id"), post)
+
+		if err := c.Bind(post); err != nil {
+			return c.JSON(http.StatusUnprocessableEntity, err)
+		}
+
+		err := mgm.Coll(post).Update(post)
+		if err != nil {
+			return c.JSON(http.StatusInternalServerError, err)
+		}
+
+		return c.JSON(http.StatusOK, post)
+	}
+}
+
+func DeletePost() echo.HandlerFunc {
+	return func(c echo.Context) error {
+		post := &models.Post{}
+		coll := mgm.Coll(post)
+
+		_ = coll.FindByID(c.Param("id"), post)
+
+		err := mgm.Coll(post).Delete(post)
+		if err != nil {
+			return c.JSON(http.StatusInternalServerError, err)
+		}
+
+		return c.JSON(http.StatusOK, post)
 	}
 }

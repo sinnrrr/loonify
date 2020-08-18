@@ -5,6 +5,7 @@ import (
 	_ "github.com/joho/godotenv/autoload"
 	"go.mongodb.org/mongo-driver/mongo/options"
 	"os"
+	"time"
 )
 
 func init() {
@@ -36,6 +37,6 @@ func init() {
 		logFatal(err)
 	}
 
-	err := mgm.SetDefaultConfig(nil, "loonify", options.Client().ApplyURI(os.Getenv("MONGODB_DATABASE_URL")))
+	err := mgm.SetDefaultConfig(&mgm.Config{CtxTimeout:12 * time.Second}, "loonify", options.Client().ApplyURI(os.Getenv("MONGODB_DATABASE_URL")))
 	logFatal(err)
 }
