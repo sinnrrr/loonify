@@ -7,7 +7,7 @@ tmp_dir = "tmp"
 cmd = "go build -o ./tmp/loonify ."
 bin = "tmp/loonify"
 full_bin = "APP_ENV=dev APP_USER=air ./tmp/loonify"
-include_ext = ["go", "tpl", "tmpl", "html"]
+include_ext = ["go", "tpl", "tmpl", "html", "txt"]
 exclude_dir = ["assets", "tmp", "vendor", "frontend/node_modules"]
 include_dir = []
 exclude_file = []

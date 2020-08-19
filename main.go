@@ -1,15 +1,18 @@
 package main
 
 import (
+	"fmt"
 	"github.com/Kamva/mgm/v3"
 	"github.com/go-playground/validator/v10"
 	_ "github.com/joho/godotenv/autoload"
-	"github.com/labstack/echo-contrib/prometheus"
+	//"github.com/labstack/echo-contrib/prometheus"
 	"github.com/labstack/echo/v4"
 	"github.com/labstack/echo/v4/middleware"
 	"go.mongodb.org/mongo-driver/mongo/options"
 	"html/template"
 	"io"
+	"io/ioutil"
+	"loonify/routes"
 	"os"
 	"path/filepath"
 	"time"
@@ -23,17 +26,31 @@ type (
 	}
 )
 
-type CustomValidator struct {
-	validator *validator.Validate
-}
-
-func (cv *CustomValidator) Validate(i interface{}) error {
-	return cv.validator.Struct(i)
+func init() {
+	err := mgm.SetDefaultConfig(
+		&mgm.Config{CtxTimeout: 12 * time.Second},
+		os.Getenv("DATABASE_NAME"),
+		options.Client().ApplyURI(
+			os.Getenv("MONGODB_DATABASE_URL"),
+		),
+	)
+	if err != nil {
+		panic(err)
+	}
 }
 
 func main() {
 	// Hosts
 	hosts := map[string]*Host{}
+
+	htmlV1Path, err := filepath.Abs("api/v1/welcome/*.html")
+	if err != nil {
+		panic(err)
+	}
+
+	t := &Template{
+		templates: template.Must(template.ParseGlob(htmlV1Path)),
+	}
 
 	//-----
 	// API
@@ -42,22 +59,27 @@ func main() {
 	api := echo.New()
 	api.Use(middleware.Logger())
 	api.Use(middleware.Recover())
+	api.Renderer = t
+	api.Validator = &CustomValidator{validator: validator.New()}
 
-	hosts["api.localhost:1323"] = &Host{api}
+	hosts["api." + os.Getenv("HOST") + ":" + os.Getenv("PORT")] = &Host{api}
 
+	routes.InitAPI(api)
 
+	//---------
+	// Website
+	//---------
 
-	// router configuration
-	e := echo.New()
-	e.HideBanner = true
+	site := echo.New()
 
-	// router middleware
-	e.Use(middleware.Logger())
-	e.Use(middleware.Recover())
-	e.Pre(middleware.AddTrailingSlash())
+	site.Use(middleware.Logger())
+	site.Use(middleware.Recover())
+	site.Pre(middleware.AddTrailingSlash())
 
-	p := prometheus.NewPrometheus("echo", nil)
-	p.Use(e)
+	hosts[os.Getenv("HOST") + ":" + os.Getenv("PORT")] = &Host{site}
+
+	//p := prometheus.NewPrometheus("echo", nil)
+	//p.Use(site)
 
 	nuxtStatic, err := filepath.Abs("frontend/dist/_nuxt")
 	if err != nil {
@@ -74,36 +96,40 @@ func main() {
 		panic(err)
 	}
 
-	htmlV1Path, err := filepath.Abs("api/v1/welcome/*.html")
+	site.File("/", sitePath)
+	site.Static("/static", myStatic)
+	site.Static("/_nuxt", nuxtStatic)
+
+	e := echo.New()
+	e.HideBanner = true
+
+	e.Any("/*", func(c echo.Context) (err error) {
+		req := c.Request()
+		res := c.Response()
+		host := hosts[req.Host]
+
+		if host == nil {
+			err = echo.ErrNotFound
+		} else {
+			host.Echo.ServeHTTP(res, req)
+		}
+
+		return
+	})
+
+	loonifile, err := ioutil.ReadFile("loonify.txt")
 	if err != nil {
 		panic(err)
 	}
 
-	t := &Template{
-		templates: template.Must(template.ParseGlob(htmlV1Path)),
-	}
-
-	e.Renderer = t
-	e.File("/", sitePath)
-	e.Static("/static", myStatic)
-	e.Static("/_nuxt", nuxtStatic)
-	e.Validator = &CustomValidator{validator: validator.New()}
-
-	err = mgm.SetDefaultConfig(
-		&mgm.Config{CtxTimeout: 12 * time.Second},
-		os.Getenv("DATABASE_NAME"),
-		options.Client().ApplyURI(
-			os.Getenv("MONGODB_DATABASE_URL"),
-		),
-	)
-	if err != nil {
-		panic(err)
-	}
-
-	InitRoutes(e)
+	fmt.Println(string(loonifile))
 
 	// starting router
 	e.Logger.Fatal(e.Start(":" + os.Getenv("PORT")))
+}
+
+type CustomValidator struct {
+	validator *validator.Validate
 }
 
 type Template struct {
@@ -112,4 +138,8 @@ type Template struct {
 
 func (t *Template) Render(w io.Writer, name string, data interface{}, c echo.Context) error {
 	return t.templates.ExecuteTemplate(w, name, data)
+}
+
+func (cv *CustomValidator) Validate(i interface{}) error {
+	return cv.validator.Struct(i)
 }
