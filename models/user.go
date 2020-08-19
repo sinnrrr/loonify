@@ -1,6 +1,8 @@
 package models
 
-import "github.com/Kamva/mgm/v3"
+import (
+	"github.com/Kamva/mgm/v3"
+)
 
 /*User struct*/
 type User struct {

@@ -2,7 +2,7 @@ package main
 
 import (
 	"github.com/labstack/echo/v4"
-	"loonify/api/graphql"
+	//"loonify/api/graphql"
 	"loonify/api/v1"
 	"net/http"
 )
@@ -11,13 +11,13 @@ func InitRoutes(e *echo.Echo) {
 	api := e.Group("/api")
 	V1Group(api)
 
-	h, err := graphql.NewHandler(db)
-	if err != nil {
-		panic(err)
-	}
+	//h, err := graphql.NewHandler(db)
+	//if err != nil {
+	//	panic(err)
+	//}
 
 	api.GET("/", RedirectToCurrent(e.Reverse("api.current")))
-	e.POST("/graphql", echo.WrapHandler(h))
+	//e.POST("/graphql", echo.WrapHandler(h))
 }
 
 func V1Group(api *echo.Group) {

@@ -8,24 +8,12 @@ COPY go.mod .
 COPY go.sum .
 
 RUN go mod download
+RUN go get -u github.com/cosmtrek/air
 
 # Copy the code into the container
 COPY . .
 
+RUN alias air='~/.air'
+
 # Build the application
-RUN go build -o loonify .
-
-# Move to /dist directory as the place for resulting binary folder
-WORKDIR /dist
-
-# Copy binary from build to main folder
-RUN cp /build/loonify .
-
-# Export necessary port
-EXPOSE 8002
-
-# Command to run when starting the container
-CMD ["/dist/loonify"]
-
-# Changing directory for app access
-WORKDIR /build
+RUN air -c .air
