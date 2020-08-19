@@ -3,7 +3,6 @@ package v1
 import (
 	"github.com/labstack/echo/v4"
 	"io/ioutil"
-	"log"
 	"math/rand"
 	"net/http"
 	"path/filepath"
@@ -38,11 +37,5 @@ func Welcome() echo.HandlerFunc {
 			"title":   titles[rand.Intn(KEYS)],
 			"welcome": string(welcome),
 		})
-	}
-}
-
-func logFatal(err error) {
-	if err != nil {
-		log.Fatal(err)
 	}
 }

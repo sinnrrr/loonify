@@ -20,13 +20,15 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="26644a7f-d1e5-42ca-8279-7fd42886f23a" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/loonify.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.air" beforeDir="false" afterPath="$PROJECT_DIR$/.air" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.env" beforeDir="false" afterPath="$PROJECT_DIR$/.env" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dictionaries/sinnrrr.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dictionaries/sinnrrr.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/go.mod" beforeDir="false" afterPath="$PROJECT_DIR$/go.mod" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/go.sum" beforeDir="false" afterPath="$PROJECT_DIR$/go.sum" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/loonify.log" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/main.go" beforeDir="false" afterPath="$PROJECT_DIR$/main.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/routes.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/routes/api.go" beforeDir="false" afterPath="$PROJECT_DIR$/routes/routes.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/routes/api/api.go" beforeDir="false" afterPath="$PROJECT_DIR$/routes/api.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/routes/api/v1/v1.go" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -74,8 +76,8 @@
   </component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
-      <recent name="$PROJECT_DIR$" />
       <recent name="$PROJECT_DIR$/routes" />
+      <recent name="$PROJECT_DIR$" />
       <recent name="$PROJECT_DIR$/db" />
       <recent name="$PROJECT_DIR$/api/v1" />
       <recent name="$PROJECT_DIR$/models" />
@@ -134,10 +136,10 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="752" y="353" key="#Go_Modules/0.0.1920.1040@0.0.1920.1040" timestamp="1596734112741" />
-    <state x="705" y="345" width="499" height="388" key="#com.intellij.fileTypes.FileTypeChooser" timestamp="1597742729204">
+    <state x="705" y="345" width="507" height="388" key="#com.intellij.fileTypes.FileTypeChooser" timestamp="1597822155958">
       <screen x="0" y="0" width="1920" height="1080" />
     </state>
-    <state x="705" y="345" width="499" height="388" key="#com.intellij.fileTypes.FileTypeChooser/0.0.1920.1080@0.0.1920.1080" timestamp="1597742729204" />
+    <state x="705" y="345" width="507" height="388" key="#com.intellij.fileTypes.FileTypeChooser/0.0.1920.1080@0.0.1920.1080" timestamp="1597822155958" />
     <state x="543" y="278" width="824" height="522" key="IDE.errors.dialog" timestamp="1597736033081">
       <screen x="0" y="0" width="1920" height="1080" />
     </state>
@@ -154,10 +156,10 @@
       <screen x="0" y="0" width="1920" height="1080" />
     </state>
     <state x="578" y="153" width="754" height="771" key="com.intellij.openapi.editor.actions.MultiplePasteAction$ClipboardContentChooser/0.0.1920.1080@0.0.1920.1080" timestamp="1597733234589" />
-    <state x="511" y="72" width="1156" height="962" key="find.popup" timestamp="1597761587808">
+    <state x="511" y="72" width="1156" height="962" key="find.popup" timestamp="1597818936204">
       <screen x="0" y="0" width="1920" height="1080" />
     </state>
-    <state x="511" y="72" width="1156" height="962" key="find.popup/0.0.1920.1080@0.0.1920.1080" timestamp="1597761587808" />
+    <state x="511" y="72" width="1156" height="962" key="find.popup/0.0.1920.1080@0.0.1920.1080" timestamp="1597818936204" />
     <state x="623" y="239" width="672" height="678" key="search.everywhere.popup" timestamp="1597735855764">
       <screen x="0" y="0" width="1920" height="1080" />
     </state>

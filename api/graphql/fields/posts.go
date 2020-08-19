@@ -3,9 +3,6 @@ package fields
 import (
 	"github.com/graphql-go/graphql"
 	"github.com/jinzhu/gorm"
-
-	"log"
-
 	"loonify/models"
 )
 
@@ -38,7 +35,7 @@ func NewPosts(db *gorm.DB) *graphql.Field {
 		Resolve: func(p graphql.ResolveParams) (i interface{}, e error) {
 			var u[]*models.Post
 			if err := db.Find(&u).Error; err != nil {
-				log.Fatal(err)
+				panic(err)
 			}
 
 			return u, nil
