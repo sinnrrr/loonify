@@ -2,42 +2,20 @@ package main
 
 import (
 	"fmt"
-	"github.com/Kamva/mgm/v3"
 	"github.com/go-playground/validator/v10"
 	_ "github.com/joho/godotenv/autoload"
+	"loonify/routes"
+
 	//"github.com/labstack/echo-contrib/prometheus"
+	"github.com/getsentry/sentry-go/echo"
 	"github.com/labstack/echo/v4"
 	"github.com/labstack/echo/v4/middleware"
-	"go.mongodb.org/mongo-driver/mongo/options"
 	"html/template"
 	"io"
 	"io/ioutil"
-	"loonify/routes"
 	"os"
 	"path/filepath"
-	"time"
 )
-
-const PREFIX = "---> "
-
-type (
-	Host struct {
-		Echo *echo.Echo
-	}
-)
-
-func init() {
-	err := mgm.SetDefaultConfig(
-		&mgm.Config{CtxTimeout: 12 * time.Second},
-		os.Getenv("DATABASE_NAME"),
-		options.Client().ApplyURI(
-			os.Getenv("MONGODB_DATABASE_URL"),
-		),
-	)
-	if err != nil {
-		panic(err)
-	}
-}
 
 func main() {
 	// Hosts
@@ -57,12 +35,28 @@ func main() {
 	//-----
 
 	api := echo.New()
+
 	api.Use(middleware.Logger())
 	api.Use(middleware.Recover())
+	api.Pre(middleware.AddTrailingSlash())
+
+	api.Use(sentryecho.New(sentryecho.Options{
+		Repanic: true,
+	}))
+
+	api.Use(func(next echo.HandlerFunc) echo.HandlerFunc {
+		return func(ctx echo.Context) error {
+			if hub := sentryecho.GetHubFromContext(ctx); hub != nil {
+				hub.Scope().SetTag("someRandomTag", "maybeYouNeedIt")
+			}
+			return next(ctx)
+		}
+	})
+
 	api.Renderer = t
 	api.Validator = &CustomValidator{validator: validator.New()}
 
-	hosts["api." + os.Getenv("HOST") + ":" + os.Getenv("PORT")] = &Host{api}
+	hosts["api."+os.Getenv("HOST")+":"+os.Getenv("PORT")] = &Host{api}
 
 	routes.InitAPI(api)
 
@@ -76,10 +70,11 @@ func main() {
 	site.Use(middleware.Recover())
 	site.Pre(middleware.AddTrailingSlash())
 
-	hosts[os.Getenv("HOST") + ":" + os.Getenv("PORT")] = &Host{site}
+	site.Use(sentryecho.New(sentryecho.Options{
+		Repanic: true,
+	}))
 
-	//p := prometheus.NewPrometheus("echo", nil)
-	//p.Use(site)
+	hosts[os.Getenv("HOST")+":"+os.Getenv("PORT")] = &Host{site}
 
 	nuxtStatic, err := filepath.Abs("frontend/dist/_nuxt")
 	if err != nil {
@@ -117,6 +112,9 @@ func main() {
 		return
 	})
 
+	//p := prometheus.NewPrometheus("echo", nil)
+	//p.Use(e)
+
 	loonifile, err := ioutil.ReadFile("loonify.txt")
 	if err != nil {
 		panic(err)
@@ -127,6 +125,14 @@ func main() {
 	// starting router
 	e.Logger.Fatal(e.Start(":" + os.Getenv("PORT")))
 }
+
+const PREFIX = "---> "
+
+type (
+	Host struct {
+		Echo *echo.Echo
+	}
+)
 
 type CustomValidator struct {
 	validator *validator.Validate

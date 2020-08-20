@@ -19,7 +19,7 @@ func Welcome() echo.HandlerFunc {
 			"Piggy wiggy API",
 			"Smooth sound of API",
 			"HAHA API",
-			"API Loonify",
+			"Loonify API",
 			"Tea party API",
 		}
 

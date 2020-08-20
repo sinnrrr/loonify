@@ -20,15 +20,59 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="26644a7f-d1e5-42ca-8279-7fd42886f23a" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/loonify.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.air" beforeDir="false" afterPath="$PROJECT_DIR$/.air" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.env" beforeDir="false" afterPath="$PROJECT_DIR$/.env" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dictionaries/sinnrrr.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dictionaries/sinnrrr.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/config.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/api/v1/welcome.go" beforeDir="false" afterPath="$PROJECT_DIR$/api/v1/welcome.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/.nuxt/App.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/.nuxt/App.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/.nuxt/client.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/.nuxt/client.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/.nuxt/components/nuxt-error.vue" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/.nuxt/components/nuxt-error.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/.nuxt/dist/client/9.c75fb10.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/.nuxt/dist/client/LICENSES" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/.nuxt/dist/client/app.455ba6f.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/.nuxt/dist/client/commons/app.9e6589f.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/.nuxt/dist/client/icons/icon_120.5f6a36.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/.nuxt/dist/client/icons/icon_144.5f6a36.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/.nuxt/dist/client/icons/icon_152.5f6a36.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/.nuxt/dist/client/icons/icon_192.5f6a36.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/.nuxt/dist/client/icons/icon_384.5f6a36.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/.nuxt/dist/client/icons/icon_512.5f6a36.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/.nuxt/dist/client/icons/icon_64.5f6a36.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/.nuxt/dist/client/manifest.88120ebc.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/.nuxt/dist/client/pages/about.0dbd991.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/.nuxt/dist/client/pages/account.0ec6996.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/.nuxt/dist/client/pages/index.5d846ea.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/.nuxt/dist/client/pages/language.e3e7344.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/.nuxt/dist/client/pages/office.ca6b4fc.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/.nuxt/dist/client/pages/search.64fdb8f.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/.nuxt/dist/client/runtime.bf224ce.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/.nuxt/dist/server/client.manifest.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/.nuxt/dist/server/index.spa.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/.nuxt/dist/server/index.ssr.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/.nuxt/dist/server/pages/about.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/.nuxt/dist/server/pages/about.js.map" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/.nuxt/dist/server/pages/account.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/.nuxt/dist/server/pages/account.js.map" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/.nuxt/dist/server/pages/index.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/.nuxt/dist/server/pages/index.js.map" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/.nuxt/dist/server/pages/language.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/.nuxt/dist/server/pages/language.js.map" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/.nuxt/dist/server/pages/office.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/.nuxt/dist/server/pages/office.js.map" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/.nuxt/dist/server/pages/search.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/.nuxt/dist/server/pages/search.js.map" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/.nuxt/dist/server/server.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/.nuxt/dist/server/server.js.map" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/.nuxt/dist/server/server.manifest.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/.nuxt/loading.html" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/.nuxt/loading.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/.nuxt/nuxt/config.json" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/.nuxt/nuxt/config.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/.nuxt/server.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/.nuxt/server.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/.nuxt/utils.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/.nuxt/utils.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/.nuxt/views/error.html" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/.nuxt/views/error.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/static/sw.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/static/sw.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/go.mod" beforeDir="false" afterPath="$PROJECT_DIR$/go.mod" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/go.sum" beforeDir="false" afterPath="$PROJECT_DIR$/go.sum" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/loonify.txt" beforeDir="false" afterPath="$PROJECT_DIR$/loonify.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/main.go" beforeDir="false" afterPath="$PROJECT_DIR$/main.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/routes.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/routes/api/api.go" beforeDir="false" afterPath="$PROJECT_DIR$/routes/api.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/routes/api/v1/v1.go" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -72,7 +116,7 @@
     <property name="go.tried.to.enable.integration.vgo.integrator" value="true" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="nodejs_package_manager_path" value="npm" />
-    <property name="settings.editor.selected.configurable" value="preferences.pluginManager" />
+    <property name="settings.editor.selected.configurable" value="com.goide.configuration.GoLibrariesConfigurableProvider" />
   </component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
@@ -136,18 +180,18 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="752" y="353" key="#Go_Modules/0.0.1920.1040@0.0.1920.1040" timestamp="1596734112741" />
-    <state x="705" y="345" width="507" height="388" key="#com.intellij.fileTypes.FileTypeChooser" timestamp="1597822155958">
+    <state x="705" y="345" width="507" height="388" key="#com.intellij.fileTypes.FileTypeChooser" timestamp="1597830387285">
       <screen x="0" y="0" width="1920" height="1080" />
     </state>
-    <state x="705" y="345" width="507" height="388" key="#com.intellij.fileTypes.FileTypeChooser/0.0.1920.1080@0.0.1920.1080" timestamp="1597822155958" />
+    <state x="705" y="345" width="507" height="388" key="#com.intellij.fileTypes.FileTypeChooser/0.0.1920.1080@0.0.1920.1080" timestamp="1597830387285" />
     <state x="543" y="278" width="824" height="522" key="IDE.errors.dialog" timestamp="1597736033081">
       <screen x="0" y="0" width="1920" height="1080" />
     </state>
     <state x="543" y="278" width="824" height="522" key="IDE.errors.dialog/0.0.1920.1080@0.0.1920.1080" timestamp="1597736033081" />
-    <state x="464" y="175" key="SettingsEditor" timestamp="1597757621874">
+    <state x="464" y="175" key="SettingsEditor" timestamp="1597916158206">
       <screen x="0" y="0" width="1920" height="1080" />
     </state>
-    <state x="464" y="175" key="SettingsEditor/0.0.1920.1080@0.0.1920.1080" timestamp="1597757621874" />
+    <state x="464" y="175" key="SettingsEditor/0.0.1920.1080@0.0.1920.1080" timestamp="1597916158206" />
     <state x="100" y="100" width="1720" height="880" maximized="true" key="com.intellij.history.integration.ui.views.FileHistoryDialog" timestamp="1597757269288">
       <screen x="0" y="0" width="1920" height="1080" />
     </state>
@@ -156,10 +200,10 @@
       <screen x="0" y="0" width="1920" height="1080" />
     </state>
     <state x="578" y="153" width="754" height="771" key="com.intellij.openapi.editor.actions.MultiplePasteAction$ClipboardContentChooser/0.0.1920.1080@0.0.1920.1080" timestamp="1597733234589" />
-    <state x="511" y="72" width="1156" height="962" key="find.popup" timestamp="1597818936204">
+    <state x="511" y="72" width="1156" height="962" key="find.popup" timestamp="1597839942738">
       <screen x="0" y="0" width="1920" height="1080" />
     </state>
-    <state x="511" y="72" width="1156" height="962" key="find.popup/0.0.1920.1080@0.0.1920.1080" timestamp="1597818936204" />
+    <state x="511" y="72" width="1156" height="962" key="find.popup/0.0.1920.1080@0.0.1920.1080" timestamp="1597839942738" />
     <state x="623" y="239" width="672" height="678" key="search.everywhere.popup" timestamp="1597735855764">
       <screen x="0" y="0" width="1920" height="1080" />
     </state>
