@@ -110,6 +110,8 @@ func main() {
 		req := c.Request()
 		res := c.Response()
 
+		fmt.Print(req.Host)
+
 		host := hosts[req.Host]
 
 		if host == nil {
