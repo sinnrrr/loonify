@@ -58,9 +58,7 @@ func main() {
 
 	routes.InitAPI(api)
 
-	if isHeroku {
-		hosts[os.Getenv("HOST")] = &Host{api}
-	} else {
+	if !isHeroku {
 		hosts["api."+os.Getenv("HOST")+":"+os.Getenv("PORT")] = &Host{api}
 	}
 
@@ -113,12 +111,16 @@ func main() {
 		fmt.Println(hosts)
 		fmt.Println(PREFIX + req.Host)
 
-		host := hosts[req.Host]
+		if req.URL.String() != "/api/" {
+			host := hosts[req.Host]
 
-		if host == nil {
-			err = echo.ErrNotFound
+			if host == nil {
+				err = echo.ErrNotFound
+			} else {
+				host.Echo.ServeHTTP(res, req)
+			}
 		} else {
-			host.Echo.ServeHTTP(res, req)
+			api.Echo.ServeHTTP(res, req)
 		}
 
 		return
@@ -133,7 +135,6 @@ func main() {
 	}
 
 	fmt.Println(string(loonifile))
-	fmt.Println(os.Getenv("HOST"))
 
 	// starting router
 	e.Logger.Fatal(e.Start(":" + os.Getenv("PORT")))
