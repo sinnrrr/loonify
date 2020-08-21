@@ -59,7 +59,7 @@ func main() {
 	routes.InitAPI(api)
 
 	if isHeroku {
-		hosts[os.Getenv("HOST") + "/api/"] = &Host{api}
+		hosts[os.Getenv("HOST")] = &Host{api}
 	} else {
 		hosts["api."+os.Getenv("HOST")+":"+os.Getenv("PORT")] = &Host{api}
 	}
@@ -90,7 +90,7 @@ func main() {
 	site.Static("/_nuxt", nuxtStatic)
 
 	if isHeroku {
-		hosts[os.Getenv("HOST") + "/"] = &Host{site}
+		hosts[os.Getenv("HOST")] = &Host{site}
 	} else {
 		hosts[os.Getenv("HOST")+":"+os.Getenv("PORT")] = &Host{site}
 	}
@@ -111,12 +111,9 @@ func main() {
 		res := c.Response()
 
 		fmt.Println(hosts)
-		fmt.Println(PREFIX + req.Host + req.URL.String())
-		fmt.Println(hosts["loonify.herokuapp.com/"])
-		fmt.Println(hosts["loonify.herokuapp.com/api/"])
-		fmt.Println(hosts[req.Host + req.URL.String()])
+		fmt.Println(PREFIX + req.Host)
 
-		host := hosts[req.Host + req.URL.String()]
+		host := hosts[req.Host]
 
 		if host == nil {
 			err = echo.ErrNotFound
