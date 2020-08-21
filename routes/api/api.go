@@ -1,25 +1,40 @@
-package routes
+package api
 
 import (
 	"github.com/labstack/echo/v4"
+	"html/template"
+	"io"
 	"loonify/api/v1"
 	"net/http"
+	"path/filepath"
 )
 
-func InitAPI(api *echo.Echo) {
-	V1Group(api)
+func Init(api *echo.Echo, isHeroku bool) {
+	var apiGroup *echo.Group
 
-	//h, err := graphql.NewHandler(db)
-	//if err != nil {
-	//	panic(err)
-	//}
+	if isHeroku {
+		apiGroup = api.Group("/api/")
+	} else {
+		apiGroup = api.Group("/")
+	}
 
-	api.GET("/", RedirectToCurrent(api.Reverse("api.current")))
-	//e.POST("/graphql", echo.WrapHandler(h))
+	htmlV1Path, err := filepath.Abs("api/v1/welcome/*.html")
+	if err != nil {
+		panic(err)
+	}
+
+	t := &Template{
+		templates: template.Must(template.ParseGlob(htmlV1Path)),
+	}
+
+	V1Group(apiGroup)
+	api.Renderer = t
+
+	//RegisterRedirectToCurrent(api)
 }
 
-func V1Group(api *echo.Echo) {
-	v1Group := api.Group("/v1")
+func V1Group(api *echo.Group) {
+	v1Group := api.Group("v1")
 	v1Group.GET("/", v1.Welcome()).Name = "api.current"
 
 	UsersV1Group(v1Group)
@@ -64,8 +79,25 @@ func CategoriesV1Group(v1Group *echo.Group) {
 	categories.DELETE("/:id/", v1.DeleteLocation())
 }
 
-func RedirectToCurrent(current string) echo.HandlerFunc {
-	return func(c echo.Context) error {
-		return c.Redirect(http.StatusSeeOther, current)
-	}
+func RegisterRedirectToCurrent(api *echo.Echo) {
+	api.GET("/api/", func(c echo.Context) error {
+		return c.Redirect(http.StatusSeeOther, api.Reverse("api.current"))
+	})
+}
+
+func RegisterGraphQL(api *echo.Group)  {
+	//h, err := graphql.NewHandler(db)
+	//if err != nil {
+	//	panic(err)
+	//}
+
+	//api.POST("/graphql", echo.WrapHandler(h))
+}
+
+type Template struct {
+	templates *template.Template
+}
+
+func (t *Template) Render(w io.Writer, name string, data interface{}, c echo.Context) error {
+	return t.templates.ExecuteTemplate(w, name, data)
 }

@@ -2,116 +2,32 @@ package main
 
 import (
 	"fmt"
-	_ "github.com/joho/godotenv/autoload"
-	"loonify/routes"
-
-	//"github.com/labstack/echo-contrib/prometheus"
 	"github.com/getsentry/sentry-go/echo"
 	"github.com/go-playground/validator/v10"
+	_ "github.com/joho/godotenv/autoload"
+	"github.com/labstack/echo-contrib/prometheus"
 	"github.com/labstack/echo/v4"
 	"github.com/labstack/echo/v4/middleware"
-	"html/template"
-	"io"
 	"io/ioutil"
+	"loonify/routes/api"
+	"loonify/routes/site"
 	"os"
-	"path/filepath"
 )
 
 func main() {
 	// Hosts
 	hosts := map[string]*Host{}
 
-	htmlV1Path, err := filepath.Abs("api/v1/welcome/*.html")
-	if err != nil {
-		panic(err)
-	}
-
-	t := &Template{
-		templates: template.Must(template.ParseGlob(htmlV1Path)),
-	}
-
-	//-----
-	// API
-	//-----
-
-	api := echo.New()
-
-	api.Use(middleware.Logger())
-	api.Use(middleware.Recover())
-	api.Pre(middleware.AddTrailingSlash())
-
-	api.Use(sentryecho.New(sentryecho.Options{
-		Repanic: true,
-	}))
-
-	api.Use(func(next echo.HandlerFunc) echo.HandlerFunc {
-		return func(ctx echo.Context) error {
-			if hub := sentryecho.GetHubFromContext(ctx); hub != nil {
-				hub.Scope().SetTag("someRandomTag", "maybeYouNeedIt")
-			}
-			return next(ctx)
-		}
-	})
-
-	api.Renderer = t
-	api.Validator = &CustomValidator{validator: validator.New()}
-
-	routes.InitAPI(api)
-
-	if !isHeroku {
-		hosts["api."+os.Getenv("HOST")+":"+os.Getenv("PORT")] = &Host{api}
-	}
-
-	//---------
-	// Website
-	//---------
-
-	site := echo.New()
-
-	nuxtStatic, err := filepath.Abs("frontend/dist/_nuxt")
-	if err != nil {
-		panic(err)
-	}
-
-	myStatic, err := filepath.Abs("frontend/static")
-	if err != nil {
-		panic(err)
-	}
-
-	sitePath, err := filepath.Abs("frontend/dist/index.html")
-	if err != nil {
-		panic(err)
-	}
-
-	site.File("/", sitePath)
-	site.Static("/static", myStatic)
-	site.Static("/_nuxt", nuxtStatic)
+	e := InitEcho()
 
 	if isHeroku {
-		hosts[os.Getenv("HOST")] = &Host{site}
+		api.Init(e, isHeroku)
+		site.Init(e)
 	} else {
-		hosts[os.Getenv("HOST")+":"+os.Getenv("PORT")] = &Host{site}
-	}
+		e.Any("/*", func(c echo.Context) (err error) {
+			req := c.Request()
+			res := c.Response()
 
-	e := echo.New()
-	e.HideBanner = true
-
-	e.Use(middleware.Logger())
-	e.Use(middleware.Recover())
-	e.Pre(middleware.AddTrailingSlash())
-
-	e.Use(sentryecho.New(sentryecho.Options{
-		Repanic: true,
-	}))
-
-	e.Any("/*", func(c echo.Context) (err error) {
-		req := c.Request()
-		res := c.Response()
-
-		fmt.Println(hosts)
-		fmt.Println(PREFIX + req.Host)
-
-		if req.URL.String() != "/api/" {
 			host := hosts[req.Host]
 
 			if host == nil {
@@ -119,26 +35,32 @@ func main() {
 			} else {
 				host.Echo.ServeHTTP(res, req)
 			}
-		} else {
-			api := &Host{api}
-			api.Echo.ServeHTTP(res, req)
-		}
 
-		return
-	})
-
-	//p := prometheus.NewPrometheus("echo", nil)
-	//p.Use(e)
-
-	loonifile, err := ioutil.ReadFile("loonify.txt")
-	if err != nil {
-		panic(err)
+			return
+		})
 	}
 
-	fmt.Println(string(loonifile))
+	if !isHeroku {
+		//-----
+		// API
+		//-----
+		apiEcho := echo.New()
+		apiEcho.Validator = &CustomValidator{validator: validator.New()}
+		api.Init(apiEcho, isHeroku)
 
-	// starting router
-	e.Logger.Fatal(e.Start(":" + os.Getenv("PORT")))
+		hosts["api."+os.Getenv("HOST")+":"+os.Getenv("PORT")] = &Host{apiEcho}
+
+		//---------
+		// Website
+		//---------
+
+		siteEcho := echo.New()
+		site.Init(siteEcho)
+
+		hosts[os.Getenv("HOST")+":"+os.Getenv("PORT")] = &Host{siteEcho}
+	}
+
+	LaunchApp(e)
 }
 
 var isHeroku = os.Getenv("HOST") == "loonify.herokuapp.com"
@@ -155,14 +77,36 @@ type CustomValidator struct {
 	validator *validator.Validate
 }
 
-type Template struct {
-	templates *template.Template
-}
-
-func (t *Template) Render(w io.Writer, name string, data interface{}, c echo.Context) error {
-	return t.templates.ExecuteTemplate(w, name, data)
-}
-
 func (cv *CustomValidator) Validate(i interface{}) error {
 	return cv.validator.Struct(i)
+}
+
+func LaunchApp(e *echo.Echo) {
+	p := prometheus.NewPrometheus("echo", nil)
+	p.Use(e)
+
+	loonifile, err := ioutil.ReadFile("loonify.txt")
+	if err != nil {
+		panic(err)
+	}
+
+	fmt.Println(string(loonifile))
+
+	// starting router
+	e.Logger.Fatal(e.Start(":" + os.Getenv("PORT")))
+}
+
+func InitEcho() *echo.Echo {
+	e := echo.New()
+	e.HideBanner = true
+
+	e.Use(middleware.Logger())
+	e.Use(middleware.Recover())
+	e.Pre(middleware.AddTrailingSlash())
+
+	e.Use(sentryecho.New(sentryecho.Options{
+		Repanic: true,
+	}))
+
+	return e
 }
