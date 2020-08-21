@@ -2,42 +2,20 @@ package main
 
 import (
 	"fmt"
-	"github.com/Kamva/mgm/v3"
-	"github.com/go-playground/validator/v10"
 	_ "github.com/joho/godotenv/autoload"
+	"loonify/routes"
+
 	//"github.com/labstack/echo-contrib/prometheus"
+	"github.com/getsentry/sentry-go/echo"
+	"github.com/go-playground/validator/v10"
 	"github.com/labstack/echo/v4"
 	"github.com/labstack/echo/v4/middleware"
-	"go.mongodb.org/mongo-driver/mongo/options"
 	"html/template"
 	"io"
 	"io/ioutil"
-	"loonify/routes"
 	"os"
 	"path/filepath"
-	"time"
 )
-
-const PREFIX = "---> "
-
-type (
-	Host struct {
-		Echo *echo.Echo
-	}
-)
-
-func init() {
-	err := mgm.SetDefaultConfig(
-		&mgm.Config{CtxTimeout: 12 * time.Second},
-		os.Getenv("DATABASE_NAME"),
-		options.Client().ApplyURI(
-			os.Getenv("MONGODB_DATABASE_URL"),
-		),
-	)
-	if err != nil {
-		panic(err)
-	}
-}
 
 func main() {
 	// Hosts
@@ -57,13 +35,36 @@ func main() {
 	//-----
 
 	api := echo.New()
+
 	api.Use(middleware.Logger())
 	api.Use(middleware.Recover())
+	api.Pre(middleware.AddTrailingSlash())
+
+	api.Use(sentryecho.New(sentryecho.Options{
+		Repanic: true,
+	}))
+
+	api.Use(func(next echo.HandlerFunc) echo.HandlerFunc {
+		return func(ctx echo.Context) error {
+			if hub := sentryecho.GetHubFromContext(ctx); hub != nil {
+				hub.Scope().SetTag("someRandomTag", "maybeYouNeedIt")
+			}
+			return next(ctx)
+		}
+	})
+
 	api.Renderer = t
 	api.Validator = &CustomValidator{validator: validator.New()}
 
-	hosts["api." + os.Getenv("HOST") + ":" + os.Getenv("PORT")] = &Host{api}
+	var hostString string
 
+	if os.Getenv("HOST") == "loonify.herokuapp.com" {
+		hostString = os.Getenv("HOST") + ":" + os.Getenv("PORT") + "/api"
+	} else {
+		hostString = "api." + os.Getenv("HOST") + ":" + os.Getenv("PORT")
+	}
+
+	hosts[hostString] = &Host{api}
 	routes.InitAPI(api)
 
 	//---------
@@ -72,14 +73,7 @@ func main() {
 
 	site := echo.New()
 
-	site.Use(middleware.Logger())
-	site.Use(middleware.Recover())
-	site.Pre(middleware.AddTrailingSlash())
-
-	hosts[os.Getenv("HOST") + ":" + os.Getenv("PORT")] = &Host{site}
-
-	//p := prometheus.NewPrometheus("echo", nil)
-	//p.Use(site)
+	hosts[os.Getenv("HOST")+":"+os.Getenv("PORT")] = &Host{site}
 
 	nuxtStatic, err := filepath.Abs("frontend/dist/_nuxt")
 	if err != nil {
@@ -103,6 +97,14 @@ func main() {
 	e := echo.New()
 	e.HideBanner = true
 
+	e.Use(middleware.Logger())
+	e.Use(middleware.Recover())
+	e.Pre(middleware.AddTrailingSlash())
+
+	e.Use(sentryecho.New(sentryecho.Options{
+		Repanic: true,
+	}))
+
 	e.Any("/*", func(c echo.Context) (err error) {
 		req := c.Request()
 		res := c.Response()
@@ -117,6 +119,9 @@ func main() {
 		return
 	})
 
+	//p := prometheus.NewPrometheus("echo", nil)
+	//p.Use(e)
+
 	loonifile, err := ioutil.ReadFile("loonify.txt")
 	if err != nil {
 		panic(err)
@@ -127,6 +132,14 @@ func main() {
 	// starting router
 	e.Logger.Fatal(e.Start(":" + os.Getenv("PORT")))
 }
+
+const PREFIX = "---> "
+
+type (
+	Host struct {
+		Echo *echo.Echo
+	}
+)
 
 type CustomValidator struct {
 	validator *validator.Validate

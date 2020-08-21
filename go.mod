@@ -12,6 +12,7 @@ require (
 	github.com/cosmtrek/air v1.21.2 // indirect
 	github.com/creack/pty v1.1.11 // indirect
 	github.com/fatih/color v1.9.0 // indirect
+	github.com/getsentry/sentry-go v0.7.0
 	github.com/go-bongo/bongo v0.10.4
 	github.com/go-playground/validator/v10 v10.3.0
 	github.com/graphql-go/graphql v0.7.9
@@ -32,7 +33,7 @@ require (
 	go.mongodb.org/mongo-driver v1.4.0
 	golang.org/x/crypto v0.0.0-20200728195943-123391ffb6de // indirect
 	golang.org/x/net v0.0.0-20200813134508-3edf25e44fcc // indirect
-	golang.org/x/sys v0.0.0-20200819035508-9a32b3aa38f5 // indirect
+	golang.org/x/sys v0.0.0-20200819171115-d785dc25833f // indirect
 	gopkg.in/mgo.v2 v2.0.0-20190816093944-a6b53ec6cb22
 	gopkg.in/urfave/cli.v1 v1.20.0 // indirect
 )

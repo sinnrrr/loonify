@@ -20,15 +20,89 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="26644a7f-d1e5-42ca-8279-7fd42886f23a" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/loonify.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.air" beforeDir="false" afterPath="$PROJECT_DIR$/.air" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.env" beforeDir="false" afterPath="$PROJECT_DIR$/.env" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/dictionaries/sinnrrr.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dictionaries/sinnrrr.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/favicon.ico" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/.nuxt/App.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/.nuxt/axios.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/.nuxt/client.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/.nuxt/components/nuxt-build-indicator.vue" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/.nuxt/components/nuxt-child.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/.nuxt/components/nuxt-error.vue" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/.nuxt/components/nuxt-link.client.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/.nuxt/components/nuxt-link.server.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/.nuxt/components/nuxt-loading.vue" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/.nuxt/components/nuxt.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/.nuxt/empty.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/.nuxt/index.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/.nuxt/jsonp.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/.nuxt/lib.plugin.98a29416.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/.nuxt/loading.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/.nuxt/middleware.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/.nuxt/mixins/fetch.client.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/.nuxt/mixins/fetch.server.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/.nuxt/nuxt-icons.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/.nuxt/nuxt/config.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/.nuxt/router.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/.nuxt/router.scrollBehavior.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/.nuxt/routes.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/.nuxt/server.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/.nuxt/utils.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/.nuxt/views/app.template.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/.nuxt/views/error.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/.nuxt/workbox.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/components/Animation.vue" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/components/Arrow.vue" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/components/Navbar.vue" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/components/Pointer.vue" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/components/Search.vue" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/dist/.nojekyll" beforeDir="false" afterPath="$PROJECT_DIR$/dev.sh" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/dist/200.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/dist/README.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/dist/_nuxt/9.c75fb10.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/dist/_nuxt/LICENSES" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/dist/_nuxt/app.455ba6f.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/dist/_nuxt/commons/app.9e6589f.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/dist/_nuxt/icons/icon_120.5f6a36.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/dist/_nuxt/icons/icon_144.5f6a36.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/dist/_nuxt/icons/icon_152.5f6a36.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/dist/_nuxt/icons/icon_192.5f6a36.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/dist/_nuxt/icons/icon_384.5f6a36.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/dist/_nuxt/icons/icon_512.5f6a36.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/dist/_nuxt/icons/icon_64.5f6a36.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/dist/_nuxt/manifest.88120ebc.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/dist/_nuxt/pages/about.0dbd991.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/dist/_nuxt/pages/account.0ec6996.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/dist/_nuxt/pages/index.5d846ea.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/dist/_nuxt/pages/language.e3e7344.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/dist/_nuxt/pages/office.ca6b4fc.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/dist/_nuxt/pages/search.64fdb8f.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/dist/_nuxt/runtime.bf224ce.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/dist/about/index.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/dist/account/index.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/dist/arrow.svg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/dist/css/components.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/dist/css/global.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/dist/favicon.ico" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/dist/icon.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/dist/index.svg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/dist/language/index.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/dist/office/index.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/dist/search/index.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/dist/sw.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/pages/about.vue" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/pages/account.vue" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/pages/language.vue" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/pages/office.vue" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/pages/search.vue" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/static/arrow.svg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/static/css/components.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/static/css/global.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/static/index.svg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/static/loonify.svg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/static/sw.js" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/main.go" beforeDir="false" afterPath="$PROJECT_DIR$/main.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/routes.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/routes/api/api.go" beforeDir="false" afterPath="$PROJECT_DIR$/routes/api.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/routes/api/v1/v1.go" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -73,14 +147,15 @@
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="nodejs_package_manager_path" value="npm" />
     <property name="settings.editor.selected.configurable" value="preferences.pluginManager" />
+    <property name="ts.external.directory.path" value="$APPLICATION_HOME_DIR$/plugins/JavaScriptLanguage/jsLanguageServicesImpl/external" />
   </component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/frontend/assets/scss" />
       <recent name="$PROJECT_DIR$/routes" />
       <recent name="$PROJECT_DIR$" />
       <recent name="$PROJECT_DIR$/db" />
       <recent name="$PROJECT_DIR$/api/v1" />
-      <recent name="$PROJECT_DIR$/models" />
     </key>
   </component>
   <component name="RestClientSettings">
@@ -124,6 +199,11 @@
     </option>
     <option name="oldMeFiltersMigrated" value="true" />
   </component>
+  <component name="VcsManagerConfiguration">
+    <ignored-roots>
+      <path value="$PROJECT_DIR$/frontend" />
+    </ignored-roots>
+  </component>
   <component name="VgoProject">
     <integration-enabled>true</integration-enabled>
   </component>
@@ -136,18 +216,18 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="752" y="353" key="#Go_Modules/0.0.1920.1040@0.0.1920.1040" timestamp="1596734112741" />
-    <state x="705" y="345" width="507" height="388" key="#com.intellij.fileTypes.FileTypeChooser" timestamp="1597822155958">
+    <state x="705" y="345" width="507" height="388" key="#com.intellij.fileTypes.FileTypeChooser" timestamp="1597830387285">
       <screen x="0" y="0" width="1920" height="1080" />
     </state>
-    <state x="705" y="345" width="507" height="388" key="#com.intellij.fileTypes.FileTypeChooser/0.0.1920.1080@0.0.1920.1080" timestamp="1597822155958" />
+    <state x="705" y="345" width="507" height="388" key="#com.intellij.fileTypes.FileTypeChooser/0.0.1920.1080@0.0.1920.1080" timestamp="1597830387285" />
     <state x="543" y="278" width="824" height="522" key="IDE.errors.dialog" timestamp="1597736033081">
       <screen x="0" y="0" width="1920" height="1080" />
     </state>
     <state x="543" y="278" width="824" height="522" key="IDE.errors.dialog/0.0.1920.1080@0.0.1920.1080" timestamp="1597736033081" />
-    <state x="464" y="175" key="SettingsEditor" timestamp="1597757621874">
+    <state x="464" y="175" key="SettingsEditor" timestamp="1597928115213">
       <screen x="0" y="0" width="1920" height="1080" />
     </state>
-    <state x="464" y="175" key="SettingsEditor/0.0.1920.1080@0.0.1920.1080" timestamp="1597757621874" />
+    <state x="464" y="175" key="SettingsEditor/0.0.1920.1080@0.0.1920.1080" timestamp="1597928115213" />
     <state x="100" y="100" width="1720" height="880" maximized="true" key="com.intellij.history.integration.ui.views.FileHistoryDialog" timestamp="1597757269288">
       <screen x="0" y="0" width="1920" height="1080" />
     </state>
@@ -156,10 +236,10 @@
       <screen x="0" y="0" width="1920" height="1080" />
     </state>
     <state x="578" y="153" width="754" height="771" key="com.intellij.openapi.editor.actions.MultiplePasteAction$ClipboardContentChooser/0.0.1920.1080@0.0.1920.1080" timestamp="1597733234589" />
-    <state x="511" y="72" width="1156" height="962" key="find.popup" timestamp="1597818936204">
+    <state x="511" y="72" width="1156" height="962" key="find.popup" timestamp="1597839942738">
       <screen x="0" y="0" width="1920" height="1080" />
     </state>
-    <state x="511" y="72" width="1156" height="962" key="find.popup/0.0.1920.1080@0.0.1920.1080" timestamp="1597818936204" />
+    <state x="511" y="72" width="1156" height="962" key="find.popup/0.0.1920.1080@0.0.1920.1080" timestamp="1597839942738" />
     <state x="623" y="239" width="672" height="678" key="search.everywhere.popup" timestamp="1597735855764">
       <screen x="0" y="0" width="1920" height="1080" />
     </state>
