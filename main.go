@@ -2,12 +2,12 @@ package main
 
 import (
 	"fmt"
-	"github.com/go-playground/validator/v10"
 	_ "github.com/joho/godotenv/autoload"
 	"loonify/routes"
 
 	//"github.com/labstack/echo-contrib/prometheus"
 	"github.com/getsentry/sentry-go/echo"
+	"github.com/go-playground/validator/v10"
 	"github.com/labstack/echo/v4"
 	"github.com/labstack/echo/v4/middleware"
 	"html/template"
@@ -56,8 +56,15 @@ func main() {
 	api.Renderer = t
 	api.Validator = &CustomValidator{validator: validator.New()}
 
-	hosts["api."+os.Getenv("HOST")+":"+os.Getenv("PORT")] = &Host{api}
+	var hostString string
 
+	if os.Getenv("HOST") == "loonify.herokuapp.com" {
+		hostString = os.Getenv("HOST") + ":" + os.Getenv("PORT") + "/api"
+	} else {
+		hostString = "api." + os.Getenv("HOST") + ":" + os.Getenv("PORT")
+	}
+
+	hosts[hostString] = &Host{api}
 	routes.InitAPI(api)
 
 	//---------
@@ -65,14 +72,6 @@ func main() {
 	//---------
 
 	site := echo.New()
-
-	site.Use(middleware.Logger())
-	site.Use(middleware.Recover())
-	site.Pre(middleware.AddTrailingSlash())
-
-	site.Use(sentryecho.New(sentryecho.Options{
-		Repanic: true,
-	}))
 
 	hosts[os.Getenv("HOST")+":"+os.Getenv("PORT")] = &Host{site}
 
@@ -97,6 +96,14 @@ func main() {
 
 	e := echo.New()
 	e.HideBanner = true
+
+	e.Use(middleware.Logger())
+	e.Use(middleware.Recover())
+	e.Pre(middleware.AddTrailingSlash())
+
+	e.Use(sentryecho.New(sentryecho.Options{
+		Repanic: true,
+	}))
 
 	e.Any("/*", func(c echo.Context) (err error) {
 		req := c.Request()
