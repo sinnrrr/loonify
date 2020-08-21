@@ -90,7 +90,7 @@ func main() {
 	site.Static("/_nuxt", nuxtStatic)
 
 	if isHeroku {
-		hosts[os.Getenv("HOST")] = &Host{site}
+		hosts[os.Getenv("HOST") + "/"] = &Host{site}
 	} else {
 		hosts[os.Getenv("HOST")+":"+os.Getenv("PORT")] = &Host{site}
 	}
