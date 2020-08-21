@@ -2,14 +2,11 @@ package v1
 
 import (
 	"github.com/Kamva/mgm/v3"
-	"github.com/go-playground/validator/v10"
 	"github.com/labstack/echo/v4"
 	"go.mongodb.org/mongo-driver/bson"
 	"loonify/models"
 	"net/http"
 )
-
-var validate = validator.New()
 
 /*GetUsers handler*/
 func QueryUsers() echo.HandlerFunc {
