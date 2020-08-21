@@ -59,7 +59,7 @@ func main() {
 	var hostString string
 
 	if os.Getenv("HOST") == "loonify.herokuapp.com" {
-		hostString = "0.0.0.0" + os.Getenv("POST") + "/api"
+		hostString = "127.0.0.1" + os.Getenv("POST") + "/api"
 	} else {
 		hostString = "api." + os.Getenv("HOST") + ":" + os.Getenv("PORT")
 	}
