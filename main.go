@@ -110,7 +110,7 @@ func main() {
 		req := c.Request()
 		res := c.Response()
 
-		fmt.Print(req.Host)
+		fmt.Println(PREFIX + req.URL.String())
 
 		host := hosts[req.Host]
 
