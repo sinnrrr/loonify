@@ -110,6 +110,8 @@ func main() {
 		req := c.Request()
 		res := c.Response()
 
+		fmt.Println(PREFIX + req.Host + req.URL.String())
+
 		host := hosts[req.Host + req.URL.String()]
 
 		if host == nil {
