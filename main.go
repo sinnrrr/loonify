@@ -108,6 +108,7 @@ func main() {
 	e.Any("/*", func(c echo.Context) (err error) {
 		req := c.Request()
 		res := c.Response()
+		fmt.Println(req.Host)
 		host := hosts[req.Host]
 
 		if host == nil {
