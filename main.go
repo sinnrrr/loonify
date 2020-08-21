@@ -56,24 +56,19 @@ func main() {
 	api.Renderer = t
 	api.Validator = &CustomValidator{validator: validator.New()}
 
-	var hostString string
-
-	if os.Getenv("HOST") == "loonify.herokuapp.com" {
-		hostString = "127.0.0.1" + os.Getenv("POST") + "/api"
-	} else {
-		hostString = "api." + os.Getenv("HOST") + ":" + os.Getenv("PORT")
-	}
-
-	hosts[hostString] = &Host{api}
 	routes.InitAPI(api)
+
+	if isHeroku {
+		hosts[os.Getenv("HOST")+"/api"] = &Host{api}
+	} else {
+		hosts["api."+os.Getenv("HOST")+":"+os.Getenv("PORT")] = &Host{api}
+	}
 
 	//---------
 	// Website
 	//---------
 
 	site := echo.New()
-
-	hosts[os.Getenv("HOST")+":"+os.Getenv("PORT")] = &Host{site}
 
 	nuxtStatic, err := filepath.Abs("frontend/dist/_nuxt")
 	if err != nil {
@@ -94,6 +89,12 @@ func main() {
 	site.Static("/static", myStatic)
 	site.Static("/_nuxt", nuxtStatic)
 
+	if isHeroku {
+		hosts[os.Getenv("HOST")] = &Host{site}
+	} else {
+		hosts[os.Getenv("HOST")+":"+os.Getenv("PORT")] = &Host{site}
+	}
+
 	e := echo.New()
 	e.HideBanner = true
 
@@ -108,7 +109,7 @@ func main() {
 	e.Any("/*", func(c echo.Context) (err error) {
 		req := c.Request()
 		res := c.Response()
-		fmt.Println(req.Host)
+
 		host := hosts[req.Host]
 
 		if host == nil {
@@ -134,6 +135,8 @@ func main() {
 	// starting router
 	e.Logger.Fatal(e.Start(":" + os.Getenv("PORT")))
 }
+
+var isHeroku = os.Getenv("HOST") == "loonify.herokuapp.com"
 
 const PREFIX = "---> "
 
