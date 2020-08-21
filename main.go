@@ -128,6 +128,7 @@ func main() {
 	}
 
 	fmt.Println(string(loonifile))
+	fmt.Println(os.Getenv("HOST"))
 
 	// starting router
 	e.Logger.Fatal(e.Start(":" + os.Getenv("PORT")))
