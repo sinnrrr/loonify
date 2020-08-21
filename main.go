@@ -59,7 +59,7 @@ func main() {
 	routes.InitAPI(api)
 
 	if isHeroku {
-		hosts["api." + os.Getenv("HOST")] = &Host{api}
+		hosts[os.Getenv("HOST") + "/api/"] = &Host{api}
 	} else {
 		hosts["api."+os.Getenv("HOST")+":"+os.Getenv("PORT")] = &Host{api}
 	}
