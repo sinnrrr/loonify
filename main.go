@@ -112,6 +112,8 @@ func main() {
 
 		fmt.Println(hosts)
 		fmt.Println(PREFIX + req.Host + req.URL.String())
+		fmt.Println(hosts["loonify.herokuapp.com/"])
+		fmt.Println(hosts["loonify.herokuapp.com/api/"])
 
 		host := hosts[req.Host + req.URL.String()]
 
