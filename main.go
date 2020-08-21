@@ -120,6 +120,7 @@ func main() {
 				host.Echo.ServeHTTP(res, req)
 			}
 		} else {
+			api := &Host{api}
 			api.Echo.ServeHTTP(res, req)
 		}
 
