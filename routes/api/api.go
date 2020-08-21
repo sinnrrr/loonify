@@ -10,14 +10,6 @@ import (
 )
 
 func Init(api *echo.Echo, isHeroku bool) {
-	var apiGroup *echo.Group
-
-	if isHeroku {
-		apiGroup = api.Group("/api/")
-	} else {
-		apiGroup = api.Group("/")
-	}
-
 	htmlV1Path, err := filepath.Abs("api/v1/welcome/*.html")
 	if err != nil {
 		panic(err)
@@ -27,10 +19,20 @@ func Init(api *echo.Echo, isHeroku bool) {
 		templates: template.Must(template.ParseGlob(htmlV1Path)),
 	}
 
-	V1Group(apiGroup)
 	api.Renderer = t
 
-	//RegisterRedirectToCurrent(api)
+	var url string
+
+	if isHeroku {
+		url = "/api/"
+	} else {
+		url = "/"
+	}
+
+	apiGroup := api.Group(url)
+	V1Group(apiGroup)
+
+	RegisterRedirectToCurrent(api, url)
 }
 
 func V1Group(api *echo.Group) {
@@ -79,8 +81,8 @@ func CategoriesV1Group(v1Group *echo.Group) {
 	categories.DELETE("/:id/", v1.DeleteLocation())
 }
 
-func RegisterRedirectToCurrent(api *echo.Echo) {
-	api.GET("/api/", func(c echo.Context) error {
+func RegisterRedirectToCurrent(api *echo.Echo, url string) {
+	api.GET(url, func(c echo.Context) error {
 		return c.Redirect(http.StatusSeeOther, api.Reverse("api.current"))
 	})
 }

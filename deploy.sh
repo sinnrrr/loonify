@@ -1,4 +1,7 @@
 git add .
 git commit -am "commit by script"
 git push heroku develop:master
-heroku logs --tail
+if [ $# -eq 0 ]
+  then
+    heroku logs --tail
+fi
