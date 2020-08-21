@@ -59,7 +59,7 @@ func main() {
 	routes.InitAPI(api)
 
 	if isHeroku {
-		hosts[os.Getenv("HOST") + "/api/"] = &Host{api}
+		hosts[os.Getenv("HOST") + "/api"] = &Host{api}
 	} else {
 		hosts["api."+os.Getenv("HOST")+":"+os.Getenv("PORT")] = &Host{api}
 	}
@@ -90,7 +90,7 @@ func main() {
 	site.Static("/_nuxt", nuxtStatic)
 
 	if isHeroku {
-		hosts[os.Getenv("HOST") + "/"] = &Host{site}
+		hosts[os.Getenv("HOST")] = &Host{site}
 	} else {
 		hosts[os.Getenv("HOST")+":"+os.Getenv("PORT")] = &Host{site}
 	}
@@ -100,7 +100,7 @@ func main() {
 
 	e.Use(middleware.Logger())
 	e.Use(middleware.Recover())
-	e.Pre(middleware.AddTrailingSlash())
+	e.Pre(middleware.RemoveTrailingSlash())
 
 	e.Use(sentryecho.New(sentryecho.Options{
 		Repanic: true,
