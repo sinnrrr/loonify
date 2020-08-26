@@ -22,9 +22,6 @@ WORKDIR /dist
 # Copy binary from build to main folder
 RUN cp /build/loonify .
 
-# Exposing port for local usage
-EXPOSE 8083:8083
-
 # Running app using the compiled binary
 CMD ["/dist/loonify"]
 

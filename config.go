@@ -10,6 +10,14 @@ import (
 	"time"
 )
 
+var URI = fmt.Sprintf(
+	"mongodb+srv://%s:%s@%s/%s?retryWrites=true&w=majority",
+	os.Getenv("MONGODB_USER"),
+	os.Getenv("MONGODB_PASSWORD"),
+	os.Getenv("MONGODB_HOST"),
+	os.Getenv("MONGODB_DATABASE"),
+)
+
 func init() {
 	err := sentry.Init(sentry.ClientOptions{
 		Dsn: "https://8b564c636da0410db16686768a002d8d@o436209.ingest.sentry.io/5396821",
@@ -35,10 +43,8 @@ func init() {
 
 	err = mgm.SetDefaultConfig(
 		&mgm.Config{CtxTimeout: 12 * time.Second},
-		os.Getenv("DATABASE_NAME"),
-		options.Client().ApplyURI(
-			os.Getenv("MONGODB_DATABASE_URL"),
-		),
+		os.Getenv("MONGODB_DATABASE"),
+		options.Client().ApplyURI(URI),
 	)
 	if err != nil {
 		panic(err)
