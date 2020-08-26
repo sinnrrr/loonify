@@ -23,7 +23,7 @@ commit:
 	@git commit -am "makefile commit"
 
 deploy: commit
-	@git push heroku:master
+	@git push heroku develop:master
 
 push: commit
 	@git push
