@@ -22,3 +22,8 @@ push: commit
 commit:
 	@git add .
 	@git commit -am "makefile commit"
+
+merge: commit
+	@git checkout master
+	@git merge develop
+	@git checkout develop
