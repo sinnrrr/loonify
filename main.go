@@ -9,6 +9,8 @@ import (
 	"github.com/labstack/echo/v4"
 	"github.com/labstack/echo/v4/middleware"
 	"io/ioutil"
+	"loonify/config"
+	"loonify/db/redis"
 	"loonify/routes/api"
 	"loonify/routes/site"
 	"os"
@@ -16,12 +18,12 @@ import (
 
 func main() {
 	// Hosts
-	hosts := map[string]*Host{}
+	hosts := map[string]*config.Host{}
 
 	e := InitEcho()
 
-	if isHeroku {
-		api.Init(e, isHeroku)
+	if config.IsHeroku {
+		api.Init(e, config.IsHeroku)
 		site.Init(e)
 	} else {
 		e.Any("/*", func(c echo.Context) (err error) {
@@ -40,15 +42,15 @@ func main() {
 		})
 	}
 
-	if !isHeroku {
+	if !config.IsHeroku {
 		//-----
 		// API
 		//-----
 		apiEcho := echo.New()
-		apiEcho.Validator = &CustomValidator{validator: validator.New()}
-		api.Init(apiEcho, isHeroku)
+		apiEcho.Validator = &config.CustomValidator{Validator: validator.New()}
+		api.Init(apiEcho, config.IsHeroku)
 
-		hosts["api."+os.Getenv("HOST")+":"+os.Getenv("PORT")] = &Host{apiEcho}
+		hosts["api."+os.Getenv("HOST")+":"+os.Getenv("PORT")] = &config.Host{Echo: apiEcho}
 
 		//---------
 		// Website
@@ -57,33 +59,17 @@ func main() {
 		siteEcho := echo.New()
 		site.Init(siteEcho)
 
-		hosts[os.Getenv("HOST")+":"+os.Getenv("PORT")] = &Host{siteEcho}
+		hosts[os.Getenv("HOST")+":"+os.Getenv("PORT")] = &config.Host{Echo: siteEcho}
 	}
 
 	LaunchApp(e)
 }
 
-var isHeroku = os.Getenv("HOST") == "loonify.herokuapp.com"
-
-const PREFIX = "---> "
-
-type (
-	Host struct {
-		Echo *echo.Echo
-	}
-)
-
-type CustomValidator struct {
-	validator *validator.Validate
-}
-
-func (cv *CustomValidator) Validate(i interface{}) error {
-	return cv.validator.Struct(i)
-}
-
 func LaunchApp(e *echo.Echo) {
 	p := prometheus.NewPrometheus("echo", nil)
 	p.Use(e)
+
+	redis.Connect()
 
 	loonifile, err := ioutil.ReadFile("loonify.txt")
 	if err != nil {
