@@ -20,9 +20,23 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="26644a7f-d1e5-42ca-8279-7fd42886f23a" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/api/v1/base.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Makefile" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/api/v1/welcome/list.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.env" beforeDir="false" afterPath="$PROJECT_DIR$/.env" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/api/v1/users.go" beforeDir="false" afterPath="$PROJECT_DIR$/api/v1/users.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Dockerfile" beforeDir="false" afterPath="$PROJECT_DIR$/Dockerfile" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/api/v1/base.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/api/v1/welcome.go" beforeDir="false" afterPath="$PROJECT_DIR$/api/v1/welcome.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build.sh" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/deploy.sh" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dev.sh" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/docker-compose.yml" beforeDir="false" afterPath="$PROJECT_DIR$/docker-compose.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/nuxt.config.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/nuxt.config.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/pages/index.vue" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/pages/index.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/yarn.lock" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/yarn.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/go.mod" beforeDir="false" afterPath="$PROJECT_DIR$/go.mod" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/go.sum" beforeDir="false" afterPath="$PROJECT_DIR$/go.sum" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/main.go" beforeDir="false" afterPath="$PROJECT_DIR$/main.go" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -140,6 +154,10 @@
       <screen x="0" y="0" width="1920" height="1080" />
     </state>
     <state x="705" y="345" width="507" height="388" key="#com.intellij.fileTypes.FileTypeChooser/0.0.1920.1080@0.0.1920.1080" timestamp="1597830387285" />
+    <state x="490" y="191" width="920" height="695" key="FileDocumentManager.FileCacheConflict" timestamp="1598434514478">
+      <screen x="0" y="0" width="1920" height="1080" />
+    </state>
+    <state x="490" y="191" width="920" height="695" key="FileDocumentManager.FileCacheConflict/0.0.1920.1080@0.0.1920.1080" timestamp="1598434514478" />
     <state x="543" y="278" width="824" height="522" key="IDE.errors.dialog" timestamp="1597736033081">
       <screen x="0" y="0" width="1920" height="1080" />
     </state>
@@ -160,9 +178,13 @@
       <screen x="0" y="0" width="1920" height="1080" />
     </state>
     <state x="511" y="72" width="1156" height="962" key="find.popup/0.0.1920.1080@0.0.1920.1080" timestamp="1598016696381" />
-    <state x="623" y="239" width="672" height="678" key="search.everywhere.popup" timestamp="1597735855764">
+    <state x="623" y="239" width="672" height="678" key="search.everywhere.popup" timestamp="1598424684710">
       <screen x="0" y="0" width="1920" height="1080" />
     </state>
-    <state x="623" y="239" width="672" height="678" key="search.everywhere.popup/0.0.1920.1080@0.0.1920.1080" timestamp="1597735855764" />
+    <state x="623" y="239" width="672" height="678" key="search.everywhere.popup/0.0.1920.1080@0.0.1920.1080" timestamp="1598424684710" />
+    <state x="685" y="455" width="540" height="168" key="vcs.readOnlyHandler.ReadOnlyStatusDialog" timestamp="1598431034512">
+      <screen x="0" y="0" width="1920" height="1080" />
+    </state>
+    <state x="685" y="455" width="540" height="168" key="vcs.readOnlyHandler.ReadOnlyStatusDialog/0.0.1920.1080@0.0.1920.1080" timestamp="1598431034512" />
   </component>
 </project>

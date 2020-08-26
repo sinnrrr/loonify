@@ -102,6 +102,7 @@ func InitEcho() *echo.Echo {
 
 	e.Use(middleware.Logger())
 	e.Use(middleware.Recover())
+	e.Use(middleware.Secure())
 	e.Pre(middleware.AddTrailingSlash())
 
 	e.Use(sentryecho.New(sentryecho.Options{
