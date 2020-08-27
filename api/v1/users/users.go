@@ -16,10 +16,7 @@ func Query() echo.HandlerFunc {
 
 		err := mgm.Coll(&models.User{}).SimpleFind(&user, bson.D{})
 		if err != nil {
-			return c.JSON(http.StatusInternalServerError, v1.Response{
-				Status: "error",
-				Message: err.Error(),
-			})
+			return c.JSON(http.StatusInternalServerError, v1.BadResponse(err, "error"))
 		}
 
 		return c.JSON(http.StatusOK, v1.Response{
@@ -36,10 +33,7 @@ func Create() echo.HandlerFunc {
 		user := new(models.User)
 
 		if err := c.Bind(user); err != nil {
-			return c.JSON(http.StatusUnprocessableEntity, v1.Response{
-				Status: "fail",
-				Message: err.Error(),
-			})
+			return c.JSON(http.StatusUnprocessableEntity, v1.BadResponse(err, "fail"))
 		}
 
 		//if err := c.Validate(user); err != nil {
@@ -48,10 +42,7 @@ func Create() echo.HandlerFunc {
 
 		err := mgm.Coll(user).Create(user)
 		if err != nil {
-			return c.JSON(http.StatusInternalServerError, v1.Response{
-				Status: "error",
-				Message: err.Error(),
-			})
+			return c.JSON(http.StatusInternalServerError, v1.BadResponse(err, "error"))
 		}
 
 		return c.JSON(http.StatusCreated, v1.Response{
@@ -85,18 +76,12 @@ func Update() echo.HandlerFunc {
 		_ = coll.FindByID(c.Param("id"), user)
 
 		if err := c.Bind(user); err != nil {
-			return c.JSON(http.StatusUnprocessableEntity, v1.Response{
-				Status: "fail",
-				Message: err.Error(),
-			})
+			return c.JSON(http.StatusUnprocessableEntity, v1.BadResponse(err, "fail"))
 		}
 
 		err := mgm.Coll(user).Update(user)
 		if err != nil {
-			return c.JSON(http.StatusInternalServerError, v1.Response{
-				Status: "error",
-				Message: err.Error(),
-			})
+			return c.JSON(http.StatusInternalServerError, v1.BadResponse(err, "error"))
 		}
 
 		return c.JSON(http.StatusCreated, v1.Response{
@@ -116,10 +101,7 @@ func Delete() echo.HandlerFunc {
 
 		err := mgm.Coll(user).Delete(user)
 		if err != nil {
-			return c.JSON(http.StatusInternalServerError, v1.Response{
-				Status: "error",
-				Message: err.Error(),
-			})
+			return c.JSON(http.StatusInternalServerError, v1.BadResponse(err, "error"))
 		}
 
 		return c.JSON(http.StatusOK, v1.Response{
