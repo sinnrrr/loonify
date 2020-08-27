@@ -1,9 +1,8 @@
-package v1
+package welcome
 
 import (
 	"github.com/labstack/echo/v4"
 	"io/ioutil"
-	"loonify/api/v1/welcome"
 	"math/rand"
 	"net/http"
 	"path/filepath"
@@ -23,7 +22,7 @@ func Welcome() echo.HandlerFunc {
 		}
 
 		return c.Render(http.StatusOK, "index.html", map[string]interface{}{
-			"title":   welcome.Titles[rand.Intn(welcome.KEYS)],
+			"title":   Titles[rand.Intn(KEYS)],
 			"welcome": string(banner),
 		})
 	}

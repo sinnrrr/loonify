@@ -2,9 +2,16 @@ package api
 
 import (
 	"github.com/labstack/echo/v4"
+	"github.com/labstack/echo/v4/middleware"
 	"html/template"
 	"io"
-	"loonify/api/v1"
+	"loonify/api/token"
+	"loonify/api/v1/categories"
+	"loonify/api/v1/locations"
+	"loonify/api/v1/operations"
+	"loonify/api/v1/posts"
+	"loonify/api/v1/users"
+	"loonify/api/v1/welcome"
 	"net/http"
 	"path/filepath"
 )
@@ -30,55 +37,87 @@ func Init(api *echo.Echo, isHeroku bool) {
 	}
 
 	apiGroup := api.Group(url)
-	V1Group(apiGroup)
 
+	V1Group(apiGroup)
 	RegisterRedirectToCurrent(api, url)
 }
 
 func V1Group(api *echo.Group) {
 	v1Group := api.Group("v1")
-	v1Group.GET("/", v1.Welcome()).Name = "api.current"
+	v1Group.GET("/", welcome.Welcome()).Name = "api.current"
 
 	UsersV1Group(v1Group)
 	PostsV1Group(v1Group)
 	LocationsV1Group(v1Group)
 	CategoriesV1Group(v1Group)
+	OperationsV1Group(v1Group)
+}
+
+func OperationsV1Group(v1Group *echo.Group) {
+	operationsGroup := v1Group.Group("/operations")
+
+	operationsGroup.POST("/login/", operations.LogIn())
+	operationsGroup.POST("/signup/", operations.SignUp())
 }
 
 func UsersV1Group(v1Group *echo.Group) {
-	users := v1Group.Group("/users")
-	users.GET("/", v1.QueryUsers())
-	users.POST("/", v1.CreateUser())
-	users.GET("/:id/", v1.ReadUser())
-	users.PUT("/:id/", v1.UpdateUser())
-	users.DELETE("/:id/", v1.DeleteUser())
+	usersGroup := v1Group.Group(
+		"/users",
+		middleware.KeyAuth(func(key string, c echo.Context) (bool, error) {
+			return token.Verify(key)
+		}),
+	)
+
+	usersGroup.GET("/", users.Query())
+	usersGroup.POST("/", users.Create())
+	usersGroup.GET("/:id/", users.Read())
+	usersGroup.PUT("/:id/", users.Update())
+	usersGroup.DELETE("/:id/", users.Delete())
 }
 
 func PostsV1Group(v1Group *echo.Group) {
-	posts := v1Group.Group("/posts")
-	posts.GET("/", v1.QueryPosts())
-	posts.POST("/", v1.CreatePost())
-	posts.GET("/:id/", v1.ReadPost())
-	posts.PUT("/:id/", v1.UpdatePost())
-	posts.DELETE("/:id/", v1.DeletePost())
+	postsGroup := v1Group.Group(
+		"/posts",
+		middleware.KeyAuth(func(key string, c echo.Context) (bool, error) {
+			return token.Verify(key)
+		}),
+	)
+
+	postsGroup.GET("/", posts.Query())
+	postsGroup.POST("/", posts.Create())
+	postsGroup.GET("/:id/", posts.Read())
+	postsGroup.PUT("/:id/", posts.Update())
+	postsGroup.DELETE("/:id/", posts.Delete())
 }
 
 func LocationsV1Group(v1Group *echo.Group) {
-	locations := v1Group.Group("/locations")
-	locations.GET("/", v1.QueryLocations())
-	locations.POST("/", v1.CreateLocation())
-	locations.GET("/:id/", v1.ReadLocation())
-	locations.PUT("/:id/", v1.UpdateLocation())
-	locations.DELETE("/:id/", v1.DeleteLocation())
+	locationsGroup := v1Group.Group(
+		"/locations",
+		middleware.KeyAuth(func(key string, c echo.Context) (bool, error) {
+			return token.Verify(key)
+		}),
+	)
+
+	locationsGroup.GET("/", locations.Query())
+	locationsGroup.POST("/", locations.Create())
+	locationsGroup.GET("/:id/", locations.Read())
+	locationsGroup.PUT("/:id/", locations.Update())
+	locationsGroup.DELETE("/:id/", locations.Delete())
 }
 
 func CategoriesV1Group(v1Group *echo.Group) {
-	categories := v1Group.Group("/categories")
-	categories.GET("/", v1.QueryLocations())
-	categories.POST("/", v1.CreateLocation())
-	categories.GET("/:id/", v1.ReadLocation())
-	categories.PUT("/:id/", v1.UpdateLocation())
-	categories.DELETE("/:id/", v1.DeleteLocation())
+	categoriesGroup := v1Group.Group(
+		"/categories",
+		middleware.KeyAuth(func(key string, c echo.Context) (bool, error) {
+			return token.Verify(key)
+		}),
+	)
+
+	categoriesGroup.GET("/", categories.Query())
+	categoriesGroup.POST("/", categories.Create())
+	categoriesGroup.GET("/:id/", categories.Read())
+	categoriesGroup.PUT("/:id/", categories.Update())
+	categoriesGroup.DELETE("/:id/", categories.Delete())
 }
 
 func RegisterRedirectToCurrent(api *echo.Echo, url string) {
@@ -87,7 +126,7 @@ func RegisterRedirectToCurrent(api *echo.Echo, url string) {
 	})
 }
 
-func RegisterGraphQL(api *echo.Group)  {
+func RegisterGraphQL(api *echo.Group) {
 	//h, err := graphql.NewHandler(db)
 	//if err != nil {
 	//	panic(err)

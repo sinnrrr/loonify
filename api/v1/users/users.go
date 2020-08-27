@@ -1,4 +1,4 @@
-package v1
+package users
 
 import (
 	"github.com/Kamva/mgm/v3"
@@ -9,7 +9,7 @@ import (
 )
 
 /*GetUsers handler*/
-func QueryUsers() echo.HandlerFunc {
+func Query() echo.HandlerFunc {
 	return func(c echo.Context) error {
 		var user []models.User
 
@@ -23,7 +23,7 @@ func QueryUsers() echo.HandlerFunc {
 }
 
 /*CreateUser handler*/
-func CreateUser() echo.HandlerFunc {
+func Create() echo.HandlerFunc {
 	return func(c echo.Context) error {
 		user := new(models.User)
 
@@ -31,9 +31,9 @@ func CreateUser() echo.HandlerFunc {
 			return c.JSON(http.StatusUnprocessableEntity, err)
 		}
 
-		if err := c.Validate(user); err != nil {
-			return c.JSON(http.StatusUnprocessableEntity, err)
-		}
+		//if err := c.Validate(user); err != nil {
+		//	return c.JSON(http.StatusUnprocessableEntity, err)
+		//}
 
 		err := mgm.Coll(user).Create(user)
 		if err != nil {
@@ -44,7 +44,7 @@ func CreateUser() echo.HandlerFunc {
 	}
 }
 
-func ReadUser() echo.HandlerFunc {
+func Read() echo.HandlerFunc {
 	return func(c echo.Context) error {
 		user := &models.User{}
 		coll := mgm.Coll(user)
@@ -55,7 +55,7 @@ func ReadUser() echo.HandlerFunc {
 	}
 }
 
-func UpdateUser() echo.HandlerFunc {
+func Update() echo.HandlerFunc {
 	return func(c echo.Context) error {
 		user := &models.User{}
 		coll := mgm.Coll(user)
@@ -71,11 +71,11 @@ func UpdateUser() echo.HandlerFunc {
 			return c.JSON(http.StatusInternalServerError, err)
 		}
 
-		return c.JSON(http.StatusOK, user)
+		return c.JSON(http.StatusCreated, user)
 	}
 }
 
-func DeleteUser() echo.HandlerFunc {
+func Delete() echo.HandlerFunc {
 	return func(c echo.Context) error {
 		user := &models.User{}
 		coll := mgm.Coll(user)

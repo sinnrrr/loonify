@@ -6,6 +6,7 @@ import (
 	"go.mongodb.org/mongo-driver/mongo"
 	"go.mongodb.org/mongo-driver/mongo/options"
 	"go.mongodb.org/mongo-driver/mongo/readpref"
+	"os"
 	"time"
 )
 
@@ -26,7 +27,7 @@ func Connect() (*mongo.Client, error) {
 		return nil, err
 	}
 
-	fmt.Println("Connection to Redis established successfully!")
+	fmt.Println(os.Getenv("PREFIX") + "Connection to MongoDB established successfully!")
 
 	return client, nil
 }

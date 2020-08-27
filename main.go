@@ -5,12 +5,10 @@ import (
 	"github.com/getsentry/sentry-go/echo"
 	"github.com/go-playground/validator/v10"
 	_ "github.com/joho/godotenv/autoload"
-	"github.com/labstack/echo-contrib/prometheus"
 	"github.com/labstack/echo/v4"
 	"github.com/labstack/echo/v4/middleware"
 	"io/ioutil"
 	"loonify/config"
-	"loonify/db/redis"
 	"loonify/routes/api"
 	"loonify/routes/site"
 	"os"
@@ -21,6 +19,27 @@ func main() {
 	hosts := map[string]*config.Host{}
 
 	e := InitEcho()
+
+	if !config.IsHeroku {
+		//-----
+		// API
+		//-----
+		apiEcho := echo.New()
+		apiEcho.Validator = &config.CustomValidator{Validator: validator.New()}
+
+		api.Init(apiEcho, config.IsHeroku)
+
+		hosts["api."+os.Getenv("HOST")+":"+os.Getenv("PORT")] = &config.Host{Echo: apiEcho}
+
+		//---------
+		// Website
+		//---------
+
+		siteEcho := echo.New()
+		site.Init(siteEcho)
+
+		hosts[os.Getenv("HOST")+":"+os.Getenv("PORT")] = &config.Host{Echo: siteEcho}
+	}
 
 	if config.IsHeroku {
 		api.Init(e, config.IsHeroku)
@@ -42,35 +61,10 @@ func main() {
 		})
 	}
 
-	if !config.IsHeroku {
-		//-----
-		// API
-		//-----
-		apiEcho := echo.New()
-		apiEcho.Validator = &config.CustomValidator{Validator: validator.New()}
-		api.Init(apiEcho, config.IsHeroku)
-
-		hosts["api."+os.Getenv("HOST")+":"+os.Getenv("PORT")] = &config.Host{Echo: apiEcho}
-
-		//---------
-		// Website
-		//---------
-
-		siteEcho := echo.New()
-		site.Init(siteEcho)
-
-		hosts[os.Getenv("HOST")+":"+os.Getenv("PORT")] = &config.Host{Echo: siteEcho}
-	}
-
 	LaunchApp(e)
 }
 
 func LaunchApp(e *echo.Echo) {
-	p := prometheus.NewPrometheus("echo", nil)
-	p.Use(e)
-
-	redis.Connect()
-
 	loonifile, err := ioutil.ReadFile("loonify.txt")
 	if err != nil {
 		panic(err)

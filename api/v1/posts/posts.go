@@ -1,4 +1,4 @@
-package v1
+package posts
 
 import (
 	"github.com/Kamva/mgm/v3"
@@ -9,7 +9,7 @@ import (
 )
 
 /*GetPosts handler*/
-func QueryPosts() echo.HandlerFunc {
+func Query() echo.HandlerFunc {
 	return func(c echo.Context) error {
 		var post []models.Post
 
@@ -23,7 +23,7 @@ func QueryPosts() echo.HandlerFunc {
 }
 
 /*CreatePost handler*/
-func CreatePost() echo.HandlerFunc {
+func Create() echo.HandlerFunc {
 	return func(c echo.Context) error {
 		post := new(models.Post)
 
@@ -40,7 +40,7 @@ func CreatePost() echo.HandlerFunc {
 	}
 }
 
-func ReadPost() echo.HandlerFunc {
+func Read() echo.HandlerFunc {
 	return func(c echo.Context) error {
 		post := &models.Post{}
 		coll := mgm.Coll(post)
@@ -51,7 +51,7 @@ func ReadPost() echo.HandlerFunc {
 	}
 }
 
-func UpdatePost() echo.HandlerFunc {
+func Update() echo.HandlerFunc {
 	return func(c echo.Context) error {
 		post := &models.Post{}
 		coll := mgm.Coll(post)
@@ -71,7 +71,7 @@ func UpdatePost() echo.HandlerFunc {
 	}
 }
 
-func DeletePost() echo.HandlerFunc {
+func Delete() echo.HandlerFunc {
 	return func(c echo.Context) error {
 		post := &models.Post{}
 		coll := mgm.Coll(post)

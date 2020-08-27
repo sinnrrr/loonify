@@ -1,4 +1,4 @@
-package v1
+package categories
 
 import (
 	"github.com/Kamva/mgm/v3"
@@ -8,7 +8,7 @@ import (
 	"net/http"
 )
 
-func QueryCategories() echo.HandlerFunc {
+func Query() echo.HandlerFunc {
 	return func(c echo.Context) error {
 		var category []models.Category
 
@@ -21,7 +21,7 @@ func QueryCategories() echo.HandlerFunc {
 	}
 }
 
-func CreateCategory() echo.HandlerFunc {
+func Create() echo.HandlerFunc {
 	return func(c echo.Context) error {
 		category := new(models.Category)
 
@@ -38,7 +38,7 @@ func CreateCategory() echo.HandlerFunc {
 	}
 }
 
-func ReadCategory() echo.HandlerFunc {
+func Read() echo.HandlerFunc {
 	return func(c echo.Context) error {
 		category := &models.Category{}
 		coll := mgm.Coll(category)
@@ -49,7 +49,7 @@ func ReadCategory() echo.HandlerFunc {
 	}
 }
 
-func UpdateCategory() echo.HandlerFunc {
+func Update() echo.HandlerFunc {
 	return func(c echo.Context) error {
 		category := &models.Category{}
 		coll := mgm.Coll(category)
@@ -69,7 +69,7 @@ func UpdateCategory() echo.HandlerFunc {
 	}
 }
 
-func DeleteCategory() echo.HandlerFunc {
+func Delete() echo.HandlerFunc {
 	return func(c echo.Context) error {
 		category := &models.Category{}
 		coll := mgm.Coll(category)

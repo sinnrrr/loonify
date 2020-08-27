@@ -1,4 +1,4 @@
-package v1
+package locations
 
 import (
 	"github.com/Kamva/mgm/v3"
@@ -8,7 +8,7 @@ import (
 	"net/http"
 )
 
-func QueryLocations() echo.HandlerFunc {
+func Query() echo.HandlerFunc {
 	return func(c echo.Context) error {
 		var location []models.Location
 
@@ -21,7 +21,7 @@ func QueryLocations() echo.HandlerFunc {
 	}
 }
 
-func CreateLocation() echo.HandlerFunc {
+func Create() echo.HandlerFunc {
 	return func(c echo.Context) error {
 		location := new(models.Location)
 
@@ -38,7 +38,7 @@ func CreateLocation() echo.HandlerFunc {
 	}
 }
 
-func ReadLocation() echo.HandlerFunc {
+func Read() echo.HandlerFunc {
 	return func(c echo.Context) error {
 		location := &models.Location{}
 		coll := mgm.Coll(location)
@@ -49,7 +49,7 @@ func ReadLocation() echo.HandlerFunc {
 	}
 }
 
-func UpdateLocation() echo.HandlerFunc {
+func Update() echo.HandlerFunc {
 	return func(c echo.Context) error {
 		location := &models.Location{}
 		coll := mgm.Coll(location)
@@ -69,7 +69,7 @@ func UpdateLocation() echo.HandlerFunc {
 	}
 }
 
-func DeleteLocation() echo.HandlerFunc {
+func Delete() echo.HandlerFunc {
 	return func(c echo.Context) error {
 		location := &models.Location{}
 		coll := mgm.Coll(location)

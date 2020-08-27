@@ -10,10 +10,9 @@ import (
 	"go.mongodb.org/mongo-driver/mongo/options"
 	"net/http"
 	"os"
+	"strconv"
 	"time"
 )
-
-const PREFIX = "---> "
 
 var IsHeroku = os.Getenv("HOST") == "loonify.herokuapp.com"
 
@@ -25,10 +24,12 @@ var MongoUri = fmt.Sprintf(
 	os.Getenv("MONGODB_DATABASE"),
 )
 
+var RedisDatabase, _ = strconv.Atoi(os.Getenv("REDIS_DATABASE"))
+
 var RedisOptions = &redis.Options{
 	Addr:     os.Getenv("REDIS_HOST") + ":" + os.Getenv("REDIS_PORT"),
 	Password: os.Getenv("REDIS_PASSWORD"),
-	DB:       0,
+	DB:       RedisDatabase,
 }
 
 type (

@@ -1,3 +1,5 @@
+include .env
+
 blah: dev
 
 start:
@@ -8,6 +10,9 @@ dev:
 
 docker:
 	@docker-compose up --build
+
+redis:
+	@redis-cli -h ${REDIS_HOST} -p ${REDIS_PORT} -a ${REDIS_PASSWORD}
 
 templates:
 	@cd frontend && yarn generate
