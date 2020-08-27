@@ -1,73 +1,65 @@
 <template>
-  <section class="index">
-    <Search />
-    <div class="about">
-      <h1>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Cupiditate ducimus incidunt nostrum. Distinctio
-        enim
-        exercitationem laborum maiores molestias nulla tempore voluptate. Cum eos facilis ipsum, labore odio quas
-        repellat unde!</h1>
-      <img src="index.svg" class="hoverable" alt="Index illustration">
+  <div class="container">
+    <div>
+      <Logo />
+      <h1 class="title">loonify</h1>
+      <div class="links">
+        <a
+          href="https://nuxtjs.org/"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="button--green"
+        >
+          Documentation
+        </a>
+        <a
+          href="https://github.com/nuxt/nuxt.js"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="button--grey"
+        >
+          GitHub
+        </a>
+      </div>
     </div>
-  </section>
+  </div>
 </template>
 
-<script>
-  import Search from "~/components/Search"
+<script lang="ts">
+import Vue from 'vue'
 
-  export default {
-    components: {
-      Search
-    },
-    transition(to, from) {
-      if (to.name === "index") {
-        return 'fade'
-      } else {
-        return to.params.animation
-      }
-    }
-  }
+export default Vue.extend({})
 </script>
 
-<style scoped>
-  * {
-    font-family: 'Rubik', sans-serif;
-  }
+<style>
+.container {
+  margin: 0 auto;
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
 
-  section.index {
-    position: relative;
-    display: flex;
-    flex-direction: column;
-    flex-grow: 1;
-  }
+.title {
+  font-family: 'Quicksand', 'Source Sans Pro', -apple-system, BlinkMacSystemFont,
+    'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+  display: block;
+  font-weight: 300;
+  font-size: 100px;
+  color: #35495e;
+  letter-spacing: 1px;
+}
 
-  section.index > div {
-    margin: 0 3rem;
-  }
+.subtitle {
+  font-weight: 300;
+  font-size: 42px;
+  color: #526488;
+  word-spacing: 5px;
+  padding-bottom: 15px;
+}
 
-  div.about {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
-
-  h1 {
-    font-weight: 900;
-    font-size: 32px;
-    max-width: 600px;
-  }
-
-  img {
-    width: 100%;
-    height: auto;
-    max-width: 600px;
-    max-height: 60vh;
-    margin-bottom: 1rem;
-    -webkit-user-drag: none;
-  }
-
-  @media screen and (max-width: 992px) {
-    div.about {
-      flex-direction: column-reverse;
-    }
-  }
+.links {
+  padding-top: 15px;
+}
 </style>

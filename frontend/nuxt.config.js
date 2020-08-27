@@ -1,70 +1,76 @@
 export default {
-  mode: 'universal',
   /*
-  ** Headers of the page
-  */
+   ** Nuxt rendering mode
+   ** See https://nuxtjs.org/api/configuration-mode
+   */
+  mode: 'spa',
+  /*
+   ** Nuxt target
+   ** See https://nuxtjs.org/api/configuration-target
+   */
+  target: 'static',
+  /*
+   ** Headers of the page
+   ** See https://nuxtjs.org/api/configuration-head
+   */
   head: {
     title: process.env.npm_package_name || '',
     meta: [
-      {charset: 'utf-8'},
-      {name: 'viewport', content: 'width=device-width, initial-scale=1'},
-      {hid: 'description', name: 'description', content: process.env.npm_package_description || ''}
-    ],
-    link: [
-      {rel: 'icon', type: 'image/x-icon', href: '/favicon.ico'},
+      { charset: 'utf-8' },
+      { name: 'viewport', content: 'width=device-width, initial-scale=1' },
       {
-        rel: 'stylesheet',
-        href: 'https://fonts.googleapis.com/css2?family=Rubik+Mono+One&family=Rubik:wght@400;500;700;900&display=swap'
-      }
+        hid: 'description',
+        name: 'description',
+        content: process.env.npm_package_description || '',
+      },
     ],
-    script: [
-      { src: 'https://cdnjs.cloudflare.com/ajax/libs/gsap/3.3.4/gsap.min.js' }
-    ],
+    link: [{ rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }],
   },
   /*
-  ** Customize the progress-bar color
-  */
-  loading: {color: '#fff'},
+   ** Global CSS
+   */
+  css: [],
   /*
-  ** Global CSS
-  */
-  css: [
-    '~/static/css/global.css',
-    '~/static/css/components.css'
-  ],
-  /*
-  ** Plugins to load before mounting the App
-  */
+   ** Plugins to load before mounting the App
+   ** https://nuxtjs.org/guide/plugins
+   */
   plugins: [],
   /*
-  ** Nuxt.js dev-modules
-  */
+   ** Auto import components
+   ** See https://nuxtjs.org/api/configuration-components
+   */
+  components: true,
+  /*
+   ** Nuxt.js dev-modules
+   */
   buildModules: [
-    '@nuxt/typescript-build'
+    '@nuxt/typescript-build',
+    // Doc: https://github.com/nuxt-community/stylelint-module
+    '@nuxtjs/stylelint-module',
   ],
   /*
-  ** Nuxt.js modules
-  */
+   ** Nuxt.js modules
+   */
   modules: [
     // Doc: https://axios.nuxtjs.org/usage
     '@nuxtjs/axios',
     '@nuxtjs/pwa',
-    // Doc: https://github.com/nuxt-community/dotenv-module
-    '@nuxtjs/dotenv',
-    '@nuxtjs/device'
+    // Doc: https://github.com/nuxt/content
+    '@nuxt/content',
   ],
   /*
-  ** Axios module configuration
-  ** See https://axios.nuxtjs.org/options
-  */
+   ** Axios module configuration
+   ** See https://axios.nuxtjs.org/options
+   */
   axios: {},
   /*
-  ** Build configuration
-  */
-  build: {
-    /*
-    ** You can extend webpack config here
-    */
-    extend(config, ctx) {}
-  }
+   ** Content module configuration
+   ** See https://content.nuxtjs.org/configuration
+   */
+  content: {},
+  /*
+   ** Build configuration
+   ** See https://nuxtjs.org/api/configuration-build/
+   */
+  build: {},
 }

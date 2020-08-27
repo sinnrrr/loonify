@@ -2,168 +2,92 @@ package main
 
 import (
 	"fmt"
-	_ "github.com/joho/godotenv/autoload"
-	"loonify/routes"
-
-	//"github.com/labstack/echo-contrib/prometheus"
 	"github.com/getsentry/sentry-go/echo"
 	"github.com/go-playground/validator/v10"
+	_ "github.com/joho/godotenv/autoload"
 	"github.com/labstack/echo/v4"
 	"github.com/labstack/echo/v4/middleware"
-	"html/template"
-	"io"
 	"io/ioutil"
+	"loonify/config"
+	"loonify/routes/api"
+	"loonify/routes/site"
 	"os"
-	"path/filepath"
 )
 
 func main() {
 	// Hosts
-	hosts := map[string]*Host{}
+	hosts := map[string]*config.Host{}
 
-	htmlV1Path, err := filepath.Abs("api/v1/welcome/*.html")
-	if err != nil {
-		panic(err)
+	e := InitEcho()
+
+	if !config.IsHeroku {
+		//-----
+		// API
+		//-----
+		apiEcho := echo.New()
+		apiEcho.Validator = &config.CustomValidator{Validator: validator.New()}
+
+		api.Init(apiEcho, config.IsHeroku)
+
+		hosts["api."+os.Getenv("HOST")+":"+os.Getenv("PORT")] = &config.Host{Echo: apiEcho}
+
+		//---------
+		// Website
+		//---------
+
+		siteEcho := echo.New()
+		site.Init(siteEcho)
+
+		hosts[os.Getenv("HOST")+":"+os.Getenv("PORT")] = &config.Host{Echo: siteEcho}
 	}
 
-	t := &Template{
-		templates: template.Must(template.ParseGlob(htmlV1Path)),
-	}
+	if config.IsHeroku {
+		api.Init(e, config.IsHeroku)
+		site.Init(e)
+	} else {
+		e.Any("/*", func(c echo.Context) (err error) {
+			req := c.Request()
+			res := c.Response()
 
-	//-----
-	// API
-	//-----
+			host := hosts[req.Host]
 
-	api := echo.New()
-
-	api.Use(middleware.Logger())
-	api.Use(middleware.Recover())
-	api.Pre(middleware.AddTrailingSlash())
-
-	api.Use(sentryecho.New(sentryecho.Options{
-		Repanic: true,
-	}))
-
-	api.Use(func(next echo.HandlerFunc) echo.HandlerFunc {
-		return func(ctx echo.Context) error {
-			if hub := sentryecho.GetHubFromContext(ctx); hub != nil {
-				hub.Scope().SetTag("someRandomTag", "maybeYouNeedIt")
+			if host == nil {
+				err = echo.ErrNotFound
+			} else {
+				host.Echo.ServeHTTP(res, req)
 			}
-			return next(ctx)
-		}
-	})
 
-	api.Renderer = t
-	api.Validator = &CustomValidator{validator: validator.New()}
-
-	routes.InitAPI(api)
-
-	if isHeroku {
-		hosts[os.Getenv("HOST") + "/api/"] = &Host{api}
-	} else {
-		hosts["api."+os.Getenv("HOST")+":"+os.Getenv("PORT")] = &Host{api}
+			return
+		})
 	}
 
-	//---------
-	// Website
-	//---------
+	LaunchApp(e)
+}
 
-	site := echo.New()
-
-	nuxtStatic, err := filepath.Abs("frontend/dist/_nuxt")
-	if err != nil {
-		panic(err)
-	}
-
-	myStatic, err := filepath.Abs("frontend/static")
-	if err != nil {
-		panic(err)
-	}
-
-	sitePath, err := filepath.Abs("frontend/dist/index.html")
-	if err != nil {
-		panic(err)
-	}
-
-	site.File("/", sitePath)
-	site.Static("/static", myStatic)
-	site.Static("/_nuxt", nuxtStatic)
-
-	if isHeroku {
-		hosts[os.Getenv("HOST") + "/"] = &Host{site}
-	} else {
-		hosts[os.Getenv("HOST")+":"+os.Getenv("PORT")] = &Host{site}
-	}
-
-	e := echo.New()
-	e.HideBanner = true
-
-	e.Use(middleware.Logger())
-	e.Use(middleware.Recover())
-	e.Pre(middleware.AddTrailingSlash())
-
-	e.Use(sentryecho.New(sentryecho.Options{
-		Repanic: true,
-	}))
-
-	e.Any("/*", func(c echo.Context) (err error) {
-		req := c.Request()
-		res := c.Response()
-
-		fmt.Println(hosts)
-		fmt.Println(PREFIX + req.Host + req.URL.String())
-		fmt.Println(hosts["loonify.herokuapp.com/"])
-		fmt.Println(hosts["loonify.herokuapp.com/api/"])
-		fmt.Println(hosts[req.Host + req.URL.String()])
-
-		host := hosts[req.Host + req.URL.String()]
-
-		if host == nil {
-			err = echo.ErrNotFound
-		} else {
-			host.Echo.ServeHTTP(res, req)
-		}
-
-		return
-	})
-
-	//p := prometheus.NewPrometheus("echo", nil)
-	//p.Use(e)
-
+func LaunchApp(e *echo.Echo) {
 	loonifile, err := ioutil.ReadFile("loonify.txt")
 	if err != nil {
 		panic(err)
 	}
 
 	fmt.Println(string(loonifile))
-	fmt.Println(os.Getenv("HOST"))
 
 	// starting router
 	e.Logger.Fatal(e.Start(":" + os.Getenv("PORT")))
 }
 
-var isHeroku = os.Getenv("HOST") == "loonify.herokuapp.com"
+func InitEcho() *echo.Echo {
+	e := echo.New()
+	e.HideBanner = true
 
-const PREFIX = "---> "
+	e.Use(middleware.Logger())
+	e.Use(middleware.Recover())
+	e.Use(middleware.Secure())
+	e.Pre(middleware.AddTrailingSlash())
 
-type (
-	Host struct {
-		Echo *echo.Echo
-	}
-)
+	e.Use(sentryecho.New(sentryecho.Options{
+		Repanic: true,
+	}))
 
-type CustomValidator struct {
-	validator *validator.Validate
-}
-
-type Template struct {
-	templates *template.Template
-}
-
-func (t *Template) Render(w io.Writer, name string, data interface{}, c echo.Context) error {
-	return t.templates.ExecuteTemplate(w, name, data)
-}
-
-func (cv *CustomValidator) Validate(i interface{}) error {
-	return cv.validator.Struct(i)
+	return e
 }

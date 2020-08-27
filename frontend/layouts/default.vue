@@ -1,71 +1,55 @@
 <template>
-  <div class="wrapper">
-    <Navbar />
-    <nuxt/>
-    <Animation v-if="showAnimation" />
-    <Pointer v-if="this.$device.isDesktop" />
+  <div>
+    <Nuxt />
   </div>
 </template>
 
-<script>
-  import Arrow from "~/components/Arrow"
-  import Navbar from "~/components/Navbar"
-  import Pointer from "~/components/Pointer"
-  import Animation from "~/components/Animation"
-
-  export default {
-    components: {
-      Arrow,
-      Navbar,
-      Pointer,
-      Animation
-    },
-    data: () => {
-      return {
-        transition: "fade",
-        showAnimation: true,
-      }
-    },
-    mounted() {
-      setTimeout(() => {
-        document.querySelector('.animation').remove()
-        this.showAnimation = false
-      }, 3500)
-    },
-  }
-</script>
-
 <style>
-  html, body {
-    font-family: 'Source Code Pro', -apple-system, BlinkMacSystemFont, 'Segoe UI',
+html {
+  font-family: 'Source Sans Pro', -apple-system, BlinkMacSystemFont, 'Segoe UI',
     Roboto, 'Helvetica Neue', Arial, sans-serif;
-    font-size: 16px;
-    word-spacing: 1px;
-    -ms-text-size-adjust: 100%;
-    -webkit-text-size-adjust: 100%;
-    -moz-osx-font-smoothing: grayscale;
-    -webkit-font-smoothing: antialiased;
-    box-sizing: border-box;
-    overflow: hidden;
-    background-color: var(--bs-yellow);
-  }
+  font-size: 16px;
+  word-spacing: 1px;
+  -ms-text-size-adjust: 100%;
+  -webkit-text-size-adjust: 100%;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-font-smoothing: antialiased;
+  box-sizing: border-box;
+}
 
-  a:active, a:visited {
-    color: initial;
-  }
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+}
 
-  div.wrapper {
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
-  }
+.button--green {
+  display: inline-block;
+  border-radius: 4px;
+  border: 1px solid #3b8070;
+  color: #3b8070;
+  text-decoration: none;
+  padding: 10px 30px;
+}
 
-  *,
-  *:before,
-  *:after {
-    cursor: none !important;
-    box-sizing: border-box;
-    margin: 0;
-  }
+.button--green:hover {
+  color: #fff;
+  background-color: #3b8070;
+}
 
+.button--grey {
+  display: inline-block;
+  border-radius: 4px;
+  border: 1px solid #35495e;
+  color: #35495e;
+  text-decoration: none;
+  padding: 10px 30px;
+  margin-left: 15px;
+}
+
+.button--grey:hover {
+  color: #fff;
+  background-color: #35495e;
+}
 </style>

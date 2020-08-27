@@ -7,13 +7,23 @@ WORKDIR /build
 COPY go.mod .
 COPY go.sum .
 
+# Download dependencies using go modules
 RUN go mod download
-RUN go get -u github.com/cosmtrek/air
 
 # Copy the code into the container
 COPY . .
 
-RUN alias air='~/.air'
-
 # Build the application
-RUN air -c .air
+RUN go build -o loonify .
+
+# Move to /dist directory as the place for resulting binary folder
+WORKDIR /dist
+
+# Copy binary from build to main folder
+RUN cp /build/loonify .
+
+# Running app using the compiled binary
+CMD ["/dist/loonify"]
+
+# Changing directory for app access
+WORKDIR /build
