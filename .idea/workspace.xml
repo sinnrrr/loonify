@@ -21,14 +21,16 @@
   <component name="ChangeListManager">
     <list default="true" id="26644a7f-d1e5-42ca-8279-7fd42886f23a" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/api/token/token.go" beforeDir="false" afterPath="$PROJECT_DIR$/api/token/token.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/api/v1/categories/categories.go" beforeDir="false" afterPath="$PROJECT_DIR$/api/v1/categories/categories.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/api/v1/locations/locations.go" beforeDir="false" afterPath="$PROJECT_DIR$/api/v1/locations/locations.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/api/v1/operations/operations.go" beforeDir="false" afterPath="$PROJECT_DIR$/api/v1/operations/operations.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/api/v1/posts/posts.go" beforeDir="false" afterPath="$PROJECT_DIR$/api/v1/posts/posts.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/api/v1/response.go" beforeDir="false" afterPath="$PROJECT_DIR$/api/v1/response.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/api/v1/users/users.go" beforeDir="false" afterPath="$PROJECT_DIR$/api/v1/users/users.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/go.mod" beforeDir="false" afterPath="$PROJECT_DIR$/go.mod" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/go.sum" beforeDir="false" afterPath="$PROJECT_DIR$/go.sum" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/.gitignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/models/user.go" beforeDir="false" afterPath="$PROJECT_DIR$/models/user.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/routes/api/api.go" beforeDir="false" afterPath="$PROJECT_DIR$/routes/api/api.go" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -146,6 +148,10 @@
       <screen x="0" y="0" width="1920" height="1080" />
     </state>
     <state x="705" y="345" width="507" height="388" key="#com.intellij.fileTypes.FileTypeChooser/0.0.1920.1080@0.0.1920.1080" timestamp="1597830387285" />
+    <state x="2660" y="100" width="1720" height="880" key="DiffContextDialog" timestamp="1598628460949">
+      <screen x="2560" y="0" width="1920" height="1080" />
+    </state>
+    <state x="2660" y="100" width="1720" height="880" key="DiffContextDialog/0.0.2560.1440/2560.0.1920.1080@2560.0.1920.1080" timestamp="1598628460949" />
     <state x="743" y="298" width="424" height="482" key="FileChooserDialogImpl" timestamp="1598520781836">
       <screen x="0" y="0" width="1920" height="1080" />
     </state>
@@ -162,18 +168,23 @@
       <screen x="0" y="0" width="1920" height="1080" />
     </state>
     <state x="464" y="175" key="SettingsEditor/0.0.1920.1080@0.0.1920.1080" timestamp="1597928115213" />
-    <state x="100" y="100" width="1710" height="878" maximized="true" key="com.intellij.history.integration.ui.views.FileHistoryDialog" timestamp="1598013419138">
-      <screen x="0" y="0" width="1920" height="1080" />
+    <state x="2617" y="594" width="1720" height="880" key="com.intellij.history.integration.ui.views.DirectoryHistoryDialog" timestamp="1598628460949">
+      <screen x="2560" y="0" width="1920" height="1080" />
+    </state>
+    <state x="2617" y="594" width="1720" height="880" key="com.intellij.history.integration.ui.views.DirectoryHistoryDialog/0.0.2560.1440/2560.0.1920.1080@2560.0.1920.1080" timestamp="1598628460949" />
+    <state x="100" y="100" width="1710" height="878" maximized="true" key="com.intellij.history.integration.ui.views.FileHistoryDialog" timestamp="1598628796256">
+      <screen x="0" y="0" width="2560" height="1440" />
     </state>
     <state x="100" y="100" width="1710" height="878" maximized="true" key="com.intellij.history.integration.ui.views.FileHistoryDialog/0.0.1920.1080@0.0.1920.1080" timestamp="1598013419138" />
     <state x="578" y="153" width="754" height="771" key="com.intellij.openapi.editor.actions.MultiplePasteAction$ClipboardContentChooser" timestamp="1597733234589">
       <screen x="0" y="0" width="1920" height="1080" />
     </state>
     <state x="578" y="153" width="754" height="771" key="com.intellij.openapi.editor.actions.MultiplePasteAction$ClipboardContentChooser/0.0.1920.1080@0.0.1920.1080" timestamp="1597733234589" />
-    <state x="511" y="72" width="1156" height="962" key="find.popup" timestamp="1598539151692">
-      <screen x="0" y="0" width="1920" height="1080" />
+    <state x="3071" y="72" width="1156" height="962" key="find.popup" timestamp="1598628460339">
+      <screen x="2560" y="0" width="1920" height="1080" />
     </state>
     <state x="511" y="72" width="1156" height="962" key="find.popup/0.0.1920.1080@0.0.1920.1080" timestamp="1598539151692" />
+    <state x="3071" y="72" width="1156" height="962" key="find.popup/0.0.2560.1440/2560.0.1920.1080@2560.0.1920.1080" timestamp="1598628460339" />
     <state x="623" y="239" width="672" height="678" key="search.everywhere.popup" timestamp="1598517886754">
       <screen x="0" y="0" width="1920" height="1080" />
     </state>

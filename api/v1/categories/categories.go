@@ -15,7 +15,7 @@ func Query() echo.HandlerFunc {
 
 		err := mgm.Coll(&models.Category{}).SimpleFind(&category, bson.D{})
 		if err != nil {
-			return c.JSON(http.StatusInternalServerError, v1.BadResponse(err, "error"))
+			return c.JSON(http.StatusInternalServerError, v1.ErrorResponse(err))
 		}
 
 		return c.JSON(http.StatusOK, v1.Response{
@@ -31,12 +31,12 @@ func Create() echo.HandlerFunc {
 		category := new(models.Category)
 
 		if err := c.Bind(category); err != nil {
-			return c.JSON(http.StatusUnprocessableEntity, v1.BadResponse(err, "fail"))
+			return c.JSON(http.StatusUnprocessableEntity, v1.FailResponse(err))
 		}
 
 		err := mgm.Coll(category).Create(category)
 		if err != nil {
-			return c.JSON(http.StatusInternalServerError, v1.BadResponse(err, "error"))
+			return c.JSON(http.StatusInternalServerError, v1.ErrorResponse(err))
 		}
 
 		return c.JSON(http.StatusCreated, v1.Response{
@@ -70,12 +70,12 @@ func Update() echo.HandlerFunc {
 		_ = coll.FindByID(c.Param("id"), category)
 
 		if err := c.Bind(category); err != nil {
-			return c.JSON(http.StatusUnprocessableEntity, v1.BadResponse(err, "fail"))
+			return c.JSON(http.StatusUnprocessableEntity, v1.FailResponse(err))
 		}
 
 		err := mgm.Coll(category).Update(category)
 		if err != nil {
-			return c.JSON(http.StatusInternalServerError, v1.BadResponse(err, "error"))
+			return c.JSON(http.StatusInternalServerError, v1.ErrorResponse(err))
 		}
 
 		return c.JSON(http.StatusOK, v1.Response{
@@ -95,7 +95,7 @@ func Delete() echo.HandlerFunc {
 
 		err := mgm.Coll(category).Delete(category)
 		if err != nil {
-			return c.JSON(http.StatusInternalServerError, v1.BadResponse(err, "error"))
+			return c.JSON(http.StatusInternalServerError, v1.ErrorResponse(err))
 		}
 
 		return c.JSON(http.StatusOK, v1.Response{

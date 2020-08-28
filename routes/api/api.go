@@ -2,7 +2,6 @@ package api
 
 import (
 	"github.com/labstack/echo/v4"
-	"github.com/labstack/echo/v4/middleware"
 	"html/template"
 	"io"
 	"loonify/api/token"
@@ -61,63 +60,45 @@ func OperationsV1Group(v1Group *echo.Group) {
 }
 
 func UsersV1Group(v1Group *echo.Group) {
-	usersGroup := v1Group.Group(
-		"/users",
-		middleware.KeyAuth(func(key string, c echo.Context) (bool, error) {
-			return token.Verify(key)
-		}),
-	)
+	usersGroup := v1Group.Group("/users")
 
-	usersGroup.GET("/", users.Query())
-	usersGroup.POST("/", users.Create())
+	usersGroup.GET("/", users.Query(), token.InitMiddleware("user", "query"))
+	usersGroup.POST("/", users.Create(), token.InitMiddleware("user", "create"))
 	usersGroup.GET("/:id/", users.Read())
-	usersGroup.PUT("/:id/", users.Update())
-	usersGroup.DELETE("/:id/", users.Delete())
+	usersGroup.PUT("/:id/", users.Update(), token.InitMiddleware("user", "update"))
+	usersGroup.DELETE("/:id/", users.Delete(), token.InitMiddleware("user", "delete"))
+
+	usersGroup.GET("/me/", users.Me(), token.InitMiddleware("user", "read"))
 }
 
 func PostsV1Group(v1Group *echo.Group) {
-	postsGroup := v1Group.Group(
-		"/posts",
-		middleware.KeyAuth(func(key string, c echo.Context) (bool, error) {
-			return token.Verify(key)
-		}),
-	)
+	postsGroup := v1Group.Group("/posts")
 
 	postsGroup.GET("/", posts.Query())
-	postsGroup.POST("/", posts.Create())
+	postsGroup.POST("/", posts.Create(), token.InitMiddleware("post", "create"))
 	postsGroup.GET("/:id/", posts.Read())
-	postsGroup.PUT("/:id/", posts.Update())
-	postsGroup.DELETE("/:id/", posts.Delete())
+	postsGroup.PUT("/:id/", posts.Update(), token.InitMiddleware("post", "update"))
+	postsGroup.DELETE("/:id/", posts.Delete(), token.InitMiddleware("post", "delete"))
 }
 
 func LocationsV1Group(v1Group *echo.Group) {
-	locationsGroup := v1Group.Group(
-		"/locations",
-		middleware.KeyAuth(func(key string, c echo.Context) (bool, error) {
-			return token.Verify(key)
-		}),
-	)
+	locationsGroup := v1Group.Group("/locations")
 
-	locationsGroup.GET("/", locations.Query())
-	locationsGroup.POST("/", locations.Create())
+	locationsGroup.GET("/", locations.Query(), token.InitMiddleware("location", "query"))
+	locationsGroup.POST("/", locations.Create(), token.InitMiddleware("location", "create"))
 	locationsGroup.GET("/:id/", locations.Read())
-	locationsGroup.PUT("/:id/", locations.Update())
-	locationsGroup.DELETE("/:id/", locations.Delete())
+	locationsGroup.PUT("/:id/", locations.Update(), token.InitMiddleware("location", "update"))
+	locationsGroup.DELETE("/:id/", locations.Delete(), token.InitMiddleware("location", "delete"))
 }
 
 func CategoriesV1Group(v1Group *echo.Group) {
-	categoriesGroup := v1Group.Group(
-		"/categories",
-		middleware.KeyAuth(func(key string, c echo.Context) (bool, error) {
-			return token.Verify(key)
-		}),
-	)
+	categoriesGroup := v1Group.Group("/categories")
 
 	categoriesGroup.GET("/", categories.Query())
-	categoriesGroup.POST("/", categories.Create())
+	categoriesGroup.POST("/", categories.Create(), token.InitMiddleware("category", "query"))
 	categoriesGroup.GET("/:id/", categories.Read())
-	categoriesGroup.PUT("/:id/", categories.Update())
-	categoriesGroup.DELETE("/:id/", categories.Delete())
+	categoriesGroup.PUT("/:id/", categories.Update(), token.InitMiddleware("category", "update"))
+	categoriesGroup.DELETE("/:id/", categories.Delete(), token.InitMiddleware("category", "delete"))
 }
 
 func RegisterRedirectToCurrent(api *echo.Echo, url string) {

@@ -15,7 +15,7 @@ func Query() echo.HandlerFunc {
 
 		err := mgm.Coll(&models.Location{}).SimpleFind(&location, bson.D{})
 		if err != nil {
-			return c.JSON(http.StatusInternalServerError, v1.BadResponse(err, "error"))
+			return c.JSON(http.StatusInternalServerError, v1.ErrorResponse(err))
 		}
 
 		return c.JSON(http.StatusOK, v1.Response{
@@ -31,12 +31,12 @@ func Create() echo.HandlerFunc {
 		location := new(models.Location)
 
 		if err := c.Bind(location); err != nil {
-			return c.JSON(http.StatusUnprocessableEntity, v1.BadResponse(err, "fail"))
+			return c.JSON(http.StatusUnprocessableEntity, v1.FailResponse(err))
 		}
 
 		err := mgm.Coll(location).Create(location)
 		if err != nil {
-			return c.JSON(http.StatusInternalServerError, v1.BadResponse(err, "error"))
+			return c.JSON(http.StatusInternalServerError, v1.ErrorResponse(err))
 		}
 
 		return c.JSON(http.StatusCreated, v1.Response{
@@ -70,12 +70,12 @@ func Update() echo.HandlerFunc {
 		_ = coll.FindByID(c.Param("id"), location)
 
 		if err := c.Bind(location); err != nil {
-			return c.JSON(http.StatusUnprocessableEntity, v1.BadResponse(err, "fail"))
+			return c.JSON(http.StatusUnprocessableEntity, v1.FailResponse(err))
 		}
 
 		err := mgm.Coll(location).Update(location)
 		if err != nil {
-			return c.JSON(http.StatusInternalServerError, v1.BadResponse(err, "error"))
+			return c.JSON(http.StatusInternalServerError, v1.ErrorResponse(err))
 		}
 
 		return c.JSON(http.StatusOK, v1.Response{
@@ -95,7 +95,7 @@ func Delete() echo.HandlerFunc {
 
 		err := mgm.Coll(location).Delete(location)
 		if err != nil {
-			return c.JSON(http.StatusInternalServerError, v1.BadResponse(err, "error"))
+			return c.JSON(http.StatusInternalServerError, v1.ErrorResponse(err))
 		}
 
 		return c.JSON(http.StatusOK, v1.Response{
