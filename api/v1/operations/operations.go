@@ -12,6 +12,8 @@ import (
 	"net/http"
 )
 
+var newUserAccessLevel = 0
+
 func LogIn() echo.HandlerFunc {
 	return func(c echo.Context) error {
 		var result []models.User
@@ -19,7 +21,7 @@ func LogIn() echo.HandlerFunc {
 		user := new(models.User)
 
 		if err := c.Bind(user); err != nil {
-			return c.JSON(http.StatusUnprocessableEntity, v1.BadResponse(err, "fail"))
+			return c.JSON(http.StatusUnprocessableEntity, v1.FailResponse(err))
 		}
 
 		//if err := c.Validate(user); err != nil {
@@ -28,7 +30,7 @@ func LogIn() echo.HandlerFunc {
 
 		err := mgm.Coll(&models.User{}).SimpleFind(&result, bson.M{"email": user.Email})
 		if err != nil {
-			return c.JSON(http.StatusInternalServerError, v1.BadResponse(err, "error"))
+			return c.JSON(http.StatusInternalServerError, v1.ErrorResponse(err))
 		}
 
 		if result == nil {
@@ -59,7 +61,7 @@ func SignUp() echo.HandlerFunc {
 		user := new(models.User)
 
 		if err := c.Bind(user); err != nil {
-			return c.JSON(http.StatusUnprocessableEntity, v1.BadResponse(err, "fail"))
+			return c.JSON(http.StatusUnprocessableEntity, v1.FailResponse(err))
 		}
 
 		//if err := c.Validate(user); err != nil {
@@ -68,19 +70,20 @@ func SignUp() echo.HandlerFunc {
 
 		hashedPassword, err := bcrypt.GenerateFromPassword([]byte(user.Password), bcrypt.DefaultCost)
 		if err != nil {
-			return c.JSON(http.StatusUnprocessableEntity, v1.BadResponse(err, "fail"))
+			return c.JSON(http.StatusUnprocessableEntity, v1.FailResponse(err))
+		}
+
+		generatedToken, err := token.Create(user.IDField.GetID().(primitive.ObjectID).Hex(), newUserAccessLevel)
+		if err != nil {
+			return c.JSON(http.StatusInternalServerError, v1.ErrorResponse(err))
 		}
 
 		user.Password = string(hashedPassword)
+		user.Token = generatedToken
 
 		err = mgm.Coll(user).Create(user)
 		if err != nil {
-			return c.JSON(http.StatusInternalServerError, v1.BadResponse(err, "error"))
-		}
-
-		err = token.Create(user.IDField.GetID().(primitive.ObjectID).Hex())
-		if err != nil {
-			return c.JSON(http.StatusInternalServerError, v1.BadResponse(err, "error"))
+			return c.JSON(http.StatusInternalServerError, v1.ErrorResponse(err))
 		}
 
 		return c.JSON(http.StatusOK, v1.Response{

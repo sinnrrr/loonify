@@ -6,9 +6,24 @@ type Response struct {
 	Data    interface{} `json:"data,omitempty"`
 }
 
-func BadResponse(err error, mode string) Response {
+func GoodResponse(data interface{}, message string) Response {
 	return Response{
-		Status:  mode,
+		Status: "success",
+		Message: message,
+		Data: data,
+	}
+}
+
+func ErrorResponse(err error) Response {
+	return Response{
+		Status:  "error",
+		Message: err.Error(),
+	}
+}
+
+func FailResponse(err error) Response {
+	return Response{
+		Status: "fail",
 		Message: err.Error(),
 	}
 }

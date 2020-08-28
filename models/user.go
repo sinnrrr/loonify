@@ -12,6 +12,7 @@ type User struct {
 	Email            string `bson:"email" json:"email,omitempty" validate:"email"`
 	Phone            string `bson:"phone" json:"phone,omitempty" validate:"number"`
 	Password         string `bson:"password" json:"password" validate:"required"`
+	Token            string `bson:"token" json:"token,omitempty" validate:"uuid4_rfc4122"`
 }
 
 func NewUser(
@@ -20,6 +21,7 @@ func NewUser(
 	email string,
 	phone string,
 	password string,
+	token string,
 ) *User {
 	return &User{
 		AddressID: addressID,
@@ -27,5 +29,6 @@ func NewUser(
 		Email:     email,
 		Phone:     phone,
 		Password:  password,
+		Token:     token,
 	}
 }
