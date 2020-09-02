@@ -20,16 +20,73 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="26644a7f-d1e5-42ca-8279-7fd42886f23a" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.env" beforeDir="false" afterPath="$PROJECT_DIR$/.env" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/api/token/token.go" beforeDir="false" afterPath="$PROJECT_DIR$/api/token/token.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/api/v1/categories/categories.go" beforeDir="false" afterPath="$PROJECT_DIR$/api/v1/categories/categories.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/api/v1/locations/locations.go" beforeDir="false" afterPath="$PROJECT_DIR$/api/v1/locations/locations.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/api/v1/operations/operations.go" beforeDir="false" afterPath="$PROJECT_DIR$/api/v1/operations/operations.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/api/v1/posts/posts.go" beforeDir="false" afterPath="$PROJECT_DIR$/api/v1/posts/posts.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/api/v1/response.go" beforeDir="false" afterPath="$PROJECT_DIR$/api/v1/response.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/api/v1/users/users.go" beforeDir="false" afterPath="$PROJECT_DIR$/api/v1/users/users.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/.gitignore" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/models/user.go" beforeDir="false" afterPath="$PROJECT_DIR$/models/user.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/.babelrc" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/.editorconfig" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/.eslintrc.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/.github/semantic.yml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/.prettierrc" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/README.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/assets/README.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/components/Logo.vue" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/components/README.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/content/hello.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/dist/.nojekyll" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/dist/200.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/dist/README.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/dist/_nuxt/5.711dc66.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/dist/_nuxt/LICENSES" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/dist/_nuxt/app.c3adf70.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/dist/_nuxt/content/db.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/dist/_nuxt/content/plugin.js.84c96c0.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/dist/_nuxt/icons/icon_120x120.5f6a36.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/dist/_nuxt/icons/icon_144x144.5f6a36.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/dist/_nuxt/icons/icon_152x152.5f6a36.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/dist/_nuxt/icons/icon_192x192.5f6a36.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/dist/_nuxt/icons/icon_384x384.5f6a36.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/dist/_nuxt/icons/icon_512x512.5f6a36.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/dist/_nuxt/icons/icon_64x64.5f6a36.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/dist/_nuxt/icons/splash_ipad_1536x2048.5f6a36.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/dist/_nuxt/icons/splash_ipadpro10_1668x2224.5f6a36.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/dist/_nuxt/icons/splash_ipadpro12_2048x2732.5f6a36.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/dist/_nuxt/icons/splash_ipadpro9_1536x2048.5f6a36.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/dist/_nuxt/icons/splash_iphone6_50x1334.5f6a36.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/dist/_nuxt/icons/splash_iphoneplus_1080x1920.5f6a36.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/dist/_nuxt/icons/splash_iphonese_640x1136.5f6a36.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/dist/_nuxt/icons/splash_iphonex_1125x2436.5f6a36.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/dist/_nuxt/icons/splash_iphonexr_828x1792.5f6a36.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/dist/_nuxt/icons/splash_iphonexsmax_1242x2688.5f6a36.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/dist/_nuxt/manifest.381cf3c8.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/dist/_nuxt/pages/index.ee87555.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/dist/_nuxt/runtime.97dcb14.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/dist/_nuxt/vendors/commons.fdc871c.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/dist/favicon.ico" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/dist/icon.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/dist/index.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/jest.config.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/jsconfig.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/layouts/README.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/layouts/default.vue" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/middleware/README.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/nuxt.config.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/package.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/pages/README.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/pages/index.vue" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/plugins/README.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/static/README.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/static/favicon.ico" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/static/icon.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/store/README.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/stylelint.config.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/test/Logo.spec.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/tsconfig.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/yarn.lock" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/go.mod" beforeDir="false" afterPath="$PROJECT_DIR$/go.mod" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/go.sum" beforeDir="false" afterPath="$PROJECT_DIR$/go.sum" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/main.go" beforeDir="false" afterPath="$PROJECT_DIR$/main.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/routes/api/api.go" beforeDir="false" afterPath="$PROJECT_DIR$/routes/api/api.go" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -72,7 +129,7 @@
     <property name="go.import.settings.migrated" value="true" />
     <property name="go.sdk.automatically.set" value="true" />
     <property name="go.tried.to.enable.integration.vgo.integrator" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/../test" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="nodejs_package_manager_path" value="npm" />
     <property name="settings.editor.selected.configurable" value="preferences.pluginManager" />
     <property name="ts.external.directory.path" value="$APPLICATION_HOME_DIR$/plugins/JavaScriptLanguage/jsLanguageServicesImpl/external" />
@@ -112,8 +169,9 @@
       </list>
     </option>
   </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="project-level" UseSingleDictionary="true" transferred="true" />
   <component name="TypeScriptGeneratedFilesManager">
-    <option name="version" value="2" />
+    <option name="version" value="3" />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
     <option name="TAB_STATES">
@@ -136,6 +194,10 @@
     <integration-enabled>true</integration-enabled>
   </component>
   <component name="WindowStateProjectService">
+    <state x="755" y="215" width="400" height="684" key="#GOPATH" timestamp="1599080202954">
+      <screen x="0" y="29" width="1920" height="1051" />
+    </state>
+    <state x="755" y="215" width="400" height="684" key="#GOPATH/0.29.1920.1051@0.29.1920.1051" timestamp="1599080202954" />
     <state x="755" y="473" key="#GOROOT" timestamp="1597739585725">
       <screen x="0" y="0" width="1920" height="1080" />
     </state>
