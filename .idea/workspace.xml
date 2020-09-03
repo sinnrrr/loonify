@@ -20,19 +20,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="26644a7f-d1e5-42ca-8279-7fd42886f23a" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.env" beforeDir="false" afterPath="$PROJECT_DIR$/.env" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Makefile" beforeDir="false" afterPath="$PROJECT_DIR$/Makefile" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/api/token/token.go" beforeDir="false" afterPath="$PROJECT_DIR$/api/token/token.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/api/v1/categories/categories.go" beforeDir="false" afterPath="$PROJECT_DIR$/api/v1/categories/categories.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/api/v1/locations/locations.go" beforeDir="false" afterPath="$PROJECT_DIR$/api/v1/locations/locations.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/api/v1/operations/operations.go" beforeDir="false" afterPath="$PROJECT_DIR$/api/v1/operations/operations.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/api/v1/posts/posts.go" beforeDir="false" afterPath="$PROJECT_DIR$/api/v1/posts/posts.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/api/v1/response.go" beforeDir="false" afterPath="$PROJECT_DIR$/api/v1/response.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/api/v1/users/users.go" beforeDir="false" afterPath="$PROJECT_DIR$/api/v1/users/users.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/main.go" beforeDir="false" afterPath="$PROJECT_DIR$/main.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/routes/api/api.go" beforeDir="false" afterPath="$PROJECT_DIR$/routes.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/routes/site/site.go" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

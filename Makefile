@@ -5,7 +5,7 @@ blah: dev
 start:
 	@go run .
 
-dev:
+dev: dependencies
 	@air -c ${AIR_FILE}
 
 docker:
