@@ -10,56 +10,15 @@ import (
 	"io/ioutil"
 	"loonify/config"
 	"loonify/routes/api"
-	"loonify/routes/site"
 	"os"
 )
 
 func main() {
-	// Hosts
-	hosts := map[string]*config.Host{}
-
 	e := InitEcho()
 
-	if !config.IsHeroku {
-		//-----
-		// API
-		//-----
-		apiEcho := echo.New()
-		apiEcho.Validator = &config.CustomValidator{Validator: validator.New()}
+	e.Validator = &config.CustomValidator{Validator: validator.New()}
 
-		api.Init(apiEcho, config.IsHeroku)
-
-		hosts["api."+os.Getenv("HOST")+":"+os.Getenv("PORT")] = &config.Host{Echo: apiEcho}
-
-		//---------
-		// Website
-		//---------
-
-		siteEcho := echo.New()
-		site.Init(siteEcho)
-
-		hosts[os.Getenv("HOST")+":"+os.Getenv("PORT")] = &config.Host{Echo: siteEcho}
-	}
-
-	if config.IsHeroku {
-		api.Init(e, config.IsHeroku)
-		site.Init(e)
-	} else {
-		e.Any("/*", func(c echo.Context) (err error) {
-			req := c.Request()
-			res := c.Response()
-
-			host := hosts[req.Host]
-
-			if host == nil {
-				err = echo.ErrNotFound
-			} else {
-				host.Echo.ServeHTTP(res, req)
-			}
-
-			return
-		})
-	}
+	api.Init(e)
 
 	LaunchApp(e)
 }
