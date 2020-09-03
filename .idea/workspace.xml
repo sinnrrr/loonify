@@ -20,17 +20,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="26644a7f-d1e5-42ca-8279-7fd42886f23a" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.env" beforeDir="false" afterPath="$PROJECT_DIR$/.env" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/api/token/token.go" beforeDir="false" afterPath="$PROJECT_DIR$/api/token/token.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/api/v1/categories/categories.go" beforeDir="false" afterPath="$PROJECT_DIR$/api/v1/categories/categories.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/api/v1/locations/locations.go" beforeDir="false" afterPath="$PROJECT_DIR$/api/v1/locations/locations.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/api/v1/operations/operations.go" beforeDir="false" afterPath="$PROJECT_DIR$/api/v1/operations/operations.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/api/v1/posts/posts.go" beforeDir="false" afterPath="$PROJECT_DIR$/api/v1/posts/posts.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/api/v1/response.go" beforeDir="false" afterPath="$PROJECT_DIR$/api/v1/response.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/api/v1/users/users.go" beforeDir="false" afterPath="$PROJECT_DIR$/api/v1/users/users.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/.gitignore" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/models/user.go" beforeDir="false" afterPath="$PROJECT_DIR$/models/user.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/routes/api/api.go" beforeDir="false" afterPath="$PROJECT_DIR$/routes/api/api.go" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -72,7 +63,7 @@
     <property name="go.import.settings.migrated" value="true" />
     <property name="go.sdk.automatically.set" value="true" />
     <property name="go.tried.to.enable.integration.vgo.integrator" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/../test" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="nodejs_package_manager_path" value="npm" />
     <property name="settings.editor.selected.configurable" value="preferences.pluginManager" />
     <property name="ts.external.directory.path" value="$APPLICATION_HOME_DIR$/plugins/JavaScriptLanguage/jsLanguageServicesImpl/external" />
@@ -112,8 +103,9 @@
       </list>
     </option>
   </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="project-level" UseSingleDictionary="true" transferred="true" />
   <component name="TypeScriptGeneratedFilesManager">
-    <option name="version" value="2" />
+    <option name="version" value="3" />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
     <option name="TAB_STATES">
@@ -136,6 +128,10 @@
     <integration-enabled>true</integration-enabled>
   </component>
   <component name="WindowStateProjectService">
+    <state x="755" y="215" width="400" height="684" key="#GOPATH" timestamp="1599080202954">
+      <screen x="0" y="29" width="1920" height="1051" />
+    </state>
+    <state x="755" y="215" width="400" height="684" key="#GOPATH/0.29.1920.1051@0.29.1920.1051" timestamp="1599080202954" />
     <state x="755" y="473" key="#GOROOT" timestamp="1597739585725">
       <screen x="0" y="0" width="1920" height="1080" />
     </state>

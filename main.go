@@ -15,6 +15,7 @@ import (
 
 func main() {
 	e := InitEcho()
+	e.Validator = &config.CustomValidator{Validator: validator.New()}
 
 	e.Validator = &config.CustomValidator{Validator: validator.New()}
 
