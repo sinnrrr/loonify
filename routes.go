@@ -12,17 +12,11 @@ import (
 	"loonify/api/v1/users"
 	"loonify/api/v1/welcome"
 	"net/http"
-	"path/filepath"
 )
 
 func InitRoutes(api *echo.Echo) {
-	htmlV1Path, err := filepath.Abs("api/v1/welcome/*.html")
-	if err != nil {
-		panic(err)
-	}
-
 	t := &Template{
-		templates: template.Must(template.ParseGlob(htmlV1Path)),
+		templates: template.Must(template.ParseGlob("api/v1/welcome/*.html")),
 	}
 
 	api.Renderer = t
