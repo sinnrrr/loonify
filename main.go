@@ -9,7 +9,6 @@ import (
 	"github.com/labstack/echo/v4/middleware"
 	"io/ioutil"
 	"loonify/config"
-	"loonify/routes/api"
 	"os"
 )
 
@@ -18,7 +17,7 @@ func main() {
 
 	e.Validator = &config.CustomValidator{Validator: validator.New()}
 
-	api.Init(e)
+	InitRoutes(e)
 
 	LaunchApp(e)
 }

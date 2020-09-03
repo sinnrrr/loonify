@@ -6,7 +6,7 @@ start:
 	@go run .
 
 dev:
-	@air -c .air
+	@air -c ${AIR_FILE}
 
 docker:
 	@docker-compose up --build
@@ -25,7 +25,7 @@ dependencies:
 
 commit:
 	@git add .
-	@git commit -am "makefile commit"
+	@git commit -am ${COMMIT_MESSAGE}
 
 deploy: commit
 	@git push heroku develop:master

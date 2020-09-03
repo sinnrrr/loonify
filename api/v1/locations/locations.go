@@ -11,18 +11,14 @@ import (
 
 func Query() echo.HandlerFunc {
 	return func(c echo.Context) error {
-		var location []models.Location
+		var locations []models.Location
 
-		err := mgm.Coll(&models.Location{}).SimpleFind(&location, bson.D{})
+		err := mgm.Coll(&models.Location{}).SimpleFind(&locations, bson.D{})
 		if err != nil {
-			return c.JSON(http.StatusInternalServerError, v1.ErrorResponse(err))
+			return c.JSON(http.StatusInternalServerError, v1.ErrorResponse(err.Error()))
 		}
 
-		return c.JSON(http.StatusOK, v1.Response{
-			Data: location,
-			Status: "success",
-			Message: "Locations were successfully retrieved",
-		})
+		return c.JSON(http.StatusOK, v1.GoodResponseWithData(locations, "Locations were successfully retrieved"))
 	}
 }
 
@@ -31,19 +27,15 @@ func Create() echo.HandlerFunc {
 		location := new(models.Location)
 
 		if err := c.Bind(location); err != nil {
-			return c.JSON(http.StatusUnprocessableEntity, v1.FailResponse(err))
+			return c.JSON(http.StatusUnprocessableEntity, v1.FailResponse(err.Error()))
 		}
 
 		err := mgm.Coll(location).Create(location)
 		if err != nil {
-			return c.JSON(http.StatusInternalServerError, v1.ErrorResponse(err))
+			return c.JSON(http.StatusInternalServerError, v1.ErrorResponse(err.Error()))
 		}
 
-		return c.JSON(http.StatusCreated, v1.Response{
-			Data: location,
-			Status: "success",
-			Message: "Location were successfully created",
-		})
+		return c.JSON(http.StatusCreated, v1.GoodResponseWithData(location, "Location were successfully created"))
 	}
 }
 
@@ -54,11 +46,7 @@ func Read() echo.HandlerFunc {
 
 		_ = coll.FindByID(c.Param("id"), location)
 
-		return c.JSON(http.StatusOK, v1.Response{
-			Data: location,
-			Status: "success",
-			Message: "Location was successfully retrieved",
-		})
+		return c.JSON(http.StatusOK, v1.GoodResponseWithData(location, "Location was successfully retrieved"))
 	}
 }
 
@@ -70,19 +58,15 @@ func Update() echo.HandlerFunc {
 		_ = coll.FindByID(c.Param("id"), location)
 
 		if err := c.Bind(location); err != nil {
-			return c.JSON(http.StatusUnprocessableEntity, v1.FailResponse(err))
+			return c.JSON(http.StatusUnprocessableEntity, v1.FailResponse(err.Error()))
 		}
 
 		err := mgm.Coll(location).Update(location)
 		if err != nil {
-			return c.JSON(http.StatusInternalServerError, v1.ErrorResponse(err))
+			return c.JSON(http.StatusInternalServerError, v1.ErrorResponse(err.Error()))
 		}
 
-		return c.JSON(http.StatusOK, v1.Response{
-			Data: location,
-			Status: "success",
-			Message: "Location was successfully updated",
-		})
+		return c.JSON(http.StatusOK, v1.GoodResponseWithData(location, "Location was successfully updated"))
 	}
 }
 
@@ -95,13 +79,9 @@ func Delete() echo.HandlerFunc {
 
 		err := mgm.Coll(location).Delete(location)
 		if err != nil {
-			return c.JSON(http.StatusInternalServerError, v1.ErrorResponse(err))
+			return c.JSON(http.StatusInternalServerError, v1.ErrorResponse(err.Error()))
 		}
 
-		return c.JSON(http.StatusOK, v1.Response{
-			Data: location,
-			Status: "success",
-			Message: "Location was successfully deleted",
-		})
+		return c.JSON(http.StatusNoContent, v1.GoodResponse("Location was successfully deleted"))
 	}
 }

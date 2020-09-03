@@ -12,46 +12,38 @@ import (
 /*GetUsers handler*/
 func Query() echo.HandlerFunc {
 	return func(c echo.Context) error {
-		var user []models.User
+		var users []models.User
 
-		err := mgm.Coll(&models.User{}).SimpleFind(&user, bson.D{})
+		err := mgm.Coll(&models.User{}).SimpleFind(&users, bson.D{})
 		if err != nil {
-			return c.JSON(http.StatusInternalServerError, v1.ErrorResponse(err))
+			return c.JSON(http.StatusInternalServerError, v1.ErrorResponse(err.Error()))
 		}
 
-		return c.JSON(http.StatusOK, v1.Response{
-			Data:    user,
-			Status:  "success",
-			Message: "Users were successfully retrieved",
-		})
+		return c.JSON(http.StatusOK, v1.GoodResponseWithData(users, "Users were successfully retrieved"))
 	}
 }
 
-/*CreateUser handler*/
-func Create() echo.HandlerFunc {
-	return func(c echo.Context) error {
-		user := new(models.User)
-
-		if err := c.Bind(user); err != nil {
-			return c.JSON(http.StatusUnprocessableEntity, v1.FailResponse(err))
-		}
-
-		//if err := c.Validate(user); err != nil {
-		//	return c.JSON(http.StatusUnprocessableEntity, err)
-		//}
-
-		err := mgm.Coll(user).Create(user)
-		if err != nil {
-			return c.JSON(http.StatusInternalServerError, v1.ErrorResponse(err))
-		}
-
-		return c.JSON(http.StatusCreated, v1.Response{
-			Data:    user,
-			Status:  "success",
-			Message: "User was successfully created",
-		})
-	}
-}
+///*CreateUser handler*/
+//func Create() echo.HandlerFunc {
+//	return func(c echo.Context) error {
+//		user := new(models.User)
+//
+//		if err := c.Bind(user); err != nil {
+//			return c.JSON(http.StatusUnprocessableEntity, v1.FailResponse(err.Error()))
+//		}
+//
+//		//if err := c.Validate(user); err != nil {
+//		//	return c.JSON(http.StatusUnprocessableEntity, err)
+//		//}
+//
+//		err := mgm.Coll(user).Create(user)
+//		if err != nil {
+//			return c.JSON(http.StatusInternalServerError, v1.ErrorResponse(err.Error()))
+//		}
+//
+//		return c.JSON(http.StatusCreated, v1.GoodResponseWithData(user, "User was successfully created"))
+//	}
+//}
 
 func Read() echo.HandlerFunc {
 	return func(c echo.Context) error {
@@ -60,11 +52,7 @@ func Read() echo.HandlerFunc {
 
 		_ = coll.FindByID(c.Param("id"), user)
 
-		return c.JSON(http.StatusOK, v1.Response{
-			Data:    user,
-			Status:  "success",
-			Message: "User was successfully retrieved",
-		})
+		return c.JSON(http.StatusOK, v1.GoodResponseWithData(user, "User was successfully retrieved"))
 	}
 }
 
@@ -76,15 +64,15 @@ func Update() echo.HandlerFunc {
 		_ = coll.FindByID(c.Param("id"), user)
 
 		if err := c.Bind(user); err != nil {
-			return c.JSON(http.StatusUnprocessableEntity, v1.FailResponse(err))
+			return c.JSON(http.StatusUnprocessableEntity, v1.FailResponse(err.Error()))
 		}
 
 		err := mgm.Coll(user).Update(user)
 		if err != nil {
-			return c.JSON(http.StatusInternalServerError, v1.ErrorResponse(err))
+			return c.JSON(http.StatusInternalServerError, v1.ErrorResponse(err.Error()))
 		}
 
-		return c.JSON(http.StatusCreated, v1.GoodResponse(user, "User was successfully updated"))
+		return c.JSON(http.StatusCreated, v1.GoodResponseWithData(user, "User was successfully updated"))
 	}
 }
 
@@ -97,14 +85,10 @@ func Delete() echo.HandlerFunc {
 
 		err := mgm.Coll(user).Delete(user)
 		if err != nil {
-			return c.JSON(http.StatusInternalServerError, v1.ErrorResponse(err))
+			return c.JSON(http.StatusInternalServerError, v1.ErrorResponse(err.Error()))
 		}
 
-		return c.JSON(http.StatusOK, v1.Response{
-			Data:    user,
-			Status:  "success",
-			Message: "User was successfully retrieved",
-		})
+		return c.JSON(http.StatusOK, v1.GoodResponseWithData(user, "User was successfully retrieved"))
 	}
 }
 
@@ -117,13 +101,9 @@ func Me() echo.HandlerFunc {
 
 		err := mgm.Coll(&models.User{}).SimpleFind(&result, bson.M{"token": token})
 		if err != nil {
-			return c.JSON(http.StatusNotFound, v1.FailResponse(err))
+			return c.JSON(http.StatusNotFound, v1.FailResponse(err.Error()))
 		}
 
-		return c.JSON(http.StatusOK, v1.Response{
-			Data:    result[0],
-			Status:  "success",
-			Message: "User was successfully retrieved",
-		})
+		return c.JSON(http.StatusOK, v1.GoodResponseWithData(result[0], "User was successfully retrieved"))
 	}
 }
