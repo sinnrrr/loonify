@@ -16,10 +16,7 @@ func main() {
 	e := InitEcho()
 	e.Validator = &config.CustomValidator{Validator: validator.New()}
 
-	e.Validator = &config.CustomValidator{Validator: validator.New()}
-
 	InitRoutes(e)
-
 	LaunchApp(e)
 }
 
@@ -38,6 +35,7 @@ func LaunchApp(e *echo.Echo) {
 func InitEcho() *echo.Echo {
 	e := echo.New()
 	e.HideBanner = true
+	e.Static("/", "api/v1/welcome/favicon")
 
 	e.Use(middleware.Logger())
 	e.Use(middleware.Recover())

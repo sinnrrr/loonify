@@ -5,18 +5,12 @@ import (
 	"io/ioutil"
 	"math/rand"
 	"net/http"
-	"path/filepath"
 )
 
 /*Welcome handler*/
 func Welcome() echo.HandlerFunc {
 	return func(c echo.Context) error {
-		main, err := filepath.Abs("api/v1/welcome/main.txt")
-		if err != nil {
-			return c.String(http.StatusOK, "Welcome!")
-		}
-
-		banner, err := ioutil.ReadFile(main)
+		banner, err := ioutil.ReadFile("api/v1/welcome/main.txt")
 		if err != nil {
 			return c.String(http.StatusOK, "Welcome!")
 		}
