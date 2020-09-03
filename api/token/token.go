@@ -49,16 +49,16 @@ func Exists(token string) (bool, error) {
 func CheckAccess(c echo.Context, key string, entity string, operation string) (bool, error)  {
 	accessLevelString, err := ReadSpecifiedField(key, "access")
 	if err != nil {
-		return false, c.JSON(http.StatusUnauthorized, v1.FailResponse(err))
+		return false, c.JSON(http.StatusUnauthorized, v1.FailResponse(err.Error()))
 	}
 
 	accessLevel, err := strconv.Atoi(accessLevelString)
 	if err != nil {
-		return false, c.JSON(http.StatusInternalServerError, v1.ErrorResponse(err))
+		return false, c.JSON(http.StatusInternalServerError, v1.ErrorResponse(err.Error()))
 	}
 
 	if !AccessRights[accessLevel][entity][operation] {
-		return false, c.JSON(http.StatusForbidden, v1.Response{Status: "fail", Message: "You do not have rights to do this operation"})
+		return false, c.JSON(http.StatusForbidden, v1.FailResponse("You do not have rights to do this operation"))
 	}
 
 	return true, nil
@@ -68,14 +68,14 @@ func Verify(c echo.Context, token string, entity string, operation string) (bool
 	exists, err := Exists(token)
 
 	if err != nil {
-		return false, c.JSON(http.StatusUnauthorized, v1.FailResponse(err))
+		return false, c.JSON(http.StatusUnauthorized, v1.FailResponse(err.Error()))
 	} else if exists {
 		hasAccess, err := CheckAccess(c, token, entity, operation)
 
 		if err != nil {
-			return false, c.JSON(http.StatusForbidden, v1.FailResponse(err))
+			return false, c.JSON(http.StatusForbidden, v1.FailResponse(err.Error()))
 		} else if !hasAccess {
-			return false, c.JSON(http.StatusUnauthorized, v1.FailResponse(err))
+			return false, c.JSON(http.StatusUnauthorized, v1.FailResponse(err.Error()))
 		}
 	}
 

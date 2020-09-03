@@ -1,4 +1,4 @@
-package api
+package main
 
 import (
 	"github.com/labstack/echo/v4"
@@ -15,7 +15,7 @@ import (
 	"path/filepath"
 )
 
-func Init(api *echo.Echo) {
+func InitRoutes(api *echo.Echo) {
 	htmlV1Path, err := filepath.Abs("api/v1/welcome/*.html")
 	if err != nil {
 		panic(err)
@@ -28,33 +28,33 @@ func Init(api *echo.Echo) {
 	api.Renderer = t
 	apiGroup := api.Group("/")
 
-	V1Group(apiGroup)
-	RegisterRedirectToCurrent(api)
+	v1Group(apiGroup)
+	registerRedirectToCurrent(api)
 }
 
-func V1Group(api *echo.Group) {
+func v1Group(api *echo.Group) {
 	v1Group := api.Group("v1")
 	v1Group.GET("/", welcome.Welcome()).Name = "api.current"
 
-	UsersV1Group(v1Group)
-	PostsV1Group(v1Group)
-	LocationsV1Group(v1Group)
-	CategoriesV1Group(v1Group)
-	OperationsV1Group(v1Group)
+	usersV1Group(v1Group)
+	postsV1Group(v1Group)
+	locationsV1Group(v1Group)
+	categoriesV1Group(v1Group)
+	operationsV1Group(v1Group)
 }
 
-func OperationsV1Group(v1Group *echo.Group) {
+func operationsV1Group(v1Group *echo.Group) {
 	operationsGroup := v1Group.Group("/operations")
 
 	operationsGroup.POST("/login/", operations.LogIn())
 	operationsGroup.POST("/signup/", operations.SignUp())
 }
 
-func UsersV1Group(v1Group *echo.Group) {
+func usersV1Group(v1Group *echo.Group) {
 	usersGroup := v1Group.Group("/users")
 
 	usersGroup.GET("/", users.Query(), token.InitMiddleware("user", "query"))
-	usersGroup.POST("/", users.Create(), token.InitMiddleware("user", "create"))
+	//usersGroup.POST("/", users.Create(), token.InitMiddleware("user", "create"))
 	usersGroup.GET("/:id/", users.Read())
 	usersGroup.PUT("/:id/", users.Update(), token.InitMiddleware("user", "update"))
 	usersGroup.DELETE("/:id/", users.Delete(), token.InitMiddleware("user", "delete"))
@@ -62,7 +62,7 @@ func UsersV1Group(v1Group *echo.Group) {
 	usersGroup.GET("/me/", users.Me(), token.InitMiddleware("user", "read"))
 }
 
-func PostsV1Group(v1Group *echo.Group) {
+func postsV1Group(v1Group *echo.Group) {
 	postsGroup := v1Group.Group("/posts")
 
 	postsGroup.GET("/", posts.Query())
@@ -72,7 +72,7 @@ func PostsV1Group(v1Group *echo.Group) {
 	postsGroup.DELETE("/:id/", posts.Delete(), token.InitMiddleware("post", "delete"))
 }
 
-func LocationsV1Group(v1Group *echo.Group) {
+func locationsV1Group(v1Group *echo.Group) {
 	locationsGroup := v1Group.Group("/locations")
 
 	locationsGroup.GET("/", locations.Query(), token.InitMiddleware("location", "query"))
@@ -82,7 +82,7 @@ func LocationsV1Group(v1Group *echo.Group) {
 	locationsGroup.DELETE("/:id/", locations.Delete(), token.InitMiddleware("location", "delete"))
 }
 
-func CategoriesV1Group(v1Group *echo.Group) {
+func categoriesV1Group(v1Group *echo.Group) {
 	categoriesGroup := v1Group.Group("/categories")
 
 	categoriesGroup.GET("/", categories.Query())
@@ -92,7 +92,7 @@ func CategoriesV1Group(v1Group *echo.Group) {
 	categoriesGroup.DELETE("/:id/", categories.Delete(), token.InitMiddleware("category", "delete"))
 }
 
-func RegisterRedirectToCurrent(api *echo.Echo) {
+func registerRedirectToCurrent(api *echo.Echo) {
 	api.GET("/", func(c echo.Context) error {
 		return c.Redirect(http.StatusSeeOther, api.Reverse("api.current"))
 	})

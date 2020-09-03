@@ -22,6 +22,17 @@
     <list default="true" id="26644a7f-d1e5-42ca-8279-7fd42886f23a" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.env" beforeDir="false" afterPath="$PROJECT_DIR$/.env" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Makefile" beforeDir="false" afterPath="$PROJECT_DIR$/Makefile" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/api/token/token.go" beforeDir="false" afterPath="$PROJECT_DIR$/api/token/token.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/api/v1/categories/categories.go" beforeDir="false" afterPath="$PROJECT_DIR$/api/v1/categories/categories.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/api/v1/locations/locations.go" beforeDir="false" afterPath="$PROJECT_DIR$/api/v1/locations/locations.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/api/v1/operations/operations.go" beforeDir="false" afterPath="$PROJECT_DIR$/api/v1/operations/operations.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/api/v1/posts/posts.go" beforeDir="false" afterPath="$PROJECT_DIR$/api/v1/posts/posts.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/api/v1/response.go" beforeDir="false" afterPath="$PROJECT_DIR$/api/v1/response.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/api/v1/users/users.go" beforeDir="false" afterPath="$PROJECT_DIR$/api/v1/users/users.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/main.go" beforeDir="false" afterPath="$PROJECT_DIR$/main.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/routes/api/api.go" beforeDir="false" afterPath="$PROJECT_DIR$/routes.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/routes/site/site.go" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -63,18 +74,18 @@
     <property name="go.import.settings.migrated" value="true" />
     <property name="go.sdk.automatically.set" value="true" />
     <property name="go.tried.to.enable.integration.vgo.integrator" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="last_opened_file_path" value="$USER_HOME$" />
     <property name="nodejs_package_manager_path" value="npm" />
     <property name="settings.editor.selected.configurable" value="preferences.pluginManager" />
     <property name="ts.external.directory.path" value="$APPLICATION_HOME_DIR$/plugins/JavaScriptLanguage/jsLanguageServicesImpl/external" />
   </component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$" />
       <recent name="$PROJECT_DIR$/api" />
       <recent name="$PROJECT_DIR$/api/v1/welcome" />
       <recent name="$PROJECT_DIR$/api/v1/token" />
       <recent name="$PROJECT_DIR$/api/v1/posts" />
-      <recent name="$PROJECT_DIR$/api/v1/locations" />
     </key>
   </component>
   <component name="RestClientSettings">
@@ -176,15 +187,17 @@
       <screen x="0" y="0" width="1920" height="1080" />
     </state>
     <state x="578" y="153" width="754" height="771" key="com.intellij.openapi.editor.actions.MultiplePasteAction$ClipboardContentChooser/0.0.1920.1080@0.0.1920.1080" timestamp="1597733234589" />
-    <state x="3071" y="72" width="1156" height="962" key="find.popup" timestamp="1598628460339">
-      <screen x="2560" y="0" width="1920" height="1080" />
+    <state x="511" y="97" width="1156" height="938" key="find.popup" timestamp="1599123548340">
+      <screen x="0" y="27" width="1920" height="1053" />
     </state>
     <state x="511" y="72" width="1156" height="962" key="find.popup/0.0.1920.1080@0.0.1920.1080" timestamp="1598539151692" />
     <state x="3071" y="72" width="1156" height="962" key="find.popup/0.0.2560.1440/2560.0.1920.1080@2560.0.1920.1080" timestamp="1598628460339" />
-    <state x="623" y="239" width="672" height="678" key="search.everywhere.popup" timestamp="1598517886754">
-      <screen x="0" y="0" width="1920" height="1080" />
+    <state x="511" y="97" width="1156" height="938" key="find.popup/0.27.1920.1053@0.27.1920.1053" timestamp="1599123548340" />
+    <state x="623" y="262" width="672" height="660" key="search.everywhere.popup" timestamp="1599130219846">
+      <screen x="0" y="29" width="1920" height="1051" />
     </state>
     <state x="623" y="239" width="672" height="678" key="search.everywhere.popup/0.0.1920.1080@0.0.1920.1080" timestamp="1598517886754" />
+    <state x="623" y="262" width="672" height="660" key="search.everywhere.popup/0.29.1920.1051@0.29.1920.1051" timestamp="1599130219846" />
     <state x="685" y="455" width="540" height="168" key="vcs.readOnlyHandler.ReadOnlyStatusDialog" timestamp="1598431034512">
       <screen x="0" y="0" width="1920" height="1080" />
     </state>

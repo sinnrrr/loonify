@@ -1,29 +1,41 @@
 package v1
 
-type Response struct {
+type DefaultResponse struct {
+	Status  string `json:"status"`
+	Message string `json:"message,omitempty"`
+}
+
+type ResponseWithData struct {
 	Status  string      `json:"status"`
 	Message string      `json:"message"`
 	Data    interface{} `json:"data,omitempty"`
 }
 
-func GoodResponse(data interface{}, message string) Response {
-	return Response{
-		Status: "success",
+func GoodResponse(message string) DefaultResponse {
+	return DefaultResponse{
+		Status:  "success",
 		Message: message,
-		Data: data,
 	}
 }
 
-func ErrorResponse(err error) Response {
-	return Response{
+func GoodResponseWithData(data interface{}, message string) ResponseWithData {
+	return ResponseWithData{
+		Status:  "success",
+		Message: message,
+		Data:    data,
+	}
+}
+
+func ErrorResponse(message string) DefaultResponse {
+	return DefaultResponse{
 		Status:  "error",
-		Message: err.Error(),
+		Message: message,
 	}
 }
 
-func FailResponse(err error) Response {
-	return Response{
-		Status: "fail",
-		Message: err.Error(),
+func FailResponse(message string) DefaultResponse {
+	return DefaultResponse{
+		Status:  "fail",
+		Message: message,
 	}
 }
