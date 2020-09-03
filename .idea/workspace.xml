@@ -139,6 +139,10 @@
     <integration-enabled>true</integration-enabled>
   </component>
   <component name="WindowStateProjectService">
+    <state x="755" y="215" width="400" height="684" key="#GOPATH" timestamp="1599080202954">
+      <screen x="0" y="29" width="1920" height="1051" />
+    </state>
+    <state x="755" y="215" width="400" height="684" key="#GOPATH/0.29.1920.1051@0.29.1920.1051" timestamp="1599080202954" />
     <state x="755" y="473" key="#GOROOT" timestamp="1597739585725">
       <screen x="0" y="0" width="1920" height="1080" />
     </state>
