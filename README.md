@@ -1,11 +1,26 @@
-# Loonify
-To compile the project with **Go** compiler run following command
-### `sudo go run .`
-If you wish to run it with **Docker**, then run
-### `docker-compose up`
-To regenerate the pages, run
-### `npm run generate`
-or
-### `yarn generate`
-To compile pages and run docker, then
-### `./build.sh`
+░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░  
+░░░██╗░░░░░░█████╗░░█████╗░███╗░░██╗██╗███████╗██╗░░░██╗░░░  
+░░░██║░░░░░██╔══██╗██╔══██╗████╗░██║██║██╔════╝╚██╗░██╔╝░░░  
+░░░██║░░░░░██║░░██║██║░░██║██╔██╗██║██║█████╗░░░╚████╔╝░░░░  
+░░░██║░░░░░██║░░██║██║░░██║██║╚████║██║██╔══╝░░░░╚██╔╝░░░░░  
+░░░███████╗╚█████╔╝╚█████╔╝██║░╚███║██║██║░░░░░░░░██║░░░░░░  
+░░░╚══════╝░╚════╝░░╚════╝░╚═╝░░╚══╝╚═╝╚═╝░░░░░░░░╚═╝░░░░░░  
+░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░
+## Requirments (not required, but recommended)
+ - [Air](https://github.com/cosmtrek/air) (for live reload)
+ - Make (for Makefile support)
+## Getting started
+**Without dependencies installed:**
+
+    go run .
+
+**With dependecies being installed:**
+
+To start developing just type in terminal:
+
+    make
+
+ If you want to start app with [docker](https://www.docker.com/), simply run:
+ 
+
+    make docker
