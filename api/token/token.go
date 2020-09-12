@@ -10,31 +10,29 @@ import (
 	"strconv"
 )
 
-var rdb = redis.Connect()
-
 func Create(id string, accessLevel int) (string, error) {
 	key := Generate()
-	return key, rdb.HSet(context.Background(), key, "id", id, "access", accessLevel).Err()
+	return key, redis.Client.HSet(context.Background(), key, "id", id, "access", accessLevel).Err()
 }
 
 func Read(token string) (string, error) {
-	return rdb.Get(context.Background(), token).Result()
+	return redis.Client.Get(context.Background(), token).Result()
 }
 
 func ReadAllHash(token string) (map[string]string, error) {
-	return rdb.HGetAll(context.Background(), token).Result()
+	return redis.Client.HGetAll(context.Background(), token).Result()
 }
 
 func ReadSpecifiedField(token string, key string) (string, error) {
-	return rdb.HGet(context.Background(), token, key).Result()
+	return redis.Client.HGet(context.Background(), token, key).Result()
 }
 
 func Update(token string) error {
-	return rdb.Rename(context.Background(), token, Generate()).Err()
+	return redis.Client.Rename(context.Background(), token, Generate()).Err()
 }
 
 func Delete(token string) error {
-	return rdb.Del(context.Background(), token).Err()
+	return redis.Client.Del(context.Background(), token).Err()
 }
 
 func Generate() string {
@@ -42,7 +40,7 @@ func Generate() string {
 }
 
 func Exists(token string) (bool, error) {
-	condition, err := rdb.Exists(context.Background(), token).Result()
+	condition, err := redis.Client.Exists(context.Background(), token).Result()
 	return condition == 1, err
 }
 
@@ -80,4 +78,8 @@ func Verify(c echo.Context, token string, entity string, operation string) (bool
 	}
 
 	return true, nil
+}
+
+func Extract(header string) string {
+	return header[7:]
 }

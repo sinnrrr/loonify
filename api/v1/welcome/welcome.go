@@ -8,16 +8,14 @@ import (
 )
 
 /*Welcome handler*/
-func Welcome() echo.HandlerFunc {
-	return func(c echo.Context) error {
-		banner, err := ioutil.ReadFile("api/v1/welcome/main.txt")
-		if err != nil {
-			return c.String(http.StatusOK, "Welcome!")
-		}
-
-		return c.Render(http.StatusOK, "index.html", map[string]interface{}{
-			"title":   Titles[rand.Intn(KEYS)],
-			"welcome": string(banner),
-		})
+func Welcome(c echo.Context) error {
+	banner, err := ioutil.ReadFile("api/v1/welcome/main.txt")
+	if err != nil {
+		return c.String(http.StatusOK, "Welcome!")
 	}
+
+	return c.Render(http.StatusOK, "index.html", map[string]interface{}{
+		"title":   Titles[rand.Intn(KEYS)],
+		"welcome": string(banner),
+	})
 }

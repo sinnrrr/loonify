@@ -9,6 +9,8 @@ import (
 	"time"
 )
 
+var Client = Connect()
+
 func Connect() *redis.Client {
 	ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second)
 	defer cancel()

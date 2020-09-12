@@ -11,6 +11,10 @@ type ResponseWithData struct {
 	Data    interface{} `json:"data,omitempty"`
 }
 
+type CodeResponse struct {
+	Code string `json:"code"`
+}
+
 func GoodResponse(message string) DefaultResponse {
 	return DefaultResponse{
 		Status:  "success",

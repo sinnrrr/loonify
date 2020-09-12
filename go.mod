@@ -6,6 +6,7 @@ go 1.14
 
 require (
 	github.com/Kamva/mgm/v3 v3.0.1
+	github.com/appleboy/go-fcm v0.1.5
 	github.com/aws/aws-sdk-go v1.34.11 // indirect
 	github.com/getsentry/sentry-go v0.7.0
 	github.com/go-playground/validator/v10 v10.3.0
@@ -26,5 +27,6 @@ require (
 	golang.org/x/net v0.0.0-20200822124328-c89045814202 // indirect
 	golang.org/x/sync v0.0.0-20200625203802-6e8e738ad208 // indirect
 	golang.org/x/sys v0.0.0-20200826173525-f9321e4c35a6 // indirect
+	gopkg.in/mgo.v2 v2.0.0-20180705113604-9856a29383ce
 	gopkg.in/yaml.v3 v3.0.0-20200615113413-eeeca48fe776 // indirect
 )
