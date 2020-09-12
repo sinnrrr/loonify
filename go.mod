@@ -1,8 +1,8 @@
 module loonify
 
-go 1.14
+go 1.15
 
-// +heroku goVersion go1.14
+// +heroku goVersion go1.15
 
 require (
 	github.com/Kamva/mgm/v3 v3.0.1
