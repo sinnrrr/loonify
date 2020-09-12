@@ -9,79 +9,69 @@ import (
 	"net/http"
 )
 
-func Query() echo.HandlerFunc {
-	return func(c echo.Context) error {
-		var categories []models.Category
+func Query(c echo.Context) error {
+	var categories []models.Category
 
-		err := mgm.Coll(&models.Category{}).SimpleFind(&categories, bson.D{})
-		if err != nil {
-			return c.JSON(http.StatusInternalServerError, v1.ErrorResponse(err.Error()))
-		}
-
-		return c.JSON(http.StatusOK, v1.GoodResponseWithData(categories, "Categories were successfully retrieved"))
+	err := mgm.Coll(&models.Category{}).SimpleFind(&categories, bson.D{})
+	if err != nil {
+		return c.JSON(http.StatusInternalServerError, v1.ErrorResponse(err.Error()))
 	}
+
+	return c.JSON(http.StatusOK, v1.GoodResponseWithData(categories, "Categories were successfully retrieved"))
 }
 
-func Create() echo.HandlerFunc {
-	return func(c echo.Context) error {
-		category := new(models.Category)
+func Create(c echo.Context) error {
+	category := new(models.Category)
 
-		if err := c.Bind(category); err != nil {
-			return c.JSON(http.StatusUnprocessableEntity, v1.FailResponse(err.Error()))
-		}
-
-		err := mgm.Coll(category).Create(category)
-		if err != nil {
-			return c.JSON(http.StatusInternalServerError, v1.ErrorResponse(err.Error()))
-		}
-
-		return c.JSON(http.StatusCreated, v1.GoodResponseWithData(category, "Category was successfully created"))
+	if err := c.Bind(category); err != nil {
+		return c.JSON(http.StatusUnprocessableEntity, v1.FailResponse(err.Error()))
 	}
+
+	err := mgm.Coll(category).Create(category)
+	if err != nil {
+		return c.JSON(http.StatusInternalServerError, v1.ErrorResponse(err.Error()))
+	}
+
+	return c.JSON(http.StatusCreated, v1.GoodResponseWithData(category, "Category was successfully created"))
 }
 
-func Read() echo.HandlerFunc {
-	return func(c echo.Context) error {
-		category := &models.Category{}
-		coll := mgm.Coll(category)
+func Read(c echo.Context) error {
+	category := &models.Category{}
+	coll := mgm.Coll(category)
 
-		_ = coll.FindByID(c.Param("id"), category)
+	_ = coll.FindByID(c.Param("id"), category)
 
-		return c.JSON(http.StatusOK, v1.GoodResponseWithData(category, "Category was successfully retrieved"))
-	}
+	return c.JSON(http.StatusOK, v1.GoodResponseWithData(category, "Category was successfully retrieved"))
 }
 
-func Update() echo.HandlerFunc {
-	return func(c echo.Context) error {
-		category := &models.Category{}
-		coll := mgm.Coll(category)
+func Update(c echo.Context) error {
+	category := &models.Category{}
+	coll := mgm.Coll(category)
 
-		_ = coll.FindByID(c.Param("id"), category)
+	_ = coll.FindByID(c.Param("id"), category)
 
-		if err := c.Bind(category); err != nil {
-			return c.JSON(http.StatusUnprocessableEntity, v1.FailResponse(err.Error()))
-		}
-
-		err := mgm.Coll(category).Update(category)
-		if err != nil {
-			return c.JSON(http.StatusInternalServerError, v1.ErrorResponse(err.Error()))
-		}
-
-		return c.JSON(http.StatusOK, v1.GoodResponseWithData(category, "Category was successfully updated"))
+	if err := c.Bind(category); err != nil {
+		return c.JSON(http.StatusUnprocessableEntity, v1.FailResponse(err.Error()))
 	}
+
+	err := mgm.Coll(category).Update(category)
+	if err != nil {
+		return c.JSON(http.StatusInternalServerError, v1.ErrorResponse(err.Error()))
+	}
+
+	return c.JSON(http.StatusOK, v1.GoodResponseWithData(category, "Category was successfully updated"))
 }
 
-func Delete() echo.HandlerFunc {
-	return func(c echo.Context) error {
-		category := &models.Category{}
-		coll := mgm.Coll(category)
+func Delete(c echo.Context) error {
+	category := &models.Category{}
+	coll := mgm.Coll(category)
 
-		_ = coll.FindByID(c.Param("id"), category)
+	_ = coll.FindByID(c.Param("id"), category)
 
-		err := mgm.Coll(category).Delete(category)
-		if err != nil {
-			return c.JSON(http.StatusInternalServerError, v1.ErrorResponse(err.Error()))
-		}
-
-		return c.JSON(http.StatusNoContent, v1.GoodResponse("Category was successfully deleted"))
+	err := mgm.Coll(category).Delete(category)
+	if err != nil {
+		return c.JSON(http.StatusInternalServerError, v1.ErrorResponse(err.Error()))
 	}
+
+	return c.JSON(http.StatusOK, v1.GoodResponse("Category was successfully deleted"))
 }

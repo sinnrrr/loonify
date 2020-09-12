@@ -6,6 +6,7 @@ go 1.15
 
 require (
 	github.com/Kamva/mgm/v3 v3.0.1
+	github.com/appleboy/go-fcm v0.1.5
 	github.com/aws/aws-sdk-go v1.34.11 // indirect
 	github.com/cosmtrek/air v1.21.2 // indirect
 	github.com/creack/pty v1.1.11 // indirect

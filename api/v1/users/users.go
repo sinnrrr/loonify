@@ -4,28 +4,26 @@ import (
 	"github.com/Kamva/mgm/v3"
 	"github.com/labstack/echo/v4"
 	"go.mongodb.org/mongo-driver/bson"
+	token2 "loonify/api/token"
 	v1 "loonify/api/v1"
 	"loonify/models"
 	"net/http"
 )
 
 /*GetUsers handler*/
-func Query() echo.HandlerFunc {
-	return func(c echo.Context) error {
-		var users []models.User
+func Query(c echo.Context) error {
+	var users []models.User
 
-		err := mgm.Coll(&models.User{}).SimpleFind(&users, bson.D{})
-		if err != nil {
-			return c.JSON(http.StatusInternalServerError, v1.ErrorResponse(err.Error()))
-		}
-
-		return c.JSON(http.StatusOK, v1.GoodResponseWithData(users, "Users were successfully retrieved"))
+	err := mgm.Coll(&models.User{}).SimpleFind(&users, bson.D{})
+	if err != nil {
+		return c.JSON(http.StatusInternalServerError, v1.ErrorResponse(err.Error()))
 	}
+
+	return c.JSON(http.StatusOK, v1.GoodResponseWithData(users, "Users were successfully retrieved"))
 }
 
 ///*CreateUser handler*/
-//func Create() echo.HandlerFunc {
-//	return func(c echo.Context) error {
+//func Create(c echo.Context) error {
 //		user := new(models.User)
 //
 //		if err := c.Bind(user); err != nil {
@@ -42,68 +40,67 @@ func Query() echo.HandlerFunc {
 //		}
 //
 //		return c.JSON(http.StatusCreated, v1.GoodResponseWithData(user, "User was successfully created"))
-//	}
 //}
 
-func Read() echo.HandlerFunc {
-	return func(c echo.Context) error {
-		user := &models.User{}
-		coll := mgm.Coll(user)
+func Read(c echo.Context) error {
+	user := &models.User{}
+	coll := mgm.Coll(user)
 
-		_ = coll.FindByID(c.Param("id"), user)
+	_ = coll.FindByID(c.Param("id"), user)
 
-		return c.JSON(http.StatusOK, v1.GoodResponseWithData(user, "User was successfully retrieved"))
-	}
+	return c.JSON(http.StatusOK, v1.GoodResponseWithData(user, "User was successfully retrieved"))
 }
 
-func Update() echo.HandlerFunc {
-	return func(c echo.Context) error {
-		user := &models.User{}
-		coll := mgm.Coll(user)
+func Update(c echo.Context) error {
+	user := &models.User{}
+	coll := mgm.Coll(user)
 
-		_ = coll.FindByID(c.Param("id"), user)
+	_ = coll.FindByID(c.Param("id"), user)
 
-		if err := c.Bind(user); err != nil {
-			return c.JSON(http.StatusUnprocessableEntity, v1.FailResponse(err.Error()))
-		}
-
-		err := mgm.Coll(user).Update(user)
-		if err != nil {
-			return c.JSON(http.StatusInternalServerError, v1.ErrorResponse(err.Error()))
-		}
-
-		return c.JSON(http.StatusCreated, v1.GoodResponseWithData(user, "User was successfully updated"))
+	if err := c.Bind(user); err != nil {
+		return c.JSON(http.StatusUnprocessableEntity, v1.FailResponse(err.Error()))
 	}
+
+	err := mgm.Coll(user).Update(user)
+	if err != nil {
+		return c.JSON(http.StatusInternalServerError, v1.ErrorResponse(err.Error()))
+	}
+
+	return c.JSON(http.StatusCreated, v1.GoodResponseWithData(user, "User was successfully updated"))
 }
 
-func Delete() echo.HandlerFunc {
-	return func(c echo.Context) error {
-		user := &models.User{}
-		coll := mgm.Coll(user)
+func Delete(c echo.Context) error {
+	user := &models.User{}
+	coll := mgm.Coll(user)
 
-		_ = coll.FindByID(c.Param("id"), user)
+	_ = coll.FindByID(c.Param("id"), user)
 
-		err := mgm.Coll(user).Delete(user)
-		if err != nil {
-			return c.JSON(http.StatusInternalServerError, v1.ErrorResponse(err.Error()))
-		}
-
-		return c.JSON(http.StatusOK, v1.GoodResponseWithData(user, "User was successfully retrieved"))
+	err := mgm.Coll(user).Delete(user)
+	if err != nil {
+		return c.JSON(http.StatusInternalServerError, v1.ErrorResponse(err.Error()))
 	}
+
+	return c.JSON(http.StatusOK, v1.GoodResponseWithData(user, "User was successfully retrieved"))
 }
 
-func Me() echo.HandlerFunc {
-	return func(c echo.Context) error {
-		var (
-			result []models.User
-			token  = c.Request().Header.Get(echo.HeaderAuthorization)[7:]
-		)
+func Me(c echo.Context) error {
+	var (
+		result models.User
+		token  = token2.Extract(c.Request().Header.Get(echo.HeaderAuthorization))
+	)
 
-		err := mgm.Coll(&models.User{}).SimpleFind(&result, bson.M{"token": token})
-		if err != nil {
-			return c.JSON(http.StatusNotFound, v1.FailResponse(err.Error()))
-		}
-
-		return c.JSON(http.StatusOK, v1.GoodResponseWithData(result[0], "User was successfully retrieved"))
+	result, err := FindByToken(token)
+	if err != nil {
+		return c.JSON(http.StatusNotFound, v1.FailResponse(err.Error()))
 	}
+
+	return c.JSON(http.StatusOK, v1.GoodResponseWithData(result, "User was successfully retrieved"))
+}
+
+func FindByToken(token string) (models.User, error) {
+	var result []models.User
+
+	err := mgm.Coll(&models.User{}).SimpleFind(&result, bson.M{"token": token})
+
+	return result[0], err
 }

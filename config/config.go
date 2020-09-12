@@ -9,12 +9,11 @@ import (
 	"github.com/labstack/echo/v4"
 	"go.mongodb.org/mongo-driver/mongo/options"
 	"net/http"
+	"net/smtp"
 	"os"
 	"strconv"
 	"time"
 )
-
-var IsHeroku = os.Getenv("HOST") == "loonify.herokuapp.com"
 
 var MongoUri = fmt.Sprintf(
 	"mongodb+srv://%s:%s@%s/%s?retryWrites=true&w=majority",
@@ -31,6 +30,13 @@ var RedisOptions = &redis.Options{
 	Password: os.Getenv("REDIS_PASSWORD"),
 	DB:       RedisDatabase,
 }
+
+var MailOptions = smtp.PlainAuth(
+	"",
+	os.Getenv("MAIL_USERNAME"),
+	os.Getenv("MAIL_PASSWORD"),
+	os.Getenv("MAIL_HOST"),
+)
 
 type (
 	Host struct {

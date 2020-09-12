@@ -9,6 +9,7 @@ import (
 	"github.com/labstack/echo/v4/middleware"
 	"io/ioutil"
 	"loonify/config"
+	"loonify/routes"
 	"os"
 )
 
@@ -16,7 +17,7 @@ func main() {
 	e := InitEcho()
 	e.Validator = &config.CustomValidator{Validator: validator.New()}
 
-	InitRoutes(e)
+	routes.InitRoutes(e)
 	LaunchApp(e)
 }
 
