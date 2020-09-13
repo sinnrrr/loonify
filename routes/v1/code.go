@@ -8,6 +8,6 @@ import (
 func CodeGroup(v1Group *echo.Group) {
 	codeGroup := v1Group.Group("/code")
 
-	codeGroup.POST("/send/", code.Resend)
-	codeGroup.POST("/verify/:code/", code.Verify)
+	codeGroup.POST("/resend/", code.Resend)
+	codeGroup.POST("/verify/", code.Verify)
 }

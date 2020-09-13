@@ -14,21 +14,3 @@ type Location struct {
 	Name              string `bson:"name" json:"name" validate:"required"`
 	FormattedAddress  string `bson:"formatted_address" json:"formatted_address" validate:"required"`
 }
-
-func NewLocation(
-	placeID uint,
-	url string,
-	name string,
-	formattedAddress string,
-	addressComponents types.Array,
-	geometry types.Array,
-) *Location {
-	return &Location{
-		PlaceID:           placeID,
-		URL:               url,
-		Name:              name,
-		FormattedAddress:  formattedAddress,
-		AddressComponents: addressComponents,
-		Geometry:          geometry,
-	}
-}

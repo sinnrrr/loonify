@@ -14,21 +14,3 @@ type User struct {
 	Password         string `bson:"password" json:"password" validate:"required"`
 	Token            string `bson:"token" json:"token,omitempty" validate:"uuid4_rfc4122"`
 }
-
-func NewUser(
-	addressID uint,
-	name string,
-	email string,
-	phone string,
-	password string,
-	token string,
-) *User {
-	return &User{
-		AddressID: addressID,
-		Name:      name,
-		Email:     email,
-		Phone:     phone,
-		Password:  password,
-		Token:     token,
-	}
-}

@@ -89,7 +89,7 @@ func Me(c echo.Context) error {
 		token  = token2.Extract(c.Request().Header.Get(echo.HeaderAuthorization))
 	)
 
-	result, err := FindByToken(token)
+	result, err := FindByField("token", token)
 	if err != nil {
 		return c.JSON(http.StatusNotFound, v1.FailResponse(err.Error()))
 	}
@@ -97,10 +97,10 @@ func Me(c echo.Context) error {
 	return c.JSON(http.StatusOK, v1.GoodResponseWithData(result, "User was successfully retrieved"))
 }
 
-func FindByToken(token string) (models.User, error) {
+func FindByField(key string, value string) (models.User, error) {
 	var result []models.User
 
-	err := mgm.Coll(&models.User{}).SimpleFind(&result, bson.M{"token": token})
+	err := mgm.Coll(&models.User{}).SimpleFind(&result, bson.M{key: value})
 
 	return result[0], err
 }
