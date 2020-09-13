@@ -28,7 +28,16 @@ func SendVerificationCode(email string) error {
 		code = code + strconv.Itoa(rand.Intn(10))
 	}
 
-	err := redis.Client.Set(context.Background(), code, email, 2 * time.Hour).Err()
+	err := redis.Client.Set(context.Background(), email, code, 2 * time.Hour).Err()
+	if err != nil {
+		return err
+	}
+
+	return Send("Verification code", email, code)
+}
+
+func ResendVerificationCode(email string) error {
+	code, err := redis.Client.Get(context.Background(), email).Result()
 	if err != nil {
 		return err
 	}

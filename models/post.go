@@ -14,25 +14,3 @@ type Post struct {
 	Status           string `bson:"status" json:"status" validate:"required"`
 	Reward           string `bson:"reward" json:"reward,omitempty"`
 }
-
-func NewPost(
-	userID uint,
-	addressID uint,
-	categoryID uint,
-	locationID uint,
-	title string,
-	description string,
-	status string,
-	reward string,
-) *Post {
-	return &Post{
-		UserID:      userID,
-		AddressID:   addressID,
-		CategoryID:  categoryID,
-		LocationID:  locationID,
-		Title:       title,
-		Description: description,
-		Status:      status,
-		Reward:      reward,
-	}
-}
