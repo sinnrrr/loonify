@@ -1,8 +1,10 @@
 https://loonify.herokuapp.com/v1/
 
-POST      /login (email, password)
-POST      /signup (name, email, password)
-POST      /password/reset (email)
+POST      /auth/login (email, password)
+POST      /auth/signup (name, email, password)
+
+POST      /code/verify (email, code)
+POST      /code/resend (email)
 
 GET       /posts
 GET       /posts/id
@@ -29,3 +31,4 @@ DELETE    /users/id
 PUT       /users/id
 
 GET       /me
+GET       /metrics

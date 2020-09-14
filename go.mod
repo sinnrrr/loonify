@@ -17,9 +17,9 @@ require (
 	github.com/jinzhu/gorm v1.9.16
 	github.com/joho/godotenv v1.3.0
 	github.com/klauspost/compress v1.10.11 // indirect
+	github.com/labstack/echo-contrib v0.9.0
 	github.com/labstack/echo/v4 v4.1.16
 	github.com/mattn/go-colorable v0.1.7 // indirect
-	github.com/stretchr/objx v0.2.0 // indirect
 	github.com/valyala/fasttemplate v1.2.1 // indirect
 	go.mongodb.org/mongo-driver v1.4.0
 	go.opentelemetry.io/otel v0.11.0 // indirect

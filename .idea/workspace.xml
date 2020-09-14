@@ -21,16 +21,10 @@
   <component name="ChangeListManager">
     <list default="true" id="26644a7f-d1e5-42ca-8279-7fd42886f23a" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/api/v1/auth/auth.go" beforeDir="false" afterPath="$PROJECT_DIR$/api/v1/auth/auth.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/api/v1/categories/categories.go" beforeDir="false" afterPath="$PROJECT_DIR$/api/v1/categories/categories.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/api/v1/locations/locations.go" beforeDir="false" afterPath="$PROJECT_DIR$/api/v1/locations/locations.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/api/v1/posts/posts.go" beforeDir="false" afterPath="$PROJECT_DIR$/api/v1/posts/posts.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/api/v1/response.go" beforeDir="false" afterPath="$PROJECT_DIR$/api/v1/response.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/api/v1/users/users.go" beforeDir="false" afterPath="$PROJECT_DIR$/api/v1/users/users.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/config/config.go" beforeDir="false" afterPath="$PROJECT_DIR$/config/config.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/documentation.md" beforeDir="false" afterPath="$PROJECT_DIR$/documentation.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/go.mod" beforeDir="false" afterPath="$PROJECT_DIR$/go.mod" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/go.sum" beforeDir="false" afterPath="$PROJECT_DIR$/go.sum" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/main.go" beforeDir="false" afterPath="$PROJECT_DIR$/main.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/models/category.go" beforeDir="false" afterPath="$PROJECT_DIR$/models/category.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/models/user.go" beforeDir="false" afterPath="$PROJECT_DIR$/models/user.go" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -201,10 +195,10 @@
     </state>
     <state x="938" y="0" width="710" height="717" key="dock-window-1/0.0.1920.1080@0.0.1920.1080" timestamp="1599850363250" />
     <state x="416" y="73" width="1504" height="1007" key="dock-window-1/0.29.1920.1051@0.29.1920.1051" timestamp="1599146128894" />
-    <state x="483" y="84" width="1156" height="962" key="find.popup" timestamp="1600039181585">
+    <state x="483" y="84" width="1156" height="962" key="find.popup" timestamp="1600045459251">
       <screen x="0" y="0" width="1920" height="1080" />
     </state>
-    <state x="483" y="84" width="1156" height="962" key="find.popup/0.0.1920.1080@0.0.1920.1080" timestamp="1600039181585" />
+    <state x="483" y="84" width="1156" height="962" key="find.popup/0.0.1920.1080@0.0.1920.1080" timestamp="1600045459251" />
     <state x="3071" y="72" width="1156" height="962" key="find.popup/0.0.2560.1440/2560.0.1920.1080@2560.0.1920.1080" timestamp="1598628460339" />
     <state x="511" y="97" width="1156" height="938" key="find.popup/0.27.1920.1053@0.27.1920.1053" timestamp="1599123548340" />
     <state x="511" y="99" width="1156" height="937" key="find.popup/0.29.1920.1051@0.29.1920.1051" timestamp="1599148049215" />
