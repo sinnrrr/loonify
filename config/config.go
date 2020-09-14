@@ -44,13 +44,7 @@ type (
 	}
 )
 
-type CustomValidator struct {
-	Validator *validator.Validate
-}
-
-func (cv *CustomValidator) Validate(i interface{}) error {
-	return cv.Validator.Struct(i)
-}
+var Validator = validator.New()
 
 func init() {
 	err := sentry.Init(sentry.ClientOptions{

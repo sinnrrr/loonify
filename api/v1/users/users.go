@@ -6,6 +6,7 @@ import (
 	"go.mongodb.org/mongo-driver/bson"
 	token2 "loonify/api/token"
 	v1 "loonify/api/v1"
+	"loonify/config"
 	"loonify/models"
 	"net/http"
 )
@@ -59,6 +60,10 @@ func Update(c echo.Context) error {
 
 	if err := c.Bind(user); err != nil {
 		return c.JSON(http.StatusUnprocessableEntity, v1.FailResponse(err.Error()))
+	}
+
+	if err := config.Validator.Struct(user); err != nil {
+		return c.JSON(http.StatusUnprocessableEntity, v1.ValidationResponse(v1.ProceedValidation(err)))
 	}
 
 	err := mgm.Coll(user).Update(user)

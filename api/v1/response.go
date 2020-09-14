@@ -1,5 +1,10 @@
 package v1
 
+import (
+	"github.com/go-playground/validator/v10"
+	"strings"
+)
+
 type DefaultResponse struct {
 	Status  string `json:"status"`
 	Message string `json:"message,omitempty"`
@@ -9,6 +14,7 @@ type ResponseWithData struct {
 	Status  string      `json:"status"`
 	Message string      `json:"message"`
 	Data    interface{} `json:"data,omitempty"`
+	Errors  interface{} `json:"errors,omitempty"`
 }
 
 type CodeResponse struct {
@@ -42,4 +48,24 @@ func FailResponse(message string) DefaultResponse {
 		Status:  "fail",
 		Message: message,
 	}
+}
+
+func ValidationResponse(errors map[string]map[string]string) ResponseWithData {
+	return ResponseWithData{
+		Status:  "fail",
+		Message: "Validation error",
+		Errors:    errors,
+	}
+}
+
+func ProceedValidation(err error) map[string]map[string]string {
+	validationErrors := make(map[string]map[string]string)
+
+	for _, err := range err.(validator.ValidationErrors) {
+		validationErrors[strings.ToLower(err.Field())] = map[string]string{
+			"rule": err.ActualTag(),
+		}
+	}
+
+	return validationErrors
 }

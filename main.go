@@ -3,19 +3,16 @@ package main
 import (
 	"fmt"
 	"github.com/getsentry/sentry-go/echo"
-	"github.com/go-playground/validator/v10"
 	_ "github.com/joho/godotenv/autoload"
 	"github.com/labstack/echo/v4"
 	"github.com/labstack/echo/v4/middleware"
 	"io/ioutil"
-	"loonify/config"
 	"loonify/routes"
 	"os"
 )
 
 func main() {
 	e := InitEcho()
-	e.Validator = &config.CustomValidator{Validator: validator.New()}
 
 	routes.InitRoutes(e)
 	LaunchApp(e)

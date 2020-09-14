@@ -7,6 +7,7 @@ import (
 	"go.mongodb.org/mongo-driver/bson/primitive"
 	"golang.org/x/crypto/bcrypt"
 	"loonify/api/v1"
+	"loonify/config"
 	"loonify/mail"
 	"loonify/models"
 	"net/http"
@@ -23,9 +24,9 @@ func LogIn(c echo.Context) error {
 		return c.JSON(http.StatusUnprocessableEntity, v1.FailResponse(err.Error()))
 	}
 
-	//if err := c.Validate(user); err != nil {
-	//	return c.JSON(http.StatusUnprocessableEntity, err)
-	//}
+	if err := config.Validator.Struct(user); err != nil {
+		return c.JSON(http.StatusUnprocessableEntity, v1.ValidationResponse(v1.ProceedValidation(err)))
+	}
 
 	err := mgm.Coll(&models.User{}).SimpleFind(&result, bson.M{"email": user.Email})
 	if err != nil {
@@ -51,9 +52,9 @@ func SignUp(c echo.Context) error {
 		return c.JSON(http.StatusUnprocessableEntity, v1.FailResponse(err.Error()))
 	}
 
-	//if err := c.Validate(user); err != nil {
-	//	return c.JSON(http.StatusUnprocessableEntity, err)
-	//}
+	if err := config.Validator.Struct(user); err != nil {
+		return c.JSON(http.StatusUnprocessableEntity, v1.ValidationResponse(v1.ProceedValidation(err)))
+	}
 
 	hashedPassword, err := bcrypt.GenerateFromPassword([]byte(user.Password), bcrypt.DefaultCost)
 	if err != nil {
