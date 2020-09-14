@@ -5,6 +5,7 @@ import (
 	"github.com/labstack/echo/v4"
 	"go.mongodb.org/mongo-driver/bson"
 	v1 "loonify/api/v1"
+	"loonify/config"
 	"loonify/models"
 	"net/http"
 )
@@ -52,6 +53,10 @@ func Update(c echo.Context) error {
 
 	if err := c.Bind(location); err != nil {
 		return c.JSON(http.StatusUnprocessableEntity, v1.FailResponse(err.Error()))
+	}
+
+	if err := config.Validator.Struct(location); err != nil {
+		return c.JSON(http.StatusUnprocessableEntity, v1.ValidationResponse(v1.ProceedValidation(err)))
 	}
 
 	err := mgm.Coll(location).Update(location)

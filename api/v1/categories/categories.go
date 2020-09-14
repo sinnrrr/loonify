@@ -5,6 +5,7 @@ import (
 	"github.com/labstack/echo/v4"
 	"go.mongodb.org/mongo-driver/bson"
 	v1 "loonify/api/v1"
+	"loonify/config"
 	"loonify/models"
 	"net/http"
 )
@@ -25,6 +26,10 @@ func Create(c echo.Context) error {
 
 	if err := c.Bind(category); err != nil {
 		return c.JSON(http.StatusUnprocessableEntity, v1.FailResponse(err.Error()))
+	}
+
+	if err := config.Validator.Struct(category); err != nil {
+		return c.JSON(http.StatusUnprocessableEntity, v1.ValidationResponse(v1.ProceedValidation(err)))
 	}
 
 	err := mgm.Coll(category).Create(category)
@@ -52,6 +57,10 @@ func Update(c echo.Context) error {
 
 	if err := c.Bind(category); err != nil {
 		return c.JSON(http.StatusUnprocessableEntity, v1.FailResponse(err.Error()))
+	}
+
+	if err := config.Validator.Struct(category); err != nil {
+		return c.JSON(http.StatusUnprocessableEntity, v1.ValidationResponse(v1.ProceedValidation(err)))
 	}
 
 	err := mgm.Coll(category).Update(category)
