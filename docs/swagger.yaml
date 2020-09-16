@@ -1,0 +1,23 @@
+info:
+  contact: {}
+  license: {}
+  title: Loonify API
+  version: "1.0"
+paths:
+  /:
+    get:
+      consumes:
+      - '*/*'
+      description: get all users.
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            additionalProperties: true
+            type: object
+      summary: Returns the list of users
+      tags:
+      - root
+swagger: "2.0"
