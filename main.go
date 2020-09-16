@@ -42,8 +42,8 @@ func InitEcho() *echo.Echo {
 
 	e.Static("/", "api/v1/welcome/favicon")
 
-	e.GET("/swagger", RedirectToSwagger)
-	e.GET("/swagger/*", echoSwagger.WrapHandler)
+	e.GET("/" + os.Getenv("SWAGGER_PATH"), RedirectToSwagger)
+	e.GET(fmt.Sprintf("/%s/*", os.Getenv("SWAGGER_PATH")), echoSwagger.WrapHandler)
 
 	e.Pre(middleware.AddTrailingSlashWithConfig(
 		middleware.TrailingSlashConfig{
