@@ -1,14 +1,12 @@
 package v1
 
-//func PushGroup(v1Group *echo.Group) {
-//	pushGroup := v1Group.Group("/push")
-//	subscriptionGroup := pushGroup.Group("/subscription")
-//
-//	pushGroup.GET("/")
-//	pushGroup.POST("/", push.SendPush)
-//	pushGroup.DELETE("/")
-//
-//	subscriptionGroup.GET("")
-//	subscriptionGroup.POST("")
-//	subscriptionGroup.DELETE("")
-//}
+import (
+	"github.com/labstack/echo/v4"
+	"loonify/api/v1/push"
+)
+
+func PushGroup(v1Group *echo.Group) {
+	pushGroup := v1Group.Group("/push")
+
+	pushGroup.POST("/", push.SendPush)
+}

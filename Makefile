@@ -6,6 +6,7 @@ start:
 	@go run .
 
 dev: dependencies
+	@swag init
 	@air -c ${AIR_FILE}
 
 docker:

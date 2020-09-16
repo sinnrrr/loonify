@@ -11,7 +11,14 @@ import (
 	"net/http"
 )
 
-/*GetUsers handler*/
+// Query godoc
+// @Summary Returns the list of users
+// @Description get all users.
+// @Tags root
+// @Accept */*
+// @Produce json
+// @Success 200 {object} map[string]interface{}
+// @Router / [get]
 func Query(c echo.Context) error {
 	var users []models.User
 

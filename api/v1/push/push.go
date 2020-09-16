@@ -10,15 +10,23 @@ import (
 )
 
 func SendPush(c echo.Context) error {
-	msg := new(fcm.Message)
+	var (
+		pushModel = new(fcm.Message)
+		err       error
+	)
 
-	if err := c.Bind(msg); err != nil {
+	if err := c.Bind(pushModel); err != nil {
 		return c.JSON(http.StatusUnprocessableEntity, v1.FailResponse(err.Error()))
 	}
 
-	response, err := push.SendCreated(msg)
+	if pushModel.Notification != nil {
+		_, err = push.SendWithNotification(pushModel.To, pushModel.Data, *pushModel.Notification)
+	} else {
+		_, err = push.Send(pushModel.To, pushModel.Data)
+	}
+
 	if err != nil {
-		return c.JSON(http.StatusInternalServerError, v1.ErrorResponse(fmt.Sprintf("%#v\n", response)))
+		return c.JSON(http.StatusBadRequest, v1.ErrorResponse(fmt.Sprintf(err.Error())))
 	}
 
 	return c.JSON(http.StatusOK, v1.GoodResponse("Push sent successfully"))

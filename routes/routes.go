@@ -31,7 +31,7 @@ func v1Group(api *echo.Group) {
 	v1.LocationsGroup(v1Group)
 	v1.CategoriesGroup(v1Group)
 	v1.AuthGroup(v1Group)
-	//v1.PushGroup(v1Group)
+	v1.PushGroup(v1Group)
 	v1.CodeGroup(v1Group)
 }
 
