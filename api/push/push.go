@@ -3,6 +3,7 @@ package push
 import (
 	"fmt"
 	"github.com/appleboy/go-fcm"
+	"loonify/config"
 	"os"
 )
 
@@ -14,24 +15,40 @@ func Connect() *fcm.Client {
 		panic(err)
 	}
 
-	fmt.Println(os.Getenv("PREFIX") + "Connection to FCM established successfully")
+	fmt.Println(config.Prefix + "Connection to FCM established successfully")
 
 	return client
-}
-
-func Create(to string, data map[string]interface{}) *fcm.Message {
-	msg := &fcm.Message{
-		To: to,
-		Data: data,
-	}
-
-	return msg
 }
 
 func Send(to string, data map[string]interface{}) (*fcm.Response, error) {
 	return client.Send(Create(to, data))
 }
 
-func SendCreated(msg *fcm.Message) (*fcm.Response, error) {
-	return client.Send(msg)
+func SendWithNotification(to string, data map[string]interface{}, notification fcm.Notification) (*fcm.Response, error) {
+	return client.Send(CreateWithNotification(to, data, notification))
+}
+
+func Create(to string, data map[string]interface{}) *fcm.Message {
+	msg := &fcm.Message{
+		To:             to,
+		Data:           data,
+		DryRun:         false,
+		MutableContent: true,
+		Priority:       "normal",
+	}
+
+	return msg
+}
+
+func CreateWithNotification(to string, data map[string]interface{}, notification fcm.Notification) *fcm.Message {
+	msg := &fcm.Message{
+		To:             to,
+		Data:           data,
+		DryRun:         false,
+		MutableContent: true,
+		Priority:       "normal",
+		Notification:   &notification,
+	}
+
+	return msg
 }

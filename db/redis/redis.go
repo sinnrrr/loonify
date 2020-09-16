@@ -5,7 +5,6 @@ import (
 	"fmt"
 	"github.com/go-redis/redis/v8"
 	"loonify/config"
-	"os"
 	"time"
 )
 
@@ -22,6 +21,6 @@ func Connect() *redis.Client {
 		panic(err)
 	}
 
-	fmt.Println(os.Getenv("PREFIX") + "Connection to Redis established successfully")
+	fmt.Println(config.Prefix + "Connection to Redis established successfully")
 	return rdb
 }
