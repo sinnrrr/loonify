@@ -3,6 +3,7 @@ package push
 import (
 	"fmt"
 	"github.com/appleboy/go-fcm"
+	"loonify/config"
 	"os"
 )
 
@@ -14,7 +15,7 @@ func Connect() *fcm.Client {
 		panic(err)
 	}
 
-	fmt.Println(os.Getenv("PREFIX") + "Connection to FCM established successfully")
+	fmt.Println(config.Prefix + "Connection to FCM established successfully")
 
 	return client
 }

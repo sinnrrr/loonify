@@ -15,7 +15,7 @@ func Welcome(c echo.Context) error {
 	}
 
 	return c.Render(http.StatusOK, "index.html", map[string]interface{}{
-		"title":   Titles[rand.Intn(KEYS)],
+		"title":   Titles[rand.Intn(len(Titles))],
 		"welcome": string(banner),
 	})
 }

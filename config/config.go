@@ -15,36 +15,39 @@ import (
 	"time"
 )
 
-var MongoUri = fmt.Sprintf(
-	"mongodb+srv://%s:%s@%s/%s?retryWrites=true&w=majority",
-	os.Getenv("MONGODB_USER"),
-	os.Getenv("MONGODB_PASSWORD"),
-	os.Getenv("MONGODB_HOST"),
-	os.Getenv("MONGODB_DATABASE"),
-)
-
-var RedisDatabase, _ = strconv.Atoi(os.Getenv("REDIS_DATABASE"))
-
-var RedisOptions = &redis.Options{
-	Addr:     os.Getenv("REDIS_HOST") + ":" + os.Getenv("REDIS_PORT"),
-	Password: os.Getenv("REDIS_PASSWORD"),
-	DB:       RedisDatabase,
-}
-
-var MailOptions = smtp.PlainAuth(
-	"",
-	os.Getenv("MAIL_USERNAME"),
-	os.Getenv("MAIL_PASSWORD"),
-	os.Getenv("MAIL_HOST"),
-)
-
 type (
 	Host struct {
 		Echo *echo.Echo
 	}
 )
 
-var Validator = validator.New()
+var (
+	Prefix = "---> "
+	Validator = validator.New()
+
+	MailOptions = smtp.PlainAuth(
+		"",
+		os.Getenv("MAIL_USERNAME"),
+		os.Getenv("MAIL_PASSWORD"),
+		os.Getenv("MAIL_HOST"),
+	)
+
+	MongoUri = fmt.Sprintf(
+		"mongodb+srv://%s:%s@%s/%s?retryWrites=true&w=majority",
+		os.Getenv("MONGODB_USER"),
+		os.Getenv("MONGODB_PASSWORD"),
+		os.Getenv("MONGODB_HOST"),
+		os.Getenv("MONGODB_DATABASE"),
+	)
+
+	RedisDatabase, _ = strconv.Atoi(os.Getenv("REDIS_DATABASE"))
+
+	RedisOptions = &redis.Options{
+		Addr:     os.Getenv("REDIS_HOST") + ":" + os.Getenv("REDIS_PORT"),
+		Password: os.Getenv("REDIS_PASSWORD"),
+		DB:       RedisDatabase,
+	}
+)
 
 func init() {
 	err := sentry.Init(sentry.ClientOptions{
