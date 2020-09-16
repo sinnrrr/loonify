@@ -20,19 +20,53 @@ func Connect() *fcm.Client {
 	return client
 }
 
+func Send(to string, data map[string]interface{}) (*fcm.Response, error) {
+	msg := &fcm.Message{
+		To:             to,
+		Data:           data,
+		DryRun:         false,
+		MutableContent: true,
+		Priority:       "normal",
+	}
+
+	return client.Send(msg)
+}
+
+func SendWithNotification(to string, data map[string]interface{}, notification fcm.Notification) (*fcm.Response, error) {
+	msg := &fcm.Message{
+		To:             to,
+		Data:           data,
+		DryRun:         false,
+		MutableContent: true,
+		Priority:       "normal",
+		Notification:   &notification,
+	}
+
+	return client.Send(msg)
+}
+
+
 func Create(to string, data map[string]interface{}) *fcm.Message {
 	msg := &fcm.Message{
-		To: to,
-		Data: data,
+		To:             to,
+		Data:           data,
+		DryRun:         false,
+		MutableContent: true,
+		Priority:       "normal",
 	}
 
 	return msg
 }
 
-func Send(to string, data map[string]interface{}) (*fcm.Response, error) {
-	return client.Send(Create(to, data))
-}
+func CreateWithNotification(to string, data map[string]interface{}, notification fcm.Notification) *fcm.Message {
+	msg := &fcm.Message{
+		To:             to,
+		Data:           data,
+		DryRun:         false,
+		MutableContent: true,
+		Priority:       "normal",
+		Notification:   &notification,
+	}
 
-func SendCreated(msg *fcm.Message) (*fcm.Response, error) {
-	return client.Send(msg)
+	return msg
 }
