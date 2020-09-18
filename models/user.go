@@ -2,6 +2,7 @@ package models
 
 import (
 	"github.com/Kamva/mgm/v3"
+	v1 "loonify/api/v1"
 )
 
 /*User struct*/
@@ -13,4 +14,9 @@ type User struct {
 	Phone            string `bson:"phone" json:"phone,omitempty" validate:"omitempty,number"`
 	Password         string `bson:"password" json:"password" validate:"required"`
 	Token            string `bson:"token" json:"token,omitempty" validate:"omitempty,uuid4_rfc4122"`
+}
+
+type UserResponse struct {
+	v1.DefaultResponse
+	Data User
 }

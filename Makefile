@@ -5,7 +5,7 @@ blah: dev
 start:
 	@go run .
 
-dev: dependencies docs
+dev: dependencies swagger
 	@air -c ${AIR_FILE}
 
 docker:
@@ -18,10 +18,10 @@ dependencies:
 	@go mod download
 	@go get ./...
 
-docs:
+swagger:
 	@swag init
 
-commit: docs
+commit: swagger
 	@git add .
 	@git commit -am ${COMMIT_MESSAGE}
 
