@@ -1,6 +1,9 @@
 package models
 
-import "github.com/Kamva/mgm/v3"
+import (
+	"github.com/Kamva/mgm/v3"
+	v1 "loonify/api/v1"
+)
 
 /*Post struct*/
 type Post struct {
@@ -13,4 +16,9 @@ type Post struct {
 	Description      string `bson:"description" json:"description" validate:"required"`
 	Status           string `bson:"status" json:"status" validate:"required"`
 	Reward           string `bson:"reward" json:"reward,omitempty"`
+}
+
+type PostResponse struct {
+	v1.DefaultResponse
+	Data Post
 }

@@ -20,9 +20,17 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="26644a7f-d1e5-42ca-8279-7fd42886f23a" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.env" beforeDir="false" afterPath="$PROJECT_DIR$/.env" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/api/v1/users/users.go" beforeDir="false" afterPath="$PROJECT_DIR$/api/v1/users/users.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/docs.go" beforeDir="false" afterPath="$PROJECT_DIR$/docs/docs.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/swagger.json" beforeDir="false" afterPath="$PROJECT_DIR$/docs/swagger.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/swagger.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/docs/swagger.yaml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/main.go" beforeDir="false" afterPath="$PROJECT_DIR$/main.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/models/category.go" beforeDir="false" afterPath="$PROJECT_DIR$/models/category.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/models/code.go" beforeDir="false" afterPath="$PROJECT_DIR$/models/code.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/models/location.go" beforeDir="false" afterPath="$PROJECT_DIR$/models/location.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/models/post.go" beforeDir="false" afterPath="$PROJECT_DIR$/models/post.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/models/user.go" beforeDir="false" afterPath="$PROJECT_DIR$/models/user.go" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -107,6 +115,19 @@
         </RestClientRequest>
       </list>
     </option>
+  </component>
+  <component name="RunManager">
+    <configuration name="docs" type="MAKEFILE_TARGET_RUN_CONFIGURATION" factoryName="Makefile" temporary="true">
+      <makefile filename="$PROJECT_DIR$/Makefile" target="docs" workingDirectory="" arguments="">
+        <envs />
+      </makefile>
+      <method v="2" />
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Makefile.docs" />
+      </list>
+    </recent_temporary>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="project-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
@@ -196,17 +217,19 @@
     </state>
     <state x="938" y="0" width="710" height="717" key="dock-window-1/0.0.1920.1080@0.0.1920.1080" timestamp="1599850363250" />
     <state x="416" y="73" width="1504" height="1007" key="dock-window-1/0.29.1920.1051@0.29.1920.1051" timestamp="1599146128894" />
-    <state x="483" y="84" width="1156" height="962" key="find.popup" timestamp="1600270249736">
-      <screen x="0" y="0" width="1920" height="1080" />
+    <state x="483" y="168" width="1156" height="1924" key="find.popup" timestamp="1600455422753">
+      <screen x="0" y="0" width="1920" height="2160" />
     </state>
     <state x="483" y="84" width="1156" height="962" key="find.popup/0.0.1920.1080@0.0.1920.1080" timestamp="1600270249736" />
+    <state x="483" y="168" width="1156" height="1924" key="find.popup/0.0.1920.2160@0.0.1920.2160" timestamp="1600455422753" />
     <state x="3071" y="72" width="1156" height="962" key="find.popup/0.0.2560.1440/2560.0.1920.1080@2560.0.1920.1080" timestamp="1598628460339" />
     <state x="511" y="97" width="1156" height="938" key="find.popup/0.27.1920.1053@0.27.1920.1053" timestamp="1599123548340" />
     <state x="511" y="99" width="1156" height="937" key="find.popup/0.29.1920.1051@0.29.1920.1051" timestamp="1599148049215" />
-    <state x="623" y="239" width="672" height="678" key="search.everywhere.popup" timestamp="1600263225913">
-      <screen x="0" y="0" width="1920" height="1080" />
+    <state x="623" y="478" width="672" height="1356" key="search.everywhere.popup" timestamp="1600455404984">
+      <screen x="0" y="0" width="1920" height="2160" />
     </state>
     <state x="623" y="239" width="672" height="678" key="search.everywhere.popup/0.0.1920.1080@0.0.1920.1080" timestamp="1600263225913" />
+    <state x="623" y="478" width="672" height="1356" key="search.everywhere.popup/0.0.1920.2160@0.0.1920.2160" timestamp="1600455404984" />
     <state x="623" y="262" width="672" height="660" key="search.everywhere.popup/0.29.1920.1051@0.29.1920.1051" timestamp="1599130219846" />
     <state x="685" y="455" width="540" height="168" key="vcs.readOnlyHandler.ReadOnlyStatusDialog" timestamp="1598431034512">
       <screen x="0" y="0" width="1920" height="1080" />

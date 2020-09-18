@@ -12,13 +12,14 @@ import (
 )
 
 // Query godoc
-// @Summary Returns the list of users
-// @Description get all users.
-// @Tags root
-// @Accept */*
-// @Produce json
-// @Success 200 {object} map[string]interface{}
-// @Router / [get]
+// @Summary List users
+// @Description Get all users from database
+// @Tags Users
+// @Accept  json
+// @Produce  json
+// @Success 200 {object} models.UserResponse
+// @Failure 500 {object} v1.DefaultResponse
+// @Router /users [get]
 func Query(c echo.Context) error {
 	var users []models.User
 
@@ -50,6 +51,16 @@ func Query(c echo.Context) error {
 //		return c.JSON(http.StatusCreated, v1.GoodResponseWithData(user, "User was successfully created"))
 //}
 
+// Read godoc
+// @Summary Show an account
+// @Description Get the account by ID
+// @ID get-string-by-int
+// @Tags Users
+// @Accept  json
+// @Produce  json
+// @Param id path int true "User ID"
+// @Success 200 {object} models.UserResponse
+// @Router /users/{id} [get]
 func Read(c echo.Context) error {
 	user := &models.User{}
 	coll := mgm.Coll(user)
@@ -59,6 +70,18 @@ func Read(c echo.Context) error {
 	return c.JSON(http.StatusOK, v1.GoodResponseWithData(user, "User was successfully retrieved"))
 }
 
+// Update godoc
+// @Summary Update concrete user
+// @Description Update user information using user ID
+// @ID get-string-by-int
+// @Tags Users
+// @Accept  json
+// @Produce  json
+// @Param id path int true "User ID"
+// @Success 200 {object} models.UserResponse
+// @Failure 422 {object} v1.ResponseWithData
+// @Failure 500 {object} v1.DefaultResponse
+// @Router /users/{id} [post]
 func Update(c echo.Context) error {
 	user := &models.User{}
 	coll := mgm.Coll(user)
@@ -81,6 +104,18 @@ func Update(c echo.Context) error {
 	return c.JSON(http.StatusCreated, v1.GoodResponseWithData(user, "User was successfully updated"))
 }
 
+// Delete godoc
+// @Summary Delete concrete user
+// @Description Delete user from database using user ID
+// @ID get-string-by-int
+// @Tags Users
+// @Accept  json
+// @Produce  json
+// @Param id path int true "User ID"
+// @Success 200 {object} models.UserResponse
+// @Failure 422 {object} v1.ResponseWithData
+// @Failure 500 {object} v1.DefaultResponse
+// @Router /users/{id} [delete]
 func Delete(c echo.Context) error {
 	user := &models.User{}
 	coll := mgm.Coll(user)
@@ -95,6 +130,15 @@ func Delete(c echo.Context) error {
 	return c.JSON(http.StatusOK, v1.GoodResponseWithData(user, "User was successfully retrieved"))
 }
 
+// Me godoc
+// @Summary Get current user info
+// @Description Retrieve current user info using token from database
+// @Tags Users
+// @Accept  json
+// @Produce  json
+// @Success 200 {object} models.UserResponse
+// @Failure 404 {object} v1.DefaultResponse
+// @Router /users/me [get]
 func Me(c echo.Context) error {
 	var (
 		result models.User

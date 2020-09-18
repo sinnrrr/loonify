@@ -3,6 +3,7 @@ package models
 import (
 	"github.com/Kamva/mgm/v3"
 	"go/types"
+	v1 "loonify/api/v1"
 )
 
 type Location struct {
@@ -13,4 +14,9 @@ type Location struct {
 	URL               string `bson:"url" json:"url" validate:"required"`
 	Name              string `bson:"name" json:"name" validate:"required"`
 	FormattedAddress  string `bson:"formatted_address" json:"formatted_address" validate:"required"`
+}
+
+type LocationResponse struct {
+	v1.DefaultResponse
+	Data Location
 }

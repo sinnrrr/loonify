@@ -1,23 +1,179 @@
+basePath: /v1
+definitions:
+  models.User:
+    properties:
+      address_id:
+        type: integer
+      email:
+        type: string
+      name:
+        type: string
+      password:
+        type: string
+      phone:
+        type: string
+      token:
+        type: string
+    required:
+    - name
+    - password
+    type: object
+  models.UserResponse:
+    properties:
+      data:
+        $ref: '#/definitions/models.User'
+        type: object
+      message:
+        type: string
+      status:
+        type: string
+    type: object
+  v1.DefaultResponse:
+    properties:
+      message:
+        type: string
+      status:
+        type: string
+    type: object
+  v1.ResponseWithData:
+    properties:
+      data:
+        type: object
+      errors:
+        type: object
+      message:
+        type: string
+      status:
+        type: string
+    type: object
+host: loonify.herokuapp.com
 info:
   contact: {}
   license: {}
   title: Loonify API
   version: "1.0"
 paths:
-  /:
+  /users:
     get:
       consumes:
-      - '*/*'
-      description: get all users.
+      - application/json
+      description: Get all users from database
       produces:
       - application/json
       responses:
         "200":
           description: OK
           schema:
-            additionalProperties: true
-            type: object
-      summary: Returns the list of users
+            $ref: '#/definitions/models.UserResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/v1.DefaultResponse'
+      summary: List users
       tags:
-      - root
+      - Users
+  /users/{id}:
+    delete:
+      consumes:
+      - application/json
+      description: Delete user from database using user ID
+      operationId: get-string-by-int
+      parameters:
+      - description: User ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.UserResponse'
+        "422":
+          description: Unprocessable Entity
+          schema:
+            $ref: '#/definitions/v1.ResponseWithData'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/v1.DefaultResponse'
+      summary: Delete concrete user
+      tags:
+      - Users
+    get:
+      consumes:
+      - application/json
+      description: Get the account by ID
+      operationId: get-string-by-int
+      parameters:
+      - description: User ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.UserResponse'
+      summary: Show an account
+      tags:
+      - Users
+    post:
+      consumes:
+      - application/json
+      description: Update user information using user ID
+      operationId: get-string-by-int
+      parameters:
+      - description: User ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.UserResponse'
+        "422":
+          description: Unprocessable Entity
+          schema:
+            $ref: '#/definitions/v1.ResponseWithData'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/v1.DefaultResponse'
+      summary: Update concrete user
+      tags:
+      - Users
+  /users/me:
+    get:
+      consumes:
+      - application/json
+      description: Retrieve current user info using token from database
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.UserResponse'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/v1.DefaultResponse'
+      summary: Get current user info
+      tags:
+      - Users
+securityDefinitions:
+  ApiKeyAuth:
+    in: header
+    name: Authorization
+    type: apiKey
 swagger: "2.0"

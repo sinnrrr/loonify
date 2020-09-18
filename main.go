@@ -1,5 +1,12 @@
 // @title Loonify API
 // @version 1.0
+
+// @host loonify.herokuapp.com
+// @BasePath /v1
+
+// @securityDefinitions.apikey ApiKeyAuth
+// @in header
+// @name Authorization
 package main
 
 import (
