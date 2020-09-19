@@ -9,6 +9,15 @@ import (
 	"net/http"
 )
 
+// SendPush godoc
+// @Summary Send a push
+// @Description Send a push to the concrete device using FCM
+// @Tags Push
+// @Accept  json
+// @Produce  json
+// @Success 200 {object} models.UserResponse
+// @Failure 400 {object} v1.DefaultResponse
+// @Router /push [post]
 func SendPush(c echo.Context) error {
 	var (
 		pushModel = new(fcm.Message)
@@ -16,7 +25,7 @@ func SendPush(c echo.Context) error {
 	)
 
 	if err := c.Bind(pushModel); err != nil {
-		return c.JSON(http.StatusUnprocessableEntity, v1.FailResponse(err.Error()))
+		return c.JSON(http.StatusBadRequest, v1.FailResponse(err.Error()))
 	}
 
 	if pushModel.Notification != nil {

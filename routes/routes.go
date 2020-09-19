@@ -19,7 +19,6 @@ func InitRoutes(api *echo.Echo) {
 
 	v1Group(apiGroup)
 	registerRedirectToCurrent(api)
-	registerDocumentationRoute(api)
 }
 
 func v1Group(api *echo.Group) {
@@ -38,12 +37,6 @@ func v1Group(api *echo.Group) {
 func registerRedirectToCurrent(api *echo.Echo) {
 	api.GET("/", func(c echo.Context) error {
 		return c.Redirect(http.StatusSeeOther, api.Reverse("api.current"))
-	})
-}
-
-func registerDocumentationRoute(api *echo.Echo) {
-	api.GET("documentation/", func(c echo.Context) error {
-		return c.File("documentation.md")
 	})
 }
 

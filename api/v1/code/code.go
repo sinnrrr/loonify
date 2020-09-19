@@ -12,12 +12,24 @@ import (
 	"net/http"
 )
 
+// Resend godoc
+// @Summary Resend email with code
+// @Description Make a an email letter with authorization code again
+// @Tags Auth
+// @Accept  json
+// @Produce  json
+// @Success 200 {object} v1.DefaultResponse
+// @Success 400 {object} v1.DefaultResponse
+// @Success 404 {object} v1.DefaultResponse
+// @Failure 422 {object} v1.ResponseWithData
+// @Failure 500 {object} v1.DefaultResponse
+// @Router /code/resend [post]
 func Resend(c echo.Context) error {
 	user := &models.User{}
 	coll := mgm.Coll(user)
 
 	if err := c.Bind(user); err != nil {
-		return c.JSON(http.StatusUnprocessableEntity, v1.FailResponse(err.Error()))
+		return c.JSON(http.StatusBadRequest, v1.FailResponse(err.Error()))
 	}
 
 	err := mail.ResendVerificationCode(user.Email)
@@ -42,10 +54,21 @@ func Resend(c echo.Context) error {
 	return c.JSON(http.StatusOK, v1.GoodResponse("Verification code resent successfully"))
 }
 
+// Verify godoc
+// @Summary Verify code provided in email
+// @Description Make a verification of authorization code, that was sent in letter
+// @Tags Auth
+// @Accept  json
+// @Produce  json
+// @Success 200 {object} v1.DefaultResponse
+// @Success 400 {object} v1.DefaultResponse
+// @Success 401 {object} v1.DefaultResponse
+// @Failure 422 {object} v1.ResponseWithData
+// @Router /code/verify [post]
 func Verify(c echo.Context) error {
 	code := &models.Code{}
 	if err := c.Bind(code); err != nil {
-		return c.JSON(http.StatusUnprocessableEntity, v1.FailResponse(err.Error()))
+		return c.JSON(http.StatusBadRequest, v1.FailResponse(err.Error()))
 	}
 
 	rightCode, err := redis.Client.Get(context.Background(), code.Email).Result()
