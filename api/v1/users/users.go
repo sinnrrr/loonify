@@ -52,8 +52,8 @@ func Query(c echo.Context) error {
 //}
 
 // Read godoc
-// @Summary Show an account
-// @Description Get the account by ID
+// @Summary Show the user
+// @Description Get the user by ID
 // @ID get-string-by-int
 // @Tags Users
 // @Accept  json
@@ -79,6 +79,7 @@ func Read(c echo.Context) error {
 // @Produce  json
 // @Param id path int true "User ID"
 // @Success 200 {object} models.UserResponse
+// @Failure 400 {object} v1.DefaultResponse
 // @Failure 422 {object} v1.ResponseWithData
 // @Failure 500 {object} v1.DefaultResponse
 // @Router /users/{id} [post]
@@ -89,7 +90,7 @@ func Update(c echo.Context) error {
 	_ = coll.FindByID(c.Param("id"), user)
 
 	if err := c.Bind(user); err != nil {
-		return c.JSON(http.StatusUnprocessableEntity, v1.FailResponse(err.Error()))
+		return c.JSON(http.StatusBadRequest, v1.FailResponse(err.Error()))
 	}
 
 	if err := config.Validator.Struct(user); err != nil {

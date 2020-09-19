@@ -15,13 +15,25 @@ import (
 
 //var newUserAccessLevel = 0
 
+// LogIn godoc
+// @Summary Make a login operation
+// @Description Make a login attempt
+// @Tags Auth
+// @Accept  json
+// @Produce  json
+// @Success 200 {object} models.UserResponse
+// @Success 400 {object} v1.DefaultResponse
+// @Failure 401 {object} v1.DefaultResponse
+// @Failure 422 {object} v1.ResponseWithData
+// @Failure 500 {object} v1.DefaultResponse
+// @Router /auth/login [post]
 func LogIn(c echo.Context) error {
 	var result []models.User
 
 	user := new(models.User)
 
 	if err := c.Bind(user); err != nil {
-		return c.JSON(http.StatusUnprocessableEntity, v1.FailResponse(err.Error()))
+		return c.JSON(http.StatusBadRequest, v1.FailResponse(err.Error()))
 	}
 
 	if err := config.Validator.Struct(user); err != nil {
@@ -45,6 +57,16 @@ func LogIn(c echo.Context) error {
 	return c.JSON(http.StatusOK, v1.GoodResponseWithData(result[0], "User successfully logged in"))
 }
 
+// SignUp godoc
+// @Summary Make a registration operation
+// @Description Make a sign up attempt
+// @Tags Auth
+// @Accept  json
+// @Produce  json
+// @Success 200 {object} models.UserResponse
+// @Failure 422 {object} v1.ResponseWithData
+// @Failure 500 {object} v1.DefaultResponse
+// @Router /auth/signup [post]
 func SignUp(c echo.Context) error {
 	user := new(models.User)
 
