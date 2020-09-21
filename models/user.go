@@ -2,7 +2,7 @@ package models
 
 import (
 	"github.com/Kamva/mgm/v3"
-	v1 "loonify/api/v1"
+	"loonify/config"
 )
 
 /*User struct*/
@@ -17,6 +17,6 @@ type User struct {
 }
 
 type UserResponse struct {
-	v1.DefaultResponse
+	config.DefaultResponse
 	Data User
 }

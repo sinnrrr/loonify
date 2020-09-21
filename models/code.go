@@ -1,6 +1,8 @@
 package models
 
-import v1 "loonify/api/v1"
+import (
+	"loonify/config"
+)
 
 type Code struct {
 	Email string `bson:"email" json:"email" validate:"email"`
@@ -8,6 +10,6 @@ type Code struct {
 }
 
 type CodeResponse struct {
-	v1.DefaultResponse
+	config.DefaultResponse
 	Data Code
 }

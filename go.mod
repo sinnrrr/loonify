@@ -17,11 +17,6 @@ require (
 	github.com/go-openapi/swag v0.19.9 // indirect
 	github.com/go-playground/validator/v10 v10.3.0
 	github.com/go-redis/redis/v8 v8.0.0-beta.8
-	github.com/google/uuid v1.1.1
-	github.com/graphql-go/graphql v0.7.9
-	github.com/graphql-go/handler v0.2.3
-	github.com/imdario/mergo v0.3.11 // indirect
-	github.com/jinzhu/gorm v1.9.16
 	github.com/joho/godotenv v1.3.0
 	github.com/klauspost/compress v1.10.11 // indirect
 	github.com/labstack/echo-contrib v0.9.0

@@ -48,25 +48,25 @@ var doc = `{
                     "400": {
                         "description": "Bad Request",
                         "schema": {
-                            "$ref": "#/definitions/v1.DefaultResponse"
+                            "$ref": "#/definitions/config.DefaultResponse"
                         }
                     },
                     "401": {
                         "description": "Unauthorized",
                         "schema": {
-                            "$ref": "#/definitions/v1.DefaultResponse"
+                            "$ref": "#/definitions/config.DefaultResponse"
                         }
                     },
                     "422": {
                         "description": "Unprocessable Entity",
                         "schema": {
-                            "$ref": "#/definitions/v1.ResponseWithData"
+                            "$ref": "#/definitions/config.ResponseWithData"
                         }
                     },
                     "500": {
                         "description": "Internal Server Error",
                         "schema": {
-                            "$ref": "#/definitions/v1.DefaultResponse"
+                            "$ref": "#/definitions/config.DefaultResponse"
                         }
                     }
                 }
@@ -95,13 +95,13 @@ var doc = `{
                     "422": {
                         "description": "Unprocessable Entity",
                         "schema": {
-                            "$ref": "#/definitions/v1.ResponseWithData"
+                            "$ref": "#/definitions/config.ResponseWithData"
                         }
                     },
                     "500": {
                         "description": "Internal Server Error",
                         "schema": {
-                            "$ref": "#/definitions/v1.DefaultResponse"
+                            "$ref": "#/definitions/config.DefaultResponse"
                         }
                     }
                 }
@@ -129,7 +129,7 @@ var doc = `{
                     "500": {
                         "description": "Internal Server Error",
                         "schema": {
-                            "$ref": "#/definitions/v1.DefaultResponse"
+                            "$ref": "#/definitions/config.DefaultResponse"
                         }
                     }
                 }
@@ -156,13 +156,13 @@ var doc = `{
                     "400": {
                         "description": "Bad Request",
                         "schema": {
-                            "$ref": "#/definitions/v1.DefaultResponse"
+                            "$ref": "#/definitions/config.DefaultResponse"
                         }
                     },
                     "500": {
                         "description": "Internal Server Error",
                         "schema": {
-                            "$ref": "#/definitions/v1.DefaultResponse"
+                            "$ref": "#/definitions/config.DefaultResponse"
                         }
                     }
                 }
@@ -232,19 +232,19 @@ var doc = `{
                     "400": {
                         "description": "Bad Request",
                         "schema": {
-                            "$ref": "#/definitions/v1.DefaultResponse"
+                            "$ref": "#/definitions/config.DefaultResponse"
                         }
                     },
                     "422": {
                         "description": "Unprocessable Entity",
                         "schema": {
-                            "$ref": "#/definitions/v1.ResponseWithData"
+                            "$ref": "#/definitions/config.ResponseWithData"
                         }
                     },
                     "500": {
                         "description": "Internal Server Error",
                         "schema": {
-                            "$ref": "#/definitions/v1.DefaultResponse"
+                            "$ref": "#/definitions/config.DefaultResponse"
                         }
                     }
                 }
@@ -281,13 +281,13 @@ var doc = `{
                     "422": {
                         "description": "Unprocessable Entity",
                         "schema": {
-                            "$ref": "#/definitions/v1.ResponseWithData"
+                            "$ref": "#/definitions/config.ResponseWithData"
                         }
                     },
                     "500": {
                         "description": "Internal Server Error",
                         "schema": {
-                            "$ref": "#/definitions/v1.DefaultResponse"
+                            "$ref": "#/definitions/config.DefaultResponse"
                         }
                     }
                 }
@@ -310,31 +310,31 @@ var doc = `{
                     "200": {
                         "description": "OK",
                         "schema": {
-                            "$ref": "#/definitions/v1.DefaultResponse"
+                            "$ref": "#/definitions/config.DefaultResponse"
                         }
                     },
                     "400": {
                         "description": "Bad Request",
                         "schema": {
-                            "$ref": "#/definitions/v1.DefaultResponse"
+                            "$ref": "#/definitions/config.DefaultResponse"
                         }
                     },
                     "404": {
                         "description": "Not Found",
                         "schema": {
-                            "$ref": "#/definitions/v1.DefaultResponse"
+                            "$ref": "#/definitions/config.DefaultResponse"
                         }
                     },
                     "422": {
                         "description": "Unprocessable Entity",
                         "schema": {
-                            "$ref": "#/definitions/v1.ResponseWithData"
+                            "$ref": "#/definitions/config.ResponseWithData"
                         }
                     },
                     "500": {
                         "description": "Internal Server Error",
                         "schema": {
-                            "$ref": "#/definitions/v1.DefaultResponse"
+                            "$ref": "#/definitions/config.DefaultResponse"
                         }
                     }
                 }
@@ -357,25 +357,25 @@ var doc = `{
                     "200": {
                         "description": "OK",
                         "schema": {
-                            "$ref": "#/definitions/v1.DefaultResponse"
+                            "$ref": "#/definitions/config.DefaultResponse"
                         }
                     },
                     "400": {
                         "description": "Bad Request",
                         "schema": {
-                            "$ref": "#/definitions/v1.DefaultResponse"
+                            "$ref": "#/definitions/config.DefaultResponse"
                         }
                     },
                     "401": {
                         "description": "Unauthorized",
                         "schema": {
-                            "$ref": "#/definitions/v1.DefaultResponse"
+                            "$ref": "#/definitions/config.DefaultResponse"
                         }
                     },
                     "422": {
                         "description": "Unprocessable Entity",
                         "schema": {
-                            "$ref": "#/definitions/v1.ResponseWithData"
+                            "$ref": "#/definitions/config.ResponseWithData"
                         }
                     }
                 }
@@ -403,7 +403,7 @@ var doc = `{
                     "500": {
                         "description": "Internal Server Error",
                         "schema": {
-                            "$ref": "#/definitions/v1.DefaultResponse"
+                            "$ref": "#/definitions/config.DefaultResponse"
                         }
                     }
                 }
@@ -430,13 +430,13 @@ var doc = `{
                     "400": {
                         "description": "Bad Request",
                         "schema": {
-                            "$ref": "#/definitions/v1.DefaultResponse"
+                            "$ref": "#/definitions/config.DefaultResponse"
                         }
                     },
                     "500": {
                         "description": "Internal Server Error",
                         "schema": {
-                            "$ref": "#/definitions/v1.DefaultResponse"
+                            "$ref": "#/definitions/config.DefaultResponse"
                         }
                     }
                 }
@@ -506,19 +506,19 @@ var doc = `{
                     "400": {
                         "description": "Bad Request",
                         "schema": {
-                            "$ref": "#/definitions/v1.DefaultResponse"
+                            "$ref": "#/definitions/config.DefaultResponse"
                         }
                     },
                     "422": {
                         "description": "Unprocessable Entity",
                         "schema": {
-                            "$ref": "#/definitions/v1.ResponseWithData"
+                            "$ref": "#/definitions/config.ResponseWithData"
                         }
                     },
                     "500": {
                         "description": "Internal Server Error",
                         "schema": {
-                            "$ref": "#/definitions/v1.DefaultResponse"
+                            "$ref": "#/definitions/config.DefaultResponse"
                         }
                     }
                 }
@@ -546,7 +546,7 @@ var doc = `{
                     "500": {
                         "description": "Internal Server Error",
                         "schema": {
-                            "$ref": "#/definitions/v1.DefaultResponse"
+                            "$ref": "#/definitions/config.DefaultResponse"
                         }
                     }
                 }
@@ -573,13 +573,13 @@ var doc = `{
                     "400": {
                         "description": "Bad Request",
                         "schema": {
-                            "$ref": "#/definitions/v1.DefaultResponse"
+                            "$ref": "#/definitions/config.DefaultResponse"
                         }
                     },
                     "500": {
                         "description": "Internal Server Error",
                         "schema": {
-                            "$ref": "#/definitions/v1.DefaultResponse"
+                            "$ref": "#/definitions/config.DefaultResponse"
                         }
                     }
                 }
@@ -649,19 +649,19 @@ var doc = `{
                     "400": {
                         "description": "Bad Request",
                         "schema": {
-                            "$ref": "#/definitions/v1.DefaultResponse"
+                            "$ref": "#/definitions/config.DefaultResponse"
                         }
                     },
                     "422": {
                         "description": "Unprocessable Entity",
                         "schema": {
-                            "$ref": "#/definitions/v1.ResponseWithData"
+                            "$ref": "#/definitions/config.ResponseWithData"
                         }
                     },
                     "500": {
                         "description": "Internal Server Error",
                         "schema": {
-                            "$ref": "#/definitions/v1.DefaultResponse"
+                            "$ref": "#/definitions/config.DefaultResponse"
                         }
                     }
                 }
@@ -698,13 +698,13 @@ var doc = `{
                     "422": {
                         "description": "Unprocessable Entity",
                         "schema": {
-                            "$ref": "#/definitions/v1.ResponseWithData"
+                            "$ref": "#/definitions/config.ResponseWithData"
                         }
                     },
                     "500": {
                         "description": "Internal Server Error",
                         "schema": {
-                            "$ref": "#/definitions/v1.DefaultResponse"
+                            "$ref": "#/definitions/config.DefaultResponse"
                         }
                     }
                 }
@@ -733,7 +733,7 @@ var doc = `{
                     "400": {
                         "description": "Bad Request",
                         "schema": {
-                            "$ref": "#/definitions/v1.DefaultResponse"
+                            "$ref": "#/definitions/config.DefaultResponse"
                         }
                     }
                 }
@@ -762,36 +762,7 @@ var doc = `{
                     "500": {
                         "description": "Internal Server Error",
                         "schema": {
-                            "$ref": "#/definitions/v1.DefaultResponse"
-                        }
-                    }
-                }
-            }
-        },
-        "/users/me": {
-            "get": {
-                "description": "Retrieve current user info using token from database",
-                "consumes": [
-                    "application/json"
-                ],
-                "produces": [
-                    "application/json"
-                ],
-                "tags": [
-                    "Users"
-                ],
-                "summary": "Get current user info",
-                "responses": {
-                    "200": {
-                        "description": "OK",
-                        "schema": {
-                            "$ref": "#/definitions/models.UserResponse"
-                        }
-                    },
-                    "404": {
-                        "description": "Not Found",
-                        "schema": {
-                            "$ref": "#/definitions/v1.DefaultResponse"
+                            "$ref": "#/definitions/config.DefaultResponse"
                         }
                     }
                 }
@@ -861,19 +832,19 @@ var doc = `{
                     "400": {
                         "description": "Bad Request",
                         "schema": {
-                            "$ref": "#/definitions/v1.DefaultResponse"
+                            "$ref": "#/definitions/config.DefaultResponse"
                         }
                     },
                     "422": {
                         "description": "Unprocessable Entity",
                         "schema": {
-                            "$ref": "#/definitions/v1.ResponseWithData"
+                            "$ref": "#/definitions/config.ResponseWithData"
                         }
                     },
                     "500": {
                         "description": "Internal Server Error",
                         "schema": {
-                            "$ref": "#/definitions/v1.DefaultResponse"
+                            "$ref": "#/definitions/config.DefaultResponse"
                         }
                     }
                 }
@@ -910,13 +881,13 @@ var doc = `{
                     "422": {
                         "description": "Unprocessable Entity",
                         "schema": {
-                            "$ref": "#/definitions/v1.ResponseWithData"
+                            "$ref": "#/definitions/config.ResponseWithData"
                         }
                     },
                     "500": {
                         "description": "Internal Server Error",
                         "schema": {
-                            "$ref": "#/definitions/v1.DefaultResponse"
+                            "$ref": "#/definitions/config.DefaultResponse"
                         }
                     }
                 }
@@ -924,6 +895,34 @@ var doc = `{
         }
     },
     "definitions": {
+        "config.DefaultResponse": {
+            "type": "object",
+            "properties": {
+                "message": {
+                    "type": "string"
+                },
+                "status": {
+                    "type": "string"
+                }
+            }
+        },
+        "config.ResponseWithData": {
+            "type": "object",
+            "properties": {
+                "data": {
+                    "type": "object"
+                },
+                "errors": {
+                    "type": "object"
+                },
+                "message": {
+                    "type": "string"
+                },
+                "status": {
+                    "type": "string"
+                }
+            }
+        },
         "models.Category": {
             "type": "object",
             "required": [
@@ -1093,41 +1092,6 @@ var doc = `{
                     "type": "string"
                 }
             }
-        },
-        "v1.DefaultResponse": {
-            "type": "object",
-            "properties": {
-                "message": {
-                    "type": "string"
-                },
-                "status": {
-                    "type": "string"
-                }
-            }
-        },
-        "v1.ResponseWithData": {
-            "type": "object",
-            "properties": {
-                "data": {
-                    "type": "object"
-                },
-                "errors": {
-                    "type": "object"
-                },
-                "message": {
-                    "type": "string"
-                },
-                "status": {
-                    "type": "string"
-                }
-            }
-        }
-    },
-    "securityDefinitions": {
-        "ApiKeyAuth": {
-            "type": "apiKey",
-            "name": "Authorization",
-            "in": "header"
         }
     }
 }`
