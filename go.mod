@@ -9,6 +9,9 @@ require (
 	github.com/alecthomas/template v0.0.0-20190718012654-fb15b899a751
 	github.com/appleboy/go-fcm v0.1.5
 	github.com/aws/aws-sdk-go v1.34.11 // indirect
+	github.com/cosmtrek/air v1.21.2 // indirect
+	github.com/creack/pty v1.1.11 // indirect
+	github.com/fatih/color v1.9.0 // indirect
 	github.com/getsentry/sentry-go v0.7.0
 	github.com/go-openapi/spec v0.19.9 // indirect
 	github.com/go-openapi/swag v0.19.9 // indirect
