@@ -2,7 +2,7 @@ package models
 
 import (
 	"github.com/Kamva/mgm/v3"
-	v1 "loonify/api/v1"
+	"loonify/config"
 )
 
 /*Post struct*/
@@ -19,6 +19,6 @@ type Post struct {
 }
 
 type PostResponse struct {
-	v1.DefaultResponse
+	config.DefaultResponse
 	Data Post
 }

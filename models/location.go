@@ -3,7 +3,7 @@ package models
 import (
 	"github.com/Kamva/mgm/v3"
 	"go/types"
-	v1 "loonify/api/v1"
+	"loonify/config"
 )
 
 type Location struct {
@@ -17,6 +17,6 @@ type Location struct {
 }
 
 type LocationResponse struct {
-	v1.DefaultResponse
+	config.DefaultResponse
 	Data Location
 }

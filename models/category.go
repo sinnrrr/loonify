@@ -2,7 +2,7 @@ package models
 
 import (
 	"github.com/Kamva/mgm/v3"
-	v1 "loonify/api/v1"
+	"loonify/config"
 )
 
 type Category struct {
@@ -12,6 +12,6 @@ type Category struct {
 }
 
 type CategoryResponse struct {
-	v1.DefaultResponse
+	config.DefaultResponse
 	Data Category
 }
