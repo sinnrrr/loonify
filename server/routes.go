@@ -25,6 +25,7 @@ func InitRoutes(e *echo.Echo) {
 
 	SwaggerGroup(swaggerGroup)
 	RegisterRedirectToCurrent(e)
+	RegisterRedirectToSwagger(e)
 }
 
 func V1Group(v1Group *echo.Group) {
@@ -101,7 +102,10 @@ func CodeV1Group(v1Group *echo.Group) {
 
 func SwaggerGroup(swaggerGroup *echo.Group) {
 	swaggerGroup.GET("/*", echoSwagger.WrapHandler)
-	swaggerGroup.GET("/"+os.Getenv("SWAGGER_PATH"), RedirectToSwagger)
+}
+
+func RegisterRedirectToSwagger(e *echo.Echo) {
+	e.GET(os.Getenv("SWAGGER_PATH"), RedirectToSwagger)
 }
 
 func RegisterRedirectToCurrent(e *echo.Echo) {
@@ -111,5 +115,5 @@ func RegisterRedirectToCurrent(e *echo.Echo) {
 }
 
 func RedirectToSwagger(c echo.Context) error {
-	return c.Redirect(http.StatusPermanentRedirect, os.Getenv("SWAGGER_PATH")+"/welcome.html")
+	return c.Redirect(http.StatusPermanentRedirect, os.Getenv("SWAGGER_PATH")+"/index.html")
 }
