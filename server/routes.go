@@ -106,7 +106,7 @@ func SwaggerGroup(swaggerGroup *echo.Group) {
 
 func RegisterRedirectToCurrent(e *echo.Echo) {
 	e.GET("/", func(c echo.Context) error {
-		return c.Redirect(http.StatusSeeOther, os.Getenv("DEFAULT_ROUTE"))
+		return c.Redirect(http.StatusPermanentRedirect, os.Getenv("DEFAULT_ROUTE"))
 	})
 }
 
