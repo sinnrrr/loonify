@@ -22,7 +22,7 @@ swagger:
 ent:
 	@go generate ./ent
 
-commit: swagger
+commit: dependencies swagger ent
 	@git add .
 	@git commit -am ${COMMIT_MESSAGE}
 

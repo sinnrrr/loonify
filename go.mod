@@ -6,7 +6,6 @@ go 1.15
 
 require (
 	github.com/alecthomas/template v0.0.0-20190718012654-fb15b899a751
-	github.com/cosmtrek/air v1.21.2 // indirect
 	github.com/facebook/ent v0.5.1
 	github.com/getsentry/sentry-go v0.7.0
 	github.com/golang/protobuf v1.4.2 // indirect
