@@ -8,6 +8,6 @@ docs
 
 #ent generated code, but not schemas
 !/ent/
-/ent/**
+/ent/*
 !/ent/generate.go
 !/ent/schema/
