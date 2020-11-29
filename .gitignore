@@ -7,5 +7,5 @@ vendor
 docs
 
 #ent generated code, but not schemas
-/ent
 !/ent/schema
+/ent
