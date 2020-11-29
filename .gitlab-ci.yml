@@ -7,8 +7,9 @@ before_script:
 
 master:
   services:
+    - ruby:latest
     - golang:latest
-  image: ruby:latest
+  image: alpine:latest
   script:
     - go generate ./ent
     - go run github.com/swaggo/swag/cmd/swag init
