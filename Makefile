@@ -5,7 +5,7 @@ blah: dev
 start:
 	@go run .
 
-dev: dependencies swagger
+dev: dependencies swagger ent
 	@air -c ${AIR_FILE}
 
 docker:
@@ -17,9 +17,13 @@ redis:
 dependencies:
 	@go mod download
 	@go get ./...
+	@go mod tidy
 
 swagger:
 	@swag init
+
+ent:
+	@go generate ./ent
 
 commit: swagger
 	@git add .

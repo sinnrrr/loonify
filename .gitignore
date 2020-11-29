@@ -1,3 +1,13 @@
+#trash files
 tmp
 vendor
 .idea
+
+#swagger spec
+docs
+
+#ent generated code, but not schemas
+!/ent/
+/ent/*
+!/ent/generate.go
+!/ent/schema/

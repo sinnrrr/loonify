@@ -6,8 +6,12 @@ before_script:
   - gem install dpl
 
 master:
+  services:
+    - golang:latest
   image: ruby:latest
   script:
+    - go generate ./ent
+    - go run github.com/swaggo/swag/cmd/swag init
     - dpl --provider=heroku --app=$HEROKU_APP_NAME --api-key=$HEROKU_API_KEY
   only:
     - master

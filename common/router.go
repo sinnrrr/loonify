@@ -1,4 +1,4 @@
-package server
+package common
 
 import (
 	"fmt"
@@ -6,18 +6,15 @@ import (
 	"github.com/labstack/echo-contrib/prometheus"
 	"github.com/labstack/echo/v4"
 	"github.com/labstack/echo/v4/middleware"
-	"html/template"
-	"io"
+	"github.com/labstack/gommon/log"
 	"io/ioutil"
-	"loonify/middlewares/skippers"
 	"os"
 )
 
 func Init() {
 	e := InitRouter()
-
 	OutputLogo()
-	InitRoutes(e)
+
 	RunRouter(e)
 }
 
@@ -34,7 +31,6 @@ func InitRouter() *echo.Echo {
 	e := echo.New()
 	e.HideBanner = true
 
-	applyRenderer(e)
 	applyMiddlewares(e)
 
 	RegisterSentry(e)
@@ -43,31 +39,12 @@ func InitRouter() *echo.Echo {
 	return e
 }
 
-func applyRenderer(e *echo.Echo) {
-	t := &Template{
-		templates: template.Must(template.ParseGlob("public/html/*.html")),
-	}
-
-	e.Renderer = t
-}
-
 func applyMiddlewares(e *echo.Echo) {
 	e.Use(middleware.Logger())
 	e.Use(middleware.Recover())
 	e.Use(middleware.Secure())
 	e.Use(middleware.CORS())
-
-	e.Pre(middleware.AddTrailingSlashWithConfig(
-		middleware.TrailingSlashConfig{
-			Skipper: skippers.UrlForAdding,
-		},
-	))
-
-	e.Pre(middleware.RemoveTrailingSlashWithConfig(
-		middleware.TrailingSlashConfig{
-			Skipper: skippers.UrlForRemoving,
-		},
-	))
+	e.Pre(middleware.RemoveTrailingSlash())
 }
 
 func RegisterSentry(e *echo.Echo) {
@@ -82,13 +59,6 @@ func RegisterPrometheus(e *echo.Echo) {
 }
 
 func RunRouter(e *echo.Echo) {
+	e.Logger.SetLevel(log.WARN)
 	e.Logger.Fatal(e.Start(":" + os.Getenv("PORT")))
-}
-
-type Template struct {
-	templates *template.Template
-}
-
-func (t *Template) Render(w io.Writer, name string, data interface{}, c echo.Context) error {
-	return t.templates.ExecuteTemplate(w, name, data)
 }
