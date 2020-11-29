@@ -1,12 +1,17 @@
-image: golang:latest
 before_script:
   - apt-get update -qy
   - apt-get install -y ruby-dev
   - gem install dpl
-  - go generate ./ent
-  - go run github.com/swaggo/swag/cmd/swag init
 
-master:
+generate:
+  stage: generate
+  image: golang:latest
+  script:
+    - go generate ./ent
+    - go run github.com/swaggo/swag/cmd/swag init
+
+deploy:
+  stage: deploy
   image: ruby:latest
   script:
     - dpl --provider=heroku --app=$HEROKU_APP_NAME --api-key=$HEROKU_API_KEY
