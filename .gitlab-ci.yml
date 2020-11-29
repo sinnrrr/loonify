@@ -6,8 +6,8 @@ before_script:
 master:
   image: golang:latest
   script:
-    - go generate ./ent
-    - go run github.com/swaggo/swag/cmd/swag init
+#    - go generate ./ent
+#    - go run github.com/swaggo/swag/cmd/swag init
     - dpl --provider=heroku --app=$HEROKU_APP_NAME --api-key=$HEROKU_API_KEY
   only:
     - master
