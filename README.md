@@ -6,15 +6,9 @@
 ░░░███████╗╚█████╔╝╚█████╔╝██║░╚███║██║██║░░░░░░░░██║░░░░░░  
 ░░░╚══════╝░╚════╝░░╚════╝░╚═╝░░╚══╝╚═╝╚═╝░░░░░░░░╚═╝░░░░░░  
 ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░
-## Requirments (not required, but recommended)
- - [Air](https://github.com/cosmtrek/air) (for live reload)
+## Requirments
  - Make (for Makefile support)
 ## Getting started
-**Without dependencies installed:**
-
-    go run .
-
-**With dependecies being installed:**
 
 To start developing just type in terminal:
 

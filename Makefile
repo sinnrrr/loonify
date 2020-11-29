@@ -6,13 +6,10 @@ start:
 	@go run .
 
 dev: dependencies swagger ent
-	@air -c ${AIR_FILE}
+	@go run github.com/cosmtrek/air -c ${AIR_FILE}
 
 docker:
 	@docker-compose up --build
-
-redis:
-	@redis-cli -h ${REDIS_HOST} -p ${REDIS_PORT} -a ${REDIS_PASSWORD}
 
 dependencies:
 	@go mod download
@@ -20,7 +17,7 @@ dependencies:
 	@go mod tidy
 
 swagger:
-	@swag init
+	@go run github.com/swaggo/swag/cmd/swag init
 
 ent:
 	@go generate ./ent
