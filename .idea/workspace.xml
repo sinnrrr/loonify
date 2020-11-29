@@ -20,8 +20,62 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="26644a7f-d1e5-42ca-8279-7fd42886f23a" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/ent/client.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ent/config.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ent/context.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ent/ent.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ent/enttest/enttest.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ent/generate.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ent/hook/hook.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ent/migrate/migrate.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ent/migrate/schema.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ent/mutation.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ent/predicate/predicate.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ent/runtime.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ent/runtime/runtime.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ent/schema/post.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ent/schema/user.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ent/tx.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ent/user.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ent/user/user.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ent/user/where.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ent/user_create.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ent/user_delete.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ent/user_query.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ent/user_update.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.air" beforeDir="false" afterPath="$PROJECT_DIR$/.air" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.env" beforeDir="false" afterPath="$PROJECT_DIR$/.env" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/routes.go" beforeDir="false" afterPath="$PROJECT_DIR$/server/routes.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Makefile" beforeDir="false" afterPath="$PROJECT_DIR$/Makefile" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/config/config.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/config/response.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/controllers/mail.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/controllers/push.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/controllers/v1/auth.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/controllers/v1/categories.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/controllers/v1/code.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/controllers/v1/locations.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/controllers/v1/posts.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/controllers/v1/push.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/controllers/v1/users.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/controllers/v1/welcome.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/db/db.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/docs.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/swagger.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/swagger.yaml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/go.mod" beforeDir="false" afterPath="$PROJECT_DIR$/go.mod" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/go.sum" beforeDir="false" afterPath="$PROJECT_DIR$/go.sum" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/main.go" beforeDir="false" afterPath="$PROJECT_DIR$/main.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/middlewares/skippers/slash.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/models/category.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/models/code.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/models/location.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/models/post.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/models/user.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/html/welcome.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/router.go" beforeDir="false" afterPath="$PROJECT_DIR$/common/router.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/routes.go" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -52,6 +106,8 @@
     <option name="showLibraryContents" value="true" />
   </component>
   <component name="PropertiesComponent">
+    <property name="ASKED_ADD_EXTERNAL_FILES" value="true" />
+    <property name="ASKED_MARK_IGNORED_FILES_AS_EXCLUDED" value="true" />
     <property name="DefaultGoTemplateProperty" value="Go File" />
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
@@ -66,7 +122,7 @@
     <property name="go.tried.to.enable.integration.vgo.integrator" value="true" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="nodejs_package_manager_path" value="npm" />
-    <property name="settings.editor.selected.configurable" value="preferences.lookFeel" />
+    <property name="settings.editor.selected.configurable" value="go.vgo" />
     <property name="ts.external.directory.path" value="$APPLICATION_HOME_DIR$/plugins/JavaScriptLanguage/jsLanguageServicesImpl/external" />
   </component>
   <component name="RecentsManager">
@@ -147,6 +203,7 @@
     <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="VcsManagerConfiguration">
+    <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
     <ignored-roots>
       <path value="$PROJECT_DIR$/frontend" />
     </ignored-roots>
@@ -155,18 +212,6 @@
     <integration-enabled>true</integration-enabled>
   </component>
   <component name="WindowStateProjectService">
-    <state x="755" y="473" key="#GOROOT" timestamp="1597739585725">
-      <screen x="0" y="0" width="1920" height="1080" />
-    </state>
-    <state x="755" y="473" key="#GOROOT/0.0.1920.1080@0.0.1920.1080" timestamp="1597739585725" />
-    <state x="752" y="353" key="#Go_Modules" timestamp="1596734112741">
-      <screen x="0" y="0" width="1920" height="1040" />
-    </state>
-    <state x="752" y="353" key="#Go_Modules/0.0.1920.1040@0.0.1920.1040" timestamp="1596734112741" />
-    <state x="705" y="345" width="507" height="388" key="#com.intellij.fileTypes.FileTypeChooser" timestamp="1597830387285">
-      <screen x="0" y="0" width="1920" height="1080" />
-    </state>
-    <state x="705" y="345" width="507" height="388" key="#com.intellij.fileTypes.FileTypeChooser/0.0.1920.1080@0.0.1920.1080" timestamp="1597830387285" />
     <state x="2660" y="100" width="1720" height="880" key="DiffContextDialog" timestamp="1598628460949">
       <screen x="2560" y="0" width="1920" height="1080" />
     </state>
@@ -195,14 +240,10 @@
       <screen x="0" y="0" width="1920" height="2160" />
     </state>
     <state width="1878" height="289" key="GridCell.Tab.0.right/0.0.1920.2160@0.0.1920.2160" timestamp="1600456354082" />
-    <state x="543" y="278" width="824" height="522" key="IDE.errors.dialog" timestamp="1597736033081">
+    <state x="464" y="175" key="SettingsEditor" timestamp="1606644684051">
       <screen x="0" y="0" width="1920" height="1080" />
     </state>
-    <state x="543" y="278" width="824" height="522" key="IDE.errors.dialog/0.0.1920.1080@0.0.1920.1080" timestamp="1597736033081" />
-    <state x="464" y="175" key="SettingsEditor" timestamp="1599160065395">
-      <screen x="0" y="0" width="1920" height="1080" />
-    </state>
-    <state x="464" y="175" key="SettingsEditor/0.0.1920.1080@0.0.1920.1080" timestamp="1599160065395" />
+    <state x="464" y="175" key="SettingsEditor/0.0.1920.1080@0.0.1920.1080" timestamp="1606644684051" />
     <state x="2617" y="594" width="1720" height="880" key="com.intellij.history.integration.ui.views.DirectoryHistoryDialog" timestamp="1598628460949">
       <screen x="2560" y="0" width="1920" height="1080" />
     </state>
@@ -212,10 +253,6 @@
     </state>
     <state x="100" y="100" width="1680" height="866" maximized="true" key="com.intellij.history.integration.ui.views.FileHistoryDialog/0.0.1920.1080/0.1080.1920.1080@0.0.1920.1080" timestamp="1600703958725" />
     <state x="100" y="100" width="1690" height="870" maximized="true" key="com.intellij.history.integration.ui.views.FileHistoryDialog/0.0.1920.1080@0.0.1920.1080" timestamp="1600269299283" />
-    <state x="578" y="153" width="754" height="771" key="com.intellij.openapi.editor.actions.MultiplePasteAction$ClipboardContentChooser" timestamp="1597733234589">
-      <screen x="0" y="0" width="1920" height="1080" />
-    </state>
-    <state x="578" y="153" width="754" height="771" key="com.intellij.openapi.editor.actions.MultiplePasteAction$ClipboardContentChooser/0.0.1920.1080@0.0.1920.1080" timestamp="1597733234589" />
     <state x="741" y="469" width="438" height="177" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1599150884540">
       <screen x="0" y="29" width="1920" height="1051" />
     </state>

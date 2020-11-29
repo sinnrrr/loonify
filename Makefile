@@ -17,6 +17,7 @@ redis:
 dependencies:
 	@go mod download
 	@go get ./...
+	@go mod tidy
 
 swagger:
 	@swag init

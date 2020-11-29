@@ -1,3 +1,8 @@
+#trash files
 tmp
 vendor
 .idea
+
+#ent generated code, but not schemas
+/ent
+!/ent/schema
