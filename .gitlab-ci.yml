@@ -3,17 +3,11 @@ before_script:
   - apt-get install -y ruby-dev
   - gem install dpl
 
-generate:
-  stage: build
+master:
   image: golang:latest
   script:
     - go generate ./ent
     - go run github.com/swaggo/swag/cmd/swag init
-
-deploy:
-  stage: deploy
-  image: ruby:latest
-  script:
     - dpl --provider=heroku --app=$HEROKU_APP_NAME --api-key=$HEROKU_API_KEY
   only:
     - master
