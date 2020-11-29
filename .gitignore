@@ -10,4 +10,4 @@ docs
 !/ent/
 /ent/**
 !/ent/generate.go
-!/ent/schema/
+!/ent/schema/*
