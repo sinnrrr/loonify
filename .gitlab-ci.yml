@@ -4,7 +4,7 @@ before_script:
   - gem install dpl
 
 generate:
-  stage: generate
+  stage: build
   image: golang:latest
   script:
     - go generate ./ent
