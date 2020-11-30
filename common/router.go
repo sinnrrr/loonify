@@ -7,7 +7,9 @@ import (
 	"github.com/labstack/echo/v4"
 	"github.com/labstack/echo/v4/middleware"
 	"github.com/labstack/gommon/log"
+	"github.com/swaggo/echo-swagger"
 	"io/ioutil"
+	_ "loonify/api"
 	"os"
 )
 
@@ -19,12 +21,12 @@ func Init() {
 }
 
 func OutputLogo() {
-	loonifile, err := ioutil.ReadFile("loonify.txt")
+	logo, err := ioutil.ReadFile("assets/loonify.txt")
 	if err != nil {
 		panic(err)
 	}
 
-	fmt.Println(string(loonifile))
+	fmt.Println(string(logo))
 }
 
 func InitRouter() *echo.Echo {
@@ -34,6 +36,7 @@ func InitRouter() *echo.Echo {
 	applyMiddlewares(e)
 
 	RegisterSentry(e)
+	RegisterSwagger(e)
 	RegisterPrometheus(e)
 
 	return e
@@ -45,6 +48,17 @@ func applyMiddlewares(e *echo.Echo) {
 	e.Use(middleware.Secure())
 	e.Use(middleware.CORS())
 	e.Pre(middleware.RemoveTrailingSlash())
+}
+
+func RegisterSwagger(e *echo.Echo) {
+	e.GET(
+		os.Getenv("SWAGGER_PATH")+"/*",
+		echoSwagger.EchoWrapHandler(
+			func(c *echoSwagger.Config) {
+				c.URL = "./api/swagger.json"
+			},
+		),
+	)
 }
 
 func RegisterSentry(e *echo.Echo) {

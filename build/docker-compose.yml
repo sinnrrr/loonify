@@ -4,8 +4,8 @@ services:
   loonify:
       container_name: loonify
       restart: always
-      env_file: .env
+      env_file: ../.env
       ports:
         - $PORT:$PORT
       build:
-        context: ./
+        context: ..
