@@ -29,7 +29,7 @@ commit: dependencies swagger ent
 #endif
 
 	@git add .
-	@git commit -am $commit
+	@git commit -am commit
 
 deploy: commit
 	@git push heroku develop:master
