@@ -25,9 +25,9 @@ ent:
 	@go generate ./ent
 
 commit: dependencies swagger ent
-#ifdef c
-#	commit=$(c)
-#endif
+ifdef c
+	commit=$(c)
+endif
 
 	@git add .
 	@git commit -am $(commit)
