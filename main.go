@@ -8,5 +8,6 @@ import (
 )
 
 func main() {
-	common.Init()
+	common.InitDatabase()
+	common.InitRouter()
 }

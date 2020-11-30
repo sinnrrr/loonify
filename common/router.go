@@ -13,8 +13,8 @@ import (
 	"os"
 )
 
-func Init() {
-	e := InitRouter()
+func InitRouter() {
+	e := initRouter()
 	OutputLogo()
 
 	RunRouter(e)
@@ -29,7 +29,7 @@ func OutputLogo() {
 	fmt.Println(string(logo))
 }
 
-func InitRouter() *echo.Echo {
+func initRouter() *echo.Echo {
 	e := echo.New()
 	e.HideBanner = true
 
@@ -51,14 +51,7 @@ func applyMiddlewares(e *echo.Echo) {
 }
 
 func RegisterSwagger(e *echo.Echo) {
-	e.GET(
-		os.Getenv("SWAGGER_PATH")+"/*",
-		echoSwagger.EchoWrapHandler(
-			func(c *echoSwagger.Config) {
-				c.URL = "./api/swagger.json"
-			},
-		),
-	)
+	e.GET(os.Getenv("SWAGGER_PATH")+"/*", echoSwagger.WrapHandler)
 }
 
 func RegisterSentry(e *echo.Echo) {
