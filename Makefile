@@ -23,8 +23,13 @@ ent:
 	@go generate ./ent
 
 commit: dependencies swagger ent
+	commit=${COMMIT_MESSAGE}
+#ifdef c
+#	commit=$(c)
+#endif
+
 	@git add .
-	@git commit -am ${COMMIT_MESSAGE}
+	@git commit -am $commit
 
 deploy: commit
 	@git push heroku develop:master
