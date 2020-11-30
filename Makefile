@@ -1,7 +1,5 @@
 include .env
 
-commit = ${COMMIT_MESSAGE}
-
 blah: dev
 
 start:
@@ -25,12 +23,8 @@ ent:
 	@go generate ./ent
 
 commit: dependencies swagger ent
-ifdef c
-	commit=$(c)
-endif
-
 	@git add .
-	@git commit -am $(commit)
+	@git commit -am ${COMMIT_MESSAGE}
 
 deploy: commit
 	@git push heroku develop:master
