@@ -46,7 +46,7 @@ func (user *User) hashPassword() (err error) {
 	return
 }
 
-func (user *User) BeforeCreate(tx *gorm.DB) (err error) {
+func (user *User) BeforeCreate(_ *gorm.DB) (err error) {
 	user.Token = uuid.New()
 
 	if err = common.SendMail(
@@ -60,7 +60,7 @@ func (user *User) BeforeCreate(tx *gorm.DB) (err error) {
 	return user.hashPassword()
 }
 
-func (user *User) BeforeSave(tx *gorm.DB) (err error) {
+func (user *User) BeforeSave(_ *gorm.DB) (err error) {
 	if _, err = bcrypt.Cost(
 		[]byte(*user.Password),
 	); err != nil {
