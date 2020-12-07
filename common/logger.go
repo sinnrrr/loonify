@@ -2,22 +2,16 @@ package common
 
 import (
 	"github.com/sirupsen/logrus"
-	"gopkg.in/go-extras/elogrus.v7"
-	"os"
 )
 
-var Log = logrus.New()
+var (
+	Log = logrus.New()
 
-func InitLogger() {
-	elasticHook, err := elogrus.NewAsyncElasticHook(
-		ElasticClient,
-		os.Getenv("ELASTIC_HOST"),
-		logrus.DebugLevel,
-		"log",
-	)
-	if err != nil {
-		Log.Panic(err)
-	}
+	GreenColor = "\033[32m"
+	YellowColor = "\033[33m"
+	PurpleColor = "\033[35m"
+	CyanColor = "\033[36m"
+	WhiteColor = "\033[37m"
 
-	Log.Hooks.Add(elasticHook)
-}
+	ResetColor = "\033[0m"
+)

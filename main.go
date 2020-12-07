@@ -4,11 +4,12 @@ package main
 
 import (
 	_ "github.com/joho/godotenv/autoload"
-	"loonify/common"
+	"loonify/databases"
+	"loonify/router"
 )
 
 func main() {
-	//common.InitLogger()
-	common.InitDatabases()
-	common.InitRouter()
+	router.OutputLogo()
+	databases.Init()
+	router.RunRouter()
 }

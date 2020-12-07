@@ -1,29 +1,30 @@
-package common
+package router
 
 import (
 	"fmt"
-	sentryecho "github.com/getsentry/sentry-go/echo"
+	"github.com/go-playground/validator/v10"
 	"github.com/labstack/echo-contrib/prometheus"
 	"github.com/labstack/echo/v4"
 	"github.com/labstack/echo/v4/middleware"
-	"github.com/labstack/gommon/log"
 	"github.com/swaggo/echo-swagger"
 	"io/ioutil"
 	_ "loonify/api"
+	"loonify/common"
+	"loonify/models"
 	"os"
 )
 
-func InitRouter() {
+func RunRouter() {
 	e := initRouter()
-	OutputLogo()
 
-	RunRouter(e)
+	registerRoutes(e)
+	runRouter(e)
 }
 
 func OutputLogo() {
 	logo, err := ioutil.ReadFile("assets/loonify.txt")
 	if err != nil {
-		panic(err)
+		common.Log.Panic(err)
 	}
 
 	fmt.Println(string(logo))
@@ -31,13 +32,15 @@ func OutputLogo() {
 
 func initRouter() *echo.Echo {
 	e := echo.New()
+
+	e.Validator = &models.CustomValidator{Validator: validator.New()}
 	e.HideBanner = true
+	e.HidePort = true
 
 	applyMiddlewares(e)
 
-	RegisterSentry(e)
-	RegisterSwagger(e)
-	RegisterPrometheus(e)
+	registerSwagger(e)
+	registerPrometheus(e)
 
 	return e
 }
@@ -50,22 +53,25 @@ func applyMiddlewares(e *echo.Echo) {
 	e.Pre(middleware.RemoveTrailingSlash())
 }
 
-func RegisterSwagger(e *echo.Echo) {
+func registerSwagger(e *echo.Echo) {
 	e.GET(os.Getenv("SWAGGER_PATH")+"/*", echoSwagger.WrapHandler)
 }
 
-func RegisterSentry(e *echo.Echo) {
-	e.Use(sentryecho.New(sentryecho.Options{
-		Repanic: true,
-	}))
-}
-
-func RegisterPrometheus(e *echo.Echo) {
+func registerPrometheus(e *echo.Echo) {
 	p := prometheus.NewPrometheus("echo", nil)
 	p.Use(e)
 }
 
-func RunRouter(e *echo.Echo) {
-	e.Logger.SetLevel(log.WARN)
+func runRouter(e *echo.Echo) {
+	common.Log.Info(
+		"Starting " +
+			common.YellowColor +
+			"HTTP server" +
+			common.ResetColor +
+			" on port " +
+			common.GreenColor + "[::]:" +
+			os.Getenv("PORT") +
+			common.ResetColor,
+	)
 	e.Logger.Fatal(e.Start(":" + os.Getenv("PORT")))
 }

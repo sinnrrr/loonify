@@ -3,6 +3,8 @@ tmp
 vendor
 .idea
 
+.env
+
 ##swagger spec
 #docs
 #
