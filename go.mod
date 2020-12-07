@@ -11,12 +11,14 @@ require (
 	github.com/go-playground/validator/v10 v10.4.1
 	github.com/golang/protobuf v1.4.3 // indirect
 	github.com/google/go-cmp v0.5.1 // indirect
+	github.com/google/uuid v1.1.2
 	github.com/jackc/pgx/v4 v4.10.0 // indirect
 	github.com/joho/godotenv v1.3.0
 	github.com/labstack/echo-contrib v0.9.0
 	github.com/labstack/echo/v4 v4.1.17
 	github.com/lib/pq v1.8.0
 	github.com/mattn/go-colorable v0.1.8 // indirect
+	github.com/neko-neko/echo-logrus/v2 v2.0.1
 	github.com/pkg/errors v0.9.1 // indirect
 	github.com/sirupsen/logrus v1.7.0
 	github.com/swaggo/echo-swagger v1.0.0

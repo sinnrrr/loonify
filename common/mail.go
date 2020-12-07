@@ -19,15 +19,14 @@ var (
 )
 
 func SendMail(to []string, message []byte) (err error) {
-	err =  smtp.SendMail(
+	if err = smtp.SendMail(
 		address,
 		auth,
 		from,
 		to,
 		message,
-	)
-	if err != nil {
-		Log.Panic(err)
+	); err != nil {
+		Log.Error(err)
 	}
 
 	Log.Info(fmt.Sprintf("Email to %s%s%s were sent successfully", PurpleColor, to, ResetColor))

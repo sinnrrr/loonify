@@ -10,7 +10,7 @@ import (
 	"strconv"
 )
 
-func Init()  {
+func Init() {
 	makeElasticConnection()
 	makePostgresConnection()
 
@@ -27,7 +27,6 @@ func configureLogger() {
 	if err != nil {
 		common.Log.Panic(err)
 	}
-
 	common.Log.Hooks.Add(elasticHook)
 }
 
@@ -49,6 +48,8 @@ func Paginate(
 		}
 
 		offset := (page - 1) * size
-		return PostgresClient.Offset(offset).Limit(size)
+		return PostgresClient.
+			Offset(offset).
+			Limit(size)
 	}
 }

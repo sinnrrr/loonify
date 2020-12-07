@@ -6,6 +6,8 @@ import (
 	"github.com/labstack/echo-contrib/prometheus"
 	"github.com/labstack/echo/v4"
 	"github.com/labstack/echo/v4/middleware"
+	echoLogrus "github.com/neko-neko/echo-logrus/v2"
+	"github.com/neko-neko/echo-logrus/v2/log"
 	"github.com/swaggo/echo-swagger"
 	"io/ioutil"
 	_ "loonify/api"
@@ -37,6 +39,7 @@ func initRouter() *echo.Echo {
 	e.HideBanner = true
 	e.HidePort = true
 
+	applyLogger(e)
 	applyMiddlewares(e)
 
 	registerSwagger(e)
@@ -46,11 +49,15 @@ func initRouter() *echo.Echo {
 }
 
 func applyMiddlewares(e *echo.Echo) {
-	e.Use(middleware.Logger())
 	e.Use(middleware.Recover())
 	e.Use(middleware.Secure())
 	e.Use(middleware.CORS())
 	e.Pre(middleware.RemoveTrailingSlash())
+}
+
+func applyLogger(e *echo.Echo) {
+	e.Logger = log.Logger()
+	e.Use(echoLogrus.Logger())
 }
 
 func registerSwagger(e *echo.Echo) {

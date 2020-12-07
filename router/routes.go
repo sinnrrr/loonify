@@ -12,4 +12,5 @@ func registerRoutes(e *echo.Echo) {
 func usersRoutes(e *echo.Echo) {
 	e.GET("/users", handlers.QueryUsers)
 	e.POST("/auth/signup", handlers.Signup)
+	e.POST("/auth/login", handlers.Login)
 }

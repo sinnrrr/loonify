@@ -25,13 +25,20 @@ var (
 func makePostgresConnection() {
 	var err error
 
-	PostgresClient, err = gorm.Open(postgres.Open(postgresConnectionURI), &gorm.Config{})
+	PostgresClient, err = gorm.Open(
+		postgres.Open(
+			postgresConnectionURI),
+		&gorm.Config{},
+	)
 	if err != nil {
 		common.Log.Panic(err)
 	}
 	common.Log.Info("Connection to " + common.YellowColor + "Postgres" + common.ResetColor + " established")
 
-	err = PostgresClient.AutoMigrate(models.User{}, models.Post{})
+	err = PostgresClient.AutoMigrate(
+		models.User{},
+		models.Post{},
+	)
 	if err != nil {
 		common.Log.Panic(err)
 	}
