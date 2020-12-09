@@ -16,6 +16,8 @@ import (
 	"os"
 )
 
+var echoValidator = validator.New()
+
 func RunRouter() {
 	e := initRouter()
 
@@ -35,17 +37,19 @@ func OutputLogo() {
 func initRouter() *echo.Echo {
 	e := echo.New()
 
-	e.Validator = &models.CustomValidator{Validator: validator.New()}
-	e.HideBanner = true
-	e.HidePort = true
-
 	applyLogger(e)
 	applyMiddlewares(e)
+	applyErrorHandler(e)
 
+	registerValidator(e)
 	registerSwagger(e)
 	registerPrometheus(e)
 
 	return e
+}
+
+func applyErrorHandler(e *echo.Echo) {
+	e.HTTPErrorHandler = common.CustomErrorHandler
 }
 
 func applyMiddlewares(e *echo.Echo) {
@@ -56,8 +60,14 @@ func applyMiddlewares(e *echo.Echo) {
 }
 
 func applyLogger(e *echo.Echo) {
+	e.HideBanner = true
+	e.HidePort = true
 	e.Logger = log.Logger()
 	e.Use(echoLogrus.Logger())
+}
+
+func registerValidator(e *echo.Echo) {
+	e.Validator = &models.CustomValidator{Validator: echoValidator}
 }
 
 func registerSwagger(e *echo.Echo) {

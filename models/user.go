@@ -10,11 +10,11 @@ import (
 
 type User struct {
 	ID        uint       `json:"id" gorm:"primary_key"`
-	Token     uuid.UUID  `json:"token" validate:"omitempty,uuid4" gorm:"default:null"`
+	Token     *string    `json:"token" validate:"omitempty,uuid4" gorm:"default:null"`
 	ExpiresAt *time.Time `json:"expires_at"`
 	Name      *string    `json:"name" validate:"required"`
 	Email     *string    `json:"email" gorm:"unique" validate:"required,email"`
-	Password  *string    `json:"password"`
+	Password  *string    `json:"password" validate:"required"`
 	CreatedAt time.Time  `json:"created_at"`
 	UpdatedAt time.Time  `json:"updated_at"`
 	DeletedAt *time.Time `json:"deleted_at" sql:"index"`
@@ -47,7 +47,8 @@ func (user *User) hashPassword() (err error) {
 }
 
 func (user *User) BeforeCreate(_ *gorm.DB) (err error) {
-	user.Token = uuid.New()
+	stringToken := uuid.New().String()
+	user.Token = &stringToken
 
 	if err = common.SendMail(
 		[]string{*user.Email},
