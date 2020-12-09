@@ -1,18 +1,51 @@
 package router
 
 import (
-	"github.com/labstack/echo/v4"
+	"github.com/pangpanglabs/echoswagger/v2"
+	"loonify/common"
 	"loonify/handlers"
+	"net/http"
 )
 
 // Registering all routes
-func registerRoutes(e *echo.Echo) {
-	usersRoutes(e)
+func registerRoutes(r echoswagger.ApiRoot) {
+	usersRoutes(r)
+	authRoutes(r)
 }
 
 // Registering users routes
-func usersRoutes(e *echo.Echo) {
-	e.GET("/users", handlers.QueryUsers)
-	e.POST("/auth/signup", handlers.Signup)
-	e.POST("/auth/login", handlers.Login)
+func usersRoutes(r echoswagger.ApiRoot) {
+	usersGroup := initGroup(
+		r,
+		"Users",
+		"/users",
+		true,
+	)
+
+	common.DescribeHandler(
+		usersGroup.GET("", handlers.QueryUsers),
+		http.StatusOK,
+		http.StatusInternalServerError,
+	)
+}
+
+// Registering auth routes
+func authRoutes(r echoswagger.ApiRoot) {
+	authGroup := initGroup(
+		r,
+		"Auth",
+		"/auth",
+		false,
+	)
+
+	common.DescribeHandler(
+		authGroup.POST("/signup", handlers.Signup),
+		http.StatusCreated,
+		http.StatusUnprocessableEntity,
+	)
+	common.DescribeHandler(
+		authGroup.POST("/login", handlers.Login),
+		http.StatusOK,
+		http.StatusUnprocessableEntity,
+	)
 }

@@ -5,7 +5,7 @@ blah: dev
 start:
 	@go run .
 
-dev: dependencies swagger ent
+dev: dependencies
 	@air -c ./build/${AIR_FILE}
 
 docker:
@@ -16,13 +16,7 @@ dependencies:
 	@go get ./...
 	@go mod tidy
 
-swagger:
-	@go run github.com/swaggo/swag/cmd/swag init -o api
-
-ent:
-	@go generate ./ent
-
-commit: dependencies swagger ent
+commit: dependencies
 	@git add .
 	@git commit -am ${COMMIT_MESSAGE}
 
