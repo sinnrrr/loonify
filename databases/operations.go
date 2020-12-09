@@ -38,22 +38,22 @@ func Create(
 	return
 }
 
-// Find many entities with specified conditions preset
-func FindWithConditions(
-	page int,
-	size int,
-	condition interface{},
+func Read(
 	destination interface{},
+	id int,
 ) (err error) {
 	if err = PostgresClient.
-		Scopes(
-			Paginate(
-				page,
-				size,
-			),
-		).
-		Where(condition).
-		First(destination).
+		First(destination, id).
+		Error; err != nil {
+		common.Log.Error(err)
+	}
+
+	return
+}
+
+func Save(destination interface{}) (err error) {
+	if err = PostgresClient.
+		Save(destination).
 		Error; err != nil {
 		common.Log.Error(err)
 	}
