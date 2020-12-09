@@ -9,6 +9,7 @@ import (
 	"os"
 )
 
+// Database pool initialisation
 func Init() {
 	makeElasticConnection()
 	makePostgresConnection()
@@ -16,6 +17,7 @@ func Init() {
 	configureLogger()
 }
 
+// Logger configuration (Hooks, etc.)
 func configureLogger() {
 	elasticHook, err := elogrus.NewAsyncElasticHook(
 		ElasticClient,
@@ -26,9 +28,11 @@ func configureLogger() {
 	if err != nil {
 		common.Log.Panic(err)
 	}
+
 	common.Log.Hooks.Add(elasticHook)
 }
 
+// Paginate database request
 func Paginate(
 	page int,
 	size int,

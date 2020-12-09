@@ -30,6 +30,7 @@ type User struct {
 //	Posts     []Post     `json:"posts,omitempty" gorm:"foreignKey:OwnerID"`
 //}
 
+// Hash user password with bcrypt method
 func (user *User) hashPassword() (err error) {
 	hashedPassword, err := bcrypt.GenerateFromPassword(
 		[]byte(*user.Password),
@@ -46,10 +47,13 @@ func (user *User) hashPassword() (err error) {
 	return
 }
 
+// Before create hook
 func (user *User) BeforeCreate(_ *gorm.DB) (err error) {
+	// Generating API token
 	stringToken := uuid.New().String()
 	user.Token = &stringToken
 
+	// Sending email
 	if err = common.SendMail(
 		[]string{*user.Email},
 		[]byte("Hey there! Thanks for registration!"),
@@ -58,23 +62,26 @@ func (user *User) BeforeCreate(_ *gorm.DB) (err error) {
 		return
 	}
 
+	// Hashing user password
 	return user.hashPassword()
 }
 
+// Before save hook
 func (user *User) BeforeSave(_ *gorm.DB) (err error) {
-	if _, err = bcrypt.Cost(
+	// Checking if password is already hashed
+	_, err = bcrypt.Cost(
 		[]byte(*user.Password),
-	); err != nil {
-		return nil
+	)
+	if err != nil {
+		// Password has been changed
+		err = user.hashPassword()
 	}
 
-	if err = common.SendMail(
+	// Sending email
+	_ = common.SendMail(
 		[]string{*user.Email},
 		[]byte("Your credentials were updated!"),
-	); err != nil {
-		common.Log.Error(err)
-		return
-	}
+	)
 
-	return user.hashPassword()
+	return
 }

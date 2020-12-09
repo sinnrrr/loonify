@@ -18,6 +18,7 @@ import (
 
 var echoValidator = validator.New()
 
+// Initializing, configuring and running router
 func RunRouter() {
 	e := initRouter()
 
@@ -25,6 +26,7 @@ func RunRouter() {
 	runRouter(e)
 }
 
+// Print logo in terminal
 func OutputLogo() {
 	logo, err := ioutil.ReadFile("assets/loonify.txt")
 	if err != nil {
@@ -34,6 +36,7 @@ func OutputLogo() {
 	fmt.Println(string(logo))
 }
 
+// Initialize configured router instance
 func initRouter() *echo.Echo {
 	e := echo.New()
 
@@ -48,10 +51,12 @@ func initRouter() *echo.Echo {
 	return e
 }
 
+// Apply custom error handler
 func applyErrorHandler(e *echo.Echo) {
 	e.HTTPErrorHandler = common.CustomErrorHandler
 }
 
+// Apply middlewares for router
 func applyMiddlewares(e *echo.Echo) {
 	e.Use(middleware.Recover())
 	e.Use(middleware.Secure())
@@ -59,6 +64,7 @@ func applyMiddlewares(e *echo.Echo) {
 	e.Pre(middleware.RemoveTrailingSlash())
 }
 
+// Apply Logrus logger middleware
 func applyLogger(e *echo.Echo) {
 	e.HideBanner = true
 	e.HidePort = true
@@ -66,19 +72,23 @@ func applyLogger(e *echo.Echo) {
 	e.Use(echoLogrus.Logger())
 }
 
+// Registering custom validator
 func registerValidator(e *echo.Echo) {
 	e.Validator = &models.CustomValidator{Validator: echoValidator}
 }
 
+// Registering Swagger route
 func registerSwagger(e *echo.Echo) {
 	e.GET(os.Getenv("SWAGGER_PATH")+"/*", echoSwagger.WrapHandler)
 }
 
+// Registering Prometheus for Echo
 func registerPrometheus(e *echo.Echo) {
 	p := prometheus.NewPrometheus("echo", nil)
 	p.Use(e)
 }
 
+// Running router
 func runRouter(e *echo.Echo) {
 	common.Log.Info(
 		"Starting " +

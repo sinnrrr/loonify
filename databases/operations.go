@@ -4,6 +4,7 @@ import (
 	"loonify/common"
 )
 
+// Query operation preset
 func Query(
 	destination interface{},
 	page int,
@@ -24,7 +25,10 @@ func Query(
 	return
 }
 
-func Create(destination interface{}) (err error) {
+// Create operation preset
+func Create(
+	destination interface{},
+) (err error) {
 	if err = PostgresClient.
 		Create(destination).
 		Error; err != nil {
@@ -34,6 +38,7 @@ func Create(destination interface{}) (err error) {
 	return
 }
 
+// Find Model with specified conditions preset
 func FindWithCondition(
 	condition interface{},
 	destination interface{},

@@ -18,6 +18,7 @@ var (
 	address = os.Getenv("SMTP_HOST") + ":" + os.Getenv("SMTP_PORT")
 )
 
+// Send mail message through SMTP protocol
 func SendMail(to []string, message []byte) (err error) {
 	if err = smtp.SendMail(
 		address,
@@ -30,5 +31,5 @@ func SendMail(to []string, message []byte) (err error) {
 	}
 
 	Log.Info(fmt.Sprintf("Email to %s%s%s were sent successfully", PurpleColor, to, ResetColor))
-	return
+	return nil
 }

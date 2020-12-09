@@ -18,6 +18,7 @@ var (
 	}
 )
 
+// Initialise Elasticsearch connection
 func makeElasticConnection() {
 	var err error
 

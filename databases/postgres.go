@@ -22,6 +22,7 @@ var (
 	)
 )
 
+// Initialise Postgres connection using ORM
 func makePostgresConnection() {
 	var err error
 
