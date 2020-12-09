@@ -7,7 +7,6 @@ import (
 	"gorm.io/gorm"
 	"loonify/common"
 	"os"
-	"strconv"
 )
 
 func Init() {
@@ -31,17 +30,15 @@ func configureLogger() {
 }
 
 func Paginate(
-	unparsedPage string,
-	unparsedPageSize string,
+	page int,
+	size int,
 ) func(db *gorm.DB) *gorm.DB {
 	return func(db *gorm.DB) *gorm.DB {
-		page, err := strconv.Atoi(unparsedPage)
-		if err != nil || page == 0 {
+		if page == 0 {
 			page = 1
 		}
 
-		size, err := strconv.Atoi(unparsedPageSize)
-		if err != nil || size <= 0 {
+		if size <= 0 {
 			size = 10
 		} else if size > 100 {
 			size = 100

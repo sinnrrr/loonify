@@ -6,8 +6,8 @@ import (
 
 func Query(
 	destination interface{},
-	page string,
-	pageSize string,
+	page int,
+	pageSize int,
 ) (err error) {
 	if err = PostgresClient.
 		Scopes(
@@ -41,9 +41,9 @@ func FindWithCondition(
 	if err = PostgresClient.
 		Scopes(
 			Paginate(
-				"1",
-				"10",
-			), // TODO: string to int in pagination method
+				1,
+				10,
+			),
 		).
 		Where(condition).
 		First(destination).

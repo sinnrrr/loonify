@@ -7,15 +7,26 @@ import (
 	"loonify/databases"
 	"loonify/models"
 	"net/http"
+	"strconv"
 )
 
 func QueryUsers(c echo.Context) (err error) {
 	var users []models.User
 
+	page, err := strconv.Atoi(c.QueryParam("page"))
+	if err != nil {
+		return echo.NewHTTPError(http.StatusBadRequest)
+	}
+
+	pageSize, err := strconv.Atoi(c.QueryParam("page"))
+	if err != nil {
+		return echo.NewHTTPError(http.StatusBadRequest)
+	}
+
 	if err = databases.Query(
 		&users,
-		c.QueryParam("page"),
-		c.QueryParam("size"),
+		page,
+		pageSize,
 	); err != nil {
 		return echo.NewHTTPError(http.StatusInternalServerError, "Database out")
 	}
@@ -31,7 +42,7 @@ func Signup(c echo.Context) (err error) {
 	}
 
 	if err = c.Validate(user); err != nil {
-		return echo.NewHTTPError(http.StatusUnprocessableEntity, err) // TODO: test it
+		return echo.NewHTTPError(http.StatusUnprocessableEntity, err)
 	}
 
 	if err = databases.Create(&user); err != nil {
@@ -49,7 +60,7 @@ func Login(c echo.Context) (err error) {
 	}
 
 	if err = c.Validate(user); err != nil {
-		return echo.NewHTTPError(http.StatusUnprocessableEntity, err) // TODO: test it
+		return echo.NewHTTPError(http.StatusUnprocessableEntity, err)
 	}
 
 	rawPassword := user.Password
