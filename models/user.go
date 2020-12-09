@@ -2,7 +2,7 @@ package models
 
 import (
 	"github.com/google/uuid"
-	bcrypt "golang.org/x/crypto/bcrypt"
+	"golang.org/x/crypto/bcrypt"
 	"gorm.io/gorm"
 	"loonify/common"
 	"time"
@@ -53,21 +53,25 @@ func (user *User) BeforeCreate(_ *gorm.DB) (err error) {
 	stringToken := uuid.New().String()
 	user.Token = &stringToken
 
+	// Hashing user password
+	return user.hashPassword()
+}
+
+// After create hook
+func (user *User) AfterCreate(_ *gorm.DB) (err error) {
 	// Sending email
 	if err = common.SendMail(
 		[]string{*user.Email},
 		[]byte("Hey there! Thanks for registration!"),
 	); err != nil {
 		common.Log.Error(err)
-		return
 	}
 
-	// Hashing user password
-	return user.hashPassword()
+	return
 }
 
 // Before save hook
-func (user *User) BeforeSave(_ *gorm.DB) (err error) {
+func (user *User) BeforeUpdate(_ *gorm.DB) (err error) {
 	// Checking if password is already hashed
 	_, err = bcrypt.Cost(
 		[]byte(*user.Password),
@@ -77,11 +81,14 @@ func (user *User) BeforeSave(_ *gorm.DB) (err error) {
 		err = user.hashPassword()
 	}
 
+	return
+}
+
+// After save hook
+func (user *User) AfterUpdate(_ *gorm.DB) (err error) {
 	// Sending email
-	_ = common.SendMail(
+	return common.SendMail(
 		[]string{*user.Email},
 		[]byte("Your credentials were updated!"),
 	)
-
-	return
 }

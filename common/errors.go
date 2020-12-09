@@ -3,20 +3,20 @@ package common
 import (
 	"github.com/go-playground/validator/v10"
 	"github.com/labstack/echo/v4"
+	"github.com/pangpanglabs/echoswagger/v2"
 	"net/http"
 	"reflect"
 )
 
 // TODO: readme update
-// TODO: swagger specifications
+// TODO: posts
 
 // Response template
 type DefaultResponse struct {
 	Ok      bool        `json:"ok"`
-	Code    int         `json:"code"`
 	Message interface{} `json:"message"`
-	Data    interface{} `json:"data,omitempty"`
-	Meta    interface{} `json:"meta,omitempty"`
+	Data    interface{} `json:"data,omitempty" swagger:"allowEmpty"`
+	Meta    interface{} `json:"meta,omitempty" swagger:"allowEmpty"`
 }
 
 // Constructor for good response
@@ -62,7 +62,6 @@ func GoodResponse(
 		code,
 		DefaultResponse{
 			Ok:      true,
-			Code:    code,
 			Message: message,
 			Data:    data,
 		},
@@ -108,11 +107,21 @@ func CustomErrorHandler(
 	if !c.Response().Committed {
 		if err = c.JSON(he.Code, DefaultResponse{
 			Ok:      false,
-			Code:    he.Code,
 			Message: he.Message,
 		}); err != nil {
 			// Failed sending response
 			Log.Error(err)
 		}
+	}
+}
+
+func DescribeHandler(route echoswagger.Api, codes ...int) {
+	for _, code := range codes {
+		route.AddResponse(
+			code,
+			http.StatusText(code),
+			DefaultResponse{},
+			nil,
+		)
 	}
 }

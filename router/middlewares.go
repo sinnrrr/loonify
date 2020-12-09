@@ -18,7 +18,7 @@ func ValidateToken(
 ) {
 	var user models.User
 
-	if err = databases.FindWithCondition(
+	if err = databases.FindOneWithCondition(
 		&models.User{
 			Token: &token,
 		},

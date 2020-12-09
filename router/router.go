@@ -8,10 +8,11 @@ import (
 	"github.com/labstack/echo/v4/middleware"
 	echoLogrus "github.com/neko-neko/echo-logrus/v2"
 	"github.com/neko-neko/echo-logrus/v2/log"
-	"github.com/swaggo/echo-swagger"
+	"github.com/pangpanglabs/echoswagger/v2"
 	"io/ioutil"
 	_ "loonify/api"
 	"loonify/common"
+	"loonify/config"
 	"loonify/models"
 	"os"
 )
@@ -20,10 +21,11 @@ var echoValidator = validator.New()
 
 // Initializing, configuring and running router
 func RunRouter() {
-	e := initRouter()
+	r := initRouter()
 
-	registerRoutes(e)
-	runRouter(e)
+	registerRoutes(r)
+
+	runRouter(r)
 }
 
 // Print logo in terminal
@@ -37,7 +39,7 @@ func OutputLogo() {
 }
 
 // Initialize configured router instance
-func initRouter() *echo.Echo {
+func initRouter() echoswagger.ApiRoot {
 	e := echo.New()
 
 	applyLogger(e)
@@ -45,10 +47,9 @@ func initRouter() *echo.Echo {
 	applyErrorHandler(e)
 
 	registerValidator(e)
-	registerSwagger(e)
 	registerPrometheus(e)
 
-	return e
+	return wrapEchoSwagger(e)
 }
 
 // Apply custom error handler
@@ -64,7 +65,7 @@ func applyMiddlewares(e *echo.Echo) {
 	e.Pre(middleware.RemoveTrailingSlash())
 }
 
-// Apply Logrus logger middleware
+// Apply logger middleware
 func applyLogger(e *echo.Echo) {
 	e.HideBanner = true
 	e.HidePort = true
@@ -77,9 +78,22 @@ func registerValidator(e *echo.Echo) {
 	e.Validator = &models.CustomValidator{Validator: echoValidator}
 }
 
-// Registering Swagger route
-func registerSwagger(e *echo.Echo) {
-	e.GET(os.Getenv("SWAGGER_PATH")+"/*", echoSwagger.WrapHandler)
+// Wrapping Echo with Swagger
+func wrapEchoSwagger(e *echo.Echo) echoswagger.ApiRoot {
+	swaggerConfiguration := echoswagger.Info{
+		Title:       "Loonify",
+		Description: "Swagger formatted OpenAPI specifications",
+		Version:     "1.0",
+	}
+
+	r := echoswagger.New(e, os.Getenv("SWAGGER_PATH"), &swaggerConfiguration)
+	r.AddSecurityAPIKey(
+		"token",
+		"API auth token",
+		echoswagger.SecurityInHeader,
+	)
+
+	return r
 }
 
 // Registering Prometheus for Echo
@@ -89,16 +103,34 @@ func registerPrometheus(e *echo.Echo) {
 }
 
 // Running router
-func runRouter(e *echo.Echo) {
+func runRouter(r echoswagger.ApiRoot) {
 	common.Log.Info(
 		"Starting " +
-			common.YellowColor +
+			config.YellowColor +
 			"HTTP server" +
-			common.ResetColor +
+			config.ResetColor +
 			" on port " +
-			common.GreenColor + "[::]:" +
+			config.GreenColor + "[::]:" +
 			os.Getenv("PORT") +
-			common.ResetColor,
+			config.ResetColor,
 	)
-	e.Logger.Fatal(e.Start(":" + os.Getenv("PORT")))
+
+	r.Echo().Logger.Fatal(r.Echo().Start(":" + os.Getenv("PORT")))
+}
+
+// Swagger group constructor
+func initGroup(
+	r echoswagger.ApiRoot,
+	name string,
+	prefix string,
+	guarded bool,
+) echoswagger.ApiGroup {
+	group := r.Group(name, prefix)
+
+	if guarded {
+		group.SetSecurity("token")
+		group.EchoGroup().Use(middleware.KeyAuth(ValidateToken))
+	}
+
+	return group
 }

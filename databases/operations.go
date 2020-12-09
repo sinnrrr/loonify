@@ -8,13 +8,13 @@ import (
 func Query(
 	destination interface{},
 	page int,
-	pageSize int,
+	size int,
 ) (err error) {
 	if err = PostgresClient.
 		Scopes(
 			Paginate(
 				page,
-				pageSize,
+				size,
 			),
 		).
 		Find(destination).
@@ -38,18 +38,35 @@ func Create(
 	return
 }
 
-// Find Model with specified conditions preset
-func FindWithCondition(
+// Find many entities with specified conditions preset
+func FindWithConditions(
+	page int,
+	size int,
 	condition interface{},
 	destination interface{},
 ) (err error) {
 	if err = PostgresClient.
 		Scopes(
 			Paginate(
-				1,
-				10,
+				page,
+				size,
 			),
 		).
+		Where(condition).
+		First(destination).
+		Error; err != nil {
+		common.Log.Error(err)
+	}
+
+	return
+}
+
+// Find one entity with specified conditions preset
+func FindOneWithCondition(
+	condition interface{},
+	destination interface{},
+) (err error) {
+	if err = PostgresClient.
 		Where(condition).
 		First(destination).
 		Error; err != nil {
