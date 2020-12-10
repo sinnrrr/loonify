@@ -6,15 +6,11 @@
 ░░░███████╗╚█████╔╝╚█████╔╝██║░╚███║██║██║░░░░░░░░██║░░░░░░  
 ░░░╚══════╝░╚════╝░░╚════╝░╚═╝░░╚══╝╚═╝╚═╝░░░░░░░░╚═╝░░░░░░  
 ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░
-## Requirments (not required, but recommended)
- - [Air](https://github.com/cosmtrek/air) (for live reload)
- - Make (for Makefile support)
+## Requirments
+ - [Go](https://golang.org/) 1.15+
+ - [Make](https://www.gnu.org/software/make/) (for Makefile support)
+ - [Air](https://github.com/cosmtrek/air) (for hot reload)
 ## Getting started
-**Without dependencies installed:**
-
-    go run .
-
-**With dependecies being installed:**
 
 To start developing just type in terminal:
 
