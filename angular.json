@@ -15,7 +15,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "dist/apps/loonify",
+            "outputPath": "dist/loonify/browser",
             "index": "apps/loonify/src/index.html",
             "main": "apps/loonify/src/main.ts",
             "polyfills": "apps/loonify/src/polyfills.ts",
@@ -83,7 +83,8 @@
             "tsConfig": [
               "apps/loonify/tsconfig.app.json",
               "apps/loonify/tsconfig.spec.json",
-              "apps/loonify/tsconfig.editor.json"
+              "apps/loonify/tsconfig.editor.json",
+              "apps/loonify/tsconfig.server.json"
             ],
             "exclude": ["**/node_modules/**", "!apps/loonify/**/*"]
           }
@@ -93,6 +94,53 @@
           "options": {
             "jestConfig": "apps/loonify/jest.config.js",
             "passWithNoTests": true
+          }
+        },
+        "server": {
+          "builder": "@angular-devkit/build-angular:server",
+          "options": {
+            "outputPath": "dist/loonify/server",
+            "main": "apps/loonify/server.ts",
+            "tsConfig": "apps/loonify/tsconfig.server.json"
+          },
+          "configurations": {
+            "production": {
+              "outputHashing": "media",
+              "fileReplacements": [
+                {
+                  "replace": "apps/loonify/src/environments/environment.ts",
+                  "with": "apps/loonify/src/environments/environment.prod.ts"
+                }
+              ],
+              "sourceMap": false,
+              "optimization": true
+            }
+          }
+        },
+        "serve-ssr": {
+          "builder": "@nguniversal/builders:ssr-dev-server",
+          "options": {
+            "browserTarget": "loonify:build",
+            "serverTarget": "loonify:server"
+          },
+          "configurations": {
+            "production": {
+              "browserTarget": "loonify:build:production",
+              "serverTarget": "loonify:server:production"
+            }
+          }
+        },
+        "prerender": {
+          "builder": "@nguniversal/builders:prerender",
+          "options": {
+            "browserTarget": "loonify:build:production",
+            "serverTarget": "loonify:server:production",
+            "routes": [
+              "/"
+            ]
+          },
+          "configurations": {
+            "production": {}
           }
         }
       }
