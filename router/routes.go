@@ -27,6 +27,18 @@ func usersRoutes(r echoswagger.ApiRoot) {
 		http.StatusOK,
 		http.StatusInternalServerError,
 	)
+
+	common.DescribeHandler(
+		usersGroup.GET("/:id", handlers.ReadUser),
+		http.StatusOK,
+		http.StatusBadRequest,
+	)
+
+	common.DescribeHandler(
+		usersGroup.PUT("/:id", handlers.UpdateUser),
+		http.StatusOK,
+		http.StatusUnprocessableEntity,
+	)
 }
 
 // Registering auth routes
@@ -43,6 +55,7 @@ func authRoutes(r echoswagger.ApiRoot) {
 		http.StatusCreated,
 		http.StatusUnprocessableEntity,
 	)
+
 	common.DescribeHandler(
 		authGroup.POST("/login", handlers.Login),
 		http.StatusOK,

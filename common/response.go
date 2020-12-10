@@ -5,18 +5,30 @@ import (
 	"github.com/labstack/echo/v4"
 	"github.com/pangpanglabs/echoswagger/v2"
 	"net/http"
+	"os"
 	"reflect"
 )
 
-// TODO: readme update
-// TODO: posts
+// TODO: users read and delete
 
 // Response template
 type DefaultResponse struct {
-	Ok      bool        `json:"ok"`
-	Message interface{} `json:"message"`
-	Data    interface{} `json:"data,omitempty" swagger:"allowEmpty"`
-	Meta    interface{} `json:"meta,omitempty" swagger:"allowEmpty"`
+	Ok      bool        `json:"ok" swagger:"required"`
+	Message interface{} `json:"message" swagger:"required"`
+	Data    interface{} `json:"data" swagger:"required"`
+	Meta    Meta        `json:"meta" swagger:"required"`
+}
+
+// Meta template
+type Meta struct {
+	MinimalAppVersion string `json:"minimal_app_version" swagger:"required"`
+}
+
+// Meta constructor
+func GenerateMeta() Meta {
+	return Meta{
+		MinimalAppVersion: os.Getenv("MINIMAL_APP_VERSION"),
+	}
 }
 
 // Constructor for good response
@@ -64,6 +76,7 @@ func GoodResponse(
 			Ok:      true,
 			Message: message,
 			Data:    data,
+			Meta:    GenerateMeta(),
 		},
 	)
 }
@@ -108,6 +121,7 @@ func CustomErrorHandler(
 		if err = c.JSON(he.Code, DefaultResponse{
 			Ok:      false,
 			Message: he.Message,
+			Meta:    GenerateMeta(),
 		}); err != nil {
 			// Failed sending response
 			Log.Error(err)
@@ -115,6 +129,7 @@ func CustomErrorHandler(
 	}
 }
 
+// Method, which auto describes route by given HTTP status codes
 func DescribeHandler(route echoswagger.Api, codes ...int) {
 	for _, code := range codes {
 		route.AddResponse(
