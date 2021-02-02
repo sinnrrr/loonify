@@ -1,0 +1,65 @@
+[
+  {
+    "name": "about",
+    "path": "/about",
+    "component": "/home/sinnrrr/Work/loonify/packages/frontend/pages/about.vue",
+    "chunkName": "pages/about",
+    "_name": "_1ed51616"
+  },
+  {
+    "name": "account",
+    "path": "/account",
+    "component": "/home/sinnrrr/Work/loonify/packages/frontend/pages/account/index.vue",
+    "chunkName": "pages/account/index",
+    "_name": "_a19bab0e"
+  },
+  {
+    "name": "office",
+    "path": "/office",
+    "component": "/home/sinnrrr/Work/loonify/packages/frontend/pages/office/index.vue",
+    "chunkName": "pages/office/index",
+    "_name": "_27df2b46"
+  },
+  {
+    "name": "account-login",
+    "path": "/account/login",
+    "component": "/home/sinnrrr/Work/loonify/packages/frontend/pages/account/login.vue",
+    "chunkName": "pages/account/login",
+    "_name": "_78d9cd90"
+  },
+  {
+    "name": "account-logout",
+    "path": "/account/logout",
+    "component": "/home/sinnrrr/Work/loonify/packages/frontend/pages/account/logout.vue",
+    "chunkName": "pages/account/logout",
+    "_name": "_211e261a"
+  },
+  {
+    "name": "account-settings",
+    "path": "/account/settings",
+    "component": "/home/sinnrrr/Work/loonify/packages/frontend/pages/account/settings.vue",
+    "chunkName": "pages/account/settings",
+    "_name": "_64252268"
+  },
+  {
+    "name": "account-signup",
+    "path": "/account/signup",
+    "component": "/home/sinnrrr/Work/loonify/packages/frontend/pages/account/signup.vue",
+    "chunkName": "pages/account/signup",
+    "_name": "_228c5cfe"
+  },
+  {
+    "name": "office-new",
+    "path": "/office/new",
+    "component": "/home/sinnrrr/Work/loonify/packages/frontend/pages/office/new.vue",
+    "chunkName": "pages/office/new",
+    "_name": "_6d3dc7d8"
+  },
+  {
+    "name": "index",
+    "path": "/",
+    "component": "/home/sinnrrr/Work/loonify/packages/frontend/pages/index.vue",
+    "chunkName": "pages/index",
+    "_name": "_3e8cf0db"
+  }
+]

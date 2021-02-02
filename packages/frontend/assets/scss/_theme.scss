@@ -1,0 +1,27 @@
+@function applyColor($color) {
+  @return $color, findColorInvert($color)
+}
+
+@function applySection($color) {
+  @return $color, findColorInvert($color), findLightColor($color), findDarkColor($color);
+}
+
+$colors: mergeColorMaps(
+    (
+      "white": ($white, $black),
+      "black": ($black, $white),
+      "light": applyColor($light),
+      "dark": applyColor($dark),
+      "primary": applySection($primary),
+      "link": applySection($link),
+      "info": applySection($info),
+      "success": applySection($success),
+      "warning": applySection($warning),
+      "danger": applySection($danger),
+    ),
+    $custom-colors
+);
+
+$link: $primary;
+$link-invert: findColorInvert($primary);
+$link-focus-border: $primary;

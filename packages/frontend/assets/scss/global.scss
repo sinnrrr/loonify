@@ -1,0 +1,40 @@
+// configurations
+@import "~bulma/sass/utilities/_all.sass";
+@import "~buefy/src/scss/utils/_all.scss";
+@import "_variables.scss";
+@import "_animations.scss";
+@import "_theme.scss";
+@import "_basic.scss";
+@import "_helpers.scss";
+
+// bulma base styles implementation
+@import "~bulma/sass/base/_all.sass";
+
+// bulma components
+@import "~bulma/sass/components/modal.sass"; // colors for buefy modal
+@import "~bulma/sass/components/navbar.sass";
+@import "~bulma/sass/components/dropdown.sass"; // colors for buefy autocomplete
+
+// bulma elements
+@import "~bulma/sass/elements/icon.sass";
+@import "~bulma/sass/elements/table.sass";
+@import "~bulma/sass/elements/title.sass";
+@import "~bulma/sass/elements/button.sass";
+@import "~bulma/sass/elements/notification.sass"; // colors for buefy toast
+
+// bulma form
+@import "~bulma/sass/form/shared.sass"; // required for form colors
+@import "~bulma/sass/form/input-textarea.sass"; // required for buefy autocomplete
+
+// bulma helpers
+@import "~bulma/sass/helpers/color.sass";
+@import "~bulma/sass/helpers/typography.sass";
+@import "~bulma/sass/helpers/visibility.sass";
+@import "~bulma/sass/helpers/spacing.sass";
+@import "~bulma/sass/helpers/flexbox.sass";
+
+// buefy components
+@import "~buefy/src/scss/components/_steps.scss";
+@import "~buefy/src/scss/components/_modal.scss";
+@import "~buefy/src/scss/components/_notices.scss";
+@import "~buefy/src/scss/components/_autocomplete.scss";

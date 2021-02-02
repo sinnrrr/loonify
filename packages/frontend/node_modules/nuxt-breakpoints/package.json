@@ -1,0 +1,65 @@
+{
+  "name": "nuxt-breakpoints",
+  "version": "1.1.9",
+  "description": "Resize observer breakpoints with Nuxt.js module.",
+  "license": "MIT",
+  "keywords": [
+    "nuxtjs",
+    "resizeobserver",
+    "breakpoint",
+    "resize",
+    "mediaquery",
+    "responsive"
+  ],
+  "contributors": [
+    {
+      "name": "Steven Ho <shockshocksoul@gmail.com>"
+    }
+  ],
+  "main": "lib/module.js",
+  "repository": "https://github.com/steven0811/nuxt-breakpoints.git",
+  "publishConfig": {
+    "access": "public"
+  },
+  "scripts": {
+    "dev": "nuxt example",
+    "build:gh-pages": "cross-env DEPLOY_ENV=GH_PAGES nuxt build example",
+    "generate:gh-pages": "cross-env DEPLOY_ENV=GH_PAGES nuxt generate example",
+    "lint": "eslint --ext .js,.vue example lib test",
+    "test": "yarn lint && jest && codecov",
+    "release": "yarn test && standard-version && git push --follow-tags && npm publish",
+    "deploy": "push-dir --dir=dist --branch=gh-pages --cleanup"
+  },
+  "types": "types/index.d.ts",
+  "files": [
+    "lib",
+    "types/*.d.ts"
+  ],
+  "dependencies": {
+    "lodash": "^4.17.15",
+    "resize-observer-polyfill": "^1.5.1"
+  },
+  "devDependencies": {
+    "@babel/core": "latest",
+    "@babel/preset-env": "latest",
+    "@commitlint/cli": "latest",
+    "@commitlint/config-conventional": "latest",
+    "@nuxtjs/eslint-config": "latest",
+    "animejs": "^3.1.0",
+    "babel-eslint": "latest",
+    "babel-jest": "latest",
+    "codecov": "latest",
+    "cross-env": "^6.0.3",
+    "eslint": "latest",
+    "get-port": "latest",
+    "husky": "latest",
+    "jest": "latest",
+    "node-sass": "^4.13.0",
+    "nuxt-edge": "latest",
+    "push-dir": "^0.4.1",
+    "request": "latest",
+    "request-promise-native": "latest",
+    "sass-loader": "^8.0.0",
+    "standard-version": "latest"
+  }
+}

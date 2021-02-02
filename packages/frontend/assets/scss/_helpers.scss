@@ -1,0 +1,11 @@
+@mixin toXs {
+  @media screen and (max-width: $xs){
+    @content
+  }
+}
+
+@mixin fromXs {
+  @media screen and (min-width: $xs){
+    @content
+  }
+}

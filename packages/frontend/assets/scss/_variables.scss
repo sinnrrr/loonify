@@ -1,0 +1,22 @@
+$family-primary: 'Rubik', sans-serif;
+$body-overflow-y: visible;
+
+$dark: #343a40;
+$yellow: #ffc107;
+$indigo: #6610f2;
+$primary: $indigo;
+$warning: $yellow;
+
+$xs: 576px;
+
+$transition: 400ms;
+
+$border-width: 4px;
+
+$rotation-speed: 240s;
+$floating-speed: 10s;
+
+$custom-shades: null !default;
+$custom-colors: (
+  "transparent": transparent
+);

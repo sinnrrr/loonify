@@ -1,0 +1,62 @@
+{
+  "Earth": {
+    "description": "Auto imported from /components/layout/Earth.vue"
+  },
+  "LazyEarth": {
+    "description": "Auto imported from /components/layout/Earth.vue"
+  },
+  "Meteorites": {
+    "description": "Auto imported from /components/layout/Meteorites.vue"
+  },
+  "LazyMeteorites": {
+    "description": "Auto imported from /components/layout/Meteorites.vue"
+  },
+  "Category": {
+    "description": "Auto imported from /components/steps/Category.vue"
+  },
+  "LazyCategory": {
+    "description": "Auto imported from /components/steps/Category.vue"
+  },
+  "General": {
+    "description": "Auto imported from /components/steps/General.vue"
+  },
+  "LazyGeneral": {
+    "description": "Auto imported from /components/steps/General.vue"
+  },
+  "Location": {
+    "description": "Auto imported from /components/steps/Location.vue"
+  },
+  "LazyLocation": {
+    "description": "Auto imported from /components/steps/Location.vue"
+  },
+  "Review": {
+    "description": "Auto imported from /components/steps/Review.vue"
+  },
+  "LazyReview": {
+    "description": "Auto imported from /components/steps/Review.vue"
+  },
+  "Type": {
+    "description": "Auto imported from /components/steps/Type.vue"
+  },
+  "LazyType": {
+    "description": "Auto imported from /components/steps/Type.vue"
+  },
+  "Control": {
+    "description": "Auto imported from /components/layout/maps/Control.vue"
+  },
+  "LazyControl": {
+    "description": "Auto imported from /components/layout/maps/Control.vue"
+  },
+  "Header": {
+    "description": "Auto imported from /components/layout/shared/Header.vue"
+  },
+  "LazyHeader": {
+    "description": "Auto imported from /components/layout/shared/Header.vue"
+  },
+  "Steps": {
+    "description": "Auto imported from /components/layout/shared/Steps.vue"
+  },
+  "LazySteps": {
+    "description": "Auto imported from /components/layout/shared/Steps.vue"
+  }
+}
