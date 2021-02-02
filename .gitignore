@@ -10,17 +10,17 @@ packages/*/node_modules
 # Logs
 logs
 *.log
-npm-debug.log*
-yarn-debug.log*
-yarn-error.log*
-lerna-debug.log*
+npm-debug.log
+yarn-debug.log
+yarn-error.log
+lerna-debug.log
 
 packages/*/logs
 packages/*/*.log
-packages/*/npm-debug.log*
-packages/*/yarn-debug.log*
-packages/*/yarn-error.log*
-packages/*/lerna-debug.log*
+packages/*/npm-debug.log
+packages/*/yarn-debug.log
+packages/*/yarn-error.log
+packages/*/lerna-debug.log
 
 # OS
 .DS_Store
