@@ -11,7 +11,6 @@ import { randomBytes } from 'crypto';
 import * as argon2 from 'argon2';
 import * as moment from 'moment';
 import { Post } from '../../posts/entities/post.entity';
-import { Exclude } from 'class-transformer';
 
 @Entity('users')
 export class User {
@@ -24,26 +23,21 @@ export class User {
   @Column({ length: 64, unique: true })
   email?: string;
 
-  @Exclude()
   @Column({ length: 128 })
   password?: string;
 
   @Column({ length: 64, nullable: false })
   token?: string;
 
-  @Exclude()
   @Column({ nullable: false, name: 'expires_at' })
   expiresAt?: Date;
 
-  @Exclude()
   @CreateDateColumn({ name: 'created_at' })
   createdAt?: Date;
 
-  @Exclude()
   @UpdateDateColumn({ name: 'updated_at' })
   updatedAt?: Date;
 
-  @Exclude()
   @OneToMany(
     () => Post,
     post => post.owner,

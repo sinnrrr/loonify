@@ -1,43 +1,3 @@
-import { CrudConfigService } from '@nestjsx/crud';
-import { TokenAuthGuard } from './shared/guards/token-auth.guard';
-import { UseGuards } from '@nestjs/common'
-
-CrudConfigService.load({
-  query: {
-    limit: 25,
-    cache: 2000,
-    alwaysPaginate: true,
-  },
-  routes: {
-    getManyBase: {
-      decorators: [UseGuards(TokenAuthGuard)]
-    },
-    getOneBase: {
-      decorators: [UseGuards(TokenAuthGuard)],
-    },
-    createOneBase: {
-      decorators: [UseGuards(TokenAuthGuard)],
-      interceptors: [RequestModificationInterceptor]
-    },
-    createManyBase: {
-      decorators: [UseGuards(TokenAuthGuard)],
-      interceptors: [RequestModificationInterceptor]
-    },
-    updateOneBase: {
-      decorators: [UseGuards(TokenAuthGuard)],
-      interceptors: [RequestModificationInterceptor]
-    },
-    replaceOneBase: {
-      decorators: [UseGuards(TokenAuthGuard)],
-      interceptors: [RequestModificationInterceptor]
-    },
-    deleteOneBase: {
-      decorators: [UseGuards(TokenAuthGuard)],
-      returnDeleted: true,
-    },
-  }
-})
-
 import { NestFactory, Reflector } from '@nestjs/core';
 
 import { AppModule } from './app/app.module';
@@ -52,7 +12,6 @@ import { NestExpressApplication } from '@nestjs/platform-express';
 import * as helmet from 'helmet';
 import * as rateLimit from 'express-rate-limit';
 import { QueryFailedExceptionFilter } from './shared/filters/query-failed-exception.filter';
-import { RequestModificationInterceptor } from './shared/interceptors/request-modification.interceptor';
 
 
 async function bootstrap() {

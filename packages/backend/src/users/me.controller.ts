@@ -1,39 +1,22 @@
-import { Controller } from '@nestjs/common';
-import { ApiTags } from '@nestjs/swagger';
-import { Crud, CrudAuth } from '@nestjsx/crud';
-
+import { Body, Controller, Get, Post, Put, Req, UseGuards } from '@nestjs/common';
 import { UsersService } from './users.service';
-import { User } from './entities/user.entity';
-
-@Crud({
-    model: {
-        type: User,
-    },
-    routes: {
-        only: ['getOneBase', 'updateOneBase'],
-    },
-    params: {
-        id: {
-            primary: true,
-            disabled: true,
-        },
-    },
-    query: {
-        join: {
-            posts: {},
-        },
-    },
-})
-@CrudAuth({
-    property: 'user',
-    filter: (user: User) => ({
-        id: user.id,
-    }),
-})
+import { TokenAuthGuard } from '../shared/guards/token-auth.guard';
+import { ApiTags } from '@nestjs/swagger';
+import { UpdateUserDto } from './dto/update-user.dto';
 
 @ApiTags('me')
 @Controller('me')
+@UseGuards(TokenAuthGuard)
 export class MeController {
-    constructor(public service: UsersService) {
-    }
+  constructor(private readonly usersService: UsersService) {}
+
+  @Get()
+  getMe(@Req() req) {
+    return req.user
+  }
+
+  @Put()
+  async updateMe(@Req() req, @Body() updateUserDto: UpdateUserDto) {
+    return this.usersService.update(req.user.id, updateUserDto)
+  }
 }

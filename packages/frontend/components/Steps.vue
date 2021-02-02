@@ -13,13 +13,12 @@
       :step="index+1"
       :label="component.name"
       class="step"
-      :clickable="step >= index"
-      :class="{ 'is-block': step === 0 && index === 0 }">
+      :class="{ 'is-block': formActiveStep === 0 && index === 0 }">
 
       <keep-alive>
         <component
           :is="component"
-          v-on:enable-navigation="navigationDisabled = true"
+          v-on:enable-navigation="enableFormNavigation"
         ></component>
       </keep-alive>
 
@@ -37,7 +36,7 @@
         <b-button
           type="is-primary"
           icon-right="forward"
-          :disabled="next.disabled || navigationDisabled"
+          :disabled="next.disabled || formNavigationDisabled"
           @click.prevent="next.action()">
           Next
         </b-button>
@@ -52,16 +51,7 @@ import { mapGetters, mapMutations } from "vuex";
 
 export default {
   name: 'Steps',
-  data() {
-    return {
-      navigationDisabled: false
-    }
-  },
   props: {
-    active: {
-      type: Number,
-      default: 0
-    },
     components: {
       type: Array,
       required: true
@@ -69,13 +59,13 @@ export default {
     type: {
       type: String,
       default: 'view'
-    }
+    },
   },
+  methods: { ...mapMutations('posts', ['setFormActiveStep', 'enableFormNavigation']), },
   computed: {
-    step: {
-      ...mapGetters('posts', ['formActiveStep']),
-      ...mapMutations('posts', ['setFormActiveStep']),
+    ...mapGetters('posts', ['formActiveStep', 'formNavigationDisabled']),
 
+    step: {
       get() {
         return this.formActiveStep
       },
@@ -83,7 +73,7 @@ export default {
         this.setFormActiveStep(value)
       }
     },
-  },
+  }
 }
 </script>
 
@@ -96,6 +86,10 @@ export default {
 
   @include until($tablet) {
     flex-direction: column-reverse;
+
+    button:nth-child(2n) {
+      margin: 0.5rem 0 0.5rem 0;
+    }
   }
 }
 

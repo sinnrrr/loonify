@@ -8,9 +8,7 @@ import {
 } from 'typeorm';
 import { User } from '../../users/entities/user.entity';
 import { JoinColumn } from 'typeorm';
-import { Exclude, Type } from 'class-transformer';
-import { ElasticServiceOptions } from '../../shared/interfaces/elastic-service-options.interface';
-import { POSTS_INDEX, POSTS_TYPE } from '../../constants';
+import { Type } from 'class-transformer';
 import { IsNotEmpty, IsNotEmptyObject, ValidateNested } from 'class-validator';
 
 export class Location {

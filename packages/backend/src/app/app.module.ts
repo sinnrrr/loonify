@@ -10,7 +10,6 @@ import { I18nModule } from 'nestjs-i18n';
 import { ConfigModule } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { MulterModule } from '@nestjs/platform-express';
-import { ElasticsearchModule } from '@nestjs/elasticsearch';
 
 import { AppService } from './app.service';
 import { AuthModule } from '../auth/auth.module';
@@ -25,7 +24,6 @@ import { PhotosModule } from '../photos/photos.module';
     I18nModule.forRootAsync(i18nModuleProvider),
     TypeOrmModule.forRootAsync(typeormModuleProvider),
     MulterModule.registerAsync(multerModuleProvider),
-    ElasticsearchModule.registerAsync(elasticsearchModuleProvider),
 
     UsersModule,
     AuthModule,

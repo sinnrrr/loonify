@@ -10,15 +10,15 @@ export const state = () => ({
   general: {},
   form: {
     activeStep: 0,
-    // navigationDisabled: true,
-    // stepsEnabled: [0],
+    navigationDisabled: true,
   }
 })
 
 export const getters = {
   type: state => state.type,
   markers: state => state.places.markers,
-  formActiveStep: state => state.form.activeStep
+  formActiveStep: state => state.form.activeStep,
+  formNavigationDisabled: state => state.form.navigationDisabled
 }
 
 export const mutations = {
@@ -33,5 +33,7 @@ export const mutations = {
   removeCircles: ({ places }, circle) => places.markers.splice(circle),
   addPolygon: ({ places }, polygon) => places.markers.push(polygon),
   removePolygon: ({ places }, polygon) => places.markers.splice(polygon),
-  setFormActiveStep: ({ form }, step) => form.activeStep = step
+  setFormActiveStep: ({ form }, step) => form.activeStep = step,
+  enableFormNavigation: ({ form }) => form.navigationDisabled = false,
+  disableFormNavigation: ({ form }) => form.navigationDisabled = true
 }

@@ -13,11 +13,4 @@ export class AppController {
   getStorageFile(@Res() res, @Param('file') file: string) {
     this.appService.serveFile(res, file);
   }
-
-  @ApiTags('search')
-  @Get('search')
-  @UseGuards(TokenAuthGuard)
-  search(@Query() query: any): Promise<any> {
-    return this.appService.search(query);
-  }
 }
