@@ -17,6 +17,7 @@
   },
   "projects": {
     "loonify": { "tags": [] },
-    "loonify-e2e": { "tags": [], "implicitDependencies": ["loonify"] }
+    "loonify-e2e": { "tags": [], "implicitDependencies": ["loonify"] },
+    "api": { "tags": [] }
   }
 }
