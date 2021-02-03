@@ -1,8 +1,9 @@
 import { Injectable } from '@nestjs/common';
+import { STORAGE_LOCATION } from '../constants';
 
 @Injectable()
 export class AppService {
-  getData(): { message: string } {
-    return { message: 'Welcome to api!' };
+  serveFile(res: any, file: string) {
+    res.sendFile(file, { root: STORAGE_LOCATION });
   }
 }
