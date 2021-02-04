@@ -11,7 +11,7 @@ const _78d9cd90 = () => interopDefault(import('../pages/account/login.vue' /* we
 const _211e261a = () => interopDefault(import('../pages/account/logout.vue' /* webpackChunkName: "pages/account/logout" */))
 const _64252268 = () => interopDefault(import('../pages/account/settings.vue' /* webpackChunkName: "pages/account/settings" */))
 const _228c5cfe = () => interopDefault(import('../pages/account/signup.vue' /* webpackChunkName: "pages/account/signup" */))
-const _6d3dc7d8 = () => interopDefault(import('../pages/office/new.vue' /* webpackChunkName: "pages/office/new" */))
+const _72c77746 = () => interopDefault(import('../pages/office/edit.vue' /* webpackChunkName: "pages/office/edit" */))
 const _3e8cf0db = () => interopDefault(import('../pages/index.vue' /* webpackChunkName: "pages/index" */))
 
 // TODO: remove in Nuxt 3
@@ -59,9 +59,9 @@ export const routerOptions = {
     component: _228c5cfe,
     name: "account-signup"
   }, {
-    path: "/office/new",
-    component: _6d3dc7d8,
-    name: "office-new"
+    path: "/office/edit",
+    component: _72c77746,
+    name: "office-edit"
   }, {
     path: "/",
     component: _3e8cf0db,

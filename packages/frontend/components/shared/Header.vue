@@ -60,7 +60,7 @@
           <b-button
             tag="nuxt-link"
             class="is-warning"
-            :to="{ name: 'office-new' }">
+            :to="{ name: 'office-edit' }">
             Create post
           </b-button>
         </b-navbar-item>

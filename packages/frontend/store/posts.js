@@ -1,3 +1,5 @@
+import marker from "vue2-google-maps/dist/components/marker";
+
 export const state = () => ({
   type: 'lost' | 'found' | 'theft',
   places: {
@@ -27,6 +29,7 @@ export const mutations = {
   setCategoryId: (state, categoryId) => state.categoryId = categoryId,
   addMarker: ({ places }, marker) => places.markers.push(marker),
   removeMarker: ({ places }, marker) => places.markers.splice(marker),
+  setMarker: ({ places }, marker) => places.markers[marker.index] = { lat: marker.lat, lng: marker.lng },
   addRectangle: ({ places }, rectangle) => places.markers.push(rectangle),
   removeRectangle: ({ places }, rectangle) => places.markers.splice(rectangle),
   addCircles: ({ places }, circle) => places.markers.push(circle),

@@ -7,22 +7,23 @@
     :has-navigation="true"
     :mobile-mode="$breakpoints.lSm ? 'compact' : 'minimalist'">
 
-    <b-step-item
-      v-for="(component, index) in components"
-      :key="index+1"
-      :step="index+1"
-      :label="component.name"
-      class="step"
-      :class="{ 'is-block': formActiveStep === 0 && index === 0 }">
+    <template v-for="(component, index) in components">
+      <b-step-item
+        :key="index+1"
+        :step="index+1"
+        :label="component.name"
+        class="step"
+        :class="{ 'is-block': formActiveStep === 0 && index === 0 }">
 
-      <keep-alive>
-        <component
-          :is="component"
-          v-on:enable-navigation="enableFormNavigation"
-        ></component>
-      </keep-alive>
+        <keep-alive>
+          <component
+            :is="component"
+            v-on:enable-navigation="enableFormNavigation"
+          ></component>
+        </keep-alive>
 
-    </b-step-item>
+      </b-step-item>
+    </template>
 
     <template #navigation="{previous, next}">
       <section class="navigation">

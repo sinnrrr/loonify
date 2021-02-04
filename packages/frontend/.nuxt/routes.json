@@ -49,11 +49,11 @@
     "_name": "_228c5cfe"
   },
   {
-    "name": "office-new",
-    "path": "/office/new",
-    "component": "/home/sinnrrr/Work/loonify/packages/frontend/pages/office/new.vue",
-    "chunkName": "pages/office/new",
-    "_name": "_6d3dc7d8"
+    "name": "office-edit",
+    "path": "/office/edit",
+    "component": "/home/sinnrrr/Work/loonify/packages/frontend/pages/office/edit.vue",
+    "chunkName": "pages/office/edit",
+    "_name": "_72c77746"
   },
   {
     "name": "index",

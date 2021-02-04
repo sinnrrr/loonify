@@ -1,6 +1,6 @@
 <template>
   <main>
-    <Steps :components="input"/>
+    <Steps :components="input" type="edit"/>
   </main>
 </template>
 
@@ -8,12 +8,12 @@
 import Type from "~/components/steps/Type";
 import Location from "~/components/steps/Location";
 import Category from "~/components/steps/Category";
+import General from "~/components/steps/General";
+import Review from "~/components/steps/Review";
 
 export default {
   data() {
-    return {
-      input: [Type, Location, Category]
-    }
+    return { input: [Type, Location, Category, General, Review] }
   },
 }
 </script>
@@ -25,3 +25,4 @@ main {
   flex: 1;
 }
 </style>
+

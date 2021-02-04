@@ -78,6 +78,7 @@ section {
   .card {
     display: flex;
     flex: 1;
+    width: 100%;
     text-align: center;
     justify-content: space-between;
     flex-direction: column;

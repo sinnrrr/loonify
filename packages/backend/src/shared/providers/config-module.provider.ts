@@ -1,7 +1,5 @@
 import jwtConfiguration from '../config/jwt.config';
-import i18nConfiguration from '../config/i18n.config';
 import multerConfiguration from '../config/multer.config';
-import elasticConfiguration from '../config/elastic.config';
 import swaggerConfiguration from '../config/swagger.config';
 import typeormConfiguration from '../config/typeorm.config';
 import applicationConfiguration from '../config/application.config';
@@ -11,9 +9,7 @@ export const configModuleProvider = {
   cache: true,
   load: [
     jwtConfiguration,
-    i18nConfiguration,
     multerConfiguration,
-    elasticConfiguration,
     swaggerConfiguration,
     typeormConfiguration,
     applicationConfiguration,
