@@ -2,15 +2,28 @@
   <gmap-map
     ref="map"
     class="map"
-    :zoom="12"
+    :zoom="mapZoom"
     :center="this.currentLocation"
   >
     <gmap-marker
       v-for="(marker, index) in markers"
-      :key="index"
+      :key="`marker-${index}`"
       :position="marker"
       :draggable="true"
-      @dragend="markerDragHandler($event, index)"
+      @drag="setMarker({
+        index,
+        lat: $event.latLng.lat(),
+        lng: $event.latLng.lng(),
+      })"
+    />
+    <gmap-circle
+      v-for="(circle, index) in circles"
+      :key="`circle-${index}`"
+      :center="circle.center"
+      :radius="circle.radius"
+      :draggable="true"
+      :editable="true"
+      :options="{fillColor:'red',fillOpacity:1.0}"
     />
   </gmap-map>
 </template>
@@ -19,12 +32,16 @@
 import Vue from "vue";
 import {gmapApi} from 'vue2-google-maps'
 import {mapGetters, mapMutations} from "vuex";
-import MarkerButton from "@/components/maps/MarkerButton";
+import MapMarkerControl from "@/components/MapMarkerControl";
+import MapCircleControl from "@/components/MapCircleControl";
 
 export default {
   name: "Location",
   data() {
     return {
+      map: null,
+      mapZoom: 12,
+      markerCircleRadius: 200,
       currentLocation: {
         lat: 50.4452,
         lng: 25.1928
@@ -35,6 +52,7 @@ export default {
     google: gmapApi,
     ...mapGetters('posts', [
       'markers',
+      'circles'
     ])
   },
   methods: {
@@ -42,6 +60,9 @@ export default {
       'setMarker',
     ]),
 
+    enableNavigation(value) {
+      if (value.length > 0) this.$emit('enable-navigation', this.$options.name)
+    },
     createMapControls(map, controlDiv, controls) {
       controls.map(control => {
         const button = new Vue({
@@ -53,15 +74,6 @@ export default {
         controlDiv.appendChild(button.$el);
       })
     },
-    markerDragHandler(event, index) {
-      this.setMarker({
-        index,
-        lat: event.latLng.lat(),
-        lng: event.latLng.lng(),
-      })
-
-      this.$buefy.toast.open('Changed position of the marker')
-    }
   },
   mounted() {
     navigator.geolocation.getCurrentPosition(
@@ -80,16 +92,21 @@ export default {
         map,
         controlDiv,
         [
-          MarkerButton,
+          MapMarkerControl,
+          MapCircleControl
         ],
       )
 
       map.controls[this.google.maps.ControlPosition.RIGHT_CENTER].push(controlDiv)
     })
+
   },
   watch: {
     markers(value) {
-      if (value.length > 0) this.$emit('enable-navigation', this.$options.name)
+      this.enableNavigation(value)
+    },
+    circles(value) {
+      this.enableNavigation(value)
     }
   }
 }
@@ -97,7 +114,7 @@ export default {
 
 <style lang="scss" scoped>
 .map {
-  height: 60vh;
+  min-height: 60vh;
   width: 100%;
 }
 </style>

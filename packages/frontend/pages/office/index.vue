@@ -5,9 +5,9 @@
 </template>
 
 <script>
-import Type from "~/components/steps/Type";
-import Location from "~/components/steps/Location";
-import Category from "~/components/steps/Category";
+import Type from "@/components/TypeStep";
+import Location from "@/components/LocationStep";
+import Category from "@/components/CategoryStep";
 
 export default {
   data() {

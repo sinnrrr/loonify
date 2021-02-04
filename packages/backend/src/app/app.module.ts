@@ -13,7 +13,6 @@ import { AuthModule } from '../auth/auth.module';
 import { AppController } from './app.controller';
 import { PostsModule } from '../posts/posts.module';
 import { UsersModule } from '../users/users.module';
-import { PhotosModule } from '../photos/photos.module';
 
 @Module({
   imports: [
@@ -24,7 +23,6 @@ import { PhotosModule } from '../photos/photos.module';
     UsersModule,
     AuthModule,
     PostsModule,
-    PhotosModule,
   ],
   controllers: [AppController],
   providers: [AppService],

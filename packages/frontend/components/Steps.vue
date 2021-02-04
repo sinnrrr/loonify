@@ -48,7 +48,7 @@
 </template>
 
 <script>
-import { mapGetters, mapMutations } from "vuex";
+import {mapGetters, mapMutations} from "vuex";
 
 export default {
   name: 'Steps',
@@ -62,7 +62,7 @@ export default {
       default: 'view'
     },
   },
-  methods: { ...mapMutations('posts', ['setFormActiveStep', 'enableFormNavigation']), },
+  methods: {...mapMutations('posts', ['setFormActiveStep', 'enableFormNavigation', 'disableFormNavigation']),},
   computed: {
     ...mapGetters('posts', ['formActiveStep', 'formNavigationDisabled']),
 
@@ -70,8 +70,14 @@ export default {
       get() {
         return this.formActiveStep
       },
-      set(value) {
-        this.setFormActiveStep(value)
+      set(newStep) {
+        if (newStep > this.step) {
+          this.disableFormNavigation()
+        } else {
+          this.enableFormNavigation()
+        }
+
+        this.setFormActiveStep(newStep)
       }
     },
   }

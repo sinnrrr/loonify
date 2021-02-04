@@ -1,12 +1,11 @@
 <template>
-  <section>
-    <p class="content"><b>Selected:</b> {{ selected }}</p>
-    <b-field label="Find or add a Fruit">
+  <div>
+    <b-field>
       <b-autocomplete
         v-model="name"
         ref="autocomplete"
         :data="filteredDataArray"
-        placeholder="e.g. Orange"
+        placeholder="Search for category"
         @select="option => selected = option">
         <template #footer>
           <a @click="showAddFruit">
@@ -16,10 +15,24 @@
         <template #empty>No results for {{name}}</template>
       </b-autocomplete>
     </b-field>
-  </section>
+    <section>
+<!--      <div-->
+<!--        v-for="(category, index) in categories"-->
+<!--        :key="index"-->
+<!--        class="card">-->
+<!--        <input :id="'radio-'+ index" type="radio" :value="card.name.toLowerCase()" v-model="pick"/>-->
+<!--        <label :for="'radio-'+ index" class="title">-->
+<!--          <img :src="card.icon" alt="Card icon">-->
+<!--          {{ card.name }}-->
+<!--        </label>-->
+<!--      </div>-->
+    </section>
+  </div>
 </template>
 
 <script>
+import {mapGetters, mapMutations} from "vuex";
+
 export default {
   name: 'Category',
   data() {
@@ -38,6 +51,8 @@ export default {
     }
   },
   computed: {
+    ...mapGetters('posts', ['categories']),
+
     filteredDataArray() {
       return this.data.filter((option) => {
         return option
@@ -48,6 +63,8 @@ export default {
     }
   },
   methods: {
+    ...mapMutations('posts', ['setCategory']),
+
     showAddFruit() {
       this.$buefy.dialog.prompt({
         message: `Fruit`,

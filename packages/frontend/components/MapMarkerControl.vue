@@ -5,11 +5,13 @@
 </template>
 
 <script>
+import controlMixin from "@/mixins/control";
 import {mapGetters, mapMutations} from "vuex";
 
 export default {
-  name: 'MarkerButton',
-  computed: {...mapGetters('posts', ['markers'])},
+  name: 'MapMarkerControl',
+  mixins: [controlMixin],
+  computed: {...mapGetters('posts', ['markers']),},
   props: {
     map: {
       type: Object,
@@ -19,9 +21,6 @@ export default {
   methods: {
     ...mapMutations('posts', ['addMarker']),
 
-    randomNumber(min, max) {
-      return Math.random() * (max - min) + min;
-    },
     createMarker() {
       const markersLimit = 5
       const markersCount = this.markers.length
@@ -37,7 +36,6 @@ export default {
         })
 
         this.addMarker(marker)
-        this.map.panTo(marker)
 
         if (marker.lat === this.map.getCenter().lat() || marker.lng === this.map.getCenter().lng()) {
           this.$buefy.toast.open('Marker created successfully')

@@ -5,11 +5,11 @@
 </template>
 
 <script>
-import Type from "~/components/steps/Type";
-import Location from "~/components/steps/Location";
-import Category from "~/components/steps/Category";
-import General from "~/components/steps/General";
-import Review from "~/components/steps/Review";
+import Type from "@/components/TypeStep";
+import Location from "@/components/LocationStep";
+import Category from "@/components/CategoryStep";
+import General from "@/components/GeneralStep";
+import Review from "@/components/ReviewStep";
 
 export default {
   data() {
