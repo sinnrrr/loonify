@@ -18,17 +18,15 @@ async function bootstrap() {
   const app = await NestFactory.create<NestExpressApplication>(AppModule);
   const configService = app.get(ConfigService);
 
-  const port = configService.get('application.port');
-  const apiPrefix = configService.get('application.apiPrefix');
-  const apiVersion = configService.get('application.apiVersion');
-  const baseLink = 'http://localhost:' + port + '/';
+  const apiConfiguration = configService.get('application.api')
+  const apiRootUrl = `http://${apiConfiguration.host}:${apiConfiguration.port}`;
+  const apiBaseUrl = `${apiConfiguration.prefix}/v${apiConfiguration.version}`;
 
-  const appPrefix = `${apiPrefix}/v${apiVersion}`;
-  const swaggerPrefix = appPrefix + '/' + configService.get('swagger.prefix');
+  const swaggerPrefix = apiBaseUrl + '/' + configService.get('swagger.prefix');
 
 
   // Request modifications
-  app.setGlobalPrefix(appPrefix);
+  app.setGlobalPrefix(apiBaseUrl);
 
   app.useGlobalFilters(new HttpExceptionFilter(configService));
   app.useGlobalFilters(new QueryFailedExceptionFilter(configService));
@@ -64,10 +62,10 @@ async function bootstrap() {
 
 
   // Running app
-  await app.listen(port);
+  await app.listen(apiConfiguration.port);
 
-  Logger.log('App has been launched on ' + baseLink + appPrefix);
-  Logger.log('Swagger-styled OpenAPI specifications launched on ' + baseLink + swaggerPrefix);
+  Logger.log('App has been launched on ' + apiRootUrl + '/' + apiBaseUrl);
+  Logger.log('Swagger-styled OpenAPI specifications launched on ' + apiRootUrl + '/' + swaggerPrefix);
 }
 
 bootstrap();

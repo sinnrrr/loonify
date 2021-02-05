@@ -1,3 +1,7 @@
+require('dotenv').config({
+  path: '../../.env'
+})
+
 export default {
   head: {
     title: 'Lost and Found of the Future | Loonify',
@@ -32,8 +36,8 @@ export default {
   components: true,
 
   buildModules: [
-    '@nuxtjs/style-resources',
-    '@nuxtjs/google-fonts'
+    '@nuxtjs/google-fonts',
+    '@nuxtjs/style-resources'
   ],
 
   modules: [
@@ -48,12 +52,17 @@ export default {
     transpile: [/^vue2-google-maps($|\/)/]
   },
 
+  dotenv: {
+    path: '../../.env'
+  },
+
   axios: {
-    proxy: true
+    proxy: true,
+    prefix: `${process.env.API_PREFIX}/v${process.env.API_VERSION}/`
   },
 
   proxy: {
-    '/api': 'http://localhost:3333',
+    ['/' + process.env.API_PREFIX]: 'http://localhost:3333',
   },
 
   auth: {
@@ -72,10 +81,10 @@ export default {
           property: 'data'
         },
         endpoints: {
-          login: { url: '/api/v0/auth/login', method: 'post' },
-          refresh: { url: '/api/v0/auth/refresh', method: 'post' },
-          user: { url: '/api/v0/auth/user', method: 'get' },
-          logout: { url: '/api/v0/auth/logout', method: 'post' }
+          login: { url: 'auth/login', method: 'post' },
+          refresh: { url: 'auth/refresh', method: 'post' },
+          user: { url: 'auth/user', method: 'get' },
+          logout: { url: 'auth/logout', method: 'post' }
         },
       }
     }

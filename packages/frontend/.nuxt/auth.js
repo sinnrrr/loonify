@@ -54,19 +54,19 @@ export default function (ctx, inject) {
   },
   "endpoints": {
     "login": {
-      "url": "/api/v0/auth/login",
+      "url": "auth/login",
       "method": "post"
     },
     "refresh": {
-      "url": "/api/v0/auth/refresh",
+      "url": "auth/refresh",
       "method": "post"
     },
     "user": {
-      "url": "/api/v0/auth/user",
+      "url": "auth/user",
       "method": "get"
     },
     "logout": {
-      "url": "/api/v0/auth/logout",
+      "url": "auth/logout",
       "method": "post"
     }
   },
