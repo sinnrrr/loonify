@@ -1,11 +1,11 @@
 import { Controller, Get, Param, Post, Res, UploadedFiles, UseGuards, UseInterceptors } from '@nestjs/common';
 import { ApiTags } from '@nestjs/swagger';
 import { AppService } from './app.service';
-import { TokenAuthGuard } from "../shared/guards/token-auth.guard";
 import { FilesInterceptor } from "@nestjs/platform-express";
 import { diskStorage } from "multer";
 import { STORAGE_LOCATION } from "../constants";
 import { editFileName, imageFileFilter } from "./app.utils";
+import { JwtAccessAuthGuard } from "../auth/guards/jwt-access-auth.guard";
 
 @ApiTags('storage')
 @Controller('storage')
@@ -18,7 +18,7 @@ export class AppController {
   }
 
   @Post('photos/upload/:postId')
-  @UseGuards(TokenAuthGuard)
+  @UseGuards(JwtAccessAuthGuard)
   @UseInterceptors(
       FilesInterceptor('photos', 10, {
         storage: diskStorage({

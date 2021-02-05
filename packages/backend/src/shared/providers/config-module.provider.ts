@@ -5,7 +5,6 @@ import typeormConfiguration from '../config/typeorm.config';
 import applicationConfiguration from '../config/application.config';
 
 export const configModuleProvider = {
-  envFilePath: '../../../.env',
   cache: true,
   load: [
     jwtConfiguration,

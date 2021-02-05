@@ -6,8 +6,8 @@ import { LocalStrategy } from './strategies/local.strategy';
 import { AuthController } from './auth.controller';
 import { JwtModule } from '@nestjs/jwt';
 import { ConfigModule, ConfigService } from '@nestjs/config';
-import { JwtStrategy } from './strategies/jwt.strategy';
-import { TokenStrategy } from './strategies/token.strategy';
+import { JwtAccessStrategy } from './strategies/jwt-access.strategy';
+import { JwtRefreshStrategy } from './strategies/jwt-refresh.strategy';
 
 @Module({
   imports: [
@@ -20,7 +20,7 @@ import { TokenStrategy } from './strategies/token.strategy';
       useFactory: async (configService: ConfigService) => configService.get('jwt')
     }),
   ],
-  providers: [AuthService, LocalStrategy, JwtStrategy, TokenStrategy],
+  providers: [AuthService, LocalStrategy, JwtAccessStrategy, JwtRefreshStrategy],
   controllers: [AuthController],
 })
 export class AuthModule {}

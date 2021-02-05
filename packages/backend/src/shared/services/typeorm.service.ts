@@ -1,4 +1,4 @@
-import { DeleteResult, FindManyOptions, FindOneOptions, Repository, UpdateResult } from 'typeorm';
+import { DeleteResult, FindManyOptions, FindOneOptions, Repository } from 'typeorm';
 import { IPaginationOptions, Pagination, paginate } from 'nestjs-typeorm-paginate';
 
 export class TypeormService<T, C, U> {

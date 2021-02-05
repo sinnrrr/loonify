@@ -1,44 +1,62 @@
 import { Injectable } from '@nestjs/common';
 import { UsersService } from '../users/users.service';
-import * as argon2 from 'argon2';
-import { JwtService } from '@nestjs/jwt';
+import { JwtService, JwtSignOptions } from '@nestjs/jwt';
 import { User } from '../users/entities/user.entity';
+import { ConfigService } from '@nestjs/config';
 
 @Injectable()
 export class AuthService {
   constructor(
+    private configService: ConfigService,
     private usersService: UsersService,
     private jwtService: JwtService,
   ) {
   }
 
-  async validateToken(token: string): Promise<User | any> {
-    const user = await this.usersService.findOne({ where: { token } });
-    if (user && user.expiresAt > new Date()) {
-      return user;
-    }
+  accessConfiguration = <JwtSignOptions>{
+    secret: this.configService.get('jwt.access.secret'),
+    expiresIn: this.configService.get('jwt.access.expiry'),
+  };
 
-    return null;
-  }
-
+  refreshConfiguration = <JwtSignOptions>{
+    secret: this.configService.get('jwt.refresh.secret'),
+    expiresIn: this.configService.get('jwt.refresh.expiry'),
+  };
 
   async validateUser(email: string, password: string): Promise<User | any> {
-    const user = await this.usersService.findOne({ where: { email } });
-    if (user && await argon2.verify(user.password, password)) {
-      return user;
-    }
-
-    return null;
+    return await this.usersService.verifyArgonHash(
+      { where: { email } },
+      password,
+      'password',
+    );
   }
 
-  async login(user: any) {
-    const payload = {
-      email: user.email,
+  async login(user: User) {
+    const accessPayload = {
+      name: user.name,
+      sub: user.id,
+    };
+
+    const refreshPayload = {
+      sub: accessPayload.sub,
+    };
+
+    const accessToken = await this.jwtService.signAsync(accessPayload, this.accessConfiguration);
+    const refreshToken = await this.jwtService.signAsync(refreshPayload, this.refreshConfiguration);
+
+    await this.usersService.setRefreshToken(user.id, refreshToken)
+
+    return { accessToken, refreshToken };
+  }
+
+  async refresh(user: User) {
+    const accessPayload = {
+      name: user.name,
       sub: user.id,
     };
 
     return {
-      access_token: await this.jwtService.signAsync(payload),
+      accessToken: await this.jwtService.signAsync(accessPayload, this.accessConfiguration),
     };
   }
 }

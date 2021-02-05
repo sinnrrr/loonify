@@ -1,17 +1,18 @@
-import { NestFactory, Reflector } from '@nestjs/core';
+import { NestFactory } from '@nestjs/core';
 
 import { AppModule } from './app/app.module';
 import { ConfigService } from '@nestjs/config';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 import { HttpExceptionFilter } from './shared/filters/http-exception.filter';
 import { TransformInterceptor } from './shared/interceptors/transform.interceptor';
-import { ClassSerializerInterceptor, HttpStatus, Logger, ValidationPipe } from '@nestjs/common';
+import { HttpStatus, Logger, ValidationPipe } from '@nestjs/common';
 
 import { NestExpressApplication } from '@nestjs/platform-express';
 
 import * as helmet from 'helmet';
 import * as rateLimit from 'express-rate-limit';
 import { QueryFailedExceptionFilter } from './shared/filters/query-failed-exception.filter';
+import * as bearerToken from 'express-bearer-token';
 
 
 async function bootstrap() {
@@ -34,7 +35,6 @@ async function bootstrap() {
   app.useGlobalFilters(new QueryFailedExceptionFilter(configService));
 
   app.useGlobalInterceptors(new TransformInterceptor(configService));
-  app.useGlobalInterceptors(new ClassSerializerInterceptor(app.get(Reflector)));
 
   app.useGlobalPipes(
     new ValidationPipe({
@@ -44,6 +44,7 @@ async function bootstrap() {
 
 
   //Security
+  app.use(bearerToken())
   app.use(helmet()); // Headers
   app.use(rateLimit({
     windowMs: 15 * 60 * 1000, // 15 minutes
