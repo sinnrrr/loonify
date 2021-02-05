@@ -52,7 +52,25 @@ export default {
 
   auth: {
     strategies: {
-      local: {}
+      local: {
+        scheme: 'refresh',
+        token: {
+          property: 'data.accessToken',
+        },
+        refreshToken: {
+          property: 'data.refreshToken',
+          data: 'refreshToken',
+        },
+        user: {
+          property: 'data'
+        },
+        endpoints: {
+          login: { url: '/api/v0/auth/login', method: 'post' },
+          refresh: { url: '/api/v0/auth/refresh', method: 'post' },
+          user: { url: '/api/v0/auth/user', method: 'get' },
+          logout: { url: '/api/v0/auth/logout', method: 'post' }
+        },
+      }
     }
   },
 

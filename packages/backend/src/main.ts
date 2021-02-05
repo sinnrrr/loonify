@@ -12,7 +12,6 @@ import { NestExpressApplication } from '@nestjs/platform-express';
 import * as helmet from 'helmet';
 import * as rateLimit from 'express-rate-limit';
 import { QueryFailedExceptionFilter } from './shared/filters/query-failed-exception.filter';
-import * as bearerToken from 'express-bearer-token';
 
 
 async function bootstrap() {
@@ -44,7 +43,6 @@ async function bootstrap() {
 
 
   //Security
-  app.use(bearerToken())
   app.use(helmet()); // Headers
   app.use(rateLimit({
     windowMs: 15 * 60 * 1000, // 15 minutes

@@ -2,13 +2,13 @@ import {
   Body,
   ClassSerializerInterceptor,
   Controller,
-  Get,
+  Get, HttpCode, HttpStatus,
   Post,
   Put,
   Req,
   Request,
   UseGuards,
-  UseInterceptors
+  UseInterceptors,
 } from '@nestjs/common';
 import { ApiTags } from '@nestjs/swagger';
 import { CreateUserDto } from '../users/dto/create-user.dto';
@@ -51,9 +51,17 @@ export class AuthController {
     return this.usersService.update(req.user.id, updateUserDto)
   }
 
-  @Get('refresh')
+  @Post('refresh')
   @UseGuards(JwtRefreshAuthGuard)
   async refresh(@Req() req) {
     return await this.authService.refresh(req.user)
+  }
+
+  @Post('logout')
+  @UseGuards(JwtAccessAuthGuard)
+  async logout(@Req() req) {
+    await this.usersService.removeRefreshToken(req.user.id)
+
+    return {}
   }
 }

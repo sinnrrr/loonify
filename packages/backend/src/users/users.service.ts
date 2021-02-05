@@ -33,4 +33,10 @@ export class UsersService extends TypeormService<User, CreateUserDto, UpdateUser
       refreshToken: hashedRefreshToken
     })
   }
+
+  async removeRefreshToken(id: number) {
+    await this.repo.update(id, {
+      refreshToken: null
+    })
+  }
 }

@@ -2,7 +2,7 @@ import Middleware from './middleware'
 import { Auth, authMiddleware, ExpiredAuthSessionError } from '~auth/runtime'
 
 // Active schemes
-import { LocalScheme } from '~auth/runtime'
+import { RefreshScheme } from '~auth/runtime'
 
 Middleware.auth = authMiddleware
 
@@ -41,7 +41,35 @@ export default function (ctx, inject) {
 
   // Register strategies
   // local
-  $auth.registerStrategy('local', new LocalScheme($auth, {
+  $auth.registerStrategy('local', new RefreshScheme($auth, {
+  "token": {
+    "property": "data.accessToken"
+  },
+  "refreshToken": {
+    "property": "data.refreshToken",
+    "data": "refreshToken"
+  },
+  "user": {
+    "property": "data"
+  },
+  "endpoints": {
+    "login": {
+      "url": "/api/v0/auth/login",
+      "method": "post"
+    },
+    "refresh": {
+      "url": "/api/v0/auth/refresh",
+      "method": "post"
+    },
+    "user": {
+      "url": "/api/v0/auth/user",
+      "method": "get"
+    },
+    "logout": {
+      "url": "/api/v0/auth/logout",
+      "method": "post"
+    }
+  },
   "name": "local"
 }))
 

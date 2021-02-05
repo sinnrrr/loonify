@@ -20,11 +20,7 @@ export class TypeormController {
     limit = limit > 100 ? 100 : limit;
     limit = limit < 0 ? 10 : limit;
 
-    return this.service.paginate({
-      page,
-      limit,
-      route: this.generatePaginationUrlBase(req)
-    });
+    return this.service.paginate({ page, limit });
   }
 
   @Get(':id')
@@ -45,13 +41,5 @@ export class TypeormController {
   @Delete(':id')
   remove(@Param('id') id: string) {
     return this.service.remove(+id);
-  }
-
-  generatePaginationUrlBase(req): string {
-    return req.protocol
-      + '://'
-      + req.get('host')
-      + '/'
-      + this.paginationUrl
   }
 }
