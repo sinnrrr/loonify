@@ -1,5 +1,7 @@
 import createPersistedState from 'vuex-persistedstate'
 
 export default ({store}) => {
-  createPersistedState()(store)
+  createPersistedState({
+    storage: window.sessionStorage
+  })(store)
 }

@@ -48,10 +48,17 @@ export default {
     transpile: [/^vue2-google-maps($|\/)/]
   },
 
-  axios: {},
+  axios: {
+    proxy: true
+  },
+
+  proxy: {
+    '/api': 'http://localhost:3333',
+  },
 
   auth: {
     strategies: {
+      redirect: false,
       local: {
         scheme: 'refresh',
         token: {

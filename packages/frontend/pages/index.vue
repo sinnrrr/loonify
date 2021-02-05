@@ -20,6 +20,7 @@
         </b-button>
       </div>
     </section>
+    <NuxtChild />
   </main>
 </template>
 

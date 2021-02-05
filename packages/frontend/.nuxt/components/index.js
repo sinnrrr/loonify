@@ -1,3 +1,5 @@
+export { default as AuthForm } from '../../components/AuthForm.vue'
+export { default as AuthModal } from '../../components/AuthModal.vue'
 export { default as CategoryStep } from '../../components/CategoryStep.vue'
 export { default as Earth } from '../../components/Earth.vue'
 export { default as GeneralStep } from '../../components/GeneralStep.vue'
@@ -10,6 +12,8 @@ export { default as ReviewStep } from '../../components/ReviewStep.vue'
 export { default as Steps } from '../../components/Steps.vue'
 export { default as TypeStep } from '../../components/TypeStep.vue'
 
+export const LazyAuthForm = import('../../components/AuthForm.vue' /* webpackChunkName: "components/auth-form" */).then(c => c.default || c)
+export const LazyAuthModal = import('../../components/AuthModal.vue' /* webpackChunkName: "components/auth-modal" */).then(c => c.default || c)
 export const LazyCategoryStep = import('../../components/CategoryStep.vue' /* webpackChunkName: "components/category-step" */).then(c => c.default || c)
 export const LazyEarth = import('../../components/Earth.vue' /* webpackChunkName: "components/earth" */).then(c => c.default || c)
 export const LazyGeneralStep = import('../../components/GeneralStep.vue' /* webpackChunkName: "components/general-step" */).then(c => c.default || c)

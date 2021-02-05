@@ -1,4 +1,16 @@
 {
+  "AuthForm": {
+    "description": "Auto imported from /components/AuthForm.vue"
+  },
+  "LazyAuthForm": {
+    "description": "Auto imported from /components/AuthForm.vue"
+  },
+  "AuthModal": {
+    "description": "Auto imported from /components/AuthModal.vue"
+  },
+  "LazyAuthModal": {
+    "description": "Auto imported from /components/AuthModal.vue"
+  },
   "CategoryStep": {
     "description": "Auto imported from /components/CategoryStep.vue"
   },

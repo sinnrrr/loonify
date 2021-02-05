@@ -13,6 +13,7 @@
 // bulma components
 @import "~bulma/sass/components/modal.sass"; // colors for buefy modal
 @import "~bulma/sass/components/navbar.sass";
+@import "~bulma/sass/components/card.sass";
 @import "~bulma/sass/components/dropdown.sass"; // colors for buefy autocomplete
 
 // bulma elements
@@ -24,6 +25,7 @@
 
 // bulma form
 @import "~bulma/sass/form/shared.sass"; // required for form colors
+@import "~bulma/sass/form/tools.sass"; // required for form helpers
 @import "~bulma/sass/form/input-textarea.sass"; // required for buefy autocomplete
 
 // bulma helpers
@@ -32,9 +34,11 @@
 @import "~bulma/sass/helpers/visibility.sass";
 @import "~bulma/sass/helpers/spacing.sass";
 @import "~bulma/sass/helpers/flexbox.sass";
+@import "~bulma/sass/helpers/other.sass"; // clickable property
 
 // buefy components
 @import "~buefy/src/scss/components/_steps.scss";
 @import "~buefy/src/scss/components/_modal.scss";
+@import "~buefy/src/scss/components/_checkbox.scss";
 @import "~buefy/src/scss/components/_notices.scss";
 @import "~buefy/src/scss/components/_autocomplete.scss";

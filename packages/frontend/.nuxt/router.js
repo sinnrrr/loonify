@@ -8,11 +8,12 @@ const _1ed51616 = () => interopDefault(import('../pages/about.vue' /* webpackChu
 const _a19bab0e = () => interopDefault(import('../pages/account/index.vue' /* webpackChunkName: "pages/account/index" */))
 const _27df2b46 = () => interopDefault(import('../pages/office/index.vue' /* webpackChunkName: "pages/office/index" */))
 const _78d9cd90 = () => interopDefault(import('../pages/account/login.vue' /* webpackChunkName: "pages/account/login" */))
-const _211e261a = () => interopDefault(import('../pages/account/logout.vue' /* webpackChunkName: "pages/account/logout" */))
 const _64252268 = () => interopDefault(import('../pages/account/settings.vue' /* webpackChunkName: "pages/account/settings" */))
 const _228c5cfe = () => interopDefault(import('../pages/account/signup.vue' /* webpackChunkName: "pages/account/signup" */))
 const _72c77746 = () => interopDefault(import('../pages/office/edit.vue' /* webpackChunkName: "pages/office/edit" */))
 const _3e8cf0db = () => interopDefault(import('../pages/index.vue' /* webpackChunkName: "pages/index" */))
+const _1b81ca35 = () => interopDefault(import('../pages/index/login.vue' /* webpackChunkName: "pages/index/login" */))
+const _bddd2d08 = () => interopDefault(import('../pages/index/signup.vue' /* webpackChunkName: "pages/index/signup" */))
 
 // TODO: remove in Nuxt 3
 const emptyFn = () => {}
@@ -47,10 +48,6 @@ export const routerOptions = {
     component: _78d9cd90,
     name: "account-login"
   }, {
-    path: "/account/logout",
-    component: _211e261a,
-    name: "account-logout"
-  }, {
     path: "/account/settings",
     component: _64252268,
     name: "account-settings"
@@ -65,7 +62,16 @@ export const routerOptions = {
   }, {
     path: "/",
     component: _3e8cf0db,
-    name: "index"
+    name: "index",
+    children: [{
+      path: "login",
+      component: _1b81ca35,
+      name: "index-login"
+    }, {
+      path: "signup",
+      component: _bddd2d08,
+      name: "index-signup"
+    }]
   }],
 
   fallback: false

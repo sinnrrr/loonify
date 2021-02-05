@@ -28,13 +28,6 @@
     "_name": "_78d9cd90"
   },
   {
-    "name": "account-logout",
-    "path": "/account/logout",
-    "component": "/home/sinnrrr/Work/loonify/packages/frontend/pages/account/logout.vue",
-    "chunkName": "pages/account/logout",
-    "_name": "_211e261a"
-  },
-  {
     "name": "account-settings",
     "path": "/account/settings",
     "component": "/home/sinnrrr/Work/loonify/packages/frontend/pages/account/settings.vue",
@@ -60,6 +53,22 @@
     "path": "/",
     "component": "/home/sinnrrr/Work/loonify/packages/frontend/pages/index.vue",
     "chunkName": "pages/index",
+    "children": [
+      {
+        "name": "index-login",
+        "path": "login",
+        "component": "/home/sinnrrr/Work/loonify/packages/frontend/pages/index/login.vue",
+        "chunkName": "pages/index/login",
+        "_name": "_1b81ca35"
+      },
+      {
+        "name": "index-signup",
+        "path": "signup",
+        "component": "/home/sinnrrr/Work/loonify/packages/frontend/pages/index/signup.vue",
+        "chunkName": "pages/index/signup",
+        "_name": "_bddd2d08"
+      }
+    ],
     "_name": "_3e8cf0db"
   }
 ]
