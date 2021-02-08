@@ -1,43 +1,42 @@
-require('dotenv').config({
-  path: '../../.env'
-})
+const dotenv = require('dotenv');
 
 export default {
   head: {
     title: 'Lost and Found of the Future | Loonify',
     htmlAttrs: {
-      lang: 'en'
+      lang: 'en',
     },
     meta: [
-      {charset: 'utf-8'},
-      {name: 'viewport', content: 'width=device-width, initial-scale=1'},
-      {hid: 'description', name: 'description', content: ''}
+      { charset: 'utf-8' },
+      { name: 'viewport', content: 'width=device-width, initial-scale=1' },
+      { hid: 'description', name: 'description', content: '' },
     ],
     link: [
-      {rel: 'icon', type: 'image/x-icon', href: '/favicon.ico'}
-    ]
+      { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' },
+    ],
   },
 
   loading: {
     color: '#6610f2',
-    continious: true
+    continious: true,
   },
 
   css: [
-    '@/assets/scss/global.scss'
+    '@/assets/scss/global.scss',
   ],
 
   plugins: [
     '~/plugins/vue-formulate',
     '~/plugins/vue2-google-maps',
-    '~/plugins/persistedState.client.js'
+    '~/plugins/vue-html2pdf.client.js',
+    '~/plugins/persistedState.client.js',
   ],
 
   components: true,
 
   buildModules: [
     '@nuxtjs/google-fonts',
-    '@nuxtjs/style-resources'
+    '@nuxtjs/style-resources',
   ],
 
   modules: [
@@ -49,20 +48,16 @@ export default {
   ],
 
   build: {
-    transpile: [/^vue2-google-maps($|\/)/]
-  },
-
-  dotenv: {
-    path: '../../.env'
+    transpile: [/^vue2-google-maps($|\/)/],
   },
 
   axios: {
     proxy: true,
-    prefix: `${process.env.API_PREFIX}/v${process.env.API_VERSION}/`
+    prefix: 'api/v0/',
   },
 
   proxy: {
-    ['/' + process.env.API_PREFIX]: 'http://localhost:3333',
+    '/api': 'http://localhost:3333',
   },
 
   auth: {
@@ -78,29 +73,29 @@ export default {
           data: 'refreshToken',
         },
         user: {
-          property: 'data'
+          property: 'data',
         },
         endpoints: {
           login: { url: 'auth/login', method: 'post' },
           refresh: { url: 'auth/refresh', method: 'post' },
           user: { url: 'auth/user', method: 'get' },
-          logout: { url: 'auth/logout', method: 'post' }
+          logout: { url: 'auth/logout', method: 'post' },
         },
-      }
-    }
+      },
+    },
   },
 
   googleFonts: {
     families: {
       Rubik: [400, 500, 600, 700],
-    }
+    },
   },
 
   buefy: {
     css: false,
     materialDesignIcons: false,
     defaultIconPack: 'fas',
-    defaultIconComponent: 'font-awesome-icon'
+    defaultIconComponent: 'font-awesome-icon',
   },
 
   breakpoints: {
@@ -110,22 +105,22 @@ export default {
     xl: 1215,
     options: {
       polyfill: true,
-      throttle: 200
-    }
+      throttle: 200,
+    },
   },
 
   fontawesome: {
     imports: [
       {
         set: '@fortawesome/free-solid-svg-icons',
-        icons: ['fas']
-      }
-    ]
+        icons: ['fas'],
+      },
+    ],
   },
 
   styleResources: {
     scss: [
       '@/assets/scss/global.scss',
-    ]
+    ],
   },
-}
+};

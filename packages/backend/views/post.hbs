@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang='uk'>
+<head>
+  <meta charset="UTF-8">
+  <title>Document</title>
+</head>
+<body>
+<div class="wrapper">
+  <header>
+    <section class="images">
+      <img src="../storage/{{{images.[0]}}}" alt="Main image">
+      <div>
+        <img src="../storage/{{{images.[1]}}}" alt="Side image 1">
+        <img src="../storage/{{{images.[2]}}}" alt="Side image 2">
+      </div>
+    </section>
+    <article>
+      <main class="info">
+        <h1>{{post.header}}</h1>
+        <p>{{post.description}}</p>
+        <section>
+          {{#each post.tag}}
+            <div>{{this}}</div>
+          {{/each}}
+        </section>
+      </main>
+      <aside>
+        <h1>Побачили чи знайшли дану річ?</h1>
+        <p>Проскануйте QR-код, наведений нижче, щоб обрати зручний спосіб зв'язку з власником.</p>
+      </aside>
+    </article>
+  </header>
+  <main class="main">
+    <img src="https://miro.medium.com/max/4064/1*qYUvh-EtES8dtgKiBRiLsA.png"
+         alt="Map location">
+    <img src="https://miro.medium.com/max/1424/1*sHmqYIYMV_C3TUhucHrT4w.png" alt="QR code">
+  </main>
+  <footer>
+    <div>
+      <svg xmlns="http://www.w3.org/2000/svg"
+           width="30" height="30" viewBox="0 0 480.000000 480.000000"
+           preserveAspectRatio="xMidYMid meet">
+        <g transform="translate(0.000000,480.000000) scale(0.100000,-0.100000)" stroke="none">
+          <path d="M0 2400 l0 -2400 2400 0 2400 0 0 2400 0 2400 -2400 0 -2400 0 0
+-2400z m2100 1050 l0 -450 -450 0 -450 0 0 450 0 450 450 0 450 0 0 -450z
+m1500 0 l0 -450 -450 0 -450 0 0 450 0 450 450 0 450 0 0 -450z m-1800 -1950
+l0 -300 600 0 600 0 0 300 0 300 300 0 300 0 0 -600 0 -600 -1200 0 -1200 0 0
+600 0 600 300 0 300 0 0 -300z" />
+        </g>
+      </svg>
+      <span class="logo-text">Loonify</span>
+    </div>
+    <span class="motto">Lost and Found of the Future</span>
+  </footer>
+</div>
+</body>
+</html>

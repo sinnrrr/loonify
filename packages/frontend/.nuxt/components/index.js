@@ -8,6 +8,7 @@ export { default as LocationStep } from '../../components/LocationStep.vue'
 export { default as MapCircleControl } from '../../components/MapCircleControl.vue'
 export { default as MapMarkerControl } from '../../components/MapMarkerControl.vue'
 export { default as Meteorites } from '../../components/Meteorites.vue'
+export { default as OfflinePost } from '../../components/OfflinePost.vue'
 export { default as ReviewStep } from '../../components/ReviewStep.vue'
 export { default as Steps } from '../../components/Steps.vue'
 export { default as TypeStep } from '../../components/TypeStep.vue'
@@ -22,6 +23,7 @@ export const LazyLocationStep = import('../../components/LocationStep.vue' /* we
 export const LazyMapCircleControl = import('../../components/MapCircleControl.vue' /* webpackChunkName: "components/map-circle-control" */).then(c => c.default || c)
 export const LazyMapMarkerControl = import('../../components/MapMarkerControl.vue' /* webpackChunkName: "components/map-marker-control" */).then(c => c.default || c)
 export const LazyMeteorites = import('../../components/Meteorites.vue' /* webpackChunkName: "components/meteorites" */).then(c => c.default || c)
+export const LazyOfflinePost = import('../../components/OfflinePost.vue' /* webpackChunkName: "components/offline-post" */).then(c => c.default || c)
 export const LazyReviewStep = import('../../components/ReviewStep.vue' /* webpackChunkName: "components/review-step" */).then(c => c.default || c)
 export const LazySteps = import('../../components/Steps.vue' /* webpackChunkName: "components/steps" */).then(c => c.default || c)
 export const LazyTypeStep = import('../../components/TypeStep.vue' /* webpackChunkName: "components/type-step" */).then(c => c.default || c)

@@ -1,5 +1,5 @@
-import { DeleteResult, FindManyOptions, FindOneOptions, Repository } from 'typeorm';
-import { IPaginationOptions, Pagination, paginate } from 'nestjs-typeorm-paginate';
+import { DeleteResult, FindConditions, FindManyOptions, FindOneOptions, Repository } from 'typeorm';
+import { IPaginationOptions, paginate, Pagination } from 'nestjs-typeorm-paginate';
 
 export class TypeormService<T, C, U> {
   constructor(protected repo: Repository<T>) {
@@ -23,14 +23,24 @@ export class TypeormService<T, C, U> {
   async update(id: number, updateDto: U): Promise<T> {
     await this.repo.update(id, updateDto);
 
-    return this.repo.findOne(id)
+    return this.repo.findOne(id);
   }
 
   async remove(id: number): Promise<DeleteResult> {
     return await this.repo.delete(id);
   }
 
-  async paginate(options: IPaginationOptions): Promise<Pagination<T>> {
-    return paginate<T>(this.repo, options);
+  async paginate(
+    options: IPaginationOptions,
+    conditions?: FindConditions<T> | FindManyOptions<T>,
+  ): Promise<Pagination<T>> {
+    options.limit = options.limit > 100 ? 100 : options.limit;
+    options.limit = options.limit < 0 ? 10 : options.limit;
+
+    return paginate<T>(
+      this.repo,
+      options,
+      conditions,
+    );
   }
 }

@@ -59,6 +59,12 @@
   "LazyMeteorites": {
     "description": "Auto imported from /components/Meteorites.vue"
   },
+  "OfflinePost": {
+    "description": "Auto imported from /components/OfflinePost.vue"
+  },
+  "LazyOfflinePost": {
+    "description": "Auto imported from /components/OfflinePost.vue"
+  },
   "ReviewStep": {
     "description": "Auto imported from /components/ReviewStep.vue"
   },

@@ -17,9 +17,6 @@ export class TypeormController {
     @Query('page') page = 1,
     @Query('limit') limit = 10,
   ): Promise<Pagination<any>> {
-    limit = limit > 100 ? 100 : limit;
-    limit = limit < 0 ? 10 : limit;
-
     return this.service.paginate({ page, limit });
   }
 
