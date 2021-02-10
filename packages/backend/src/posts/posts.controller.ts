@@ -1,21 +1,17 @@
-import { Body, Controller, Get, Query, UseGuards, UseInterceptors, UsePipes, ValidationPipe } from '@nestjs/common';
+import { Controller, Get, Query, UsePipes, ValidationPipe } from '@nestjs/common';
 import { PostsService } from './posts.service';
-import { RequestModificationInterceptor } from '../shared/interceptors/request-modification.interceptor';
 import { TypeormController } from '../shared/controllers/typeorm.controller';
 import { ApiTags } from '@nestjs/swagger';
-import { JwtAccessAuthGuard } from '../auth/guards/jwt-access-auth.guard';
 import { GetBoundedDto } from './dto/get-bounded.dto';
+import { CreatePostDto } from './dto/create-post.dto';
+import { UpdatePostDto } from './dto/update-post.dto';
+import { Post } from './entities/post.entity';
 
 @ApiTags('posts')
 @Controller('posts')
-// @UseGuards(JwtAccessAuthGuard)
-// @UseInterceptors(new RequestModificationInterceptor())
-export class PostsController extends TypeormController {
+export class PostsController extends TypeormController<Post, CreatePostDto, UpdatePostDto> {
   constructor(public postsService: PostsService) {
-    super(
-      'posts',
-      postsService,
-    );
+    super(postsService);
   }
 
   @Get('bounded')

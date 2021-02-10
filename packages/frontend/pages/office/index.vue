@@ -1,56 +1,60 @@
 <template>
   <main>
+    <sidebar />
     <gmap-map
       ref='map'
       class='map'
+      :class="{ 'is-hidden': !showMap && $breakpoints.sSm }"
       :zoom='mapZoom'
-      @zoom_changed='handleBoundChanges'
       @dragend='handleBoundChanges'
+      @zoom_changed='handleBoundChanges'
       @bounds_changed.once='handleBoundChanges'
       :center='this.currentLocation'
     >
-            <gmap-marker
-              v-for="(marker, index) in markers"
-              :key="`marker-${index}`"
-              :position="marker"
-            />
-<!--            <gmap-circle-->
-<!--              v-for="(circle, index) in circles"-->
-<!--              :key="`circle-${index}`"-->
-<!--              :center="circle.center"-->
-<!--              :radius="circle.radius"-->
-<!--              :options="{fillColor:'red',fillOpacity:1.0}"-->
-<!--            />-->
+      <gmap-marker
+        v-for='(marker, index) in markers'
+        :key='`marker-${index}`'
+        :position='marker'
+      />
+      <gmap-circle
+        v-for='(circle, index) in circles'
+        :key='`circle-${index}`'
+        :center='circle.center'
+        :radius='circle.radius'
+        :options="{fillColor:'red',fillOpacity:1.0}"
+      />
     </gmap-map>
   </main>
 </template>
 
 <script>
+import mapMixin from '~/mixins/map';
 import { gmapApi } from 'vue2-google-maps';
+import MapSidebarButton from '@/components/MapSidebarButton';
 
 export default {
   name: 'Location',
-  // middleware: 'auth',
+  mixins: [mapMixin],
   data() {
     return {
-      map: null,
-      mapZoom: 12,
-      currentLocation: {
-        lat: 50.4452,
-        lng: 25.1928,
-      },
+      showMap: true
+    }
+  },
+  mounted() {
+    this.$nuxt.$on('toggle-sidebar', () => this.showMap = !this.showMap);
 
-      markers: [],
-      circles: []
-    };
+    this.$refs.map.$mapPromise.then(map => {
+      const controlDiv = document.createElement('div');
+
+      this.createMapControls(map, controlDiv, [MapSidebarButton]);
+
+      map.controls[this.google.maps.ControlPosition.LEFT_TOP].push(controlDiv);
+    });
   },
   computed: {
     google: gmapApi,
   },
   methods: {
-    enableNavigation(value) {
-      if (value.length > 0) this.$emit('enable-navigation', this.$options.name);
-    },
     handleBoundChanges() {
       this.$axios
         .$get('posts/bounded', {
@@ -65,20 +69,10 @@ export default {
           data.data.map(({ location }) => {
             location.hasOwnProperty('radius')
               ? this.circles.push(location)
-              : this.markers.push(location)
-          })
+              : this.markers.push(location);
+          });
         });
     },
-  },
-  mounted() {
-    navigator.geolocation.getCurrentPosition(
-      position => {
-        this.currentLocation.lat = position.coords.latitude;
-        this.currentLocation.lng = position.coords.longitude;
-      },
-    );
-
-    this.$refs.map.$mapPromise.then(map => this.map = map);
   },
 };
 </script>
@@ -90,7 +84,8 @@ main {
 
   .map {
     width: 100%;
-    min-height: 100% !important;
+    min-width: 70%;
+    min-height: 100%;
   }
 }
 </style>

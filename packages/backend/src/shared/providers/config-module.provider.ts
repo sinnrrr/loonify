@@ -9,7 +9,6 @@ export const configModuleProvider = {
     '.env',
     '../../.env'
   ],
-  cache: true,
   load: [
     jwtConfiguration,
     multerConfiguration,
@@ -17,4 +16,6 @@ export const configModuleProvider = {
     typeormConfiguration,
     applicationConfiguration,
   ],
+  cache: true,
+  isGlobal: true,
 }

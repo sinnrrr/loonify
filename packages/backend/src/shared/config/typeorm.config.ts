@@ -1,5 +1,6 @@
 import { registerAs } from '@nestjs/config';
 import { TypeOrmModuleOptions } from '@nestjs/typeorm';
+import { SnakeNamingStrategy } from 'typeorm-naming-strategies';
 
 export default registerAs('typeorm', () => <TypeOrmModuleOptions>{
   type: process.env.POSTGRES_DRIVER || 'postgres',
@@ -8,6 +9,7 @@ export default registerAs('typeorm', () => <TypeOrmModuleOptions>{
   username: process.env.POSTGRES_USER || 'root',
   password: process.env.POSTGRES_PASS || 'root',
   database: process.env.POSTGRES_NAME || 'loonify',
+  namingStrategy: new SnakeNamingStrategy(),
   autoLoadEntities: true,
   synchronize: true,
   logging: ["error", "warn", "info"],

@@ -33,8 +33,10 @@ export class TransformInterceptor<T>
             message: getReasonPhrase(statusCode),
           },
           meta: {
-            apiVersion: this.configService.get('npm_package_version'),
-            appVersion: this.configService.get('application.appVersion'),
+            apiVersion:
+              this.configService.get('npm_package_version')
+              || this.configService.get('application.api.version'),
+            appVersion: this.configService.get('application.app.version'),
             ...(data.pagination && { pagination: data.pagination})
           },
           ...(data.links && { links: data.links})

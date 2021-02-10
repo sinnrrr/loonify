@@ -1,61 +1,76 @@
 import {
-  Entity,
   Column,
-  ManyToOne,
   CreateDateColumn,
-  UpdateDateColumn,
+  Entity,
+  JoinTable,
+  ManyToMany,
+  ManyToOne,
   PrimaryGeneratedColumn,
+  UpdateDateColumn,
 } from 'typeorm';
 import { User } from '../../users/entities/user.entity';
-import { JoinColumn } from 'typeorm';
 import { Type } from 'class-transformer';
 import { IsNotEmpty, IsNotEmptyObject, ValidateNested } from 'class-validator';
+import { Category } from '../../categories/entities/category.entity';
+import { DEFAULT_LENGTH, POST_TITLE_LENGTH } from '../../constants';
 
 export class Location {
   @IsNotEmpty()
-  lat: number
+  lat: number;
 
   @IsNotEmpty()
-  lng: number
+  lng: number;
 
-  radius?: number
+  radius?: number;
 }
 
 @Entity('posts')
 export class Post {
   @PrimaryGeneratedColumn()
-  id?: number;
+  id: number;
 
-  @Column({ length: 128, nullable: false })
-  title?: string;
+  @Column({
+    length: POST_TITLE_LENGTH,
+    nullable: false
+  }) title: string;
 
-  @Column({ nullable: false })
-  description?: string;
+  @Column({
+    nullable: false
+  }) description: string;
 
   @IsNotEmptyObject()
   @ValidateNested({ each: true })
   @Type(() => Location)
-  @Column('jsonb', { nullable: false })
-  location?: Location;
+  @Column('jsonb', {
+    nullable: false
+  }) location: Location;
 
-  @Column({ length: 64, nullable: true })
-  reward?: string;
+  @Column({
+    length: DEFAULT_LENGTH,
+    nullable: true
+  }) reward: string;
 
-  @CreateDateColumn({ name: 'created_at' })
-  createdAt?: Date;
+  @CreateDateColumn()
+  createdAt: Date;
 
-  @UpdateDateColumn({ name: 'updated_at' })
-  updatedAt?: Date;
+  @UpdateDateColumn()
+  updatedAt: Date;
 
-  @Column('simple-array', { nullable: true })
-  photos?: string[];
+  @Column('simple-array', {
+    nullable: true
+  }) photos: string[];
 
-  @Column({ nullable: false, name: 'owner_id' })
-  ownerId?: number;
-
-  @JoinColumn({ name: 'owner_id' })
   @ManyToOne(
     () => User,
     user => user.posts,
-  ) owner?: User;
+    {
+      cascade: true,
+    },
+  ) owner: User
+
+  @ManyToMany(
+    () => Category,
+    { cascade: true },
+  ) @JoinTable()
+  categories: Category[];
 }

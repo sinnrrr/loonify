@@ -1,4 +1,5 @@
 import { IsNotEmpty, IsNotEmptyObject, MaxLength } from 'class-validator';
+import { User } from '../../users/entities/user.entity';
 
 export class CreatePostDto {
   @IsNotEmpty()
@@ -14,5 +15,5 @@ export class CreatePostDto {
   reward?: string;
 
   @IsNotEmpty()
-  ownerId: number;
+  owner: User;
 }

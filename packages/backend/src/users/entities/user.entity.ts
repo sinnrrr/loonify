@@ -8,54 +8,49 @@ import {
   BeforeUpdate, OneToMany,
 } from 'typeorm';
 import * as argon2 from 'argon2';
-import { Post } from '../../posts/entities/post.entity';
 import { Exclude } from 'class-transformer';
+import { DEFAULT_LENGTH, USER_PASSWORD_LENGTH } from '../../constants';
+import { Post } from '../../posts/entities/post.entity';
 
 @Entity('users')
 export class User {
   @PrimaryGeneratedColumn()
-  id?: number;
+  id: number;
 
   @Column({
-    length: 64,
+    length: DEFAULT_LENGTH,
     nullable: true,
-  }) name?: string;
+  }) name: string;
 
   @Column({
-    length: 64,
+    length: DEFAULT_LENGTH,
     unique: true,
-  }) email?: string;
+  }) email: string;
 
   @Exclude()
   @Column({
-    length: 128
-  }) password?: string;
+    length: USER_PASSWORD_LENGTH,
+  }) password: string;
 
   @Exclude()
   @Column({
     nullable: true,
-    name: 'refresh_token'
   }) refreshToken: string;
 
-  @CreateDateColumn({
-    name: 'created_at'
-  }) createdAt?: Date;
+  @CreateDateColumn()
+  createdAt: Date;
 
-  @UpdateDateColumn({
-    name: 'updated_at'
-  }) updatedAt?: Date;
+  @UpdateDateColumn()
+  updatedAt: Date;
 
   @OneToMany(
     () => Post,
     post => post.owner,
-    {
-      cascade: true,
-    },
-  ) posts?: Post[];
+  ) posts: Post[];
 
   @BeforeInsert()
   @BeforeUpdate()
-  async hashPassword?() {
+  async hashPassword() {
     this.password = await argon2.hash(this.password);
   }
 }

@@ -9,7 +9,7 @@ export class RequestModificationInterceptor implements NestInterceptor {
   private readonly fromRequestKey: string;
 
   constructor(
-    toFieldBodyKey = 'ownerId',
+    toFieldBodyKey = 'owner',
     toFieldRequestKey = 'body',
     fromBodyKey = 'id',
     fromRequestKey = 'user'
