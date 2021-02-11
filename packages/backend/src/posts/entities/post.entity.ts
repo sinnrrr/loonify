@@ -1,12 +1,10 @@
 import {
   Column,
   CreateDateColumn,
-  Entity,
-  JoinTable,
-  JoinColumn,
-  ManyToMany,
+  Entity, JoinColumn,
   ManyToOne,
   PrimaryGeneratedColumn,
+  RelationId,
   UpdateDateColumn,
 } from 'typeorm';
 import { User } from '../../users/entities/user.entity';
@@ -65,16 +63,16 @@ export class Post {
     () => User,
     user => user.posts,
     {
-      cascade: true,
       eager: true,
+      nullable: false,
     },
   ) owner: User;
 
   @ManyToOne(
     () => Category,
     {
-      cascade: true,
       eager: true,
+      nullable: false,
     },
   ) category: Category;
 }

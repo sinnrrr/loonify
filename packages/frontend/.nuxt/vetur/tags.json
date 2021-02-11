@@ -59,11 +59,11 @@
   "LazyMapMarkerControl": {
     "description": "Auto imported from /components/MapMarkerControl.vue"
   },
-  "MapSidebarButton": {
-    "description": "Auto imported from /components/MapSidebarButton.vue"
+  "MapSidebarControl": {
+    "description": "Auto imported from /components/MapSidebarControl.vue"
   },
-  "LazyMapSidebarButton": {
-    "description": "Auto imported from /components/MapSidebarButton.vue"
+  "LazyMapSidebarControl": {
+    "description": "Auto imported from /components/MapSidebarControl.vue"
   },
   "Meteorites": {
     "description": "Auto imported from /components/Meteorites.vue"

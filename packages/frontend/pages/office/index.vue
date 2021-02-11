@@ -1,6 +1,6 @@
 <template>
   <main>
-    <sidebar v-on:filter-posts='filterPosts' />
+    <sidebar />
     <gmap-map
       ref='map'
       class='map'
@@ -30,7 +30,7 @@
 <script>
 import mapMixin from '~/mixins/map';
 import { gmapApi } from 'vue2-google-maps';
-import MapSidebarButton from '@/components/MapSidebarButton';
+import MapSidebarControl from '~/components/MapSidebarControl'
 
 export default {
   name: 'Location',
@@ -38,27 +38,38 @@ export default {
   data() {
     return {
       posts: [],
+      allowedCategories: [],
       showMap: true,
     };
   },
   mounted() {
+    this.initializeMapControls([MapSidebarControl])
+
+    setTimeout(() => console.log(this.markers), 5000)
+
+    this.$nuxt.$on('filter-posts', (event) => this.allowedCategories = event);
     this.$nuxt.$on('toggle-sidebar', () => this.showMap = !this.showMap);
-
-    this.$refs.map.$mapPromise.then(map => {
-      const controlDiv = document.createElement('div');
-
-      this.createMapControls(map, controlDiv, [MapSidebarButton]);
-
-      map.controls[this.google.maps.ControlPosition.LEFT_TOP].push(controlDiv);
-    });
   },
   computed: {
     google: gmapApi,
+    filteredPosts() {
+      return this.posts.filter(post => {
+        if (this.allowedCategories.length > 0) return this.allowedCategories.includes(post.category.id);
+        else return true;
+      });
+    },
+    markers() {
+      return this.filteredPosts.map(post => {
+        if (!post.location.hasOwnProperty('radius')) return post.location;
+      });
+    },
+    circles() {
+      return this.filteredPosts.forEach(post => {
+        if (post.location.hasOwnProperty('radius')) return post.location;
+      });
+    },
   },
   methods: {
-    filterPosts(event) {
-      console.log(event)
-    },
     getData() {
       this.$axios
         .$get('posts/bounded', {

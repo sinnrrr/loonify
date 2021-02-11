@@ -1,13 +1,11 @@
 import Vue from 'vue';
+import MapSidebarButton from '@/components/MapSidebarControl';
 
 export default {
   data() {
     return {
       map: null,
       mapZoom: 12,
-
-      markers: [],
-      circles: [],
 
       currentLocation: {
         lat: 50.4452,
@@ -40,5 +38,14 @@ export default {
         controlDiv.appendChild(button.$el);
       })
     },
+    initializeMapControls(mapControls) {
+      this.$refs.map.$mapPromise.then(map => {
+        const controlDiv = document.createElement('div');
+
+        this.createMapControls(map, controlDiv, mapControls);
+
+        map.controls[this.google.maps.ControlPosition.LEFT_TOP].push(controlDiv);
+      });
+    }
   }
 };

@@ -64,6 +64,8 @@ export default {
           ...(this.activeCategories.length > 0 && { categories: this.activeCategories.join(',') }),
         },
       });
+
+      this.$nuxt.$emit('filter-posts', this.activeCategories)
     },
     getCategoryName(categoryId) {
       return this.categories.filter(category => category.id === categoryId)[0].name;
@@ -75,7 +77,6 @@ export default {
       else this.activeCategories.push(categoryId);
 
       this.replaceQuery()
-      this.$emit('filter-posts', this.activeCategories)
     },
     removeActiveCategory(categoryId) {
       this.activeCategories.splice(this.activeCategories.indexOf(categoryId))

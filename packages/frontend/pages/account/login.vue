@@ -14,7 +14,6 @@ export default {
             password: "asdasdasd"
           },
         });
-        console.log(response);
       } catch (err) {
         console.log(err);
       }

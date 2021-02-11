@@ -15,12 +15,13 @@ export class PostsService extends TypeormService<Post, CreatePostDto, UpdatePost
   async getBounded({ east, west, north, south }: GetBoundedDto) {
     return await this.repo
       .createQueryBuilder('post')
+      .leftJoinAndSelect('post.category', 'category')
       .where(`
       (location -> 'lat')::NUMERIC 
         BETWEEN ${Math.min(east, west)} AND ${Math.max(east, west)}
         AND
       (location -> 'lng')::NUMERIC
         BETWEEN ${Math.min(south, north)} AND ${Math.max(south, north)}`,
-      ).getMany();
+      ).addSelect('post.category_id').getMany();
   }
 }
