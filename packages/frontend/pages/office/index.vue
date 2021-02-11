@@ -1,6 +1,6 @@
 <template>
   <main>
-    <sidebar v-on:filter-posts='getData' />
+    <sidebar v-on:filter-posts='filterPosts' />
     <gmap-map
       ref='map'
       class='map'
@@ -56,6 +56,9 @@ export default {
     google: gmapApi,
   },
   methods: {
+    filterPosts(event) {
+      console.log(event)
+    },
     getData() {
       this.$axios
         .$get('posts/bounded', {
@@ -66,7 +69,9 @@ export default {
             south: this.map.getBounds().getSouthWest().lng(),
           },
         })
-        .then(({ data }) => this.posts = data);    }
+        .then(({ data }) => this.posts = data)
+      ;
+    },
   },
 };
 </script>

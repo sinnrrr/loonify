@@ -14,6 +14,7 @@
       <div>
         <b-button
           tag="nuxt-link"
+          size='is-medium'
           :to="{ name: 'office' }"
           class="is-primary has-text-weight-bold is-size-4-tablet">
           Go to office

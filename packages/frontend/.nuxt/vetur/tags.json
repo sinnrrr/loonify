@@ -11,6 +11,12 @@
   "LazyAuthModal": {
     "description": "Auto imported from /components/AuthModal.vue"
   },
+  "Categories": {
+    "description": "Auto imported from /components/Categories.vue"
+  },
+  "LazyCategories": {
+    "description": "Auto imported from /components/Categories.vue"
+  },
   "CategoryStep": {
     "description": "Auto imported from /components/CategoryStep.vue"
   },
