@@ -77,6 +77,12 @@
   "LazyOfflinePost": {
     "description": "Auto imported from /components/OfflinePost.vue"
   },
+  "PostForm": {
+    "description": "Auto imported from /components/PostForm.vue"
+  },
+  "LazyPostForm": {
+    "description": "Auto imported from /components/PostForm.vue"
+  },
   "ReviewStep": {
     "description": "Auto imported from /components/ReviewStep.vue"
   },

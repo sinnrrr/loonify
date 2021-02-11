@@ -60,9 +60,9 @@ export default {
       formInput: {
         name: '',
         email: '',
-        password: ''
-      }
-    }
+        password: '',
+      },
+    };
   },
   computed: {
     currentView() {
@@ -85,14 +85,26 @@ export default {
           this.$auth.loginWith('local', { data: this.formInput })
             .then(() => this.$buefy.toast.open({
               message: 'Logged in successfully',
-              type: 'is-success'
+              type: 'is-success',
             }))
             .catch(error => console.log(error))
           ;
 
           break;
         case 'signup':
-          console.log('signup', this.$props)
+          this.$axios.$post('auth/signup', this.formInput).then(() => {
+            this.$auth.loginWith('local', {
+              data: {
+                email: this.formInput.email,
+                password: this.formInput.password,
+              },
+            }).then(() => this.$buefy.toast.open({
+                message: 'Logged in successfully',
+                type: 'is-success',
+              }),
+            ).catch(error => console.log(error))
+            ;
+          });
 
           break;
       }

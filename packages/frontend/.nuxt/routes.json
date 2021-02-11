@@ -49,6 +49,13 @@
     "_name": "_72c77746"
   },
   {
+    "name": "office-new",
+    "path": "/office/new",
+    "component": "/home/sinnrrr/Work/loonify/packages/frontend/pages/office/new.vue",
+    "chunkName": "pages/office/new",
+    "_name": "_6d3dc7d8"
+  },
+  {
     "name": "index",
     "path": "/",
     "component": "/home/sinnrrr/Work/loonify/packages/frontend/pages/index.vue",

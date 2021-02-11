@@ -11,6 +11,7 @@ export { default as MapMarkerControl } from '../../components/MapMarkerControl.v
 export { default as MapSidebarControl } from '../../components/MapSidebarControl.vue'
 export { default as Meteorites } from '../../components/Meteorites.vue'
 export { default as OfflinePost } from '../../components/OfflinePost.vue'
+export { default as PostForm } from '../../components/PostForm.vue'
 export { default as ReviewStep } from '../../components/ReviewStep.vue'
 export { default as Sidebar } from '../../components/Sidebar.vue'
 export { default as Steps } from '../../components/Steps.vue'
@@ -29,6 +30,7 @@ export const LazyMapMarkerControl = import('../../components/MapMarkerControl.vu
 export const LazyMapSidebarControl = import('../../components/MapSidebarControl.vue' /* webpackChunkName: "components/map-sidebar-control" */).then(c => c.default || c)
 export const LazyMeteorites = import('../../components/Meteorites.vue' /* webpackChunkName: "components/meteorites" */).then(c => c.default || c)
 export const LazyOfflinePost = import('../../components/OfflinePost.vue' /* webpackChunkName: "components/offline-post" */).then(c => c.default || c)
+export const LazyPostForm = import('../../components/PostForm.vue' /* webpackChunkName: "components/post-form" */).then(c => c.default || c)
 export const LazyReviewStep = import('../../components/ReviewStep.vue' /* webpackChunkName: "components/review-step" */).then(c => c.default || c)
 export const LazySidebar = import('../../components/Sidebar.vue' /* webpackChunkName: "components/sidebar" */).then(c => c.default || c)
 export const LazySteps = import('../../components/Steps.vue' /* webpackChunkName: "components/steps" */).then(c => c.default || c)
