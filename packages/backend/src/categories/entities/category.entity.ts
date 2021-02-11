@@ -14,7 +14,6 @@ export class Category {
 
   @ManyToOne(
     () => Category,
-    category => category.id,
     {
       nullable: true,
     },
@@ -22,9 +21,5 @@ export class Category {
 
   @ManyToOne(
     () => User,
-    {
-      eager: true,
-      cascade: true,
-    },
   ) owner: User;
 }
