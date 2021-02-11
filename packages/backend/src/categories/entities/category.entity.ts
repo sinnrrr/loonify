@@ -1,4 +1,4 @@
-import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
+import { Column, Entity, JoinColumn, ManyToOne, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
 import { User } from '../../users/entities/user.entity';
 import { DEFAULT_LENGTH } from '../../constants';
 
@@ -14,12 +14,11 @@ export class Category {
 
   @ManyToOne(
     () => Category,
+    category => category.id,
     {
-      eager: true,
-      cascade: true,
-      nullable: true
+      nullable: true,
     },
-  ) child: Category;
+  ) parent: Category;
 
   @ManyToOne(
     () => User,

@@ -5,10 +5,10 @@ import { Category } from '../entities/category.entity';
 export class CreateCategoryDto {
   @IsNotEmpty()
   @MaxLength(64)
-  name: string
+  name: string;
 
-  child: Category
+  parent: Category;
 
   @IsNotEmpty()
-  owner: User
+  owner: User;
 }
