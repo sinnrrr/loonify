@@ -3,6 +3,7 @@ import {
   CreateDateColumn,
   Entity,
   JoinTable,
+  JoinColumn,
   ManyToMany,
   ManyToOne,
   PrimaryGeneratedColumn,
@@ -31,23 +32,23 @@ export class Post {
 
   @Column({
     length: POST_TITLE_LENGTH,
-    nullable: false
+    nullable: false,
   }) title: string;
 
   @Column({
-    nullable: false
+    nullable: false,
   }) description: string;
 
   @IsNotEmptyObject()
   @ValidateNested({ each: true })
   @Type(() => Location)
   @Column('jsonb', {
-    nullable: false
+    nullable: false,
   }) location: Location;
 
   @Column({
     length: DEFAULT_LENGTH,
-    nullable: true
+    nullable: true,
   }) reward: string;
 
   @CreateDateColumn()
@@ -57,7 +58,7 @@ export class Post {
   updatedAt: Date;
 
   @Column('simple-array', {
-    nullable: true
+    nullable: true,
   }) photos: string[];
 
   @ManyToOne(
@@ -65,12 +66,15 @@ export class Post {
     user => user.posts,
     {
       cascade: true,
+      eager: true,
     },
-  ) owner: User
+  ) owner: User;
 
-  @ManyToMany(
+  @ManyToOne(
     () => Category,
-    { cascade: true },
-  ) @JoinTable()
-  categories: Category[];
+    {
+      cascade: true,
+      eager: true,
+    },
+  ) category: Category;
 }

@@ -12,4 +12,6 @@ export class GetBoundedDto {
 
   @IsNotEmpty()
   west: number
+
+  categories: number[]
 }

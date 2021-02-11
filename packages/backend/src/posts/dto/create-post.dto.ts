@@ -1,5 +1,6 @@
 import { IsNotEmpty, IsNotEmptyObject, MaxLength } from 'class-validator';
 import { User } from '../../users/entities/user.entity';
+import { Category } from '../../categories/entities/category.entity';
 
 export class CreatePostDto {
   @IsNotEmpty()
@@ -16,4 +17,7 @@ export class CreatePostDto {
 
   @IsNotEmpty()
   owner: User;
+
+  @IsNotEmpty()
+  category: Category;
 }

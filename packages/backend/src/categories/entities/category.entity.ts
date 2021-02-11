@@ -10,12 +10,22 @@ export class Category {
   @Column({
     unique: true,
     length: DEFAULT_LENGTH,
-  }) name: string
+  }) name: string;
+
+  @ManyToOne(
+    () => Category,
+    {
+      eager: true,
+      cascade: true,
+      nullable: true
+    },
+  ) child: Category;
 
   @ManyToOne(
     () => User,
     {
+      eager: true,
       cascade: true,
     },
-  ) owner: User
+  ) owner: User;
 }

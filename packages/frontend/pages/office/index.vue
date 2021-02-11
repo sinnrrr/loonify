@@ -1,14 +1,14 @@
 <template>
   <main>
-    <sidebar />
+    <sidebar v-on:filter-posts='getData' />
     <gmap-map
       ref='map'
       class='map'
       :class="{ 'is-hidden': !showMap && $breakpoints.sSm }"
       :zoom='mapZoom'
-      @dragend='handleBoundChanges'
-      @zoom_changed='handleBoundChanges'
-      @bounds_changed.once='handleBoundChanges'
+      @dragend='getData'
+      @zoom_changed='getData'
+      @bounds_changed.once='getData'
       :center='this.currentLocation'
     >
       <gmap-marker
@@ -37,8 +37,9 @@ export default {
   mixins: [mapMixin],
   data() {
     return {
-      showMap: true
-    }
+      posts: [],
+      showMap: true,
+    };
   },
   mounted() {
     this.$nuxt.$on('toggle-sidebar', () => this.showMap = !this.showMap);
@@ -55,7 +56,7 @@ export default {
     google: gmapApi,
   },
   methods: {
-    handleBoundChanges() {
+    getData() {
       this.$axios
         .$get('posts/bounded', {
           params: {
@@ -65,14 +66,7 @@ export default {
             south: this.map.getBounds().getSouthWest().lng(),
           },
         })
-        .then(data => {
-          data.data.map(({ location }) => {
-            location.hasOwnProperty('radius')
-              ? this.circles.push(location)
-              : this.markers.push(location);
-          });
-        });
-    },
+        .then(({ data }) => this.posts = data);    }
   },
 };
 </script>
