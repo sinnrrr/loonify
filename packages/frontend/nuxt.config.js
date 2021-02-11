@@ -1,5 +1,3 @@
-const dotenv = require('dotenv');
-
 export default {
   head: {
     title: 'Lost and Found of the Future | Loonify',

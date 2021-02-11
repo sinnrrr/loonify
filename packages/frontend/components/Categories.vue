@@ -9,8 +9,9 @@
     </b-field>
     <template v-for='(activeCategory, index) in activeCategories'>
       <b-tag
-        type='is-primary'
         closable
+        v-on:close='removeActiveCategory(activeCategory.id)'
+        type='is-primary'
         class='mr-1'
         aria-close-label='Close tag'
         @close='activeCategories.splice(index, 1)'>
@@ -76,6 +77,11 @@ export default {
       this.replaceQuery()
       this.$emit('filter-posts', this.activeCategories)
     },
+    removeActiveCategory(categoryId) {
+      this.activeCategories.splice(this.activeCategories.indexOf(categoryId))
+
+      this.replaceQuery()
+    }
   },
   computed: {
     filteredList() {
