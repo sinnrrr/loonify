@@ -54,7 +54,7 @@
           </b-navbar-item>
         </b-navbar-dropdown>
 
-        <b-navbar-item v-if="$route.name !== 'office-edit'">
+        <b-navbar-item v-if="$route.name !== 'office-new'">
           <b-button
             tag='nuxt-link'
             class='is-warning'
