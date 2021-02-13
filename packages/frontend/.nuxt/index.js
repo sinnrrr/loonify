@@ -18,10 +18,7 @@ import nuxt_plugin_axios_0c19e93a from 'nuxt_plugin_axios_0c19e93a' // Source: .
 import nuxt_plugin_nuxtbreakpoints_7bd0d13d from 'nuxt_plugin_nuxtbreakpoints_7bd0d13d' // Source: ./nuxt-breakpoints.js (mode: 'all')
 import nuxt_plugin_templatesplugin3d717680_2499ef9e from 'nuxt_plugin_templatesplugin3d717680_2499ef9e' // Source: ./templates.plugin.3d717680.js (mode: 'all')
 import nuxt_plugin_buefy_885bea98 from 'nuxt_plugin_buefy_885bea98' // Source: ./buefy.js (mode: 'all')
-import nuxt_plugin_vueformulate_7bd14f1a from 'nuxt_plugin_vueformulate_7bd14f1a' // Source: ../plugins/vue-formulate (mode: 'all')
 import nuxt_plugin_vue2googlemaps_94a82780 from 'nuxt_plugin_vue2googlemaps_94a82780' // Source: ../plugins/vue2-google-maps (mode: 'all')
-import nuxt_plugin_vuehtml2pdfclient_948a6f34 from 'nuxt_plugin_vuehtml2pdfclient_948a6f34' // Source: ../plugins/vue-html2pdf.client.js (mode: 'client')
-import nuxt_plugin_persistedStateclient_3b127e9c from 'nuxt_plugin_persistedStateclient_3b127e9c' // Source: ../plugins/persistedState.client.js (mode: 'client')
 import nuxt_plugin_auth_3affb526 from 'nuxt_plugin_auth_3affb526' // Source: ./auth.js (mode: 'all')
 
 // Component: <ClientOnly>
@@ -231,20 +228,8 @@ async function createApp(ssrContext, config = {}) {
     await nuxt_plugin_buefy_885bea98(app.context, inject)
   }
 
-  if (typeof nuxt_plugin_vueformulate_7bd14f1a === 'function') {
-    await nuxt_plugin_vueformulate_7bd14f1a(app.context, inject)
-  }
-
   if (typeof nuxt_plugin_vue2googlemaps_94a82780 === 'function') {
     await nuxt_plugin_vue2googlemaps_94a82780(app.context, inject)
-  }
-
-  if (process.client && typeof nuxt_plugin_vuehtml2pdfclient_948a6f34 === 'function') {
-    await nuxt_plugin_vuehtml2pdfclient_948a6f34(app.context, inject)
-  }
-
-  if (process.client && typeof nuxt_plugin_persistedStateclient_3b127e9c === 'function') {
-    await nuxt_plugin_persistedStateclient_3b127e9c(app.context, inject)
   }
 
   if (typeof nuxt_plugin_auth_3affb526 === 'function') {

@@ -11,6 +11,12 @@
   "LazyAuthModal": {
     "description": "Auto imported from /components/AuthModal.vue"
   },
+  "Carousel": {
+    "description": "Auto imported from /components/Carousel.vue"
+  },
+  "LazyCarousel": {
+    "description": "Auto imported from /components/Carousel.vue"
+  },
   "Categories": {
     "description": "Auto imported from /components/Categories.vue"
   },
@@ -106,5 +112,11 @@
   },
   "LazyTypeStep": {
     "description": "Auto imported from /components/TypeStep.vue"
+  },
+  "UploadImage": {
+    "description": "Auto imported from /components/UploadImage.vue"
+  },
+  "LazyUploadImage": {
+    "description": "Auto imported from /components/UploadImage.vue"
   }
 }

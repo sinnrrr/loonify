@@ -1,5 +1,5 @@
 import Vue from 'vue';
-import MapSidebarButton from '@/components/MapSidebarControl';
+import { gmapApi } from 'vue2-google-maps';
 
 export default {
   data() {
@@ -12,6 +12,9 @@ export default {
         lng: 25.1928,
       },
     };
+  },
+  computed: {
+    google: gmapApi
   },
   mounted() {
     navigator.geolocation.getCurrentPosition(
@@ -38,14 +41,5 @@ export default {
         controlDiv.appendChild(button.$el);
       })
     },
-    initializeMapControls(mapControls) {
-      this.$refs.map.$mapPromise.then(map => {
-        const controlDiv = document.createElement('div');
-
-        this.createMapControls(map, controlDiv, mapControls);
-
-        map.controls[this.google.maps.ControlPosition.LEFT_TOP].push(controlDiv);
-      });
-    }
   }
 };

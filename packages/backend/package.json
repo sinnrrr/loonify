@@ -37,6 +37,7 @@
     "@nestjs/typeorm": "^7.1.5",
     "@nestjsx/crud": "^4.6.2",
     "@nestjsx/crud-typeorm": "^4.6.2",
+    "@t00nday/nestjs-pdf": "^2.0.6",
     "@webundsoehne/nest-fastify-file-upload": "^1.0.0",
     "add": "^2.0.6",
     "argon2": "^0.27.1",

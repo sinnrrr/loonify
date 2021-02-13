@@ -1,5 +1,6 @@
 export { default as AuthForm } from '../../components/AuthForm.vue'
 export { default as AuthModal } from '../../components/AuthModal.vue'
+export { default as Carousel } from '../../components/Carousel.vue'
 export { default as Categories } from '../../components/Categories.vue'
 export { default as CategoryStep } from '../../components/CategoryStep.vue'
 export { default as Earth } from '../../components/Earth.vue'
@@ -16,9 +17,11 @@ export { default as ReviewStep } from '../../components/ReviewStep.vue'
 export { default as Sidebar } from '../../components/Sidebar.vue'
 export { default as Steps } from '../../components/Steps.vue'
 export { default as TypeStep } from '../../components/TypeStep.vue'
+export { default as UploadImage } from '../../components/UploadImage.vue'
 
 export const LazyAuthForm = import('../../components/AuthForm.vue' /* webpackChunkName: "components/auth-form" */).then(c => c.default || c)
 export const LazyAuthModal = import('../../components/AuthModal.vue' /* webpackChunkName: "components/auth-modal" */).then(c => c.default || c)
+export const LazyCarousel = import('../../components/Carousel.vue' /* webpackChunkName: "components/carousel" */).then(c => c.default || c)
 export const LazyCategories = import('../../components/Categories.vue' /* webpackChunkName: "components/categories" */).then(c => c.default || c)
 export const LazyCategoryStep = import('../../components/CategoryStep.vue' /* webpackChunkName: "components/category-step" */).then(c => c.default || c)
 export const LazyEarth = import('../../components/Earth.vue' /* webpackChunkName: "components/earth" */).then(c => c.default || c)
@@ -35,3 +38,4 @@ export const LazyReviewStep = import('../../components/ReviewStep.vue' /* webpac
 export const LazySidebar = import('../../components/Sidebar.vue' /* webpackChunkName: "components/sidebar" */).then(c => c.default || c)
 export const LazySteps = import('../../components/Steps.vue' /* webpackChunkName: "components/steps" */).then(c => c.default || c)
 export const LazyTypeStep = import('../../components/TypeStep.vue' /* webpackChunkName: "components/type-step" */).then(c => c.default || c)
+export const LazyUploadImage = import('../../components/UploadImage.vue' /* webpackChunkName: "components/upload-image" */).then(c => c.default || c)

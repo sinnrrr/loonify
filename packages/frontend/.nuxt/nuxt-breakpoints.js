@@ -98,7 +98,7 @@ export default async (ctx, inject) => {
   const options = { ...defaultOptions, ...{
   "sm": 576,
   "md": 768,
-  "lg": 1023,
+  "lg": 1024,
   "xl": 1215,
   "options": {
     "polyfill": true,

@@ -11,7 +11,7 @@
       <b-tag
         closable
         v-on:close='removeActiveCategory(activeCategory.id)'
-        type='is-primary'
+        type='is-warning'
         class='mr-1'
         aria-close-label='Close tag'
         @close='activeCategories.splice(index, 1)'>

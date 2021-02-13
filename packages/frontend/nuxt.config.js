@@ -24,10 +24,7 @@ export default {
   ],
 
   plugins: [
-    '~/plugins/vue-formulate',
     '~/plugins/vue2-google-maps',
-    '~/plugins/vue-html2pdf.client.js',
-    '~/plugins/persistedState.client.js',
   ],
 
   components: true,
@@ -99,7 +96,7 @@ export default {
   breakpoints: {
     sm: 576,
     md: 768,
-    lg: 1023,
+    lg: 1024,
     xl: 1215,
     options: {
       polyfill: true,

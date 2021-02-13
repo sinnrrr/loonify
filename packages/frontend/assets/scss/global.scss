@@ -22,6 +22,7 @@
 @import "~bulma/sass/elements/table.sass";
 @import "~bulma/sass/elements/title.sass";
 @import "~bulma/sass/elements/button.sass";
+@import "~bulma/sass/elements/image.sass"; // required for avatars
 @import "~bulma/sass/elements/tag.sass"; // required for buefy tag component
 @import "~bulma/sass/elements/notification.sass"; // colors for buefy toast
 @import "~bulma/sass/elements/other.sass"; // required for buefy tag component
@@ -29,6 +30,7 @@
 // bulma form
 @import "~bulma/sass/form/shared.sass"; // required for form colors
 @import "~bulma/sass/form/tools.sass"; // required for form helpers
+@import "~bulma/sass/form/file.sass"; // required for buefy file upload
 @import "~bulma/sass/form/input-textarea.sass"; // required for buefy autocomplete
 
 // bulma helpers
@@ -46,4 +48,6 @@
 @import "~buefy/src/scss/components/_tag.scss";
 @import "~buefy/src/scss/components/_checkbox.scss";
 @import "~buefy/src/scss/components/_notices.scss";
+@import "~buefy/src/scss/components/_upload.scss";
+@import "~buefy/src/scss/components/_carousel.scss";
 @import "~buefy/src/scss/components/_autocomplete.scss";

@@ -29,7 +29,6 @@
 
 <script>
 import mapMixin from '~/mixins/map';
-import { gmapApi } from 'vue2-google-maps';
 import MapSidebarControl from '~/components/MapSidebarControl'
 
 export default {
@@ -43,15 +42,20 @@ export default {
     };
   },
   mounted() {
-    this.initializeMapControls([MapSidebarControl])
+    this.$refs.map.$mapPromise.then(map => {
+      const controlDiv = document.createElement('div');
+      controlDiv.style.display = 'flex'
+      controlDiv.style.flexDirection = 'column'
 
-    setTimeout(() => console.log(this.markers), 5000)
+      this.createMapControls(map, controlDiv, [MapSidebarControl]);
+
+      map.controls[this.google.maps.ControlPosition.TOP_LEFT].push(controlDiv);
+    });
 
     this.$nuxt.$on('filter-posts', (event) => this.allowedCategories = event);
     this.$nuxt.$on('toggle-sidebar', () => this.showMap = !this.showMap);
   },
   computed: {
-    google: gmapApi,
     filteredPosts() {
       return this.posts.filter(post => {
         if (this.allowedCategories.length > 0) return this.allowedCategories.includes(post.category.id);
