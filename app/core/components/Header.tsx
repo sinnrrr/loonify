@@ -5,7 +5,7 @@ const Header = () => {
   return (
     <Flex as="header" p="2" align="center">
       <Box>
-        <Heading size="md">Chakra App</Heading>
+        <Heading size="md">Loonify</Heading>
       </Box>
       <Spacer />
       <Box>

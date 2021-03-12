@@ -3,6 +3,9 @@ import Layout from "app/core/layouts/Layout"
 import ReactMapboxGl from "react-mapbox-gl"
 import { Props as MapProps } from "react-mapbox-gl/lib/map"
 import CustomGeoJsonLayer from "app/core/components/CustomGeoJsonLayer"
+import { Box, Heading } from "@chakra-ui/layout"
+import { Input } from "@chakra-ui/input"
+import theme from "@chakra-ui/theme"
 
 const Home: BlitzPage = () => {
   const Map = ReactMapboxGl({
@@ -15,15 +18,25 @@ const Home: BlitzPage = () => {
     style: "mapbox://styles/mapbox/streets-v11",
     center: [25.2989856, 50.7397857],
     containerStyle: {
-      display: 'flex',
-      flexGrow: 1,
+      zIndex: theme.zIndices.base,
+      position: "absolute",
+      height: "100vh",
+      width: "100vw",
     },
   }
 
   return (
-    <Map {...mapProperties}>
-      <CustomGeoJsonLayer />
-    </Map>
+    <>
+      <Map {...mapProperties}>
+        <CustomGeoJsonLayer />
+      </Map>
+      <Box zIndex={theme.zIndices.docked}>
+        <Box bgColor="white" p="4" m="4" borderRadius="100">
+          <Heading>Hello world</Heading>
+          <Input placeholder="Search" />
+        </Box>
+      </Box>
+    </>
   )
 }
 
