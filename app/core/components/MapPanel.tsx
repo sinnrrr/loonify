@@ -1,12 +1,8 @@
 import React from "react"
-import theme from "@chakra-ui/theme"
-import { Box, Heading, Stack } from "@chakra-ui/layout"
+import { Heading } from "@chakra-ui/layout"
 import { Button } from "@chakra-ui/button"
-import { Fade } from "@chakra-ui/transition"
 import { usePanelStore } from "../stores/panel"
-import { Radio, RadioGroup } from "@chakra-ui/radio"
-import { Drawer, DrawerBody, DrawerContent, DrawerHeader, DrawerOverlay } from "@chakra-ui/modal"
-import { useDisclosure } from "@chakra-ui/hooks"
+import { Drawer, DrawerBody, DrawerContent, DrawerHeader } from "@chakra-ui/modal"
 import Link from "next/link"
 
 export const Main = () => {
@@ -37,7 +33,7 @@ const MapPanel = () => {
             <p>Some contents...</p>
             <p>Some contents...</p>
             <p>Some contents...</p>
-            <Link href="/create">Create post</Link>
+            <Link href="posts">Create post</Link>
           </DrawerBody>
         </DrawerContent>
       </Drawer>

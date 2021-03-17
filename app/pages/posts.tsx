@@ -1,4 +1,4 @@
-import React from "react"
+import React, { CSSProperties } from "react"
 import { BlitzPage } from "blitz"
 import Layout from "app/core/layouts/Layout"
 import { Box, Flex, Heading, HStack, Text } from "@chakra-ui/layout"
@@ -9,19 +9,30 @@ import { Tab, TabList, TabPanel, TabPanels, Tabs } from "@chakra-ui/tabs"
 import { useBreakpointValue } from "@chakra-ui/media-query"
 import { useNextBreakpoint } from "app/core/hooks/useNextBreakpoint"
 import { Skeleton, SkeletonCircle, SkeletonText } from "@chakra-ui/skeleton"
+import CustomMap from "app/core/components/CustomMap"
 
 const RowLayout = () => {
+  const skeletonStyle: CSSProperties = {
+    display: "flex",
+    flexGrow: 0.5,
+    margin: theme.space[2],
+  }
+
   return (
     <Flex grow={1} position="sticky" top={0} maxHeight="100vh" direction="column" color="white">
-      <Skeleton display="flex" flexGrow={0.5} m={theme.space[2]}>
-        <Flex grow={1} bgColor="black"></Flex>
-      </Skeleton>
-
-      <Skeleton display="flex" flexGrow={0.5} minHeight={theme.sizes.sm} m={theme.space[2]}>
+      <Skeleton style={skeletonStyle}>
         <Flex grow={1} bgColor="black">
           Images
         </Flex>
       </Skeleton>
+
+      <CustomMap
+        skeletonStyle={skeletonStyle}
+        containerStyle={{
+          display: "flex",
+          flexGrow: 1,
+        }}
+      />
     </Flex>
   )
 }

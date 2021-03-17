@@ -7,7 +7,7 @@ import MapPanel from "app/core/components/MapPanel"
 const Home: BlitzPage = () => {
   return (
     <>
-      {/* <CustomMap /> */}
+      <CustomMap />
       <MapPanel />
     </>
   )
