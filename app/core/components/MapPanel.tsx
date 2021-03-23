@@ -4,6 +4,7 @@ import { Button } from "@chakra-ui/button"
 import { usePanelStore } from "../stores/panel"
 import { Drawer, DrawerBody, DrawerContent, DrawerHeader } from "@chakra-ui/modal"
 import Link from "next/link"
+import theme from "@chakra-ui/theme"
 
 export const Main = () => {
   return (
@@ -18,7 +19,7 @@ const MapPanel = () => {
 
   return (
     <>
-      <Button colorScheme="blue" onClick={panel.setOpen}>
+      <Button zIndex={theme.zIndices.docked} colorScheme="blue" onClick={panel.setOpen}>
         Open
       </Button>
       <Drawer

@@ -34,11 +34,19 @@ const CustomMap: FunctionComponent<Props> = ({
   const Map = ReactMapboxGl({
     accessToken: process.env.NEXT_PUBLIC_MAPBOX_KEY || "",
     attributionControl: false,
+    trackResize: false,
   })
 
   return (
-    <Skeleton isLoaded={false} style={skeletonStyle ? skeletonStyle : containerStyle}>
-      <Map onRender={() => setLoaded(true)} containerStyle={containerStyle} {...properties}>
+    <Skeleton isLoaded={isLoaded} style={skeletonStyle ? skeletonStyle : containerStyle}>
+      <Map
+        onRender={() => setLoaded(true)}
+        onResize={(a) => {
+          console.log(a)
+        }}
+        containerStyle={containerStyle}
+        {...properties}
+      >
         <CustomGeoJsonLayer data={geoJson} />
       </Map>
       <Box position="absolute" right="0" bottom="0" m="2">

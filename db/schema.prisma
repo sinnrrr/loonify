@@ -16,13 +16,15 @@ model User {
   id             Int      @id @default(autoincrement())
   createdAt      DateTime @default(now())
   updatedAt      DateTime @updatedAt
-  name           String?
+  name           String
   email          String   @unique
+  phone          String?  @unique
   hashedPassword String?
   role           String   @default("USER")
 
   tokens   Token[]
   sessions Session[]
+  posts    Post[]
 }
 
 model Session {
@@ -63,3 +65,13 @@ model Token {
 // enum TokenType {
 //   RESET_PASSWORD
 // }
+
+model Post {
+  id          Int      @id @default(autoincrement())
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  title       String
+  description String
+  owner       User     @relation(fields: [ownerId], references: [id])
+  ownerId     Int
+}

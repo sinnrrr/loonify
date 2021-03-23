@@ -1,14 +1,24 @@
 import React from "react"
 import { BlitzPage } from "blitz"
 import Layout from "app/core/layouts/Layout"
-import CustomMap from "app/core/components/CustomMap"
 import MapPanel from "app/core/components/MapPanel"
+import Map from "app/core/components/Map"
+import theme from "@chakra-ui/theme"
 
 const Home: BlitzPage = () => {
   return (
     <>
-      <CustomMap />
       <MapPanel />
+      <Map
+        style={{
+          zIndex: theme.zIndices.base,
+          position: "absolute",
+          top: 0,
+          bottom: 0,
+          left: 0,
+          right: 0,
+        }}
+      />
     </>
   )
 }
