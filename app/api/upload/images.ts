@@ -12,16 +12,19 @@ const parseForm = async (req: BlitzApiRequest) => {
   return new Promise((resolve, reject) => {
     const form = new Busboy({ headers: req.headers })
 
-    const uploadStream = cloudinary.v2.uploader.upload_stream((err, image) => {
-      if (err) reject(err)
-      else resolve(image)
-    })
+    // const files: NodeJS.ReadableStream[] = []
+    // const uploads: cloudinary.UploadApiResponse[] = []
 
-    form.on("file", (fieldname, file, filename, encoding, mimetype) => {
-      file.pipe(uploadStream)
-    })
+    const createUploader = () => {
+      return cloudinary.v2.uploader.upload_stream((err, image) => {
+        if (err) reject(err)
+        else if (image) resolve(image)
+      })
+    }
 
-    form.on("error", (e) => reject(e))
+    form.on("file", (_fieldname, file, _filename, _encoding, _mimetype) =>
+      file.pipe(createUploader())
+    )
 
     req.pipe(form)
   })
