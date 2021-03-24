@@ -1,4 +1,4 @@
-import { useSession, useQuery, useMutation, useParam } from "@blitzjs/core"
+import { useSession, useQuery, useMutation, useParam, ErrorComponent } from "@blitzjs/core"
 import { Avatar } from "@chakra-ui/avatar"
 import { Button } from "@chakra-ui/button"
 import { Editable, EditableInput, EditablePreview } from "@chakra-ui/editable"
@@ -16,7 +16,7 @@ import { FormControl, FormErrorMessage } from "@chakra-ui/form-control"
 import updatePost from "app/posts/mutations/updatePost"
 import { Textarea } from "@chakra-ui/textarea"
 
-const InformationBlock: FunctionComponent<{ post: Post }> = ({ post }) => {
+const InformationBlock: FunctionComponent<{ post?: Post }> = ({ post }) => {
   // Editable if session user id is equal to post owner id
   const isEditable = useSession().userId === post.ownerId
 
@@ -106,7 +106,9 @@ const InformationBlock: FunctionComponent<{ post: Post }> = ({ post }) => {
   )
 }
 
-const AccountBlock: FunctionComponent<{ account: User }> = ({ account }) => {
+const AccountBlock: FunctionComponent<{ post?: Post; account?: User }> = ({ post, account }) => {
+  const isCreating = !!!post
+
   return (
     <VStack
       mt={{ base: theme.space[8], md: theme.space[0] }}
@@ -122,12 +124,18 @@ const AccountBlock: FunctionComponent<{ account: User }> = ({ account }) => {
         </Box>
       </HStack>
       <HStack width="100%">
-        <Button isFullWidth size="lg">
-          Contact
-        </Button>
-        <Button isFullWidth size="lg">
-          Pdf
-        </Button>
+        {isCreating ? (
+          <Button>Save</Button>
+        ) : (
+          <>
+            <Button isFullWidth size="lg">
+              Contact
+            </Button>
+            <Button isFullWidth size="lg">
+              Pdf
+            </Button>
+          </>
+        )}
       </HStack>
     </VStack>
   )
@@ -163,10 +171,11 @@ const RelatedBlock: FunctionComponent = () => {
   return <Flex>Related</Flex>
 }
 
-const PostPage: FunctionComponent<{ postId?: number }> = ({ postId }) => {
-  const [postInfo] = useQuery(getPost, { id: postId })
-  const { owner, ...post } = postInfo
-
+const PostPage: FunctionComponent<{ post?: Post; user?: User; mode: "new" | "view" }> = ({
+  post,
+  user,
+  mode,
+}) => {
   const COLUMN_BREAKPOINT = "base"
   const ROW_BREAKPOINT = "md"
 
@@ -188,7 +197,7 @@ const PostPage: FunctionComponent<{ postId?: number }> = ({ postId }) => {
             [ROW_BREAKPOINT]: theme.sizes.container.sm,
           }}
         >
-          <AccountBlock account={owner} />
+          <AccountBlock post={post} account={user} />
           <RelatedBlock />
         </Container>
       </Flex>
