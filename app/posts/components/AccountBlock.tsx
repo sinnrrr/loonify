@@ -2,6 +2,7 @@ import { Avatar } from "@chakra-ui/avatar"
 import { Button } from "@chakra-ui/button"
 import { Box, Heading, HStack, Text, VStack } from "@chakra-ui/layout"
 import theme from "@chakra-ui/theme"
+import { Post, User } from "db"
 import { FunctionComponent } from "react"
 
 const AccountBlock: FunctionComponent<{ post: Post; account: User }> = ({ post, account }) => {
