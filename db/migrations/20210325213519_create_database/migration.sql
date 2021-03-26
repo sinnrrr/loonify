@@ -3,8 +3,9 @@ CREATE TABLE "User" (
     "id" INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
     "createdAt" DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updatedAt" DATETIME NOT NULL,
-    "name" TEXT,
+    "name" TEXT NOT NULL,
     "email" TEXT NOT NULL,
+    "phone" TEXT,
     "hashedPassword" TEXT,
     "role" TEXT NOT NULL DEFAULT 'USER'
 );
@@ -50,6 +51,9 @@ CREATE TABLE "Post" (
 
 -- CreateIndex
 CREATE UNIQUE INDEX "User.email_unique" ON "User"("email");
+
+-- CreateIndex
+CREATE UNIQUE INDEX "User.phone_unique" ON "User"("phone");
 
 -- CreateIndex
 CREATE UNIQUE INDEX "Session.handle_unique" ON "Session"("handle");
