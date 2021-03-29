@@ -11,15 +11,12 @@ import Map from "app/core/components/Map"
 import Layout from "app/core/layouts/Layout"
 import { DESCRIPTION_FORM_KEY, TITLE_FORM_KEY, MAX_FORM_IMAGES } from "app/posts/constants"
 import { CreatePost } from "app/posts/validations"
-import { Suspense, useState } from "react"
+import { Suspense, useEffect, useState } from "react"
 import { useForm } from "react-hook-form"
 import { BiImages } from "react-icons/bi"
 import { useRequest } from "app/core/hooks/useRequest"
 import createPost from "app/posts/mutations/createPost"
-import * as z from "zod"
 import { UploadApiResponse } from "app/api/v0/images"
-
-type TCreatePost = z.infer<typeof CreatePost>
 
 const NewPostPage: BlitzPage = () => {
   // Mutations and requests
@@ -28,34 +25,37 @@ const NewPostPage: BlitzPage = () => {
 
   // States
   const [uploadedImages, setUploadedImages] = useState<string[]>([])
+  const [isUploadingImages, setIsUploadingImages] = useState<boolean>(false)
   const [images, setImages] = useState<ImageListType>([])
 
   // Hooks
   const router = useRouter()
   const activeSession = useAuthenticatedSession()
 
-  // Form default values
-  const defaultValues: Partial<TCreatePost> = {
-    ownerId: activeSession.userId,
-  }
-
   // Zod react hook form registering
-  const { errors, register, getValues } = useForm({
+  const {
+    errors,
+    register,
+    getValues,
+    setValue,
+    formState: { isValid },
+  } = useForm({
     mode: "onChange",
     resolver: zodResolver(CreatePost),
   })
 
-  // Form values getter (with default values)
-  const formValues: () => TCreatePost = () => ({
-    ...getValues(),
-    ...defaultValues,
-    images: uploadedImages,
+  // Register fields without inputs
+  useEffect(() => {
+    register({ name: "ownerId", value: activeSession.userId })
+    register({ name: "images", value: [] as string[] })
   })
 
   // On image has uploaded
   const onImagesChange = async (imageList: ImageListType, addUpdateIndex?: number[]) => {
     // If image(s) is(are) unique
     if (addUpdateIndex) {
+      setIsUploadingImages(true)
+
       const formData = new FormData()
 
       // Append unique image(s) to form data
@@ -68,9 +68,19 @@ const NewPostPage: BlitzPage = () => {
       })
         // Convert readable stream to json
         .then((response) => response.json())
-        // Push image ID(s) to array
+        // Push image URL(s) to array
         .then((data: UploadApiResponse[]) => {
-          setUploadedImages([...uploadedImages, ...data.map((response) => response.url)])
+          // Caught image URL(s) from response
+          const urls: string[] = data.map((response) => response.url)
+          // Merged current and caught URL(s)
+          const unioned = [...uploadedImages, ...urls]
+
+          // Setting state for library
+          setUploadedImages(unioned)
+          // Setting state for form parsing
+          setValue("images", unioned)
+          // Setting state for progress
+          setIsUploadingImages(false)
         })
     }
 
@@ -80,7 +90,7 @@ const NewPostPage: BlitzPage = () => {
 
   // On form submit handler
   const submitForm = async () => {
-    createPostMutation(formValues()).then(({ id: postId }) => router.push("/posts/" + postId))
+    createPostMutation(getValues()).then(({ id: postId }) => router.push("/posts/" + postId))
   }
 
   return (
@@ -167,7 +177,7 @@ const NewPostPage: BlitzPage = () => {
             <Map style={{ height: "30vh" }} />
             <FormHelperText>Make a beautiful description to attract more visitors</FormHelperText>
           </FormControl>
-          <Button isFullWidth onClick={submitForm}>
+          <Button isFullWidth disabled={!isValid || isUploadingImages} onClick={submitForm}>
             Submit
           </Button>
         </VStack>
