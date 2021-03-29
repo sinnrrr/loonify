@@ -99,7 +99,7 @@ const EditControl = ({ onChange }: EditProps) => {
         // If there are circles, that contain this point
         if (circlesPointed.length > 0) {
           circlesPointed.forEach((circle) => featureGroup.removeLayer(circle))
-          if (onChange) onChange(featureGroup.getLayers() as L.Circle[])
+          saveChanges(featureGroup.getLayers() as L.Circle[])
         }
       }
     },
