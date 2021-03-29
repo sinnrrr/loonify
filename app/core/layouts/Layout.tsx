@@ -1,4 +1,4 @@
-import React, { ReactNode, Suspense } from "react"
+import React, { ReactNode } from "react"
 import { Head } from "blitz"
 import { Flex } from "@chakra-ui/react"
 
