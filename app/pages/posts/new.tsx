@@ -70,7 +70,7 @@ const NewPostPage: BlitzPage = () => {
         .then((response) => response.json())
         // Push image ID(s) to array
         .then((data: UploadApiResponse[]) => {
-          setUploadedImages([...uploadedImages, ...data.map((response) => response.public_id)])
+          setUploadedImages([...uploadedImages, ...data.map((response) => response.url)])
         })
     }
 

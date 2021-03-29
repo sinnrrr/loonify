@@ -1,6 +1,6 @@
+import { CSSProperties, FunctionComponent } from "react"
 import { MapContainer, MapContainerProps, TileLayer, ZoomControl } from "react-leaflet"
 import "leaflet/dist/leaflet.css"
-import { CSSProperties, FunctionComponent } from "react"
 
 interface Props {
   style?: CSSProperties

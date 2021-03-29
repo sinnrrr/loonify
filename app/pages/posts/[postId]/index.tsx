@@ -9,7 +9,7 @@ import AccountBlock from "app/posts/components/AccountBlock"
 import RelatedBlock from "app/posts/components/RelatedBlock"
 import { Suspense } from "react"
 
-const PostPage = () => {
+const ShowPostPage: BlitzPage = () => {
   // Post id from query
   const postId = useParam("postId", "number")
 
@@ -29,7 +29,7 @@ const PostPage = () => {
       my={theme.space[5]}
     >
       <Flex direction="column">
-        <MediaBlock />
+        <MediaBlock post={post} />
         <InformationBlock post={post} />
       </Flex>
       <Flex direction="column">
@@ -47,15 +47,11 @@ const PostPage = () => {
   )
 }
 
-const ShowPostPage: BlitzPage = () => {
-  return (
-    <Suspense fallback={<div>Loading...</div>}>
-      <PostPage />
-    </Suspense>
-  )
-}
-
 ShowPostPage.suppressFirstRenderFlicker = true
-ShowPostPage.getLayout = (page) => <Layout>{page}</Layout>
+ShowPostPage.getLayout = (page) => (
+  <Layout>
+    <Suspense fallback={<div>Loading...</div>}>{page} </Suspense>
+  </Layout>
+)
 
 export default ShowPostPage

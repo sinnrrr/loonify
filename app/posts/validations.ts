@@ -2,12 +2,12 @@ import * as z from "zod"
 
 const title = z.string().min(4).max(64)
 const description = z.string().min(10)
-const images = z.array(z.string())
+const images = z.array(z.string()).optional()
 
 export const CreatePost = z.object({
   title,
   description,
-  images: images.optional(),
+  images,
   ownerId: z.number(),
 })
 
