@@ -1,56 +1,86 @@
-import { BlitzPage } from "@blitzjs/core"
-import { Button, IconButton } from "@chakra-ui/button"
+import { BlitzPage, useAuthenticatedSession, useMutation, useRouter } from "@blitzjs/core"
+import { Button } from "@chakra-ui/button"
 import { FormControl, FormErrorMessage, FormHelperText, FormLabel } from "@chakra-ui/form-control"
 import ImageUploading, { ImageListType } from "react-images-uploading"
-import { DownloadIcon } from "@chakra-ui/icons"
 import { Input } from "@chakra-ui/input"
-import { Box, Container, Flex, Heading, Text, VStack, Wrap, WrapItem } from "@chakra-ui/layout"
+import { Container, Flex, Heading, VStack } from "@chakra-ui/layout"
 import { Textarea } from "@chakra-ui/textarea"
 import theme from "@chakra-ui/theme"
-import { useToast } from "@chakra-ui/toast"
 import { zodResolver } from "@hookform/resolvers/zod"
 import Map from "app/core/components/Map"
 import Layout from "app/core/layouts/Layout"
-import { DESCRIPTION_FORM_KEY, TITLE_FORM_KEY } from "app/posts/constants"
+import { DESCRIPTION_FORM_KEY, TITLE_FORM_KEY, MAX_FORM_IMAGES } from "app/posts/constants"
 import { CreatePost } from "app/posts/validations"
-import { useState } from "react"
-import { useDropzone } from "react-dropzone"
+import { Suspense, useState } from "react"
 import { useForm } from "react-hook-form"
-import Icon from "@chakra-ui/icon"
-import { BiImageAdd } from "react-icons/bi"
+import { BiImages } from "react-icons/bi"
+import { useRequest } from "app/core/hooks/useRequest"
+import createPost from "app/posts/mutations/createPost"
+import * as z from "zod"
+import { UploadApiResponse } from "app/api/v0/images"
+
+type TCreatePost = z.infer<typeof CreatePost>
 
 const NewPostPage: BlitzPage = () => {
+  // Mutations and requests
+  const [createPostMutation] = useMutation(createPost)
+  const uploadImageRequest = useRequest("images")
+
+  // States
+  const [uploadedImages, setUploadedImages] = useState<string[]>([])
+  const [images, setImages] = useState<ImageListType>([])
+
+  // Hooks
+  const router = useRouter()
+  const activeSession = useAuthenticatedSession()
+
+  // Form default values
+  const defaultValues: Partial<TCreatePost> = {
+    ownerId: activeSession.userId,
+  }
+
   // Zod react hook form registering
   const { errors, register, getValues } = useForm({
-    mode: "onBlur",
+    mode: "onChange",
     resolver: zodResolver(CreatePost),
   })
 
-  // Dropzone registering
-  const { getRootProps, getInputProps } = useDropzone({ multiple: false })
+  // Form values getter (with default values)
+  const formValues: () => TCreatePost = () => ({
+    ...getValues(),
+    ...defaultValues,
+    images: uploadedImages,
+  })
 
-  const toast = useToast()
+  // On image has uploaded
+  const onImagesChange = async (imageList: ImageListType, addUpdateIndex?: number[]) => {
+    // If image(s) is(are) unique
+    if (addUpdateIndex) {
+      const formData = new FormData()
 
-  const submitForm = () => {
-    if (errors) {
-      console.log("Successful")
-    } else {
-      toast({
-        title: "Error submitting form",
-        description: "Some of fields in form has errors",
-        status: "error",
-        isClosable: true,
+      // Append unique image(s) to form data
+      addUpdateIndex.forEach((index) => formData.append("images", imageList[index].file!))
+
+      // Send api request
+      uploadImageRequest({
+        method: "post",
+        body: formData,
       })
+        // Convert readable stream to json
+        .then((response) => response.json())
+        // Push image ID(s) to array
+        .then((data: UploadApiResponse[]) => {
+          setUploadedImages([...uploadedImages, ...data.map((response) => response.public_id)])
+        })
     }
+
+    // Set images list for library
+    setImages(imageList)
   }
 
-  const [images, setImages] = useState([])
-  const maxNumber = 69
-
-  const onChange = (imageList: ImageListType, addUpdateIndex: number[] | undefined) => {
-    // data for submit
-    console.log(imageList, addUpdateIndex)
-    setImages(imageList as never[])
+  // On form submit handler
+  const submitForm = async () => {
+    createPostMutation(formValues()).then(({ id: postId }) => router.push("/posts/" + postId))
   }
 
   return (
@@ -91,7 +121,12 @@ const NewPostPage: BlitzPage = () => {
           </FormControl>
           <FormControl>
             <FormLabel>Image</FormLabel>
-            <ImageUploading multiple value={images} onChange={onChange} maxNumber={maxNumber}>
+            <ImageUploading
+              multiple
+              value={images}
+              onChange={onImagesChange}
+              maxNumber={MAX_FORM_IMAGES}
+            >
               {({
                 imageList,
                 onImageUpload,
@@ -101,19 +136,18 @@ const NewPostPage: BlitzPage = () => {
                 isDragging,
                 dragProps,
               }) => (
-                <Button aria-label="Add image" p={theme.space[12]}>
-                  <BiImageAdd size={theme.sizes[12]} />
-                </Button>
-
-                // <>
-                //   <button
-                //     style={isDragging ? { color: "red" } : undefined}
-                //     onClick={onImageUpload}
-                //     {...dragProps}
-                //   >
-                //     Click or Drop here
-                //   </button>
-                //   &nbsp;
+                <Flex overflowX="auto">
+                  <Button
+                    onClick={onImageUpload}
+                    {...dragProps}
+                    aria-label="Add image"
+                    m={theme.space[1]}
+                    p={theme.space[12]}
+                  >
+                    <BiImages size={theme.sizes[12]} />
+                  </Button>
+                  {JSON.stringify(imageList)}
+                </Flex>
                 //   <button onClick={onImageRemoveAll}>Remove all images</button>
                 //   {imageList.map((image, index) => (
                 //     <div key={index} className="image-item">
@@ -124,27 +158,8 @@ const NewPostPage: BlitzPage = () => {
                 //       </div>
                 //     </div>
                 //   ))}
-                // </>
               )}
             </ImageUploading>
-            {/* <Button
-              cursor="pointer"
-              isFullWidth
-              {...getRootProps()}
-              py={theme.space[16]}
-              border={theme.borders["1px"]}
-              borderColor={theme.colors.gray[200]}
-              borderRadius={theme.radii.lg}
-              aria-label="upload images"
-            >
-              <input {...getInputProps()} />
-              <Flex direction="column" align="center">
-                <VStack>
-                  <DownloadIcon fontSize={theme.fontSizes.lg} />
-                  <Text>Upload image</Text>
-                </VStack>
-              </Flex>
-            </Button> */}
             <FormHelperText>Posts with image get a 50% more visitors</FormHelperText>
           </FormControl>
           <FormControl>
@@ -162,6 +177,10 @@ const NewPostPage: BlitzPage = () => {
 }
 
 NewPostPage.authenticate = true
-NewPostPage.getLayout = (page) => <Layout title={"Create New Post"}>{page}</Layout>
+NewPostPage.getLayout = (page) => (
+  <Layout title={"Create New Post"}>
+    <Suspense fallback={<div>Loading...</div>}>{page}</Suspense>
+  </Layout>
+)
 
 export default NewPostPage

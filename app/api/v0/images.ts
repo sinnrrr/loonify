@@ -8,12 +8,14 @@ cloudinary.v2.config({
   api_secret: process.env.STORAGE_API_SECRET,
 })
 
+export type UploadApiResponse = cloudinary.UploadApiResponse
+
 const parseForm = async (req: BlitzApiRequest) => {
   return new Promise((resolve, reject) => {
     const form = new Busboy({ headers: req.headers })
 
     let filesCount = 0
-    const uploads: cloudinary.UploadApiResponse[] = []
+    const uploads: UploadApiResponse[] = []
 
     const createUploader = () => {
       return cloudinary.v2.uploader.upload_stream((err, image) => {
@@ -37,7 +39,12 @@ const parseForm = async (req: BlitzApiRequest) => {
 }
 
 const uploadImages = async (req: BlitzApiRequest, res: BlitzApiResponse) => {
-  if (req.method === "POST") res.json(await parseForm(req))
+  switch (req.method) {
+    case "GET":
+      break
+    case "POST":
+      res.json(await parseForm(req))
+  }
 }
 
 export const config = {
