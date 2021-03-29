@@ -95,15 +95,7 @@ const NewPostPage: BlitzPage = () => {
 
   return (
     <Flex grow={1} justify="center">
-      <Container
-        p={theme.space[4]}
-        m={theme.space[4]}
-        borderRadius={theme.radii.lg}
-        border={theme.borders["1px"]}
-        borderColor={theme.colors.gray[200]}
-        borderStyle="dashed"
-        maxW={theme.sizes.container.md}
-      >
+      <Container p={theme.space[4]} m={theme.space[4]} maxW={theme.sizes.container.md}>
         <VStack spacing={theme.space[8]}>
           <Heading>Create new post</Heading>
           <FormControl isInvalid={!!errors[TITLE_FORM_KEY]} isRequired>
@@ -174,7 +166,7 @@ const NewPostPage: BlitzPage = () => {
           </FormControl>
           <FormControl>
             <FormLabel>Location</FormLabel>
-            <Map style={{ height: "30vh" }} />
+            <Map isEditable={true} style={{ height: "30vh" }} />
             <FormHelperText>Make a beautiful description to attract more visitors</FormHelperText>
           </FormControl>
           <Button isFullWidth disabled={!isValid || isUploadingImages} onClick={submitForm}>
