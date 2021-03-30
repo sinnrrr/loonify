@@ -25,7 +25,7 @@ export const UpdatePost = z
     title,
     images,
     description,
-    locations,
+    locations: locations.optional(),
   })
   .nonstrict()
 
