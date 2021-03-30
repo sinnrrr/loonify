@@ -36,18 +36,19 @@ const NewPostPage: BlitzPage = () => {
   const {
     errors,
     register,
+    trigger,
     getValues,
     setValue,
     formState: { isValid },
   } = useForm({
     mode: "onChange",
     resolver: zodResolver(CreatePost),
+    shouldUnregister: false,
   })
 
   // Register fields without inputs
   useEffect(() => {
     register({ name: "ownerId", value: activeSession.userId })
-    register({ name: "images", value: [] as string[] })
   })
 
   // On image has uploaded
@@ -77,8 +78,9 @@ const NewPostPage: BlitzPage = () => {
 
           // Setting state for library
           setUploadedImages(unioned)
-          // Setting state for form parsing
+          // Setting state for form parsing and validating
           setValue("images", unioned)
+          trigger("images")
           // Setting state for progress
           setIsUploadingImages(false)
         })
@@ -164,9 +166,16 @@ const NewPostPage: BlitzPage = () => {
             </ImageUploading>
             <FormHelperText>Posts with image get a 50% more visitors</FormHelperText>
           </FormControl>
-          <FormControl>
+          <FormControl isRequired>
             <FormLabel>Location</FormLabel>
-            <Map isEditable={true} style={{ height: "30vh" }} />
+            <Map
+              isEditable={true}
+              onChange={(layers) => {
+                setValue("locations", layers)
+                trigger("locations")
+              }}
+              style={{ height: "30vh" }}
+            />
             <FormHelperText>Make a beautiful description to attract more visitors</FormHelperText>
           </FormControl>
           <Button isFullWidth disabled={!isValid || isUploadingImages} onClick={submitForm}>

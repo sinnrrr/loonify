@@ -10,7 +10,7 @@ import "leaflet/dist/leaflet.css"
 import L from "leaflet"
 import { useToast } from "@chakra-ui/toast"
 
-interface Location {
+export interface Location {
   lat: number
   lng: number
   radius: number
@@ -28,7 +28,7 @@ interface Props {
 
 const EditControl = ({ onChange }: EditProps) => {
   // Helper constants
-  const MAX_CIRCLES_COUNT = 10
+  const MAX_LAYERS_COUNT = 10
   const CIRCLE_RADIUS = 200
 
   const toast = useToast()
@@ -39,7 +39,7 @@ const EditControl = ({ onChange }: EditProps) => {
       title: title || "Error placing circle",
       description: message,
       status: "error",
-      isClosable: true,
+      duration: 2000,
     })
   }
 
@@ -63,42 +63,42 @@ const EditControl = ({ onChange }: EditProps) => {
   // Mapping events from map
   const map = useMapEvents({
     click: ({ latlng }) => {
-      // Get all circles from group
+      // Get all layers from group
       const featureLayers = featureGroup.getLayers() as L.Circle[]
 
-      // If circles more than allowed - error
-      if (featureLayers.length > MAX_CIRCLES_COUNT) {
+      // If layers more than allowed - error
+      if (featureLayers.length > MAX_LAYERS_COUNT) {
         showError({ message: "You've reached limit of circles" })
       } else {
-        // Checking if point lies in one of the circles
-        const circlesPointed = featureLayers.filter(
-          (layer) => latlng.distanceTo(layer.getLatLng()) < CIRCLE_RADIUS
+        // Checking if point lies in one of the layers
+        const layersPointed = featureLayers.filter(
+          (layer) => latlng.distanceTo(layer.getLatLng()) < layer.getRadius()
         )
 
-        // If there are circles, that contain this point
-        if (circlesPointed.length > 0) {
+        // If there are layers, that contain this point
+        if (layersPointed.length > 0) {
           showError({ message: "There is already circle in this area" })
         } else {
-          // Else add new circle to group
+          // Else add new layer to group
           featureGroup.addLayer(new L.Circle(latlng, { radius: CIRCLE_RADIUS }))
           saveChanges(featureGroup.getLayers() as L.Circle[])
         }
       }
     },
     contextmenu: ({ latlng }) => {
-      // Get all circles from group
+      // Get all layers from group
       const featureLayers = featureGroup.getLayers() as L.Circle[]
 
-      // If there are any circles
+      // If there are any layers
       if (featureLayers.length > 0) {
-        // Checking if point lies in one of the circles
-        const circlesPointed = featureLayers.filter(
-          (layer) => latlng.distanceTo(layer.getLatLng()) < CIRCLE_RADIUS
+        // Checking if point lies in one of the layers
+        const layersPointed = featureLayers.filter(
+          (layer) => latlng.distanceTo(layer.getLatLng()) < layer.getRadius()
         )
 
-        // If there are circles, that contain this point
-        if (circlesPointed.length > 0) {
-          circlesPointed.forEach((circle) => featureGroup.removeLayer(circle))
+        // If there are layers, that contain this point
+        if (layersPointed.length > 0) {
+          layersPointed.forEach((layer) => featureGroup.removeLayer(layer))
           saveChanges(featureGroup.getLayers() as L.Circle[])
         }
       }

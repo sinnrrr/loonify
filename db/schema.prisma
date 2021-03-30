@@ -66,6 +66,7 @@ model Post {
   title       String
   description String
   images      String[]
+  locations   Json[]
   owner       User     @relation(fields: [ownerId], references: [id])
   ownerId     Int
 }
