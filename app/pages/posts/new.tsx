@@ -36,8 +36,8 @@ const NewPostPage: BlitzPage = () => {
     formState: { isValid },
   } = useForm({
     mode: "onChange",
-    resolver: zodResolver(CreatePost),
     shouldUnregister: false,
+    resolver: zodResolver(CreatePost),
   })
 
   // Register fields without inputs
@@ -48,6 +48,12 @@ const NewPostPage: BlitzPage = () => {
   // On form submit handler
   const submitForm = async () => {
     createPostMutation(getValues()).then(({ id: postId }) => router.push("/posts/" + postId))
+  }
+
+  // Set unregistered values and trigger validation
+  const setUnregisteredValue = (key: string, value: unknown) => {
+    setValue(key, value)
+    trigger(key)
   }
 
   return (
@@ -81,10 +87,7 @@ const NewPostPage: BlitzPage = () => {
           <UploadBlock
             onStart={() => setIsUploadingImages(true)}
             onFinish={(images) => {
-              // Setting state for form parsing and validating
-              setValue("images", images)
-              trigger("images")
-              // Setting state for progress
+              setUnregisteredValue("images", images)
               setIsUploadingImages(false)
             }}
           />
@@ -92,10 +95,7 @@ const NewPostPage: BlitzPage = () => {
             <FormLabel>Location</FormLabel>
             <Map
               isEditable={true}
-              onChange={(layers) => {
-                setValue("locations", layers)
-                trigger("locations")
-              }}
+              onChange={(layers) => setUnregisteredValue("locations", layers)}
               style={{ height: "30vh" }}
             />
             <FormHelperText>Make a beautiful description to attract more visitors</FormHelperText>

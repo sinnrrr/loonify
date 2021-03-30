@@ -1,13 +1,16 @@
 import { FormControl, FormHelperText, FormLabel } from "@chakra-ui/form-control"
 import { FunctionComponent, useState } from "react"
 import ImageUploading, { ImageListType } from "react-images-uploading"
-import { BiImages } from "react-icons/bi"
-import { Flex } from "@chakra-ui/layout"
+import { BiDownload, BiImages } from "react-icons/bi"
+import { Box, Flex, HStack, Text } from "@chakra-ui/layout"
 import { Button } from "@chakra-ui/button"
 import theme from "@chakra-ui/theme"
 import { useRequest } from "app/core/hooks/useRequest"
 import { UploadApiResponse } from "app/api/v0/images"
 import { MAX_FORM_IMAGES } from "../constants"
+import Icon from "@chakra-ui/icon"
+import { Image } from "@chakra-ui/image"
+import { DragDropContext, Droppable, Draggable, DropResult } from "react-beautiful-dnd"
 
 const UploadBlock: FunctionComponent<{
   onStart: () => void
@@ -16,8 +19,9 @@ const UploadBlock: FunctionComponent<{
   const uploadImageRequest = useRequest("images")
 
   // States
-  const [uploadedImages, setUploadedImages] = useState<string[]>([])
+  const [items, setItems] = useState<number[]>(Array.from(Array(MAX_FORM_IMAGES).keys()))
   const [images, setImages] = useState<ImageListType>([])
+  const [uploadedImages, setUploadedImages] = useState<string[]>([])
 
   // On image has uploaded
   const onImagesChange = async (imageList: ImageListType, addUpdateIndex?: number[]) => {
@@ -57,12 +61,29 @@ const UploadBlock: FunctionComponent<{
     setImages(imageList)
   }
 
+  const onDragEnd = (result: DropResult) => {
+    // If out of zone or want to get over empty fields
+    if (
+      !result.destination ||
+      // Length of way
+      Math.abs(result.destination.index - result.source.index) >=
+        // Images uploaded
+        images.length
+    )
+      return
+
+    const list = items
+
+    const [removed] = list.splice(result.source.index, 1)
+    list.splice(result.destination.index, 0, removed)
+
+    setItems(list)
+  }
+
   return (
     <FormControl>
-      <FormLabel>Image</FormLabel>
       <ImageUploading multiple value={images} onChange={onImagesChange} maxNumber={MAX_FORM_IMAGES}>
         {({
-          imageList,
           onImageUpload,
           onImageRemoveAll,
           onImageUpdate,
@@ -70,31 +91,76 @@ const UploadBlock: FunctionComponent<{
           isDragging,
           dragProps,
         }) => (
-          <Flex overflowX="auto">
-            <Button
-              onClick={onImageUpload}
-              {...dragProps}
-              aria-label="Add image"
-              m={theme.space[1]}
-              p={theme.space[12]}
-            >
-              <BiImages size={theme.sizes[12]} />
-            </Button>
-            {JSON.stringify(imageList)}
-          </Flex>
-          //   <button onClick={onImageRemoveAll}>Remove all images</button>
-          //   {imageList.map((image, index) => (
-          //     <div key={index} className="image-item">
-          //       <img src={image.dataURL} alt="" width="100" />
-          //       <div className="image-item__btn-wrapper">
-          //         <button onClick={() => onImageUpdate(index)}>Update</button>
-          //         <button onClick={() => onImageRemove(index)}>Remove</button>
-          //       </div>
-          //     </div>
-          //   ))}
+          <>
+            <FormLabel>
+              <Flex justify="space-between">
+                <Text>Image</Text>
+                {!!images.length && (
+                  <Button size="xs" onClick={onImageRemoveAll}>
+                    Clear all
+                  </Button>
+                )}
+              </Flex>
+            </FormLabel>
+            <Box overflowX="auto">
+              <DragDropContext onDragEnd={onDragEnd}>
+                <Droppable droppableId="droppable" direction="horizontal">
+                  {(provided) => (
+                    <HStack
+                      mb={theme.space[2]}
+                      ref={provided.innerRef}
+                      {...provided.droppableProps}
+                    >
+                      {items.map((element, index) => (
+                        <Draggable
+                          key={"item-" + element}
+                          draggableId={"item-" + element}
+                          index={index}
+                        >
+                          {(provided, snapshot) => (
+                            <Flex
+                              h="100%"
+                              cursor="pointer"
+                              p={theme.space[2]}
+                              justify="center"
+                              align="center"
+                              onClick={onImageUpload}
+                              aria-label="Add image"
+                              minW={theme.sizes[48]}
+                              border={theme.borders["1px"]}
+                              borderRadius={theme.radii.lg}
+                              borderColor={theme.colors.gray[200]}
+                              borderStyle="dashed"
+                              ref={provided.innerRef}
+                              {...dragProps}
+                              {...provided.draggableProps}
+                              {...provided.dragHandleProps}
+                              {...(snapshot.isDragging && { bgColor: theme.colors.gray[100] })}
+                            >
+                              {!!images.length && images[element] ? (
+                                <Image src={images[element].dataURL} alt={"Image " + element} />
+                              ) : (
+                                <Icon
+                                  m={theme.space[10]}
+                                  h={theme.sizes[12]}
+                                  w={theme.sizes[12]}
+                                  as={isDragging ? BiDownload : BiImages}
+                                />
+                              )}
+                            </Flex>
+                          )}
+                        </Draggable>
+                      ))}
+                      {provided.placeholder}
+                    </HStack>
+                  )}
+                </Droppable>
+              </DragDropContext>
+            </Box>
+            <FormHelperText>Posts with image get a 50% more visitors</FormHelperText>
+          </>
         )}
       </ImageUploading>
-      <FormHelperText>Posts with image get a 50% more visitors</FormHelperText>
     </FormControl>
   )
 }
