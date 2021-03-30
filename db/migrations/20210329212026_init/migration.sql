@@ -53,6 +53,7 @@ CREATE TABLE "Post" (
     "title" TEXT NOT NULL,
     "description" TEXT NOT NULL,
     "images" TEXT[],
+    "locations" JSONB[],
     "ownerId" INTEGER NOT NULL,
 
     PRIMARY KEY ("id")
