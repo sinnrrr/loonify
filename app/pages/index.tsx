@@ -1,15 +1,16 @@
 import React from "react"
 import { BlitzPage } from "blitz"
 import Layout from "app/core/layouts/Layout"
-import MapPanel from "app/core/components/MapPanel"
-import Map from "app/core/components/Map"
+import Map from "app/map/components/Map"
 import theme from "@chakra-ui/theme"
+import MapPanel from "app/map/components/MapPanel"
 
 const Home: BlitzPage = () => {
   return (
     <>
       <MapPanel />
       <Map
+        mode="multiple"
         style={{
           zIndex: theme.zIndices.base,
           position: "absolute",

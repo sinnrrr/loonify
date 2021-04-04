@@ -1,10 +1,10 @@
 import React from "react"
 import { Heading } from "@chakra-ui/layout"
 import { Button } from "@chakra-ui/button"
-import { usePanelStore } from "../stores/panel"
 import { Drawer, DrawerBody, DrawerContent, DrawerHeader } from "@chakra-ui/modal"
 import Link from "next/link"
 import theme from "@chakra-ui/theme"
+import { usePanelStore } from "app/core/stores/panel"
 
 export const Main = () => {
   return (
