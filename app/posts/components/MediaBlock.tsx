@@ -27,7 +27,7 @@ const MediaBlock: FunctionComponent<{ post: Post }> = ({ post }) => {
           </TabPanel>
           <TabPanel border={theme.borders["1px"]} borderColor={theme.colors.gray[200]}>
             <Flex height="50vh" width="100%" maxWidth={theme.sizes.container.md}>
-              <Map />
+              <Map mode="single" />
             </Flex>
           </TabPanel>
         </TabPanels>

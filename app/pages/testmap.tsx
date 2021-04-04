@@ -6,7 +6,7 @@ import Layout from "app/core/layouts/Layout"
 const TestMapPage: BlitzPage = () => {
   return (
     <Flex grow={1}>
-      <Map />
+      <Map mode="edit" />
     </Flex>
   )
 }
