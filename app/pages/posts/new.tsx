@@ -94,7 +94,6 @@ const NewPostPage: BlitzPage = () => {
           <FormControl isRequired>
             <FormLabel>Location</FormLabel>
             <Map
-              mode="edit"
               onChange={(layers) => setUnregisteredValue("locations", layers)}
               style={{ height: "30vh" }}
             />

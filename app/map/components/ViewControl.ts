@@ -2,7 +2,6 @@ import { LeafletEventHandlerFnMap } from "leaflet"
 import { FunctionComponent } from "react"
 import { useMapEvents } from "react-leaflet"
 import { CircleLocation } from "./EditControl"
-import { Querier } from "./LeafletMap"
 
 const data = new Set<CircleLocation[]>()
 
