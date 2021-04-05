@@ -1,9 +1,9 @@
 import React from "react"
-import { BlitzPage, invoke } from "blitz"
+import { BlitzPage, invok } from "blitz"
 import Layout from "app/core/layouts/Layout"
-import Map from "app/map/components/Map"
+import Map from "../core/components/Map"
 import theme from "@chakra-ui/theme"
-import MapPanel from "app/map/components/MapPanel"
+import MapPanel from "../core/components/MapPanel"
 import getBoundedPosts from "app/posts/queries/getBoundedPosts"
 
 const Home: BlitzPage = () => {
