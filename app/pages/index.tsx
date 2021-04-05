@@ -1,5 +1,5 @@
 import React from "react"
-import { BlitzPage, invok } from "blitz"
+import { BlitzPage, invoke } from "blitz"
 import Layout from "app/core/layouts/Layout"
 import Map from "../core/components/Map"
 import theme from "@chakra-ui/theme"
