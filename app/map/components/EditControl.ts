@@ -18,7 +18,7 @@ const EditControl = ({ onChange }: EditProps) => {
   const CIRCLE_RADIUS = 200
 
   const toast = useToast()
-  const featureGroup = new L.FeatureGroup()
+  const featureGroup = new L.LayerGroup()
 
   const showError = ({ message, title }: { message: string; title?: string }) => {
     toast({
@@ -36,12 +36,10 @@ const EditControl = ({ onChange }: EditProps) => {
       onChange(
         // Map layers to locations
         layers.map(
-          (layer): CircleLocation => {
-            return {
-              ...layer.getLatLng(),
-              radius: layer.getRadius(),
-            }
-          }
+          (layer): CircleLocation => ({
+            ...layer.getLatLng(),
+            radius: layer.getRadius(),
+          })
         )
       )
   }

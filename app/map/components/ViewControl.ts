@@ -1,13 +1,17 @@
 import { LeafletEventHandlerFnMap } from "leaflet"
 import { FunctionComponent } from "react"
 import { useMapEvents } from "react-leaflet"
+import { CircleLocation } from "./EditControl"
+import { Querier } from "./LeafletMap"
+
+const data = new Set<CircleLocation[]>()
+
+export const handleDataUpdate = (upcoming: CircleLocation[]) => {
+  data.add(upcoming)
+}
 
 export const fetchMultipleLocations = () => {
   console.log("MULTIPLE")
-}
-
-export const fetchSingleLocation = () => {
-  console.log("SINGLE")
 }
 
 // Possible mode variants
@@ -19,7 +23,6 @@ export type ViewMode = typeof ViewSingleMode | typeof ViewMultipleMode
 
 // Handlers mapper for mode variants
 export const handlerFunction = {
-  [ViewSingleMode]: fetchSingleLocation,
   [ViewMultipleMode]: fetchMultipleLocations,
 }
 
@@ -28,11 +31,11 @@ export const eventHandlers: { [key in ViewMode]?: LeafletEventHandlerFnMap } = {
   [ViewMultipleMode]: { moveend: handlerFunction[ViewMultipleMode] },
 }
 
-export type ViewProps = { mode: ViewMode }
+export type ViewProps = { mode: ViewMode; querier: Querier }
 
-const ViewControl: FunctionComponent<ViewProps> = ({ mode }) => {
+const ViewControl: FunctionComponent<ViewProps> = ({ mode, querier }) => {
   // Calling handler for given mode
-  handlerFunction[mode]()
+  querier().then((upcoming) => handleDataUpdate(upcoming))
 
   // Using event mapper to handle events
   useMapEvents(eventHandlers[mode] || {})

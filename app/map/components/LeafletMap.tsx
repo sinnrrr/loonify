@@ -1,30 +1,31 @@
 import "leaflet/dist/leaflet.css"
 import { CSSProperties, FunctionComponent } from "react"
-import { MapContainer, MapContainerProps, TileLayer, ZoomControl } from "react-leaflet"
-import EditControl, { EditProps } from "./EditControl"
-import ViewControl, { ViewMode, ViewSingleMode, ViewMultipleMode, ViewProps } from "./ViewControl"
+import {
+  Circle,
+  MapContainer,
+  MapContainerProps,
+  TileLayer,
+  useMapEvents,
+  ZoomControl,
+} from "react-leaflet"
+import EditControl, { CircleLocation, EditProps } from "./EditControl"
+import { GetBoundedPosts } from "../../posts/queries/getBoundedPosts"
+import * as z from "zod"
+import { Post } from "db"
+import { LatLngBounds, Map as LMap } from "leaflet"
 
-export const EditMode = "edit" as const
-export type MapMode = ViewMode | typeof EditMode
-
-const mapComponent = (props: {
-  [EditMode]?: EditProps
-  [ViewSingleMode]: ViewProps
-  [ViewMultipleMode]: ViewProps
-}) => ({
-  [EditMode]: <EditControl {...props?.[EditMode]} />,
-  [ViewSingleMode]: <ViewControl {...props[ViewSingleMode]!} />,
-  [ViewMultipleMode]: <ViewControl {...props[ViewMultipleMode]!} />,
-})
+export type Fetcher = (bounds: z.infer<typeof GetBoundedPosts>) => Promise<Post[]>
 
 interface Props {
-  mode: MapMode
+  fetcher?: Fetcher
   style?: CSSProperties
+  initial?: Post[]
   properties?: MapContainerProps
 }
 
 const LeafletMap: FunctionComponent<Props & EditProps> = ({
-  mode,
+  initial,
+  fetcher,
   onChange,
   style = { display: "flex", flexGrow: 1 },
   properties = {
@@ -33,21 +34,60 @@ const LeafletMap: FunctionComponent<Props & EditProps> = ({
     zoomControl: false,
     minZoom: 4,
   },
-}) => (
-  <MapContainer {...{ style, ...properties }}>
-    <TileLayer
-      attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
-      url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-    />
-    <ZoomControl position="bottomright" />
-    {
-      mapComponent({
-        [EditMode]: { onChange },
-        [ViewSingleMode]: { mode: mode as ViewMode },
-        [ViewMultipleMode]: { mode: mode as ViewMode },
-      })[mode]
+}) => {
+  const locations = new Map<number, CircleLocation>()
+
+  const handleBoundedPostsUpdate = (incoming: Post[]) => {
+    console.log(locations)
+
+    incoming.forEach((post) =>
+      post.locations.forEach((location: unknown) => {
+        locations.set(post.id, location as CircleLocation)
+      })
+    )
+  }
+
+  const fetchBoundedPosts = (mapBounds: LatLngBounds) => {
+    if (fetcher) {
+      fetcher({
+        east: mapBounds.getEast(),
+        west: mapBounds.getWest(),
+        north: mapBounds.getNorth(),
+        south: mapBounds.getSouth(),
+      }).then((incoming) => handleBoundedPostsUpdate(incoming))
     }
-  </MapContainer>
-)
+  }
+
+  if (initial) handleBoundedPostsUpdate(initial)
+
+  const Fetcher = () => {
+    useMapEvents({
+      moveend: fetcher
+        ? ({ target: map }: { target: LMap }) => fetchBoundedPosts(map.getBounds())
+        : () => {},
+    })
+
+    return null
+  }
+
+  return (
+    <MapContainer
+      {...{ style, ...properties }}
+      whenCreated={(map) => fetchBoundedPosts(map.getBounds())}
+    >
+      <Fetcher />
+      <TileLayer
+        attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
+        url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+      />
+      <ZoomControl position="bottomright" />
+      {onChange && <EditControl onChange={onChange} />}
+      {locations.forEach((location) => {
+        console.log(location)
+        return <Circle radius={location.radius} center={[location.lat, location.lng]} />
+      })}
+    </MapContainer>
+  )
+}
 
 export default LeafletMap
