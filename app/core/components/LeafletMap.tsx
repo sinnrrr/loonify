@@ -13,6 +13,8 @@ import { GetBoundedPosts } from "../../posts/queries/getBoundedPosts"
 import * as z from "zod"
 import { Post } from "db"
 import { LatLngBounds, Map as LMap } from "leaflet"
+import { useList } from "react-use"
+import { useRouter } from "@blitzjs/core"
 
 export type Fetcher = (bounds: z.infer<typeof GetBoundedPosts>) => Promise<Post[]>
 
@@ -35,14 +37,13 @@ const LeafletMap: FunctionComponent<Props & EditProps> = ({
     minZoom: 4,
   },
 }) => {
-  const locations = new Map<number, CircleLocation>()
+  const [locations, { updateAt: updateLocation }] = useList<CircleLocation>()
+  const router = useRouter()
 
   const handleBoundedPostsUpdate = (incoming: Post[]) => {
-    console.log(locations)
-
     incoming.forEach((post) =>
       post.locations.forEach((location: unknown) => {
-        locations.set(post.id, location as CircleLocation)
+        updateLocation(post.id, location as CircleLocation)
       })
     )
   }
@@ -58,7 +59,7 @@ const LeafletMap: FunctionComponent<Props & EditProps> = ({
     }
   }
 
-  if (initial) handleBoundedPostsUpdate(initial)
+  // if (initial) handleBoundedPostsUpdate(initial)
 
   const Fetcher = () => {
     useMapEvents({
@@ -82,10 +83,9 @@ const LeafletMap: FunctionComponent<Props & EditProps> = ({
       />
       <ZoomControl position="bottomright" />
       {onChange && <EditControl onChange={onChange} />}
-      {locations.forEach((location) => {
-        console.log(location)
-        return <Circle radius={location.radius} center={[location.lat, location.lng]} />
-      })}
+      {locations.map((location, index) => (
+        <Circle key={index} radius={location.radius} center={[location.lat, location.lng]} />
+      ))}
     </MapContainer>
   )
 }

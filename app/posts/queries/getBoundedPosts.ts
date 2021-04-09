@@ -13,16 +13,23 @@ export default resolver.pipe(
   resolver.zod(GetBoundedPosts),
   async ({ east, west, north, south }) => {
     // TODO: in multi-tenant app, you must add validation to ensure correct tenant
-    const posts = await db.post.findMany({
-      where: {
-        // locations: {
-        // equals: {
-        //       lat: { gt: Math.min(east, west), lt: Math.max(east, west) },
-        //       lng: { gt: Math.min(south, north), lt: Math.max(south, north) },
-        // },
-        // },
-      },
-    })
+    // const posts = await db.$queryRaw<CircleLocation[]>(
+    //   `
+    //   DO $$
+    //   DECLARE
+    //     location record;
+    //     result json[];
+    //   BEGIN
+    //     FOR location in SELECT locations from "Post"
+    //     LOOP
+    //       RETURN;
+    //     END LOOP;
+    //   END;
+    //   $$
+    //   `
+    // )
+
+    const posts = db.post.findMany()
 
     return posts
   }
