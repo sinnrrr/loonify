@@ -6,7 +6,7 @@ import { Container, Flex, Heading, VStack } from "@chakra-ui/layout"
 import { Textarea } from "@chakra-ui/textarea"
 import theme from "@chakra-ui/theme"
 import { zodResolver } from "@hookform/resolvers/zod"
-import Map from "app/core/components/Map"
+import Map from "../../core/components/Map"
 import Layout from "app/core/layouts/Layout"
 import { DESCRIPTION_FORM_KEY, TITLE_FORM_KEY } from "app/posts/constants"
 import { CreatePost } from "app/posts/validations"
@@ -94,7 +94,6 @@ const NewPostPage: BlitzPage = () => {
           <FormControl isRequired>
             <FormLabel>Location</FormLabel>
             <Map
-              isEditable={true}
               onChange={(layers) => setUnregisteredValue("locations", layers)}
               style={{ height: "30vh" }}
             />

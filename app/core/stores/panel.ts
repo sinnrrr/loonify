@@ -6,7 +6,14 @@ export type PanelState = {
   setOpen: () => void
   setClose: () => void
 
-  child: ReactNode
+  children?: ReactNode
+  setChildren: (childen: ReactNode) => void
+
+  isSearching: boolean
+  setIsSearching: (isSearching: boolean) => void
+
+  searchQuery: string
+  setSearchQuery: (query: string) => void
 }
 
 export const usePanelStore = create<PanelState>((set) => ({
@@ -14,5 +21,12 @@ export const usePanelStore = create<PanelState>((set) => ({
   setClose: () => set(() => ({ isOpen: false })),
   setOpen: () => set(() => ({ isOpen: true })),
 
-  child: null,
+  children: null,
+  setChildren: (children) => set(() => ({ children })),
+
+  isSearching: false,
+  setIsSearching: (isSearching) => set(() => ({ isSearching })),
+
+  searchQuery: "",
+  setSearchQuery: (searchQuery) => set(() => ({ searchQuery })),
 }))

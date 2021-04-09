@@ -36,11 +36,11 @@ const ShowPostPage: BlitzPage = () => {
         <Container
           maxWidth={{
             [COLUMN_BREAKPOINT]: "100%",
-            [ROW_BREAKPOINT]: theme.sizes.container.sm,
+            [ROW_BREAKPOINT]: theme.sizes.sm,
           }}
         >
           <AccountBlock post={post} account={owner} />
-          <RelatedBlock />
+          <RelatedBlock post={post} />
         </Container>
       </Flex>
     </Flex>

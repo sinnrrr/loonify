@@ -107,6 +107,8 @@ const UploadBlock: FunctionComponent<{
                 <Droppable droppableId="droppable" direction="horizontal">
                   {(provided) => (
                     <HStack
+                      align="stretch"
+                      grow={1}
                       mb={theme.space[2]}
                       ref={provided.innerRef}
                       {...provided.droppableProps}
@@ -119,7 +121,7 @@ const UploadBlock: FunctionComponent<{
                         >
                           {(provided, snapshot) => (
                             <Flex
-                              h="100%"
+                              grow={1}
                               cursor="pointer"
                               p={theme.space[2]}
                               justify="center"
