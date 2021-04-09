@@ -1,7 +1,5 @@
 import { ReactNode } from "react"
 import create from "zustand"
-import HelloComponent from "../components/HelloComponent"
-import SearchComponent from "../components/SearchComponent"
 
 export type PanelState = {
   isOpen: boolean
@@ -10,6 +8,9 @@ export type PanelState = {
 
   children?: ReactNode
   setChildren: (childen: ReactNode) => void
+
+  isSearching: boolean
+  setIsSearching: (isSearching: boolean) => void
 
   searchQuery: string
   setSearchQuery: (query: string) => void
@@ -22,6 +23,9 @@ export const usePanelStore = create<PanelState>((set) => ({
 
   children: null,
   setChildren: (children) => set(() => ({ children })),
+
+  isSearching: false,
+  setIsSearching: (isSearching) => set(() => ({ isSearching })),
 
   searchQuery: "",
   setSearchQuery: (searchQuery) => set(() => ({ searchQuery })),

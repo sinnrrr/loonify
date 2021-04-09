@@ -1,7 +1,7 @@
-import { invoke, useQuery } from "@blitzjs/core"
-import { Image } from "@chakra-ui/image"
-import { Flex, Heading, HStack, Text, VStack } from "@chakra-ui/layout"
+import { invoke } from "@blitzjs/core"
+import { Text, VStack } from "@chakra-ui/layout"
 import theme from "@chakra-ui/theme"
+import PostComponent from "app/posts/components/PostComponent"
 import getSearchedPosts from "app/posts/queries/getSearchedPosts"
 import { Post } from "db"
 import { useEffect, useState } from "react"
@@ -20,19 +20,9 @@ const SearchComponent = () => {
   return (
     <VStack align="flex-start">
       <Text>Search query: {searchQuery}</Text>
-      <VStack>
+      <VStack spacing={theme.space[8]}>
         {matchedPosts.map((post) => (
-          <VStack>
-            <Image src={post.images[0]} />
-            <VStack align="flex-start">
-              <Heading size="lg" wordBreak="break-word">
-                {post.title}
-              </Heading>
-              <Text wordBreak="break-word" isTruncated>
-                {post.description}
-              </Text>
-            </VStack>
-          </VStack>
+          <PostComponent post={post} />
         ))}
       </VStack>
     </VStack>
