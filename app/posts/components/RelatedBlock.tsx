@@ -8,22 +8,21 @@ import PostComponent from "./PostComponent"
 
 const RelatedBlock: FunctionComponent<{ post: Post }> = ({ post }) => {
   const [relatedPosts] = usePaginatedQuery(getRelatedPosts, {
+    id: post.id,
     title: post.title,
     description: post.description,
   })
 
   return (
-    <VStack
-      maxH="70vh"
-      pr={theme.space[4]}
-      spacing={theme.space[8]}
-      align="flex-start"
-      overflowY="auto"
-    >
-      <Text>Related</Text>
-      {relatedPosts.map((post) => (
-        <PostComponent post={post} />
-      ))}
+    <VStack align="flex-start" maxH="70vh">
+      <Text fontSize={theme.fontSizes["4xl"]} fontWeight={theme.fontWeights.bold}>
+        Related
+      </Text>
+      <VStack spacing={theme.space[8]} pr={theme.space[4]} align="flex-start" overflowY="scroll">
+        {relatedPosts.map((post, index) => (
+          <PostComponent key={index} post={post} />
+        ))}
+      </VStack>
     </VStack>
   )
 }

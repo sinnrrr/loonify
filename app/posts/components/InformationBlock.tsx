@@ -9,12 +9,13 @@ import { Post } from "db"
 import { FunctionComponent } from "react"
 import { useForm } from "react-hook-form"
 import { DESCRIPTION_FORM_KEY, TITLE_FORM_KEY } from "../constants"
+import { useAuthor } from "../hooks/useAuthor"
 import updatePost from "../mutations/updatePost"
 import { UpdatePost } from "../validations"
 
 const InformationBlock: FunctionComponent<{ post: Post }> = ({ post }) => {
   // Editable if session user id is equal to post owner id
-  const isEditable = useSession().userId === post.ownerId
+  const isEditable = useAuthor(post.ownerId)
 
   // Start with edit mode if post is undefined
   const startWithEdit = !!!post

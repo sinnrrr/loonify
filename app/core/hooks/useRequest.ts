@@ -1,5 +1,16 @@
 import { getAntiCSRFToken } from "@blitzjs/core"
 
+export const API_PREFIX = "/api/" + (process.env.NEXT_PUBLIC_CURRENT_API_VERSION || "v1")
+
+export const generateApiUrl = (route: string) => {
+  return (
+    API_PREFIX +
+    // if route has slash at the start, don't add slash
+    (route.charAt(0) === "/" ? "" : "/") +
+    route
+  )
+}
+
 export const useRequest = (route: string): ((params?: RequestInit) => Promise<Response>) => {
   const antiCSRFToken = getAntiCSRFToken()
 
@@ -10,15 +21,8 @@ export const useRequest = (route: string): ((params?: RequestInit) => Promise<Re
     },
   }
 
-  const requestUrl =
-    "/api/" +
-    (process.env.NEXT_PUBLIC_CURRENT_API_VERSION || "v1") +
-    // if route has slash at the start, don't add slash
-    (route.charAt(0) === "/" ? "" : "/") +
-    route
-
   return async (params?: RequestInit) =>
-    await window.fetch(requestUrl, {
+    await window.fetch(generateApiUrl(route), {
       ...defaultParams,
       ...params,
     })
