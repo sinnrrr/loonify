@@ -6,14 +6,22 @@ import Map from "../../core/components/Map"
 import { Post } from "db"
 import { FunctionComponent } from "react"
 import Carousel from "app/core/components/Carousel"
+import { ROW_BREAKPOINT } from "../constants"
 
 const MediaBlock: FunctionComponent<{ post: Post }> = ({ post }) => {
   return (
-    <Container maxWidth={theme.sizes.container.md}>
+    <Container
+      maxW={theme.sizes.container.md}
+      minW={{ [ROW_BREAKPOINT]: theme.sizes.container.sm }}
+    >
       <Tabs isFitted variant="enclosed">
         <TabList>
-          <Tab>Picture</Tab>
-          <Tab>Location</Tab>
+          <Tab fontSize={theme.fontSizes.xl} fontWeight={theme.fontWeights.bold}>
+            Picture
+          </Tab>
+          <Tab fontSize={theme.fontSizes.xl} fontWeight={theme.fontWeights.bold}>
+            Location
+          </Tab>
         </TabList>
         <TabPanels>
           <TabPanel
