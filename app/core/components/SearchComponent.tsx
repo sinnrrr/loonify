@@ -21,8 +21,8 @@ const SearchComponent = () => {
     <VStack align="flex-start">
       <Text>Search query: {searchQuery}</Text>
       <VStack spacing={theme.space[8]}>
-        {matchedPosts.map((post) => (
-          <PostComponent post={post} />
+        {matchedPosts.map((post, index) => (
+          <PostComponent key={index} post={post} />
         ))}
       </VStack>
     </VStack>

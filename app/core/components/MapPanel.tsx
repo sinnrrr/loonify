@@ -8,6 +8,7 @@ import { Input } from "@chakra-ui/input"
 import { CloseIcon, HamburgerIcon } from "@chakra-ui/icons"
 import SearchComponent from "./SearchComponent"
 import HelloComponent from "./HelloComponent"
+import { useBreakpointValue } from "@chakra-ui/media-query"
 
 export const Main = () => {
   return (
@@ -29,6 +30,12 @@ const MapPanel = () => {
   } = usePanelStore()
 
   if (!children) setChildren(<HelloComponent />)
+
+  const openOnInit = useBreakpointValue({ base: false, sm: true })
+
+  useEffect(() => {
+    if (openOnInit) setOpen()
+  }, [openOnInit, setOpen])
 
   useEffect(() => {
     setChildren(searchQuery ? <SearchComponent /> : <HelloComponent />)
