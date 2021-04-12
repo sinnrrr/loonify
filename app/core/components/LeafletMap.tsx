@@ -3,8 +3,6 @@ import "react-leaflet-markercluster/dist/styles.min.css"
 import { CSSProperties, FunctionComponent } from "react"
 import {
   Circle,
-  CircleMarker,
-  LayerGroup,
   MapContainer,
   MapContainerProps,
   TileLayer,
@@ -29,7 +27,6 @@ interface Props {
 }
 
 const LeafletMap: FunctionComponent<Props & EditProps> = ({
-  initial,
   fetcher,
   onChange,
   style = { display: "flex", flexGrow: 1 },
