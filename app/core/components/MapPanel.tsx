@@ -1,22 +1,17 @@
-import React, { Component, useEffect } from "react"
-import { Flex, Heading, HStack, Text } from "@chakra-ui/layout"
+import React, { useEffect } from "react"
+import { Box, Flex, HStack, Text } from "@chakra-ui/layout"
 import { Button, IconButton } from "@chakra-ui/button"
 import theme from "@chakra-ui/theme"
 import { usePanelStore } from "app/core/stores/panel"
 import { Slide } from "@chakra-ui/transition"
-import { Input } from "@chakra-ui/input"
-import { CloseIcon, HamburgerIcon } from "@chakra-ui/icons"
+import { Input, InputGroup, InputLeftElement } from "@chakra-ui/input"
+import { CloseIcon, HamburgerIcon, SearchIcon } from "@chakra-ui/icons"
 import SearchComponent from "./SearchComponent"
 import HelloComponent from "./HelloComponent"
 import { useBreakpointValue } from "@chakra-ui/media-query"
-
-export const Main = () => {
-  return (
-    <>
-      <Heading>Main</Heading>
-    </>
-  )
-}
+import { useRouter } from "@blitzjs/core"
+import { useCurrentUser } from "../hooks/useCurrentUser"
+import AccountComponent from "./AccountComponent"
 
 const MapPanel = () => {
   const {
@@ -28,6 +23,9 @@ const MapPanel = () => {
     searchQuery,
     setSearchQuery,
   } = usePanelStore()
+
+  const router = useRouter()
+  const user = useCurrentUser()
 
   if (!children) setChildren(<HelloComponent />)
 
@@ -73,11 +71,28 @@ const MapPanel = () => {
             borderBottom={theme.borders["1px"]}
             borderColor={theme.colors.gray[200]}
           >
-            <Input placeholder="Search here" onChange={(e) => setSearchQuery(e.target.value)} />
+            <InputGroup>
+              <InputLeftElement pointerEvents="none" children={<SearchIcon />} />
+              <Input placeholder="Search here" onChange={(e) => setSearchQuery(e.target.value)} />
+            </InputGroup>
             <IconButton onClick={setClose} icon={<CloseIcon />} aria-label="Close menu button" />
           </HStack>
-          <Flex direction="column" p={theme.space[4]}>
-            {children}
+          <Flex grow={1} justify="space-between" direction="column">
+            <Flex p={theme.space[4]}>{children}</Flex>
+            <Box
+              p={theme.space[4]}
+              borderTop={theme.borders["1px"]}
+              borderColor={theme.colors.gray[200]}
+            >
+              {user ? (
+                <AccountComponent name={user.name} />
+              ) : (
+                <HStack>
+                  <Button onClick={() => router.push("/login")}>Login</Button>
+                  <Button onClick={() => router.push("/signup")}>Signup</Button>
+                </HStack>
+              )}
+            </Box>
           </Flex>
         </Flex>
       </Slide>

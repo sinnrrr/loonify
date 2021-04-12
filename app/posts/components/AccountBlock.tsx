@@ -10,6 +10,7 @@ import { FunctionComponent } from "react"
 import { useAuthor } from "../hooks/useAuthor"
 import { useModalStore } from "app/core/stores/modal"
 import OptionsModal from "./OptionsModal"
+import AccountComponent from "app/core/components/AccountComponent"
 
 const AccountBlock: FunctionComponent<{ post: Post; account: User }> = ({ post, account }) => {
   const modal = useModalStore()
@@ -24,13 +25,7 @@ const AccountBlock: FunctionComponent<{ post: Post; account: User }> = ({ post, 
       mt={{ base: theme.space[8], md: theme.space[0] }}
       mb={{ base: theme.space[8], md: theme.space[8] }}
     >
-      <HStack alignItems="start" spacing={theme.space[4]}>
-        <Avatar size="lg" />
-        <Box>
-          <Heading size="lg">{account.name}</Heading>
-          <Text>On service since 20.03.2021</Text>
-        </Box>
-      </HStack>
+      <AccountComponent name={account.name} />
       <HStack width="100%">
         {isCreating ? (
           <Button>Save</Button>
