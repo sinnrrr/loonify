@@ -1,7 +1,10 @@
 import "leaflet/dist/leaflet.css"
+import "react-leaflet-markercluster/dist/styles.min.css"
 import { CSSProperties, FunctionComponent } from "react"
 import {
   Circle,
+  CircleMarker,
+  LayerGroup,
   MapContainer,
   MapContainerProps,
   TileLayer,
@@ -14,7 +17,7 @@ import * as z from "zod"
 import { Post } from "db"
 import { LatLngBounds, Map as LMap } from "leaflet"
 import { useList } from "react-use"
-import { useRouter } from "@blitzjs/core"
+import MarkerClusterGroup from "react-leaflet-markercluster"
 
 export type Fetcher = (bounds: z.infer<typeof GetBoundedPosts>) => Promise<Post[]>
 
@@ -38,7 +41,6 @@ const LeafletMap: FunctionComponent<Props & EditProps> = ({
   },
 }) => {
   const [locations, { updateAt: updateLocation }] = useList<CircleLocation>()
-  const router = useRouter()
 
   const handleBoundedPostsUpdate = (incoming: Post[]) => {
     incoming.forEach((post) =>
@@ -83,9 +85,17 @@ const LeafletMap: FunctionComponent<Props & EditProps> = ({
       />
       <ZoomControl position="bottomright" />
       {onChange && <EditControl onChange={onChange} />}
-      {locations.map((location, index) => (
-        <Circle key={index} radius={location.radius} center={[location.lat, location.lng]} />
-      ))}
+      {locations.length > 0 && (
+        <MarkerClusterGroup>
+          {locations.map((location, index) => (
+            <Circle
+              key={`circle-${index}`}
+              radius={location.radius}
+              center={[location.lat, location.lng]}
+            />
+          ))}
+        </MarkerClusterGroup>
+      )}
     </MapContainer>
   )
 }
