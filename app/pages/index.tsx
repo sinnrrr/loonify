@@ -1,4 +1,4 @@
-import React from "react"
+import React, { Suspense } from "react"
 import { BlitzPage, invoke } from "blitz"
 import Layout from "app/core/layouts/Layout"
 import Map from "../core/components/Map"
@@ -26,6 +26,10 @@ const Home: BlitzPage = () => {
 }
 
 Home.suppressFirstRenderFlicker = true
-Home.getLayout = (page) => <Layout title="Home">{page}</Layout>
+Home.getLayout = (page) => (
+  <Layout title="Home">
+    <Suspense fallback={<div>Loading...</div>}>{page}</Suspense>
+  </Layout>
+)
 
 export default Home
