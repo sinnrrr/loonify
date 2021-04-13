@@ -14,6 +14,10 @@ export type PanelState = {
 
   searchQuery: string
   setSearchQuery: (query: string) => void
+
+  upperIsOpen: boolean
+  upperToggleIsOpen: () => void
+  upperSetIsOpen: (state: boolean) => void
 }
 
 export const usePanelStore = create<PanelState>((set) => ({
@@ -29,4 +33,8 @@ export const usePanelStore = create<PanelState>((set) => ({
 
   searchQuery: "",
   setSearchQuery: (searchQuery) => set(() => ({ searchQuery })),
+
+  upperIsOpen: true,
+  upperSetIsOpen: (upperIsOpen) => set(() => ({ upperIsOpen })),
+  upperToggleIsOpen: () => set((state) => ({ upperIsOpen: !state.upperIsOpen })),
 }))

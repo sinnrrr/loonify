@@ -1,14 +1,17 @@
+import { Button } from "@chakra-ui/button"
 import { Heading, HStack, Text, VStack } from "@chakra-ui/layout"
 import theme from "@chakra-ui/theme"
 
 const CategoryComponent = () => (
-  <HStack flexGrow={1}>
-    <Text fontWeight={theme.fontWeights.bold}>Hello</Text>
-  </HStack>
+  <Button isFullWidth>
+    <Text fontSize={theme.fontSizes.xl} fontWeight={theme.fontWeights.bold}>
+      Hello
+    </Text>
+  </Button>
 )
 
 const CategoriesBlock = () => (
-  <VStack flexGrow={1}>
+  <VStack align="flex-start" w="100%">
     <CategoryComponent />
   </VStack>
 )

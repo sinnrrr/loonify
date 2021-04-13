@@ -62,9 +62,10 @@ const LeafletMap: FunctionComponent<Props & EditProps> = ({
 
   const Fetcher = () => {
     useMapEvents({
-      moveend: fetcher
-        ? ({ target: map }: { target: LMap }) => fetchBoundedPosts(map.getBounds())
-        : () => {},
+      // TODO
+      // moveend: fetcher
+      //   ? ({ target: map }: { target: LMap }) => fetchBoundedPosts(map.getBounds())
+      //   : () => {},
     })
 
     return null
