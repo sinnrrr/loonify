@@ -1,17 +1,26 @@
 import React, { useEffect } from "react"
-import { Box, Flex, HStack, Text } from "@chakra-ui/layout"
+import { Box, Flex, Heading, HStack, Text, VStack } from "@chakra-ui/layout"
 import { Button, IconButton } from "@chakra-ui/button"
 import theme from "@chakra-ui/theme"
 import { usePanelStore } from "app/core/stores/panel"
 import { Slide } from "@chakra-ui/transition"
 import { Input, InputGroup, InputLeftElement } from "@chakra-ui/input"
-import { CloseIcon, HamburgerIcon, SearchIcon } from "@chakra-ui/icons"
+import {
+  ChevronDownIcon,
+  CloseIcon,
+  HamburgerIcon,
+  QuestionIcon,
+  QuestionOutlineIcon,
+  SearchIcon,
+} from "@chakra-ui/icons"
 import SearchComponent from "./SearchComponent"
 import HelloComponent from "./HelloComponent"
 import { useBreakpointValue } from "@chakra-ui/media-query"
-import { useRouter } from "@blitzjs/core"
+import { useMutation, useRouter } from "@blitzjs/core"
 import { useCurrentUser } from "../hooks/useCurrentUser"
-import AccountComponent from "./AccountComponent"
+import { Avatar } from "@chakra-ui/avatar"
+import { Menu, MenuButton, MenuDivider, MenuGroup, MenuItem, MenuList } from "@chakra-ui/menu"
+import logout from "app/auth/mutations/logout"
 
 const MapPanel = () => {
   const {
@@ -26,6 +35,8 @@ const MapPanel = () => {
 
   const router = useRouter()
   const user = useCurrentUser()
+
+  const [logoutMutation] = useMutation(logout)
 
   if (!children) setChildren(<HelloComponent />)
 
@@ -66,33 +77,54 @@ const MapPanel = () => {
           boxShadow={theme.shadows["2xl"]}
           zIndex={theme.zIndices.docked}
         >
-          <HStack
+          <VStack
+            align="flex-start"
             p={theme.space[4]}
             borderBottom={theme.borders["1px"]}
             borderColor={theme.colors.gray[200]}
           >
-            <InputGroup>
-              <InputLeftElement pointerEvents="none" children={<SearchIcon />} />
-              <Input placeholder="Search here" onChange={(e) => setSearchQuery(e.target.value)} />
-            </InputGroup>
-            <IconButton onClick={setClose} icon={<CloseIcon />} aria-label="Close menu button" />
-          </HStack>
-          <Flex grow={1} justify="space-between" direction="column">
-            <Flex p={theme.space[4]}>{children}</Flex>
-            <Box
-              p={theme.space[4]}
-              borderTop={theme.borders["1px"]}
-              borderColor={theme.colors.gray[200]}
-            >
+            <HStack>
+              <IconButton onClick={setClose} icon={<CloseIcon />} aria-label="Close menu button" />
               {user ? (
-                <AccountComponent name={user.name} />
+                <Menu>
+                  <MenuButton as={Button} rightIcon={<ChevronDownIcon />}>
+                    <HStack>
+                      <Avatar size="xs" />
+                      <Text wordBreak="break-word" fontSize={theme.fontSizes.xl}>
+                        {user.name}
+                      </Text>
+                    </HStack>
+                  </MenuButton>
+                  <MenuList>
+                    <MenuItem>My Account</MenuItem>
+                    <MenuDivider />
+                    <MenuItem onClick={() => logoutMutation()}>Logout</MenuItem>
+                  </MenuList>
+                </Menu>
               ) : (
-                <HStack>
+                <>
                   <Button onClick={() => router.push("/login")}>Login</Button>
                   <Button onClick={() => router.push("/signup")}>Signup</Button>
-                </HStack>
+                </>
               )}
-            </Box>
+            </HStack>
+            <HStack>
+              <InputGroup>
+                <InputLeftElement
+                  zIndex={theme.zIndices.base}
+                  pointerEvents="none"
+                  children={<SearchIcon />}
+                />
+                <Input placeholder="Search here" onChange={(e) => setSearchQuery(e.target.value)} />
+              </InputGroup>
+              <IconButton aria-label="Help" icon={<QuestionIcon />} />
+            </HStack>
+            <Button isFullWidth onClick={() => router.push("/posts/new")}>
+              Create post
+            </Button>
+          </VStack>
+          <Flex grow={1} justify="space-between" direction="column">
+            <Flex p={theme.space[4]}>{children}</Flex>
           </Flex>
         </Flex>
       </Slide>

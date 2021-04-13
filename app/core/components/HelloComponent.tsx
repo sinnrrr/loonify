@@ -1,14 +1,11 @@
-import { Box, Heading, Text } from "@chakra-ui/layout"
+import { Heading, VStack } from "@chakra-ui/layout"
+import CategoriesBlock from "./CategoriesBlock"
 
 const HelloComponent = () => (
-  <Box>
-    <Heading>Hello world</Heading>
-    <Text>
-      Lorem ipsum dolor sit amet consectetur, adipisicing elit. Alias totam eius quos mollitia
-      consequatur quisquam esse beatae earum soluta. Voluptate inventore magnam et neque? Laudantium
-      necessitatibus voluptatibus molestiae accusamus cumque!
-    </Text>
-  </Box>
+  <VStack align="flex-start" flexGrow={1}>
+    <Heading>Categories</Heading>
+    <CategoriesBlock />
+  </VStack>
 )
 
 export default HelloComponent
