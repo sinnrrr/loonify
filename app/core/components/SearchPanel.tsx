@@ -7,7 +7,7 @@ import { Post } from "db"
 import { ReactNode, useEffect, useState } from "react"
 import { usePanelStore } from "../stores/panel"
 
-const SearchComponent = () => {
+const SearchPanel = () => {
   const { searchQuery, isSearching, setIsSearching } = usePanelStore()
   const [matchedPosts, setMatchedPosts] = useState<Post[]>([])
   const [renderedComponent, setRenderedComponent] = useState<ReactNode>(null)
@@ -42,4 +42,4 @@ const SearchComponent = () => {
   )
 }
 
-export default SearchComponent
+export default SearchPanel
