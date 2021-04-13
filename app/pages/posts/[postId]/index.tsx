@@ -8,13 +8,9 @@ import InformationBlock from "app/posts/components/InformationBlock"
 import AccountBlock from "app/posts/components/AccountBlock"
 import RelatedBlock from "app/posts/components/RelatedBlock"
 import { Suspense } from "react"
-import { useModalStore } from "app/core/stores/modal"
-import { Modal } from "@chakra-ui/modal"
 import { COLUMN_BREAKPOINT, ROW_BREAKPOINT } from "app/posts/constants"
 
 const ShowPostPage: BlitzPage = () => {
-  const modal = useModalStore()
-
   // Post id from query
   const postId = useParam("postId", "number")
 
@@ -46,9 +42,6 @@ const ShowPostPage: BlitzPage = () => {
           </Container>
         </Flex>
       </Flex>
-      <Modal isOpen={modal.isOpen} onClose={modal.onClose}>
-        {modal.children}
-      </Modal>
     </>
   )
 }
