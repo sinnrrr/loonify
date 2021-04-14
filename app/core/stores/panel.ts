@@ -6,8 +6,11 @@ export type PanelState = {
   setOpen: () => void
   setClose: () => void
 
-  children?: ReactNode
-  setChildren: (childen: ReactNode) => void
+  previousChildren?: ReactNode
+  setPreviousChildren: (childen: ReactNode) => void
+
+  currentChildren?: ReactNode
+  setCurrentChildren: (childen: ReactNode) => void
 
   isSearching: boolean
   setIsSearching: (isSearching: boolean) => void
@@ -28,8 +31,11 @@ export const usePanelStore = create<PanelState>((set) => ({
   setClose: () => set(() => ({ isOpen: false })),
   setOpen: () => set(() => ({ isOpen: true })),
 
-  children: null,
-  setChildren: (children) => set(() => ({ children })),
+  previousChildren: null,
+  setPreviousChildren: (previousChildren) => set(() => ({ previousChildren })),
+
+  currentChildren: null,
+  setCurrentChildren: (currentChildren) => set(() => ({ currentChildren })),
 
   isSearching: false,
   setIsSearching: (isSearching) => set(() => ({ isSearching })),

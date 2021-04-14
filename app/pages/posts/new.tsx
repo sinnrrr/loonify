@@ -14,6 +14,7 @@ import { Suspense, useEffect, useState } from "react"
 import { useForm } from "react-hook-form"
 import createPost from "app/posts/mutations/createPost"
 import UploadBlock from "app/posts/components/UploadBlock"
+import { usePostRedirect } from "app/core/hooks/usePostRedirect"
 
 const NewPostPage: BlitzPage = () => {
   // Mutations and requests
@@ -23,8 +24,8 @@ const NewPostPage: BlitzPage = () => {
   const [isUploadingImages, setIsUploadingImages] = useState<boolean>(false)
 
   // Hooks
-  const router = useRouter()
   const activeSession = useAuthenticatedSession()
+  const postRedirect = usePostRedirect()
 
   // Zod react hook form registering
   const {
@@ -47,7 +48,7 @@ const NewPostPage: BlitzPage = () => {
 
   // On form submit handler
   const submitForm = async () => {
-    createPostMutation(getValues()).then(({ id: postId }) => router.push("/posts/" + postId))
+    createPostMutation(getValues()).then(({ id: postId }) => postRedirect(postId))
   }
 
   // Set unregistered values and trigger validation

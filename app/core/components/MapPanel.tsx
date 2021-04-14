@@ -34,18 +34,18 @@ import {
 } from "@chakra-ui/modal"
 import { useDisclosure } from "@chakra-ui/hooks"
 import ViewPanel from "./ViewPanel"
+import { usePanelRedirect } from "../hooks/usePanelRedirect"
 
 const MapPanel = () => {
   const {
-    children,
-    setChildren,
+    currentChildren,
+    setCurrentChildren,
+    setPreviousChildren,
     isOpen,
     setOpen,
     setClose,
     searchQuery,
     setSearchQuery,
-    upperIsOpen,
-    upperToggleIsOpen,
     selectedPost,
   } = usePanelStore()
 
@@ -57,7 +57,7 @@ const MapPanel = () => {
   const { colorMode, toggleColorMode } = useColorMode()
   const { isOpen: modalIsOpen, onClose: modalOnClose, onOpen: modalOnOpen } = useDisclosure()
 
-  if (!children) setChildren(<CategoriesPanel />)
+  if (!currentChildren) setCurrentChildren(<CategoriesPanel />)
 
   useEffect(() => {
     if (openOnInit) setOpen()
@@ -71,10 +71,8 @@ const MapPanel = () => {
 
     if (selectedPost) newComponent = <ViewPanel />
 
-    if (newComponent) setChildren(newComponent)
-
-    return
-  }, [searchQuery, selectedPost, setChildren])
+    if (newComponent) setCurrentChildren(newComponent)
+  }, [searchQuery, selectedPost, setCurrentChildren])
 
   return (
     <>
@@ -189,7 +187,7 @@ const MapPanel = () => {
           </Flex> */}
           {/* Drawer body content */}
           <Flex grow={1} p={theme.space[4]} direction="column" maxH="100%">
-            {children}
+            {currentChildren}
           </Flex>
         </Flex>
       </Slide>
