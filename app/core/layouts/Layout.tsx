@@ -2,7 +2,7 @@ import React, { ReactNode } from "react"
 import { Head } from "blitz"
 import { Flex } from "@chakra-ui/react"
 
-type LayoutProps = {
+export type LayoutProps = {
   title?: string
   children: ReactNode
 }

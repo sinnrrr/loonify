@@ -1,19 +1,17 @@
-import React, { ReactNode, useEffect } from "react"
+import React, { FunctionComponent, ReactNode, useEffect } from "react"
 import { Divider, Flex, HStack, Text, VStack } from "@chakra-ui/layout"
 import { Button, IconButton } from "@chakra-ui/button"
 import theme from "@chakra-ui/theme"
 import { usePanelStore } from "app/core/stores/panel"
-import { Collapse, Slide } from "@chakra-ui/transition"
+import { Slide } from "@chakra-ui/transition"
 import { Input, InputGroup, InputLeftElement } from "@chakra-ui/input"
 import {
   ChevronDownIcon,
-  ChevronUpIcon,
   CloseIcon,
   HamburgerIcon,
   QuestionOutlineIcon,
   SearchIcon,
 } from "@chakra-ui/icons"
-import SearchPanel from "./SearchPanel"
 import { useBreakpointValue } from "@chakra-ui/media-query"
 import { useMutation, useRouter } from "@blitzjs/core"
 import { useCurrentUser } from "../hooks/useCurrentUser"
@@ -21,7 +19,6 @@ import { Avatar } from "@chakra-ui/avatar"
 import { Menu, MenuButton, MenuDivider, MenuItem, MenuList } from "@chakra-ui/menu"
 import logout from "app/auth/mutations/logout"
 import { useColorMode, useColorModeValue } from "@chakra-ui/color-mode"
-import CategoriesPanel from "./CategoriesPanel"
 import { Portal } from "@chakra-ui/portal"
 import {
   Modal,
@@ -33,21 +30,9 @@ import {
   ModalOverlay,
 } from "@chakra-ui/modal"
 import { useDisclosure } from "@chakra-ui/hooks"
-import ViewPanel from "./ViewPanel"
-import { usePanelRedirect } from "../hooks/usePanelRedirect"
 
-const MapPanel = () => {
-  const {
-    currentChildren,
-    setCurrentChildren,
-    setPreviousChildren,
-    isOpen,
-    setOpen,
-    setClose,
-    searchQuery,
-    setSearchQuery,
-    selectedPost,
-  } = usePanelStore()
+const MapPanel: FunctionComponent<{ children: ReactNode }> = ({ children }) => {
+  const { isOpen, setOpen, setClose, searchQuery, setSearchQuery } = usePanelStore()
 
   const router = useRouter()
   const user = useCurrentUser()
@@ -57,22 +42,9 @@ const MapPanel = () => {
   const { colorMode, toggleColorMode } = useColorMode()
   const { isOpen: modalIsOpen, onClose: modalOnClose, onOpen: modalOnOpen } = useDisclosure()
 
-  if (!currentChildren) setCurrentChildren(<CategoriesPanel />)
-
   useEffect(() => {
     if (openOnInit) setOpen()
   }, [openOnInit, setOpen])
-
-  useEffect(() => {
-    let newComponent: ReactNode = null
-
-    if (searchQuery) newComponent = <SearchPanel />
-    else newComponent = <CategoriesPanel />
-
-    if (selectedPost) newComponent = <ViewPanel />
-
-    if (newComponent) setCurrentChildren(newComponent)
-  }, [searchQuery, selectedPost, setCurrentChildren])
 
   return (
     <>
@@ -144,7 +116,11 @@ const MapPanel = () => {
                   pointerEvents="none"
                   children={<SearchIcon />}
                 />
-                <Input placeholder="Search here" onChange={(e) => setSearchQuery(e.target.value)} />
+                <Input
+                  placeholder="Search here"
+                  defaultValue={searchQuery}
+                  onChange={(e) => setSearchQuery(e.target.value)}
+                />
               </InputGroup>
               <IconButton aria-label="Help" icon={<QuestionOutlineIcon />} onClick={modalOnOpen} />
               <Portal>
@@ -187,7 +163,7 @@ const MapPanel = () => {
           </Flex> */}
           {/* Drawer body content */}
           <Flex grow={1} p={theme.space[4]} direction="column" maxH="100%">
-            {currentChildren}
+            {children}
           </Flex>
         </Flex>
       </Slide>

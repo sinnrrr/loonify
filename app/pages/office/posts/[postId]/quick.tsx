@@ -1,3 +1,5 @@
+import { BlitzPage, useParam } from "@blitzjs/core"
+import IndexLayout from "app/core/layouts/IndexLayout"
 import { useQuery } from "@blitzjs/core"
 import { Alert, AlertIcon } from "@chakra-ui/alert"
 import { Button } from "@chakra-ui/button"
@@ -5,13 +7,11 @@ import { Image } from "@chakra-ui/image"
 import { Box, Text, VStack } from "@chakra-ui/layout"
 import getPost from "app/posts/queries/getPost"
 import { BiImage } from "react-icons/bi"
-import { usePostRedirect } from "../hooks/usePostRedirect"
-import { usePanelStore } from "../stores/panel"
-import MiddlePanel from "./MiddlePanel"
+import { usePostRedirect } from "app/core/hooks/usePostRedirect"
+import MiddlePanel from "app/core/components/MiddlePanel"
 
-const ViewPanel = () => {
-  const { selectedPost } = usePanelStore()
-  const [post] = useQuery(getPost, { id: selectedPost })
+const Quick: BlitzPage = () => {
+  const [post] = useQuery(getPost, { id: useParam("postId", "number") })
   const postRedirect = usePostRedirect()
 
   return (
@@ -40,4 +40,7 @@ const ViewPanel = () => {
   )
 }
 
-export default ViewPanel
+Quick.suppressFirstRenderFlicker = true
+Quick.getLayout = (page) => <IndexLayout>{page}</IndexLayout>
+
+export default Quick

@@ -14,4 +14,13 @@ module.exports = {
     return config
   },
   */
+  async redirects() {
+    return [
+      {
+        source: "/",
+        destination: "/office",
+        permanent: false,
+      },
+    ]
+  },
 }
