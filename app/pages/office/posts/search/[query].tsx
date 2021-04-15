@@ -1,5 +1,6 @@
 import { BlitzPage, invoke, useParam } from "@blitzjs/core"
 import { Text, VStack } from "@chakra-ui/layout"
+import MiddlePanel from "app/core/components/MiddlePanel"
 import IndexLayout from "app/core/layouts/IndexLayout"
 import PostComponent from "app/posts/components/PostComponent"
 import getSearchedPosts from "app/posts/queries/getSearchedPosts"
@@ -38,8 +39,9 @@ const Search: BlitzPage = () => {
   }, [query, isSearching, matchedPosts])
 
   return (
-    <VStack align="flex-start" spacing={theme.space[8]}>
-      {renderedComponent}
+    <VStack align="flex-start">
+      <MiddlePanel heading="Search" />
+      <VStack spacing={theme.space[8]}>{renderedComponent}</VStack>
     </VStack>
   )
 }

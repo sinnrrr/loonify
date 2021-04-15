@@ -29,10 +29,12 @@ import {
   ModalOverlay,
 } from "@chakra-ui/modal"
 import { useDisclosure } from "@chakra-ui/hooks"
+import { usePostRedirect } from "../hooks/usePostRedirect"
 
 const MapPanel: FunctionComponent<{ children: ReactNode }> = ({ children }) => {
   const router = useRouter()
   const user = useCurrentUser()
+  const postRedirect = usePostRedirect()
   const openOnInit = useBreakpointValue({ base: false, sm: true })
 
   const [logoutMutation] = useMutation(logout)
@@ -123,7 +125,12 @@ const MapPanel: FunctionComponent<{ children: ReactNode }> = ({ children }) => {
                 <Input
                   placeholder="Search here"
                   defaultValue={searchQuery}
-                  onChange={(e) => setSearchQuery(e.target.value)}
+                  onChange={(e) => {
+                    const targetValue = e.target.value
+
+                    setSearchQuery(targetValue)
+                    if (targetValue) router.replace("/office/posts/search/" + targetValue)
+                  }}
                 />
               </InputGroup>
               <IconButton aria-label="Help" icon={<QuestionOutlineIcon />} onClick={modalOnOpen} />
@@ -145,7 +152,7 @@ const MapPanel: FunctionComponent<{ children: ReactNode }> = ({ children }) => {
                 </Modal>
               </Portal>
             </HStack>
-            <Button isFullWidth onClick={() => router.push("/posts/new")}>
+            <Button isFullWidth onClick={() => postRedirect()}>
               Create post
             </Button>
           </VStack>

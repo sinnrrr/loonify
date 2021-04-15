@@ -92,7 +92,7 @@ const LeafletMap: FunctionComponent<Props & EditProps> = ({
               key={`circle-${index}`}
               radius={location.radius}
               center={[location.lat, location.lng]}
-              eventHandlers={{ click: () => postRedirect(index, true) }}
+              eventHandlers={{ click: () => postRedirect(index, "quick") }}
             />
           ))}
         </MarkerClusterGroup>

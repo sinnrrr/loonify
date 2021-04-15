@@ -1,22 +1,16 @@
 import { FunctionComponent } from "react"
 import { Heading, HStack } from "@chakra-ui/layout"
-import { usePanelStore } from "../stores/panel"
 import { ArrowBackIcon } from "@chakra-ui/icons"
-import { usePanelRedirect } from "../hooks/usePanelRedirect"
+import { useRouter } from "@blitzjs/core"
 
 const MiddlePanel: FunctionComponent<{ heading: string }> = ({ heading }) => {
-  const panelRedirect = usePanelRedirect()
-  const { previousChildren } = usePanelStore()
+  const router = useRouter()
+  const redirectTo = "/office"
 
   return (
     <HStack>
-      {previousChildren && (
-        <ArrowBackIcon
-          cursor="pointer"
-          w={10}
-          h={10}
-          onClick={() => panelRedirect(previousChildren)}
-        />
+      {router.asPath !== redirectTo && (
+        <ArrowBackIcon cursor="pointer" w={10} h={10} onClick={() => router.push(redirectTo)} />
       )}
       <Heading>{heading}</Heading>
     </HStack>

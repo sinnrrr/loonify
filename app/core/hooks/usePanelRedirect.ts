@@ -1,13 +1,9 @@
-import { ReactNode } from "react"
-import { usePanelStore } from "../stores/panel"
+import { useRouter } from "@blitzjs/core"
 
-export type PanelRedirect = (to: ReactNode) => void
+export type PanelRedirect = () => void
 
 export const usePanelRedirect: () => PanelRedirect = () => {
-  const { setCurrentChildren, setPreviousChildren } = usePanelStore()
+  const router = useRouter()
 
-  return (children) => {
-    setCurrentChildren(children)
-    setPreviousChildren(children)
-  }
+  return () => router.push("/office")
 }

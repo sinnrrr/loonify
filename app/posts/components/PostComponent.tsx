@@ -18,7 +18,7 @@ const PostComponent: FunctionComponent<{ post: Post }> = ({ post }) => {
         </Box>
       )}
       <VStack align="flex-start">
-        <Heading size="lg" wordBreak="break-word">
+        <Heading size="lg" wordBreak="break-word" isTruncated>
           {post.title}
         </Heading>
         <Text wordBreak="break-word" isTruncated>

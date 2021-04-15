@@ -64,8 +64,6 @@ const NewPostPage: BlitzPage = () => {
     trigger(key)
   }
 
-  setInterval(() => console.log(getValues()), 5000)
-
   return (
     <Flex grow={1} justify="center">
       <Container p={theme.space[4]} m={theme.space[4]} maxW={theme.sizes.container.md}>

@@ -1,9 +1,23 @@
 import { useRouter } from "@blitzjs/core"
 
-export type PostRedirect = (postId: number, quick?: boolean) => void
+export const QuickMode = "quick" as const
+export const FullMode = "full" as const
+
+export type PostMode = typeof QuickMode | typeof FullMode
+export type PostRedirect = (postId?: number, mode?: PostMode) => void
 
 export const usePostRedirect: () => PostRedirect = () => {
   const router = useRouter()
 
-  return (postId, quick) => router.push("/office/posts/" + postId + (quick ? "/quick" : ""))
+  return (postId, mode = "full") => {
+    let redirectTo = "/office/posts/"
+
+    if (!!!postId) redirectTo += "new"
+    else {
+      if (mode === FullMode) redirectTo += postId
+      if (mode === QuickMode) redirectTo += postId + "/quick"
+    }
+
+    router.push(redirectTo)
+  }
 }

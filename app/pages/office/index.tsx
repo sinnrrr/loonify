@@ -1,5 +1,5 @@
 import React from "react"
-import { BlitzPage } from "blitz"
+import { BlitzPage, usePaginatedQuery } from "blitz"
 import IndexLayout from "app/core/layouts/IndexLayout"
 import {
   Accordion,
@@ -10,43 +10,48 @@ import {
 } from "@chakra-ui/accordion"
 import { Box, VStack } from "@chakra-ui/layout"
 import MiddlePanel from "app/core/components/MiddlePanel"
+import getCategories from "app/categories/queries/getCategories"
+import { Button } from "@chakra-ui/button"
+import { useList } from "react-use"
+import { Category } from "db"
 
 const Home: BlitzPage = () => {
+  const [selectedCategories, { insertAt, removeAt }] = useList<string>()
+  const [{ categories }] = usePaginatedQuery(getCategories, {})
+
+  const selectCategory = (category: Category) => {
+    if (selectedCategories[category.id]) removeAt(category.id)
+    else insertAt(category.id, category.name)
+  }
+
+  console.log(selectedCategories)
+
   return (
     <VStack spacing={4} align="flex-start">
       <MiddlePanel heading="Categories" />
-      <Accordion defaultIndex={[0]} w="100%" allowMultiple>
-        <AccordionItem>
-          <h2>
-            <AccordionButton>
-              <Box flex="1" textAlign="left">
-                Category 1
-              </Box>
-              <AccordionIcon />
-            </AccordionButton>
-          </h2>
-          <AccordionPanel pb={4}>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
-            incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud
-            exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
-          </AccordionPanel>
-        </AccordionItem>
-
-        <AccordionItem>
-          <h2>
-            <AccordionButton>
-              <Box flex="1" textAlign="left">
-                Category 2
-              </Box>
-              <AccordionIcon />
-            </AccordionButton>
-          </h2>
-          <AccordionPanel pb={4}>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
-            incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud
-            exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
-          </AccordionPanel>
-        </AccordionItem>
+      <Accordion w="100%" allowMultiple>
+        {categories.map(
+          (category, index) =>
+            category.parentId && (
+              <AccordionItem key={index}>
+                <h2>
+                  <AccordionButton onClick={() => selectCategory(category)}>
+                    <Box flex="1" textAlign="left">
+                      {category.name}
+                    </Box>
+                    <AccordionIcon />
+                  </AccordionButton>
+                </h2>
+                {category.parentId && (
+                  <AccordionPanel pb={4}>
+                    <Button onClick={() => selectCategory(category)} variant="link">
+                      {category.parent?.name}
+                    </Button>
+                  </AccordionPanel>
+                )}
+              </AccordionItem>
+            )
+        )}
       </Accordion>
     </VStack>
   )

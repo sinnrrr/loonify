@@ -1,4 +1,4 @@
-import { PostType, Prisma, User } from ".prisma/client"
+import { PostType } from ".prisma/client"
 import { SecurePassword } from "@blitzjs/core/server"
 import { ALLOWED_POST_TYPES } from "app/posts/constants"
 import db from "db"
@@ -11,25 +11,29 @@ const getRandomArrayValue = <T>(array: any[]): T => {
 const seed = async () => {
   await db.user.create({
     data: {
-      id: 1,
       firstName: faker.name.firstName(),
       lastName: faker.name.lastName(),
-      email: "test@test.com",
+      email: faker.internet.email(),
       phone: faker.phone.phoneNumber(),
-      hashedPassword: await SecurePassword.hash("123asd123"),
+      hashedPassword: await SecurePassword.hash(faker.internet.password()),
     },
   })
 
-  await db.category.create({ data: { id: 1, name: faker.vehicle.type() } })
-  await db.category.create({ data: { id: 2, name: faker.vehicle.type(), parentId: 1 } })
+  await db.category.create({ data: { name: faker.vehicle.type() } })
+  await db.category.create({
+    data: {
+      name: faker.vehicle.type(),
+      parentId: (await db.category.findFirst({ where: { parentId: null } }))!.id,
+    },
+  })
 
   await db.post.create({
     data: {
       title: faker.lorem.paragraph(),
       description: faker.lorem.paragraphs(10),
       type: getRandomArrayValue<PostType>(ALLOWED_POST_TYPES),
-      ownerId: 1,
-      categoryId: 1,
+      ownerId: (await db.user.findFirst())!.id,
+      categoryId: (await db.category.findFirst())!.id,
     },
   })
 }
