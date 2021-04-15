@@ -1,12 +1,16 @@
 -- CreateEnum
 CREATE TYPE "TokenType" AS ENUM ('RESET_PASSWORD');
 
+-- CreateEnum
+CREATE TYPE "PostType" AS ENUM ('LOST', 'FOUND', 'THEFT');
+
 -- CreateTable
 CREATE TABLE "User" (
     "id" SERIAL NOT NULL,
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updatedAt" TIMESTAMP(3) NOT NULL,
-    "name" TEXT NOT NULL,
+    "firstName" TEXT NOT NULL,
+    "lastName" TEXT,
     "email" TEXT NOT NULL,
     "phone" TEXT,
     "hashedPassword" TEXT,
@@ -52,6 +56,7 @@ CREATE TABLE "Post" (
     "updatedAt" TIMESTAMP(3) NOT NULL,
     "title" TEXT NOT NULL,
     "description" TEXT NOT NULL,
+    "type" "PostType" NOT NULL,
     "images" TEXT[],
     "locations" JSONB[],
     "ownerId" INTEGER NOT NULL,

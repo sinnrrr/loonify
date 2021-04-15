@@ -14,7 +14,8 @@ model User {
   id             Int      @id @default(autoincrement())
   createdAt      DateTime @default(now())
   updatedAt      DateTime @updatedAt
-  name           String
+  firstName      String
+  lastName       String?
   email          String   @unique
   phone          String?  @unique
   hashedPassword String?
@@ -59,12 +60,19 @@ enum TokenType {
   RESET_PASSWORD
 }
 
+enum PostType {
+  LOST
+  FOUND
+  THEFT
+}
+
 model Post {
   id          Int      @id @default(autoincrement())
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
   title       String
   description String
+  type        PostType
   images      String[]
   locations   Json[]
 

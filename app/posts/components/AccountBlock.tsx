@@ -35,7 +35,7 @@ const AccountBlock: FunctionComponent<{ post: Post; account: User }> = ({ post, 
       <HStack justify="flex-start" spacing={theme.space[4]}>
         <Avatar size="md" />
         <Box>
-          <Heading size="lg">{account.name}</Heading>
+          <Heading size="lg">{account.firstName + (account.lastName || "")}</Heading>
           <Text>On service since 20.03.2021</Text>
         </Box>
       </HStack>

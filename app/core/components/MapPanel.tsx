@@ -1,8 +1,7 @@
-import React, { FunctionComponent, ReactNode, useEffect } from "react"
+import React, { FunctionComponent, ReactNode, useEffect, useState } from "react"
 import { Divider, Flex, HStack, Text, VStack } from "@chakra-ui/layout"
 import { Button, IconButton } from "@chakra-ui/button"
 import theme from "@chakra-ui/theme"
-import { usePanelStore } from "app/core/stores/panel"
 import { Slide } from "@chakra-ui/transition"
 import { Input, InputGroup, InputLeftElement } from "@chakra-ui/input"
 import {
@@ -32,19 +31,20 @@ import {
 import { useDisclosure } from "@chakra-ui/hooks"
 
 const MapPanel: FunctionComponent<{ children: ReactNode }> = ({ children }) => {
-  const { isOpen, setOpen, setClose, searchQuery, setSearchQuery } = usePanelStore()
-
   const router = useRouter()
   const user = useCurrentUser()
   const openOnInit = useBreakpointValue({ base: false, sm: true })
 
   const [logoutMutation] = useMutation(logout)
   const { colorMode, toggleColorMode } = useColorMode()
+  const [searchQuery, setSearchQuery] = useState<string>()
+
+  const { isOpen: panelIsOpen, onOpen: panelOnOpen, onClose: panelOnClose } = useDisclosure()
   const { isOpen: modalIsOpen, onClose: modalOnClose, onOpen: modalOnOpen } = useDisclosure()
 
   useEffect(() => {
-    if (openOnInit) setOpen()
-  }, [openOnInit, setOpen])
+    if (openOnInit) panelOnOpen()
+  }, [openOnInit, panelOnOpen])
 
   return (
     <>
@@ -54,7 +54,7 @@ const MapPanel: FunctionComponent<{ children: ReactNode }> = ({ children }) => {
         m={theme.space[4]}
         boxShadow={theme.shadows["2xl"]}
         aria-label="Menu button"
-        onClick={setOpen}
+        onClick={panelOnOpen}
         zIndex={theme.zIndices.docked}
       >
         <HamburgerIcon />
@@ -62,7 +62,7 @@ const MapPanel: FunctionComponent<{ children: ReactNode }> = ({ children }) => {
       </Button>
       {/* Drawer */}
       <Slide
-        in={isOpen}
+        in={panelIsOpen}
         direction="left"
         style={{ zIndex: theme.zIndices.docked, maxWidth: theme.sizes.xs }}
       >
@@ -79,14 +79,18 @@ const MapPanel: FunctionComponent<{ children: ReactNode }> = ({ children }) => {
           {/* <Collapse in={upperIsOpen} animateOpacity> */}
           <VStack align="flex-start" p={theme.space[4]}>
             <HStack justify="space-between" w="100%">
-              <IconButton onClick={setClose} icon={<CloseIcon />} aria-label="Close menu button" />
+              <IconButton
+                onClick={panelOnClose}
+                icon={<CloseIcon />}
+                aria-label="Close menu button"
+              />
               {user ? (
                 <Menu>
                   <MenuButton isFullWidth as={Button} rightIcon={<ChevronDownIcon />}>
                     <HStack>
                       <Avatar size="xs" />
                       <Text wordBreak="break-word" fontSize={theme.fontSizes.xl}>
-                        {user.name}
+                        {user.firstName}
                       </Text>
                     </HStack>
                   </MenuButton>

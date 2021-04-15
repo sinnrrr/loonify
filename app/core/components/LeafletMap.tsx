@@ -13,10 +13,10 @@ import EditControl, { CircleLocation, EditProps } from "./EditControl"
 import { GetBoundedPosts } from "../../posts/queries/getBoundedPosts"
 import * as z from "zod"
 import { Post } from "db"
-import { LatLngBounds, Map as LMap } from "leaflet"
+import { LatLngBounds } from "leaflet"
 import { useList } from "react-use"
 import MarkerClusterGroup from "react-leaflet-markercluster"
-import { usePanelStore } from "../stores/panel"
+import { usePostRedirect } from "../hooks/usePostRedirect"
 
 export type Fetcher = (bounds: z.infer<typeof GetBoundedPosts>) => Promise<Post[]>
 
@@ -38,7 +38,7 @@ const LeafletMap: FunctionComponent<Props & EditProps> = ({
     minZoom: 4,
   },
 }) => {
-  const { setSelectedPost } = usePanelStore()
+  const postRedirect = usePostRedirect()
   const [locations, { updateAt: updateLocation }] = useList<CircleLocation>()
 
   const handleBoundedPostsUpdate = (incoming: Post[]) => {
@@ -92,7 +92,7 @@ const LeafletMap: FunctionComponent<Props & EditProps> = ({
               key={`circle-${index}`}
               radius={location.radius}
               center={[location.lat, location.lng]}
-              eventHandlers={{ click: () => setSelectedPost(index) }}
+              eventHandlers={{ click: () => postRedirect(index, true) }}
             />
           ))}
         </MarkerClusterGroup>
