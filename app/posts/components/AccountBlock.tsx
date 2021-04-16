@@ -16,13 +16,13 @@ import {
 import theme from "@chakra-ui/theme"
 import { useToast } from "@chakra-ui/toast"
 import { useIndexRedirect } from "app/core/hooks/useIndexRedirect"
+import { generateApiUrl } from "app/core/hooks/useRequest"
 import { Post, User } from "db"
 import { FunctionComponent, useEffect, useRef, useState } from "react"
 import { useAuthor } from "../hooks/useAuthor"
 import deletePost from "../mutations/deletePost"
 
 const AccountBlock: FunctionComponent<{ post: Post; account: User }> = ({ post, account }) => {
-  // () => window.open(generateApiUrl(`/posts/${post.id}/pdf`), "_blank")!.focus()
   const toast = useToast()
   const indexRedirect = useIndexRedirect()
   const viewerIsOwner = useAuthor(post.ownerId)
@@ -72,7 +72,14 @@ const AccountBlock: FunctionComponent<{ post: Post; account: User }> = ({ post, 
                 Options
               </MenuButton>
               <MenuList>
-                <MenuItem icon={<DownloadIcon />}>Generate offline</MenuItem>
+                <MenuItem
+                  icon={<DownloadIcon />}
+                  onClick={() => {
+                    window.open(generateApiUrl(`/posts/${post.id}/pdf`), "_blank")!.focus()
+                  }}
+                >
+                  Generate offline
+                </MenuItem>
                 <MenuItem icon={<LinkIcon />} onClick={onCopy}>
                   Share
                 </MenuItem>

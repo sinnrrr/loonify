@@ -1,5 +1,5 @@
 import { Image } from "@chakra-ui/image"
-import { Box, Divider, Flex, Text, VStack } from "@chakra-ui/layout"
+import { Box, Text, VStack } from "@chakra-ui/layout"
 import theme from "@chakra-ui/theme"
 import { usePostRedirect } from "app/core/hooks/usePostRedirect"
 import { Post } from "db"

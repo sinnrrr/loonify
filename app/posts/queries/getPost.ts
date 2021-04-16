@@ -9,7 +9,7 @@ const GetPost = z.object({
 
 export default resolver.pipe(resolver.zod(GetPost), async ({ id }) => {
   // TODO: in multi-tenant app, you must add validation to ensure correct tenant
-  const post = await db.post.findFirst({ where: { id }, include: { owner: true } })
+  const post = await db.post.findFirst({ where: { id }, include: { owner: true, category: true } })
 
   if (!post) throw new NotFoundError()
 
