@@ -14,9 +14,9 @@ const RelatedBlock: FunctionComponent<{ post: Post }> = ({ post }) => {
   })
 
   return (
-    <VStack align="flex-start" maxH="70vh">
+    <VStack align="flex-start" h="100%">
       <Heading>Related</Heading>
-      <VStack spacing={theme.space[8]} pr={theme.space[4]} align="flex-start" overflowY="auto">
+      <VStack spacing={theme.space[8]} align="flex-start" overflowY="auto">
         {relatedPosts.length > 0 ? (
           relatedPosts.map((post, index) => <PostComponent key={index} post={post} />)
         ) : (

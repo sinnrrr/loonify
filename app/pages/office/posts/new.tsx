@@ -22,6 +22,8 @@ import createPost from "app/posts/mutations/createPost"
 import UploadBlock from "app/posts/components/UploadBlock"
 import { usePostRedirect } from "app/core/hooks/usePostRedirect"
 import { Select } from "@chakra-ui/select"
+import { ArrowBackIcon } from "@chakra-ui/icons"
+import { useBackRedirect } from "app/core/hooks/useBackRedirect"
 
 const NewPostPage: BlitzPage = () => {
   // Mutations and requests
@@ -31,8 +33,9 @@ const NewPostPage: BlitzPage = () => {
   const [isUploadingImages, setIsUploadingImages] = useState<boolean>(false)
 
   // Hooks
-  const activeSession = useAuthenticatedSession()
+  const backRedirect = useBackRedirect()
   const postRedirect = usePostRedirect()
+  const activeSession = useAuthenticatedSession()
 
   // Zod react hook form registering
   const {
@@ -68,7 +71,10 @@ const NewPostPage: BlitzPage = () => {
     <Flex grow={1} justify="center">
       <Container p={theme.space[4]} m={theme.space[4]} maxW={theme.sizes.container.md}>
         <VStack spacing={theme.space[8]}>
-          <Heading>Create new post</Heading>
+          <HStack>
+            <ArrowBackIcon w={10} h={10} cursor="pointer" onClick={backRedirect} />
+            <Heading>Create new post</Heading>
+          </HStack>
           <HStack w="100%">
             <FormControl isInvalid={!!errors[TYPE_FORM_KEY]} isRequired>
               <FormLabel>Type</FormLabel>
@@ -93,7 +99,7 @@ const NewPostPage: BlitzPage = () => {
               {errors[CATEGORY_FORM_KEY]?.message ? (
                 <FormErrorMessage>{errors[CATEGORY_FORM_KEY]?.message}</FormErrorMessage>
               ) : (
-                <FormHelperText>Choose type of post</FormHelperText>
+                <FormHelperText>Category of post</FormHelperText>
               )}
             </FormControl>
           </HStack>
@@ -133,7 +139,10 @@ const NewPostPage: BlitzPage = () => {
               onChange={(layers) => setUnregisteredValue("locations", layers)}
               style={{ height: "30vh" }}
             />
-            <FormHelperText>Make a beautiful description to attract more visitors</FormHelperText>
+            <FormHelperText>
+              Select location on map (simply click on it) or remove location by right-clicking or
+              holding a tap on location
+            </FormHelperText>
           </FormControl>
           <Button isFullWidth disabled={!isValid || isUploadingImages} onClick={submitForm}>
             Submit

@@ -60,26 +60,38 @@ const AccountBlock: FunctionComponent<{ post: Post; account: User }> = ({ post, 
           </Box>
         </HStack>
         <HStack width="100%">
-          <Menu>
-            <MenuButton
+          {viewerIsOwner ? (
+            <Menu>
+              <MenuButton
+                isFullWidth
+                size="lg"
+                as={Button}
+                leftIcon={<SettingsIcon />}
+                rightIcon={<ChevronDownIcon />}
+              >
+                Options
+              </MenuButton>
+              <MenuList>
+                <MenuItem icon={<DownloadIcon />}>Generate offline</MenuItem>
+                <MenuItem icon={<LinkIcon />} onClick={onCopy}>
+                  Share
+                </MenuItem>
+                <MenuItem icon={<DeleteIcon />} onClick={() => setIsOpen(true)}>
+                  Delete
+                </MenuItem>
+              </MenuList>
+            </Menu>
+          ) : (
+            <Button
               isFullWidth
               size="lg"
-              as={Button}
-              leftIcon={<SettingsIcon />}
-              rightIcon={<ChevronDownIcon />}
+              onClick={() => {
+                window.open(account.phone ? `tel:${account.phone}` : `mailto:${account.email}`)
+              }}
             >
-              {viewerIsOwner ? "Options" : "Contact"}
-            </MenuButton>
-            <MenuList>
-              <MenuItem icon={<DownloadIcon />}>Generate offline</MenuItem>
-              <MenuItem icon={<LinkIcon />} onClick={onCopy}>
-                Share
-              </MenuItem>
-              <MenuItem icon={<DeleteIcon />} onClick={() => setIsOpen(true)}>
-                Delete
-              </MenuItem>
-            </MenuList>
-          </Menu>
+              Contact
+            </Button>
+          )}
         </HStack>
       </VStack>
       <AlertDialog isOpen={isOpen} leastDestructiveRef={cancelRef} onClose={onClose}>
