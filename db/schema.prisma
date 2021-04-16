@@ -14,7 +14,8 @@ model User {
   id             Int      @id @default(autoincrement())
   createdAt      DateTime @default(now())
   updatedAt      DateTime @updatedAt
-  name           String
+  firstName      String
+  lastName       String?
   email          String   @unique
   phone          String?  @unique
   hashedPassword String?
@@ -59,14 +60,38 @@ enum TokenType {
   RESET_PASSWORD
 }
 
+enum PostType {
+  LOST
+  FOUND
+  THEFT
+}
+
 model Post {
   id          Int      @id @default(autoincrement())
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
   title       String
   description String
+  type        PostType
   images      String[]
   locations   Json[]
-  owner       User     @relation(fields: [ownerId], references: [id])
-  ownerId     Int
+
+  owner   User @relation(fields: [ownerId], references: [id])
+  ownerId Int
+
+  category   Category @relation("PostToCategory", fields: [categoryId], references: [id])
+  categoryId Int
+}
+
+model Category {
+  id        Int      @id @default(autoincrement())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  name      String
+
+  parent   Category? @relation("CategoryToCategory", fields: [parentId], references: [id])
+  parentId Int?
+
+  parents Category[] @relation("CategoryToCategory")
+  Post    Post[]     @relation("PostToCategory")
 }

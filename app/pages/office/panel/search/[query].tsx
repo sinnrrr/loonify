@@ -1,29 +1,32 @@
-import { invoke } from "@blitzjs/core"
+import { BlitzPage, invoke, useParam } from "@blitzjs/core"
 import { Text, VStack } from "@chakra-ui/layout"
-import theme from "@chakra-ui/theme"
+import MiddlePanel from "app/core/components/MiddlePanel"
+import IndexLayout from "app/core/layouts/IndexLayout"
 import PostComponent from "app/posts/components/PostComponent"
 import getSearchedPosts from "app/posts/queries/getSearchedPosts"
 import { Post } from "db"
 import { ReactNode, useEffect, useState } from "react"
-import { usePanelStore } from "../stores/panel"
+import theme from "theme"
 
-const SearchComponent = () => {
-  const { searchQuery, isSearching, setIsSearching } = usePanelStore()
+const Search: BlitzPage = () => {
+  const query = useParam("query", "string") || ""
+
+  const [isSearching, setIsSearching] = useState<boolean>(true)
   const [matchedPosts, setMatchedPosts] = useState<Post[]>([])
   const [renderedComponent, setRenderedComponent] = useState<ReactNode>(null)
 
   useEffect(() => {
-    if (searchQuery) {
+    if (query) {
       setIsSearching(true)
-      invoke(getSearchedPosts, { query: searchQuery }).then((posts) => {
+      invoke(getSearchedPosts, { query }).then((posts) => {
         setMatchedPosts(posts)
         setIsSearching(false)
       })
     }
-  }, [searchQuery, setIsSearching])
+  }, [query, setIsSearching])
 
   useEffect(() => {
-    if (searchQuery) {
+    if (query) {
       if (isSearching) setRenderedComponent(<Text>Searching...</Text>)
       else {
         if (matchedPosts.length === 0) setRenderedComponent(<Text>No posts have been found</Text>)
@@ -33,13 +36,17 @@ const SearchComponent = () => {
           )
       }
     }
-  }, [searchQuery, isSearching, matchedPosts])
+  }, [query, isSearching, matchedPosts])
 
   return (
-    <VStack align="flex-start" spacing={theme.space[8]}>
-      {renderedComponent}
+    <VStack align="flex-start">
+      <MiddlePanel heading="Search" />
+      <VStack spacing={theme.space[8]}>{renderedComponent}</VStack>
     </VStack>
   )
 }
 
-export default SearchComponent
+Search.suppressFirstRenderFlicker = true
+Search.getLayout = (page) => <IndexLayout title="Home">{page}</IndexLayout>
+
+export default Search

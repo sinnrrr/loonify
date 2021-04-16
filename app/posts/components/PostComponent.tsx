@@ -1,17 +1,24 @@
-import { useRouter } from "@blitzjs/core"
 import { Image } from "@chakra-ui/image"
-import { Heading, Text, VStack } from "@chakra-ui/layout"
+import { Box, Heading, Text, VStack } from "@chakra-ui/layout"
+import { usePostRedirect } from "app/core/hooks/usePostRedirect"
 import { Post } from "db"
 import { FunctionComponent } from "react"
+import { BiImage } from "react-icons/bi"
 
 const PostComponent: FunctionComponent<{ post: Post }> = ({ post }) => {
-  const router = useRouter()
+  const postRedirect = usePostRedirect()
 
   return (
-    <VStack align="flex-start" cursor="pointer" onClick={() => router.push("/posts/" + post.id)}>
-      <Image src={post.images[0]} />
+    <VStack align="flex-start" cursor="pointer" onClick={() => postRedirect(post.id)}>
+      {post.images.length > 0 ? (
+        <Image src={post.images[0]} />
+      ) : (
+        <Box>
+          <BiImage size="100%" />
+        </Box>
+      )}
       <VStack align="flex-start">
-        <Heading size="lg" wordBreak="break-word">
+        <Heading size="lg" wordBreak="break-word" isTruncated>
           {post.title}
         </Heading>
         <Text wordBreak="break-word" isTruncated>

@@ -1,43 +1,52 @@
-import React, { useEffect } from "react"
-import { Box, Flex, HStack, Text } from "@chakra-ui/layout"
+import React, { FunctionComponent, ReactNode, useEffect, useState } from "react"
+import { Divider, Flex, HStack, Text, VStack } from "@chakra-ui/layout"
 import { Button, IconButton } from "@chakra-ui/button"
 import theme from "@chakra-ui/theme"
-import { usePanelStore } from "app/core/stores/panel"
 import { Slide } from "@chakra-ui/transition"
 import { Input, InputGroup, InputLeftElement } from "@chakra-ui/input"
-import { CloseIcon, HamburgerIcon, SearchIcon } from "@chakra-ui/icons"
-import SearchComponent from "./SearchComponent"
-import HelloComponent from "./HelloComponent"
+import {
+  ChevronDownIcon,
+  CloseIcon,
+  HamburgerIcon,
+  QuestionOutlineIcon,
+  SearchIcon,
+} from "@chakra-ui/icons"
 import { useBreakpointValue } from "@chakra-ui/media-query"
-import { useRouter } from "@blitzjs/core"
+import { useMutation, useRouter } from "@blitzjs/core"
 import { useCurrentUser } from "../hooks/useCurrentUser"
-import AccountComponent from "./AccountComponent"
+import { Avatar } from "@chakra-ui/avatar"
+import { Menu, MenuButton, MenuDivider, MenuItem, MenuList } from "@chakra-ui/menu"
+import logout from "app/auth/mutations/logout"
+import { useColorMode, useColorModeValue } from "@chakra-ui/color-mode"
+import { Portal } from "@chakra-ui/portal"
+import {
+  Modal,
+  ModalBody,
+  ModalCloseButton,
+  ModalContent,
+  ModalFooter,
+  ModalHeader,
+  ModalOverlay,
+} from "@chakra-ui/modal"
+import { useDisclosure } from "@chakra-ui/hooks"
+import { usePostRedirect } from "../hooks/usePostRedirect"
 
-const MapPanel = () => {
-  const {
-    children,
-    setChildren,
-    isOpen,
-    setOpen,
-    setClose,
-    searchQuery,
-    setSearchQuery,
-  } = usePanelStore()
-
+const MapPanel: FunctionComponent<{ children: ReactNode }> = ({ children }) => {
   const router = useRouter()
   const user = useCurrentUser()
-
-  if (!children) setChildren(<HelloComponent />)
-
+  const postRedirect = usePostRedirect()
   const openOnInit = useBreakpointValue({ base: false, sm: true })
 
-  useEffect(() => {
-    if (openOnInit) setOpen()
-  }, [openOnInit, setOpen])
+  const [logoutMutation] = useMutation(logout)
+  const { colorMode, toggleColorMode } = useColorMode()
+  const [searchQuery, setSearchQuery] = useState<string>()
+
+  const { isOpen: panelIsOpen, onOpen: panelOnOpen, onClose: panelOnClose } = useDisclosure()
+  const { isOpen: modalIsOpen, onClose: modalOnClose, onOpen: modalOnOpen } = useDisclosure()
 
   useEffect(() => {
-    setChildren(searchQuery ? <SearchComponent /> : <HelloComponent />)
-  }, [searchQuery, setChildren])
+    if (openOnInit) panelOnOpen()
+  }, [openOnInit, panelOnOpen])
 
   return (
     <>
@@ -47,52 +56,125 @@ const MapPanel = () => {
         m={theme.space[4]}
         boxShadow={theme.shadows["2xl"]}
         aria-label="Menu button"
-        onClick={setOpen}
+        onClick={panelOnOpen}
         zIndex={theme.zIndices.docked}
       >
         <HamburgerIcon />
         <Text fontSize={theme.fontSizes.sm}>Menu</Text>
       </Button>
+      {/* Drawer */}
       <Slide
-        in={isOpen}
+        in={panelIsOpen}
         direction="left"
         style={{ zIndex: theme.zIndices.docked, maxWidth: theme.sizes.xs }}
       >
+        {/* Drawer body */}
         <Flex
           h="100vh"
           overflowY="auto"
-          bgColor="white"
+          bgColor={useColorModeValue(theme.colors.white, theme.colors.gray[800])}
           direction="column"
           boxShadow={theme.shadows["2xl"]}
           zIndex={theme.zIndices.docked}
         >
-          <HStack
-            p={theme.space[4]}
-            borderBottom={theme.borders["1px"]}
-            borderColor={theme.colors.gray[200]}
-          >
-            <InputGroup>
-              <InputLeftElement pointerEvents="none" children={<SearchIcon />} />
-              <Input placeholder="Search here" onChange={(e) => setSearchQuery(e.target.value)} />
-            </InputGroup>
-            <IconButton onClick={setClose} icon={<CloseIcon />} aria-label="Close menu button" />
-          </HStack>
-          <Flex grow={1} justify="space-between" direction="column">
-            <Flex p={theme.space[4]}>{children}</Flex>
-            <Box
-              p={theme.space[4]}
-              borderTop={theme.borders["1px"]}
-              borderColor={theme.colors.gray[200]}
-            >
+          {/* Upper panel */}
+          {/* <Collapse in={upperIsOpen} animateOpacity> */}
+          <VStack align="flex-start" p={theme.space[4]}>
+            <HStack justify="space-between" w="100%">
+              <IconButton
+                onClick={panelOnClose}
+                icon={<CloseIcon />}
+                aria-label="Close menu button"
+              />
               {user ? (
-                <AccountComponent name={user.name} />
+                <Menu>
+                  <MenuButton isFullWidth as={Button} rightIcon={<ChevronDownIcon />}>
+                    <HStack>
+                      <Avatar size="xs" />
+                      <Text wordBreak="break-word" fontSize={theme.fontSizes.xl}>
+                        {user.firstName}
+                      </Text>
+                    </HStack>
+                  </MenuButton>
+                  <MenuList>
+                    <MenuItem isDisabled>My Account</MenuItem>
+                    <MenuDivider />
+                    <MenuItem onClick={toggleColorMode}>Theme: {colorMode}</MenuItem>
+                    <MenuDivider />
+                    <MenuItem onClick={() => logoutMutation()}>Logout</MenuItem>
+                  </MenuList>
+                </Menu>
               ) : (
-                <HStack>
-                  <Button onClick={() => router.push("/login")}>Login</Button>
-                  <Button onClick={() => router.push("/signup")}>Signup</Button>
-                </HStack>
+                <>
+                  <Button w="50%" onClick={() => router.push("/login")}>
+                    Login
+                  </Button>
+                  <Button w="50%" onClick={() => router.push("/signup")}>
+                    Signup
+                  </Button>
+                </>
               )}
-            </Box>
+            </HStack>
+            <HStack>
+              <InputGroup>
+                <InputLeftElement
+                  zIndex={theme.zIndices.base}
+                  pointerEvents="none"
+                  children={<SearchIcon />}
+                />
+                <Input
+                  placeholder="Search here"
+                  defaultValue={searchQuery}
+                  onChange={(e) => {
+                    const targetValue = e.target.value
+
+                    setSearchQuery(targetValue)
+                    if (targetValue) router.replace("/office/posts/search/" + targetValue)
+                  }}
+                />
+              </InputGroup>
+              <IconButton aria-label="Help" icon={<QuestionOutlineIcon />} onClick={modalOnOpen} />
+              <Portal>
+                <Modal isOpen={modalIsOpen} onClose={modalOnClose}>
+                  <ModalOverlay />
+                  <ModalContent>
+                    <ModalHeader>Post options</ModalHeader>
+                    <ModalCloseButton />
+                    <ModalBody>
+                      Lorem ipsum dolor sit amet consectetur adipisicing elit. Modi laboriosam quos
+                      doloribus repellendus beatae. Repellat, adipisci exercitationem ducimus
+                      officiis quam, eligendi, dolorem ad molestiae sapiente vero sint dignissimos
+                      aperiam necessitatibus?
+                    </ModalBody>
+
+                    <ModalFooter />
+                  </ModalContent>
+                </Modal>
+              </Portal>
+            </HStack>
+            <Button isFullWidth onClick={() => postRedirect()}>
+              Create post
+            </Button>
+          </VStack>
+          {/* </Collapse> */}
+          {/* Upper panel divider */}
+          <Divider />
+          {/* Upper panel toggler */}
+          {/* <Flex justify="center">
+            <Button
+              size="xs"
+              aria-label="Toggle upper panel"
+              px={theme.space[8]}
+              borderTopRadius={theme.radii.none}
+              borderBottomRadius={theme.radii["3xl"]}
+              onClick={upperToggleIsOpen}
+            >
+              {upperIsOpen ? <ChevronUpIcon /> : <ChevronDownIcon />}
+            </Button>
+          </Flex> */}
+          {/* Drawer body content */}
+          <Flex grow={1} p={theme.space[4]} direction="column" maxH="100%">
+            {children}
           </Flex>
         </Flex>
       </Slide>

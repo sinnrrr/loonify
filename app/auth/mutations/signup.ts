@@ -3,11 +3,15 @@ import db from "db"
 import { Signup } from "app/auth/validations"
 import { Role } from "types"
 
-export default resolver.pipe(resolver.zod(Signup), async ({ email, name, password }, ctx) => {
-  const hashedPassword = await SecurePassword.hash(password)
+export default resolver.pipe(resolver.zod(Signup), async ({ email, firstName, password }, ctx) => {
   const user = await db.user.create({
-    data: { email: email.toLowerCase(), hashedPassword, name, role: "USER" },
-    select: { id: true, name: true, email: true, role: true },
+    data: {
+      firstName,
+      email: email.toLowerCase(),
+      hashedPassword: await SecurePassword.hash(password),
+      role: "USER",
+    },
+    select: { id: true, firstName: true, email: true, role: true },
   })
 
   await ctx.session.$create({ userId: user.id, role: user.role as Role })

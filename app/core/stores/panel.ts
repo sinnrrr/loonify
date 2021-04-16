@@ -6,14 +6,24 @@ export type PanelState = {
   setOpen: () => void
   setClose: () => void
 
-  children?: ReactNode
-  setChildren: (childen: ReactNode) => void
+  previousChildren?: ReactNode
+  setPreviousChildren: (childen: ReactNode) => void
+
+  currentChildren?: ReactNode
+  setCurrentChildren: (childen: ReactNode) => void
 
   isSearching: boolean
   setIsSearching: (isSearching: boolean) => void
 
   searchQuery: string
   setSearchQuery: (query: string) => void
+
+  selectedPost?: number
+  setSelectedPost: (selectedPost: number) => void
+
+  upperIsOpen: boolean
+  upperToggleIsOpen: () => void
+  upperSetIsOpen: (state: boolean) => void
 }
 
 export const usePanelStore = create<PanelState>((set) => ({
@@ -21,12 +31,22 @@ export const usePanelStore = create<PanelState>((set) => ({
   setClose: () => set(() => ({ isOpen: false })),
   setOpen: () => set(() => ({ isOpen: true })),
 
-  children: null,
-  setChildren: (children) => set(() => ({ children })),
+  previousChildren: null,
+  setPreviousChildren: (previousChildren) => set(() => ({ previousChildren })),
+
+  currentChildren: null,
+  setCurrentChildren: (currentChildren) => set(() => ({ currentChildren })),
 
   isSearching: false,
   setIsSearching: (isSearching) => set(() => ({ isSearching })),
 
   searchQuery: "",
   setSearchQuery: (searchQuery) => set(() => ({ searchQuery })),
+
+  selectedPost: undefined,
+  setSelectedPost: (selectedPost) => set(() => ({ selectedPost })),
+
+  upperIsOpen: true,
+  upperSetIsOpen: (upperIsOpen) => set(() => ({ upperIsOpen })),
+  upperToggleIsOpen: () => set((state) => ({ upperIsOpen: !state.upperIsOpen })),
 }))

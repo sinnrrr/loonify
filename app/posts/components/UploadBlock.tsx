@@ -96,7 +96,13 @@ const UploadBlock: FunctionComponent<{
               <Flex justify="space-between">
                 <Text>Image</Text>
                 {!!images.length && (
-                  <Button size="xs" onClick={onImageRemoveAll}>
+                  <Button
+                    size="xs"
+                    onClick={() => {
+                      onImageRemoveAll()
+                      onFinish([])
+                    }}
+                  >
                     Clear all
                   </Button>
                 )}
