@@ -10,12 +10,12 @@ export const usePostRedirect: () => PostRedirect = () => {
   const router = useRouter()
 
   return (postId, mode = "full") => {
-    let redirectTo = "/office/posts/"
+    let redirectTo = "/office"
 
-    if (!!!postId) redirectTo += "new"
+    if (!!!postId) redirectTo += "/posts/new"
     else {
-      if (mode === FullMode) redirectTo += postId
-      if (mode === QuickMode) redirectTo += postId + "/quick"
+      if (mode === FullMode) redirectTo += "/posts/" + postId
+      if (mode === QuickMode) redirectTo += "/panel/" + postId
     }
 
     router.push(redirectTo)

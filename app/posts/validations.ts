@@ -30,8 +30,8 @@ export const UpdatePost = z
     title,
     images,
     description,
-    type,
-    categoryId,
+    type: type.optional(),
+    categoryId: categoryId.optional(),
     locations: locations.optional(),
   })
   .nonstrict()

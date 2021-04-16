@@ -5,12 +5,12 @@ import { useRouter } from "@blitzjs/core"
 
 const MiddlePanel: FunctionComponent<{ heading: string }> = ({ heading }) => {
   const router = useRouter()
-  const redirectTo = "/office"
+  const redirectBase = "/office"
 
   return (
     <HStack>
-      {router.asPath !== redirectTo && (
-        <ArrowBackIcon cursor="pointer" w={10} h={10} onClick={() => router.push(redirectTo)} />
+      {router.asPath !== redirectBase && (
+        <ArrowBackIcon cursor="pointer" w={10} h={10} onClick={() => router.back()} />
       )}
       <Heading>{heading}</Heading>
     </HStack>

@@ -1,72 +1,118 @@
-import { useRouter } from "@blitzjs/core"
+import { useMutation } from "@blitzjs/core"
 import { Avatar } from "@chakra-ui/avatar"
 import { Button } from "@chakra-ui/button"
-import { useDisclosure } from "@chakra-ui/hooks"
+import { useClipboard } from "@chakra-ui/hooks"
+import { ChevronDownIcon, DeleteIcon, DownloadIcon, LinkIcon, SettingsIcon } from "@chakra-ui/icons"
 import { Box, Heading, HStack, Text, VStack } from "@chakra-ui/layout"
+import { Menu, MenuButton, MenuItem, MenuList } from "@chakra-ui/menu"
 import {
-  Modal,
-  ModalBody,
-  ModalCloseButton,
-  ModalContent,
-  ModalFooter,
-  ModalHeader,
-  ModalOverlay,
+  AlertDialog,
+  AlertDialogBody,
+  AlertDialogContent,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogOverlay,
 } from "@chakra-ui/modal"
-import { Portal } from "@chakra-ui/portal"
 import theme from "@chakra-ui/theme"
-import { generateApiUrl } from "app/core/hooks/useRequest"
+import { useToast } from "@chakra-ui/toast"
+import { useIndexRedirect } from "app/core/hooks/useIndexRedirect"
 import { Post, User } from "db"
-import { FunctionComponent } from "react"
+import { FunctionComponent, useEffect, useRef, useState } from "react"
 import { useAuthor } from "../hooks/useAuthor"
+import deletePost from "../mutations/deletePost"
 
 const AccountBlock: FunctionComponent<{ post: Post; account: User }> = ({ post, account }) => {
-  const { isOpen, onClose, onOpen } = useDisclosure()
-
   // () => window.open(generateApiUrl(`/posts/${post.id}/pdf`), "_blank")!.focus()
+  const toast = useToast()
+  const indexRedirect = useIndexRedirect()
   const viewerIsOwner = useAuthor(post.ownerId)
+  const { onCopy, hasCopied } = useClipboard(window.location.href)
+  const [deletePostMutation] = useMutation(deletePost)
+  const [isOpen, setIsOpen] = useState(false)
+  const cancelRef = useRef(null)
+  const onClose = () => setIsOpen(false)
+
+  useEffect(() => {
+    if (hasCopied) {
+      toast({
+        title: "Share post",
+        description: "The link copied to clipboard",
+        status: "success",
+        duration: 3000,
+        isClosable: true,
+      }) as void
+    }
+  }, [onCopy, hasCopied, toast])
 
   return (
-    <VStack
-      align="start"
-      spacing={theme.space[4]}
-      mt={{ base: theme.space[8], md: theme.space[0] }}
-      mb={{ base: theme.space[8], md: theme.space[8] }}
-    >
-      <HStack justify="flex-start" spacing={theme.space[4]}>
-        <Avatar size="md" />
-        <Box>
-          <Heading size="lg">{account.firstName + (account.lastName || "")}</Heading>
-          <Text>On service since 20.03.2021</Text>
-        </Box>
-      </HStack>
-      <HStack width="100%">
-        <Button
-          size="lg"
-          isFullWidth
-          onClick={() => {
-            if (viewerIsOwner) onOpen()
-          }}
-        >
-          {viewerIsOwner ? "Options" : "Contact"}
-        </Button>
-        <Portal>
-          <Modal isOpen={isOpen} onClose={onClose}>
-            <ModalOverlay />
-            <ModalContent>
-              <ModalHeader>Post options</ModalHeader>
-              <ModalCloseButton />
-              <ModalBody>
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Modi laboriosam quos
-                doloribus repellendus beatae. Repellat, adipisci exercitationem ducimus officiis
-                quam, eligendi, dolorem ad molestiae sapiente vero sint dignissimos aperiam
-                necessitatibus?
-              </ModalBody>
-              <ModalFooter />
-            </ModalContent>
-          </Modal>
-        </Portal>
-      </HStack>
-    </VStack>
+    <>
+      <VStack
+        align="start"
+        spacing={theme.space[4]}
+        mt={{ base: theme.space[8], md: theme.space[0] }}
+        mb={{ base: theme.space[8], md: theme.space[8] }}
+      >
+        <HStack justify="flex-start" spacing={theme.space[4]}>
+          <Avatar size="md" />
+          <Box>
+            <Heading size="lg">{account.firstName + (account.lastName || "")}</Heading>
+            <Text>On service since 20.03.2021</Text>
+          </Box>
+        </HStack>
+        <HStack width="100%">
+          <Menu>
+            <MenuButton
+              isFullWidth
+              size="lg"
+              as={Button}
+              leftIcon={<SettingsIcon />}
+              rightIcon={<ChevronDownIcon />}
+            >
+              {viewerIsOwner ? "Options" : "Contact"}
+            </MenuButton>
+            <MenuList>
+              <MenuItem icon={<DownloadIcon />}>Generate offline</MenuItem>
+              <MenuItem icon={<LinkIcon />} onClick={onCopy}>
+                Share
+              </MenuItem>
+              <MenuItem icon={<DeleteIcon />} onClick={() => setIsOpen(true)}>
+                Delete
+              </MenuItem>
+            </MenuList>
+          </Menu>
+        </HStack>
+      </VStack>
+      <AlertDialog isOpen={isOpen} leastDestructiveRef={cancelRef} onClose={onClose}>
+        <AlertDialogOverlay>
+          <AlertDialogContent>
+            <AlertDialogHeader fontSize="lg" fontWeight="bold">
+              Delete post
+            </AlertDialogHeader>
+
+            <AlertDialogBody>Are you sure? You can't undo this action afterwards.</AlertDialogBody>
+
+            <AlertDialogFooter>
+              <Button ref={cancelRef} onClick={onClose}>
+                Cancel
+              </Button>
+              <Button
+                colorScheme="red"
+                onClick={() => {
+                  deletePostMutation({ id: post.id })
+                    .then(indexRedirect)
+                    .then(() => {
+                      toast({ title: "Post have been deleted", status: "success", duration: 2000 })
+                    })
+                }}
+                ml={3}
+              >
+                Delete
+              </Button>
+            </AlertDialogFooter>
+          </AlertDialogContent>
+        </AlertDialogOverlay>
+      </AlertDialog>
+    </>
   )
 }
 

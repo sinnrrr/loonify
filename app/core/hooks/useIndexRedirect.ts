@@ -1,8 +1,8 @@
 import { useRouter } from "@blitzjs/core"
 
-export type PanelRedirect = () => void
+export type IndexRedirect = () => void
 
-export const usePanelRedirect: () => PanelRedirect = () => {
+export const useIndexRedirect = (): IndexRedirect => {
   const router = useRouter()
 
   return () => router.push("/office")

@@ -24,8 +24,6 @@ const Home: BlitzPage = () => {
     else insertAt(category.id, category.name)
   }
 
-  console.log(selectedCategories)
-
   return (
     <VStack spacing={4} align="flex-start">
       <MiddlePanel heading="Categories" />

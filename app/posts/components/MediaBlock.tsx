@@ -5,8 +5,8 @@ import theme from "@chakra-ui/theme"
 import Map from "../../core/components/Map"
 import { Post } from "db"
 import { FunctionComponent } from "react"
-import Carousel from "app/core/components/Carousel"
 import { ROW_BREAKPOINT } from "../constants"
+import Carousel from "app/core/components/Carousel"
 
 const MediaBlock: FunctionComponent<{ post: Post }> = ({ post }) => {
   return (
@@ -34,8 +34,8 @@ const MediaBlock: FunctionComponent<{ post: Post }> = ({ post }) => {
               border={theme.borders["1px"]}
               borderColor={theme.colors.gray[200]}
             >
+              <Image src={post.images[0]} />
               {/* <Carousel images={post.images} /> */}
-              <Image src={post.images[0]} alt="Post image" />
             </TabPanel>
           )}
           <TabPanel border={theme.borders["1px"]} borderColor={theme.colors.gray[200]}>

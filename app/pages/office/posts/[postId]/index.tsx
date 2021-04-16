@@ -1,6 +1,6 @@
-import { useParam, BlitzPage, useQuery } from "blitz"
+import { useParam, BlitzPage, useQuery, useRouter } from "blitz"
 import Layout from "app/core/layouts/Layout"
-import { Container, Flex } from "@chakra-ui/layout"
+import { Container, Flex, Text } from "@chakra-ui/layout"
 import theme from "@chakra-ui/theme"
 import getPost from "app/posts/queries/getPost"
 import MediaBlock from "app/posts/components/MediaBlock"
@@ -9,10 +9,13 @@ import AccountBlock from "app/posts/components/AccountBlock"
 import RelatedBlock from "app/posts/components/RelatedBlock"
 import { Suspense } from "react"
 import { COLUMN_BREAKPOINT, ROW_BREAKPOINT } from "app/posts/constants"
+import { Button } from "@chakra-ui/button"
+import { ArrowBackIcon } from "@chakra-ui/icons"
 
 const ShowPostPage: BlitzPage = () => {
   // Post id from query
   const postId = useParam("postId", "number")
+  const router = useRouter()
 
   // Resolving post and sparing
   const [postInfo] = useQuery(getPost, { id: postId })
@@ -27,6 +30,11 @@ const ShowPostPage: BlitzPage = () => {
         my={theme.space[5]}
       >
         <Flex direction="column">
+          <Container maxW={theme.sizes.container.md} mb={theme.space[2]}>
+            <Button variant="link" leftIcon={<ArrowBackIcon />} onClick={() => router.back()}>
+              Go back
+            </Button>
+          </Container>
           <MediaBlock post={post} />
           <InformationBlock post={post} />
         </Flex>
