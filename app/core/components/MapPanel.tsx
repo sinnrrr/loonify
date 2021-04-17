@@ -37,8 +37,8 @@ const MapPanel: FunctionComponent<{ children: ReactNode }> = ({ children }) => {
   const postRedirect = usePostRedirect()
   const openOnInit = useBreakpointValue({ base: false, sm: true })
 
+  const { toggleColorMode } = useColorMode()
   const [logoutMutation] = useMutation(logout)
-  const { colorMode, toggleColorMode } = useColorMode()
   const [searchQuery, setSearchQuery] = useState<string>()
 
   const { isOpen: panelIsOpen, onOpen: panelOnOpen, onClose: panelOnClose } = useDisclosure()
@@ -97,20 +97,20 @@ const MapPanel: FunctionComponent<{ children: ReactNode }> = ({ children }) => {
                     </HStack>
                   </MenuButton>
                   <MenuList>
-                    <MenuItem isDisabled>My Account</MenuItem>
+                    <MenuItem isDisabled>Мій аккаунт</MenuItem>
                     <MenuDivider />
-                    <MenuItem onClick={toggleColorMode}>Theme: {colorMode}</MenuItem>
+                    <MenuItem onClick={toggleColorMode}>Переключити тему</MenuItem>
                     <MenuDivider />
-                    <MenuItem onClick={() => logoutMutation()}>Logout</MenuItem>
+                    <MenuItem onClick={() => logoutMutation()}>Вийти з аккаунту</MenuItem>
                   </MenuList>
                 </Menu>
               ) : (
                 <>
                   <Button w="50%" onClick={() => router.push("/login")}>
-                    Login
+                    Увійти
                   </Button>
                   <Button w="50%" onClick={() => router.push("/signup")}>
-                    Signup
+                    Зареєструватись
                   </Button>
                 </>
               )}
@@ -123,7 +123,7 @@ const MapPanel: FunctionComponent<{ children: ReactNode }> = ({ children }) => {
                   children={<SearchIcon />}
                 />
                 <Input
-                  placeholder="Search here"
+                  placeholder="Шукати"
                   defaultValue={searchQuery}
                   onChange={(e) => {
                     const targetValue = e.target.value
@@ -153,7 +153,7 @@ const MapPanel: FunctionComponent<{ children: ReactNode }> = ({ children }) => {
               </Portal>
             </HStack>
             <Button isFullWidth onClick={() => postRedirect()}>
-              Create post
+              Створити оголошення
             </Button>
           </VStack>
           {/* </Collapse> */}

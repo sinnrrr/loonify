@@ -14,13 +14,13 @@ const RelatedBlock: FunctionComponent<{ post: Post }> = ({ post }) => {
   })
 
   return (
-    <VStack align="flex-start" maxH="70vh">
-      <Heading>Related</Heading>
-      <VStack spacing={theme.space[8]} pr={theme.space[4]} align="flex-start" overflowY="auto">
+    <VStack align="flex-start" h="100%">
+      <Heading>Схоже</Heading>
+      <VStack spacing={theme.space[8]} align="flex-start" overflowY="auto">
         {relatedPosts.length > 0 ? (
           relatedPosts.map((post, index) => <PostComponent key={index} post={post} />)
         ) : (
-          <Text>No related posts found</Text>
+          <Text>Не схоже! Не знайшов подібних оголошень.</Text>
         )}
       </VStack>
     </VStack>

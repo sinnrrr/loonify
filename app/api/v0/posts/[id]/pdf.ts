@@ -5,9 +5,14 @@ const generatePdf = async (req: BlitzApiRequest, res: BlitzApiResponse) => {
   const browser = await puppeteer.launch()
   const page = await browser.newPage()
 
-  await page.goto("https://news.ycombinator.com", {
-    waitUntil: "networkidle2",
-  })
+  await page.goto(
+    (process.env.NODE_ENV === "production"
+      ? "https://loonify.rocks"
+      : `http://localhost:${process.env.PORT}`) + `/office/posts/${req.query.id}/pdf`,
+    {
+      waitUntil: "networkidle2",
+    }
+  )
 
   const pdf = await page.pdf({ format: "a4" })
 

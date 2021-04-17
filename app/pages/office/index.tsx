@@ -1,56 +1,43 @@
-import React from "react"
+import React, { useEffect, useState } from "react"
 import { BlitzPage, usePaginatedQuery } from "blitz"
 import IndexLayout from "app/core/layouts/IndexLayout"
-import {
-  Accordion,
-  AccordionButton,
-  AccordionIcon,
-  AccordionItem,
-  AccordionPanel,
-} from "@chakra-ui/accordion"
-import { Box, VStack } from "@chakra-ui/layout"
+import { Box, Text, VStack } from "@chakra-ui/layout"
 import MiddlePanel from "app/core/components/MiddlePanel"
-import getCategories from "app/categories/queries/getCategories"
 import { Button } from "@chakra-ui/button"
-import { useList } from "react-use"
+import getPosts from "app/posts/queries/getPosts"
+import PostComponent from "app/posts/components/PostComponent"
+import { useDisclosure } from "@chakra-ui/hooks"
+import CategorySelectModal from "app/core/components/CategorySelectModal"
 import { Category } from "db"
+import { Tag, TagCloseButton, TagLabel } from "@chakra-ui/tag"
 
 const Home: BlitzPage = () => {
-  const [selectedCategories, { insertAt, removeAt }] = useList<string>()
-  const [{ categories }] = usePaginatedQuery(getCategories, {})
-
-  const selectCategory = (category: Category) => {
-    if (selectedCategories[category.id]) removeAt(category.id)
-    else insertAt(category.id, category.name)
-  }
+  const { isOpen, onOpen, onClose } = useDisclosure()
+  const [selectedCategory, setSelectedCategory] = useState<Category>()
+  const [{ posts }] = usePaginatedQuery(getPosts, { where: { category: selectedCategory } })
 
   return (
     <VStack spacing={4} align="flex-start">
-      <MiddlePanel heading="Categories" />
-      <Accordion w="100%" allowMultiple>
-        {categories.map(
-          (category, index) =>
-            category.parentId && (
-              <AccordionItem key={index}>
-                <h2>
-                  <AccordionButton onClick={() => selectCategory(category)}>
-                    <Box flex="1" textAlign="left">
-                      {category.name}
-                    </Box>
-                    <AccordionIcon />
-                  </AccordionButton>
-                </h2>
-                {category.parentId && (
-                  <AccordionPanel pb={4}>
-                    <Button onClick={() => selectCategory(category)} variant="link">
-                      {category.parent?.name}
-                    </Button>
-                  </AccordionPanel>
-                )}
-              </AccordionItem>
-            )
+      <Box>
+        <MiddlePanel heading="Оголошення" />
+        {selectedCategory && (
+          <Tag mr={2}>
+            <TagLabel>{selectedCategory.name}</TagLabel>
+            <TagCloseButton onClick={() => setSelectedCategory(undefined)} />
+          </Tag>
         )}
-      </Accordion>
+        <Button onClick={onOpen} variant="link">
+          Сортувати
+        </Button>
+      </Box>
+      <CategorySelectModal isOpen={isOpen} onClose={onClose} onFinish={setSelectedCategory} />
+      <VStack>
+        {posts.length > 0 ? (
+          posts.map((post, index) => <PostComponent key={index} post={post} />)
+        ) : (
+          <Text>No posts found</Text>
+        )}
+      </VStack>
     </VStack>
   )
 }

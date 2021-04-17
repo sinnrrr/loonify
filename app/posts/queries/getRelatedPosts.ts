@@ -42,6 +42,7 @@ export default resolver.pipe(resolver.zod(GetBoundedPosts), async ({ id, title, 
       NOT: [{ id }],
       OR: generateFtsQuery({ title, description }),
     },
+    include: { category: true },
   })
 
   return posts

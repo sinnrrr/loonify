@@ -11,12 +11,12 @@ import { usePostRedirect } from "app/core/hooks/usePostRedirect"
 import MiddlePanel from "app/core/components/MiddlePanel"
 
 const Quick: BlitzPage = () => {
-  const [post] = useQuery(getPost, { id: useParam("postId", "number") })
   const postRedirect = usePostRedirect()
+  const [post] = useQuery(getPost, { id: useParam("postId", "number") })
 
   return (
     <VStack align="flex-start">
-      <MiddlePanel heading="View post" />
+      <MiddlePanel heading="Оголошення" />
 
       {post.images.length > 0 ? (
         <Image src={post.images[0]} />
@@ -31,10 +31,13 @@ const Quick: BlitzPage = () => {
       <Text>{post.description}</Text>
       <Alert status="info">
         <AlertIcon />
-        <Text>To have more abilities you should see the full version</Text>
+        <Text>
+          Ви бачите скорочену версію оголошення. Щоб мати більше можливостей варто перейти до повної
+          версії.
+        </Text>
       </Alert>
       <Button onClick={() => postRedirect(post.id)} isFullWidth>
-        See full version
+        Дивитись повне оголошення
       </Button>
     </VStack>
   )

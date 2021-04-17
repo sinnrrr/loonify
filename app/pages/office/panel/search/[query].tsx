@@ -4,7 +4,7 @@ import MiddlePanel from "app/core/components/MiddlePanel"
 import IndexLayout from "app/core/layouts/IndexLayout"
 import PostComponent from "app/posts/components/PostComponent"
 import getSearchedPosts from "app/posts/queries/getSearchedPosts"
-import { Post } from "db"
+import { Category, Post } from "db"
 import { ReactNode, useEffect, useState } from "react"
 import theme from "theme"
 
@@ -12,7 +12,7 @@ const Search: BlitzPage = () => {
   const query = useParam("query", "string") || ""
 
   const [isSearching, setIsSearching] = useState<boolean>(true)
-  const [matchedPosts, setMatchedPosts] = useState<Post[]>([])
+  const [matchedPosts, setMatchedPosts] = useState<(Post & { category: Category })[]>([])
   const [renderedComponent, setRenderedComponent] = useState<ReactNode>(null)
 
   useEffect(() => {
@@ -40,7 +40,7 @@ const Search: BlitzPage = () => {
 
   return (
     <VStack align="flex-start">
-      <MiddlePanel heading="Search" />
+      <MiddlePanel heading="Пошук" />
       <VStack spacing={theme.space[8]}>{renderedComponent}</VStack>
     </VStack>
   )

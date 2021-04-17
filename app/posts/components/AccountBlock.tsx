@@ -16,13 +16,13 @@ import {
 import theme from "@chakra-ui/theme"
 import { useToast } from "@chakra-ui/toast"
 import { useIndexRedirect } from "app/core/hooks/useIndexRedirect"
+import { generateApiUrl } from "app/core/hooks/useRequest"
 import { Post, User } from "db"
 import { FunctionComponent, useEffect, useRef, useState } from "react"
 import { useAuthor } from "../hooks/useAuthor"
 import deletePost from "../mutations/deletePost"
 
 const AccountBlock: FunctionComponent<{ post: Post; account: User }> = ({ post, account }) => {
-  // () => window.open(generateApiUrl(`/posts/${post.id}/pdf`), "_blank")!.focus()
   const toast = useToast()
   const indexRedirect = useIndexRedirect()
   const viewerIsOwner = useAuthor(post.ownerId)
@@ -35,8 +35,8 @@ const AccountBlock: FunctionComponent<{ post: Post; account: User }> = ({ post, 
   useEffect(() => {
     if (hasCopied) {
       toast({
-        title: "Share post",
-        description: "The link copied to clipboard",
+        title: "Поділитись оголошенням",
+        description: "Посилання скопійовано в буфер обміну",
         status: "success",
         duration: 3000,
         isClosable: true,
@@ -56,44 +56,63 @@ const AccountBlock: FunctionComponent<{ post: Post; account: User }> = ({ post, 
           <Avatar size="md" />
           <Box>
             <Heading size="lg">{account.firstName + (account.lastName || "")}</Heading>
-            <Text>On service since 20.03.2021</Text>
+            <Text>На сервісі з {account.createdAt.toLocaleDateString()}</Text>
           </Box>
         </HStack>
         <HStack width="100%">
-          <Menu>
-            <MenuButton
+          {viewerIsOwner ? (
+            <Menu>
+              <MenuButton
+                isFullWidth
+                size="lg"
+                as={Button}
+                leftIcon={<SettingsIcon />}
+                rightIcon={<ChevronDownIcon />}
+              >
+                Опції
+              </MenuButton>
+              <MenuList>
+                <MenuItem
+                  icon={<DownloadIcon />}
+                  onClick={() => {
+                    window.open(generateApiUrl(`/posts/${post.id}/pdf`), "_blank")!.focus()
+                  }}
+                >
+                  Офлайн оголошення
+                </MenuItem>
+                <MenuItem icon={<LinkIcon />} onClick={onCopy}>
+                  Поділитись
+                </MenuItem>
+                <MenuItem icon={<DeleteIcon />} onClick={() => setIsOpen(true)}>
+                  Видалити
+                </MenuItem>
+              </MenuList>
+            </Menu>
+          ) : (
+            <Button
               isFullWidth
               size="lg"
-              as={Button}
-              leftIcon={<SettingsIcon />}
-              rightIcon={<ChevronDownIcon />}
+              onClick={() => {
+                window.open(account.phone ? `tel:${account.phone}` : `mailto:${account.email}`)
+              }}
             >
-              {viewerIsOwner ? "Options" : "Contact"}
-            </MenuButton>
-            <MenuList>
-              <MenuItem icon={<DownloadIcon />}>Generate offline</MenuItem>
-              <MenuItem icon={<LinkIcon />} onClick={onCopy}>
-                Share
-              </MenuItem>
-              <MenuItem icon={<DeleteIcon />} onClick={() => setIsOpen(true)}>
-                Delete
-              </MenuItem>
-            </MenuList>
-          </Menu>
+              Contact
+            </Button>
+          )}
         </HStack>
       </VStack>
       <AlertDialog isOpen={isOpen} leastDestructiveRef={cancelRef} onClose={onClose}>
         <AlertDialogOverlay>
           <AlertDialogContent>
             <AlertDialogHeader fontSize="lg" fontWeight="bold">
-              Delete post
+              Видалення оголошення
             </AlertDialogHeader>
 
-            <AlertDialogBody>Are you sure? You can't undo this action afterwards.</AlertDialogBody>
+            <AlertDialogBody>Ви впевнені? Ви не зможете скасувати цю дію згодом.</AlertDialogBody>
 
             <AlertDialogFooter>
               <Button ref={cancelRef} onClick={onClose}>
-                Cancel
+                Відміна
               </Button>
               <Button
                 colorScheme="red"
@@ -106,7 +125,7 @@ const AccountBlock: FunctionComponent<{ post: Post; account: User }> = ({ post, 
                 }}
                 ml={3}
               >
-                Delete
+                Видалити
               </Button>
             </AlertDialogFooter>
           </AlertDialogContent>

@@ -1,6 +1,6 @@
 {
   "name": "loonify",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "scripts": {
     "dev": "blitz dev",
     "build": "blitz build",
@@ -45,6 +45,8 @@
     "leaflet.markercluster": "1.5.0",
     "prisma": "~2.17",
     "puppeteer": "8.0.0",
+    "qrcode": "1.4.4",
+    "qrcode.react": "1.0.1",
     "react": "0.0.0-experimental-3310209d0",
     "react-beautiful-dnd": "13.1.0",
     "react-dom": "0.0.0-experimental-3310209d0",
@@ -70,6 +72,8 @@
     "@types/leaflet": "1.7.0",
     "@types/leaflet-draw": "1.0.3",
     "@types/preview-email": "2.0.0",
+    "@types/qrcode": "1.4.0",
+    "@types/qrcode.react": "1.0.1",
     "@types/react": "17.0.3",
     "@types/react-beautiful-dnd": "13.0.0",
     "@types/react-leaflet": "2.8.1",

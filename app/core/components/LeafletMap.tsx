@@ -21,6 +21,7 @@ import { usePostRedirect } from "../hooks/usePostRedirect"
 export type Fetcher = (bounds: z.infer<typeof GetBoundedPosts>) => Promise<Post[]>
 
 interface Props {
+  isStatic?: boolean
   fetcher?: Fetcher
   style?: CSSProperties
   initial?: Post[]
@@ -30,6 +31,7 @@ interface Props {
 const LeafletMap: FunctionComponent<Props & EditProps> = ({
   fetcher,
   onChange,
+  isStatic = false,
   style = { display: "flex", flexGrow: 1 },
   properties = {
     center: [50.7472, 25.3254],
@@ -83,7 +85,7 @@ const LeafletMap: FunctionComponent<Props & EditProps> = ({
         attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
         url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
       />
-      <ZoomControl position="bottomright" />
+      {!isStatic && <ZoomControl position="bottomright" />}
       {onChange && <EditControl onChange={onChange} />}
       {locations.length > 0 && (
         <MarkerClusterGroup>

@@ -1,6 +1,6 @@
-import { useParam, BlitzPage, useQuery, useRouter } from "blitz"
+import { useParam, BlitzPage, useQuery } from "blitz"
 import Layout from "app/core/layouts/Layout"
-import { Container, Flex, Text } from "@chakra-ui/layout"
+import { Container, Flex } from "@chakra-ui/layout"
 import theme from "@chakra-ui/theme"
 import getPost from "app/posts/queries/getPost"
 import MediaBlock from "app/posts/components/MediaBlock"
@@ -11,15 +11,16 @@ import { Suspense } from "react"
 import { COLUMN_BREAKPOINT, ROW_BREAKPOINT } from "app/posts/constants"
 import { Button } from "@chakra-ui/button"
 import { ArrowBackIcon } from "@chakra-ui/icons"
+import { useBackRedirect } from "app/core/hooks/useBackRedirect"
 
 const ShowPostPage: BlitzPage = () => {
   // Post id from query
   const postId = useParam("postId", "number")
-  const router = useRouter()
+  const backRedirect = useBackRedirect()
 
   // Resolving post and sparing
   const [postInfo] = useQuery(getPost, { id: postId })
-  const { owner, ...post } = postInfo
+  const { owner, category, ...post } = postInfo
 
   return (
     <>
@@ -31,12 +32,12 @@ const ShowPostPage: BlitzPage = () => {
       >
         <Flex direction="column">
           <Container maxW={theme.sizes.container.md} mb={theme.space[2]}>
-            <Button variant="link" leftIcon={<ArrowBackIcon />} onClick={() => router.back()}>
-              Go back
+            <Button variant="link" leftIcon={<ArrowBackIcon />} onClick={backRedirect}>
+              Назад
             </Button>
           </Container>
           <MediaBlock post={post} />
-          <InformationBlock post={post} />
+          <InformationBlock category={category} post={post} />
         </Flex>
         <Flex direction="column">
           <Container
