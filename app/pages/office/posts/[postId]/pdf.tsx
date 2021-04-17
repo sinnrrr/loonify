@@ -1,4 +1,4 @@
-import { BlitzPage, useParam, useQuery } from "@blitzjs/core"
+import { BlitzPage, useParam, useQuery, useRouter } from "@blitzjs/core"
 import { Image } from "@chakra-ui/image"
 import { Flex, Grid, GridItem, Heading, Text, VStack } from "@chakra-ui/layout"
 import { Tag } from "@chakra-ui/tag"
@@ -57,7 +57,12 @@ const PostPdfPage: BlitzPage = () => {
         </Flex>
       </GridItem>
       <GridItem>
-        <QRCode renderAs="svg" height="100%" width="100%" value={"asd"} />
+        <QRCode
+          renderAs="svg"
+          height="100%"
+          width="100%"
+          value={window.location.href && window.location.href.replace("/pdf", "")}
+        />
       </GridItem>
       <GridItem colSpan={2}>
         <Flex justify="space-between">

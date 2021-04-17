@@ -35,8 +35,8 @@ const AccountBlock: FunctionComponent<{ post: Post; account: User }> = ({ post, 
   useEffect(() => {
     if (hasCopied) {
       toast({
-        title: "Share post",
-        description: "The link copied to clipboard",
+        title: "Поділитись оголошенням",
+        description: "Посилання скопійовано в буфер обміну",
         status: "success",
         duration: 3000,
         isClosable: true,
@@ -56,7 +56,7 @@ const AccountBlock: FunctionComponent<{ post: Post; account: User }> = ({ post, 
           <Avatar size="md" />
           <Box>
             <Heading size="lg">{account.firstName + (account.lastName || "")}</Heading>
-            <Text>On service since 20.03.2021</Text>
+            <Text>На сервісі з {account.createdAt.toLocaleDateString()}</Text>
           </Box>
         </HStack>
         <HStack width="100%">
@@ -69,7 +69,7 @@ const AccountBlock: FunctionComponent<{ post: Post; account: User }> = ({ post, 
                 leftIcon={<SettingsIcon />}
                 rightIcon={<ChevronDownIcon />}
               >
-                Options
+                Опції
               </MenuButton>
               <MenuList>
                 <MenuItem
@@ -78,13 +78,13 @@ const AccountBlock: FunctionComponent<{ post: Post; account: User }> = ({ post, 
                     window.open(generateApiUrl(`/posts/${post.id}/pdf`), "_blank")!.focus()
                   }}
                 >
-                  Generate offline
+                  Офлайн оголошення
                 </MenuItem>
                 <MenuItem icon={<LinkIcon />} onClick={onCopy}>
-                  Share
+                  Поділитись
                 </MenuItem>
                 <MenuItem icon={<DeleteIcon />} onClick={() => setIsOpen(true)}>
-                  Delete
+                  Видалити
                 </MenuItem>
               </MenuList>
             </Menu>
@@ -105,14 +105,14 @@ const AccountBlock: FunctionComponent<{ post: Post; account: User }> = ({ post, 
         <AlertDialogOverlay>
           <AlertDialogContent>
             <AlertDialogHeader fontSize="lg" fontWeight="bold">
-              Delete post
+              Видалення оголошення
             </AlertDialogHeader>
 
-            <AlertDialogBody>Are you sure? You can't undo this action afterwards.</AlertDialogBody>
+            <AlertDialogBody>Ви впевнені? Ви не зможете скасувати цю дію згодом.</AlertDialogBody>
 
             <AlertDialogFooter>
               <Button ref={cancelRef} onClick={onClose}>
-                Cancel
+                Відміна
               </Button>
               <Button
                 colorScheme="red"
@@ -125,7 +125,7 @@ const AccountBlock: FunctionComponent<{ post: Post; account: User }> = ({ post, 
                 }}
                 ml={3}
               >
-                Delete
+                Видалити
               </Button>
             </AlertDialogFooter>
           </AlertDialogContent>

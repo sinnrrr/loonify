@@ -40,7 +40,7 @@ const Search: BlitzPage = () => {
 
   return (
     <VStack align="flex-start">
-      <MiddlePanel heading="Search" />
+      <MiddlePanel heading="Пошук" />
       <VStack spacing={theme.space[8]}>{renderedComponent}</VStack>
     </VStack>
   )

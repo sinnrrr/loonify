@@ -1,13 +1,14 @@
 import { Image } from "@chakra-ui/image"
 import { Box, Text, VStack } from "@chakra-ui/layout"
+import { Tag } from "@chakra-ui/tag"
 import theme from "@chakra-ui/theme"
 import { usePostRedirect } from "app/core/hooks/usePostRedirect"
-import { Post } from "db"
+import { Category, Post } from "db"
 import { FunctionComponent } from "react"
 import { BiImage } from "react-icons/bi"
 import { TYPE_MATCHED_COLOR } from "../constants"
 
-const PostComponent: FunctionComponent<{ post: Post }> = ({ post }) => {
+const PostComponent: FunctionComponent<{ post: Post & { category: Category } }> = ({ post }) => {
   const postRedirect = usePostRedirect()
 
   return (
@@ -29,6 +30,7 @@ const PostComponent: FunctionComponent<{ post: Post }> = ({ post }) => {
         </Box>
       )}
       <VStack align="flex-start">
+        <Tag>{post.category.name}</Tag>
         <Text
           fontSize={theme.fontSizes["3xl"]}
           fontWeight={theme.fontWeights.bold}
@@ -37,9 +39,6 @@ const PostComponent: FunctionComponent<{ post: Post }> = ({ post }) => {
           isTruncated
         >
           {post.title}
-        </Text>
-        <Text wordBreak="break-word" whiteSpace="pre-wrap" isTruncated>
-          {post.description}
         </Text>
       </VStack>
     </VStack>

@@ -20,7 +20,7 @@ const ShowPostPage: BlitzPage = () => {
 
   // Resolving post and sparing
   const [postInfo] = useQuery(getPost, { id: postId })
-  const { owner, ...post } = postInfo
+  const { owner, category, ...post } = postInfo
 
   return (
     <>
@@ -33,11 +33,11 @@ const ShowPostPage: BlitzPage = () => {
         <Flex direction="column">
           <Container maxW={theme.sizes.container.md} mb={theme.space[2]}>
             <Button variant="link" leftIcon={<ArrowBackIcon />} onClick={backRedirect}>
-              Go back
+              Назад
             </Button>
           </Container>
           <MediaBlock post={post} />
-          <InformationBlock post={post} />
+          <InformationBlock category={category} post={post} />
         </Flex>
         <Flex direction="column">
           <Container

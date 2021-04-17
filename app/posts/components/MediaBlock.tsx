@@ -13,12 +13,12 @@ const MediaBlock: FunctionComponent<{ post: Post }> = ({ post }) => (
       <TabList borderColor={TYPE_MATCHED_COLOR[post.type]}>
         {post.images.length > 0 && (
           <Tab fontSize={theme.fontSizes.xl} fontWeight={theme.fontWeights.bold}>
-            Picture
+            Зображення
           </Tab>
         )}
 
         <Tab fontSize={theme.fontSizes.xl} fontWeight={theme.fontWeights.bold}>
-          Location
+          Місцезнаходження
         </Tab>
       </TabList>
       <TabPanels>

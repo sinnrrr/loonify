@@ -1,11 +1,12 @@
-import { useMutation, useSession } from "@blitzjs/core"
+import { useMutation } from "@blitzjs/core"
 import { Editable, EditableInput, EditablePreview } from "@chakra-ui/editable"
 import { FormControl, FormErrorMessage } from "@chakra-ui/form-control"
-import { Container, Heading, Text, VStack } from "@chakra-ui/layout"
+import { Box, Container, Heading, Text, VStack } from "@chakra-ui/layout"
+import { Tag } from "@chakra-ui/tag"
 import { Textarea } from "@chakra-ui/textarea"
 import theme from "@chakra-ui/theme"
 import { zodResolver } from "@hookform/resolvers/zod"
-import { Post } from "db"
+import { Category, Post } from "db"
 import { FunctionComponent } from "react"
 import { useForm } from "react-hook-form"
 import { DESCRIPTION_FORM_KEY, TITLE_FORM_KEY } from "../constants"
@@ -13,7 +14,10 @@ import { useAuthor } from "../hooks/useAuthor"
 import updatePost from "../mutations/updatePost"
 import { UpdatePost } from "../validations"
 
-const InformationBlock: FunctionComponent<{ post: Post }> = ({ post }) => {
+const InformationBlock: FunctionComponent<{ post: Post; category: Category }> = ({
+  post,
+  category,
+}) => {
   // Editable if session user id is equal to post owner id
   const isEditable = useAuthor(post.ownerId)
 
@@ -45,7 +49,8 @@ const InformationBlock: FunctionComponent<{ post: Post }> = ({ post }) => {
 
   return (
     <Container maxWidth={theme.sizes.container.md}>
-      <VStack mt={theme.space[6]}>
+      <VStack align="flex-start" mt={theme.space[6]}>
+        <Tag>{category.name}</Tag>
         <FormControl isInvalid={!!errors[TITLE_FORM_KEY]}>
           <Editable
             as={Heading}
@@ -55,7 +60,7 @@ const InformationBlock: FunctionComponent<{ post: Post }> = ({ post }) => {
             defaultValue={post[TITLE_FORM_KEY]}
             submitOnBlur={!!!errors[TITLE_FORM_KEY]}
             onSubmit={onCorrectSubmit}
-            placeholder="Title"
+            placeholder="Заголовок"
             wordBreak="break-word"
           >
             <EditablePreview />
@@ -79,7 +84,7 @@ const InformationBlock: FunctionComponent<{ post: Post }> = ({ post }) => {
             defaultValue={post[DESCRIPTION_FORM_KEY]}
             submitOnBlur={!!!errors[DESCRIPTION_FORM_KEY]}
             onSubmit={onCorrectSubmit}
-            placeholder="Description"
+            placeholder="Опис"
             wordBreak="break-word"
           >
             <EditablePreview />

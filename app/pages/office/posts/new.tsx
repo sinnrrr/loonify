@@ -24,12 +24,18 @@ import { usePostRedirect } from "app/core/hooks/usePostRedirect"
 import { Select } from "@chakra-ui/select"
 import { ArrowBackIcon } from "@chakra-ui/icons"
 import { useBackRedirect } from "app/core/hooks/useBackRedirect"
+import CategorySelectModal from "app/core/components/CategorySelectModal"
+import { useDisclosure } from "@chakra-ui/hooks"
+import { Category } from "db"
+import { Tag, TagCloseButton, TagLabel } from "@chakra-ui/tag"
 
 const NewPostPage: BlitzPage = () => {
   // Mutations and requests
   const [createPostMutation] = useMutation(createPost)
 
   // States
+  const { isOpen, onOpen, onClose } = useDisclosure()
+  const [selectedCategory, setSelectedCategory] = useState<Category>()
   const [isUploadingImages, setIsUploadingImages] = useState<boolean>(false)
 
   // Hooks
@@ -51,11 +57,6 @@ const NewPostPage: BlitzPage = () => {
     resolver: zodResolver(CreatePost),
   })
 
-  // Register fields without inputs
-  useEffect(() => {
-    register({ name: "ownerId", value: activeSession.userId })
-  })
-
   // On form submit handler
   const submitForm = async () => {
     createPostMutation(getValues()).then(({ id: postId }) => postRedirect(postId))
@@ -66,6 +67,13 @@ const NewPostPage: BlitzPage = () => {
     setValue(key, value)
     trigger(key)
   }
+
+  // Register fields without inputs
+  useEffect(() => {
+    register({ name: "ownerId", value: activeSession.userId })
+  })
+
+  setInterval(() => console.log(getValues()), 3000)
 
   return (
     <Flex grow={1} justify="center">
@@ -93,9 +101,24 @@ const NewPostPage: BlitzPage = () => {
             </FormControl>
             <FormControl isInvalid={!!errors[CATEGORY_FORM_KEY]} isRequired>
               <FormLabel>Category</FormLabel>
-              <Button onClick={() => setUnregisteredValue("categoryId", 1)} isFullWidth>
-                Choose category
-              </Button>
+              {selectedCategory ? (
+                <Tag size="lg">
+                  <TagLabel>{selectedCategory.name}</TagLabel>
+                  <TagCloseButton onClick={() => setSelectedCategory(undefined)} />
+                </Tag>
+              ) : (
+                <Button onClick={onOpen} isFullWidth>
+                  Choose category
+                </Button>
+              )}
+              <CategorySelectModal
+                isOpen={isOpen}
+                onClose={onClose}
+                onFinish={(category) => {
+                  setSelectedCategory(category)
+                  setUnregisteredValue("categoryId", category.id)
+                }}
+              />
               {errors[CATEGORY_FORM_KEY]?.message ? (
                 <FormErrorMessage>{errors[CATEGORY_FORM_KEY]?.message}</FormErrorMessage>
               ) : (
