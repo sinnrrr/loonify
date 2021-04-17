@@ -11,6 +11,7 @@ export default resolver.pipe(resolver.zod(GetBoundedPosts), async ({ query }) =>
   // TODO: in multi-tenant app, you must add validation to ensure correct tenant
   const posts = await db.post.findMany({
     where: { OR: generateFtsQuery<Post>({ title: query, description: query }) },
+    include: { category: true },
   })
 
   return posts
