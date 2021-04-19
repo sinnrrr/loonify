@@ -43,6 +43,7 @@ const Quick: BlitzPage = () => {
   )
 }
 
+Quick.authenticate = false
 Quick.suppressFirstRenderFlicker = true
 Quick.getLayout = (page) => <IndexLayout>{page}</IndexLayout>
 

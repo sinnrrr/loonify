@@ -82,14 +82,14 @@ const NewPostPage: BlitzPage = () => {
         <VStack spacing={theme.space[8]}>
           <HStack>
             <ArrowBackIcon w={10} h={10} cursor="pointer" onClick={backRedirect} />
-            <Heading>Create new post</Heading>
+            <Heading>Створити нове оголошення</Heading>
           </HStack>
           <HStack w="100%">
             <FormComponent
               isRequired
               getError={() => errors[TYPE_FORM_KEY]}
               label="Type"
-              helperText="Choose type of post"
+              helperText="Оберіть тип оголошення"
             >
               <Select name={TYPE_FORM_KEY} ref={register}>
                 {ALLOWED_POST_TYPES.map((type, index) => (
@@ -102,8 +102,8 @@ const NewPostPage: BlitzPage = () => {
             <FormComponent
               isRequired
               getError={() => errors[CATEGORY_FORM_KEY]}
-              label="Category"
-              helperText="Category of post"
+              label="Категорія"
+              helperText="Категорії оголошень забезпечують швидкий пошук"
             >
               {selectedCategory ? (
                 <Tag size="lg">
@@ -112,7 +112,7 @@ const NewPostPage: BlitzPage = () => {
                 </Tag>
               ) : (
                 <Button onClick={onOpen} isFullWidth>
-                  Choose category
+                  Оберіть категорію
                 </Button>
               )}
               <CategorySelectModal
@@ -127,23 +127,18 @@ const NewPostPage: BlitzPage = () => {
           </HStack>
           <FormComponent
             isRequired
-            label="Title"
+            label="Заголовок"
             getError={() => errors[TITLE_FORM_KEY]}
-            helperText="We'll never share your email"
+            helperText="Придумайте короткий та зрозумілий заголовок"
             field={{ formKey: TITLE_FORM_KEY, register, placeholder: "Title" }}
           />
           <FormComponent
             isRequired
             label="Description"
             getError={() => errors[DESCRIPTION_FORM_KEY]}
-            helperText="Make a beautiful description to attract more visitors"
+            helperText="Складіть гарний опис, щоб залучити більше відвідувачів"
           >
-            <Textarea
-              rows={8}
-              ref={register}
-              placeholder="Description"
-              name={DESCRIPTION_FORM_KEY}
-            />
+            <Textarea rows={8} ref={register} placeholder="Опис" name={DESCRIPTION_FORM_KEY} />
           </FormComponent>
           <UploadBlock
             onStart={() => setIsUploadingImages(true)}
@@ -154,9 +149,8 @@ const NewPostPage: BlitzPage = () => {
           />
           <FormComponent
             isRequired
-            label="Location"
-            helperText="Select location on map (simply click on it) or remove location by right-clicking or
-              holding a tap on location"
+            label="Місцезнаходження"
+            helperText="Виберіть місце на карті (просто клацніть на карті) або видаліть маркер, клацнувши правою кнопкою миші або тримаючи палець на маркері"
             getError={() => errors[LOCATION_FORM_KEY]}
           >
             <Map
@@ -165,7 +159,7 @@ const NewPostPage: BlitzPage = () => {
             />
           </FormComponent>
           <Button isFullWidth disabled={!isValid || isUploadingImages} onClick={submitForm}>
-            Submit
+            Створити
           </Button>
         </VStack>
       </Container>

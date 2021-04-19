@@ -74,6 +74,7 @@ const PostPdfPage: BlitzPage = () => {
   )
 }
 
+PostPdfPage.authenticate = false
 PostPdfPage.suppressFirstRenderFlicker = true
 PostPdfPage.getLayout = (page) => (
   <Layout>

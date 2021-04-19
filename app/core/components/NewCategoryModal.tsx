@@ -12,13 +12,14 @@ import {
   ModalOverlay,
 } from "@chakra-ui/modal"
 import { Portal } from "@chakra-ui/portal"
+import { Tag, TagCloseButton, TagLabel } from "@chakra-ui/tag"
 import theme from "@chakra-ui/theme"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { NAME_FORM_KEY, PARENT_FORM_KEY } from "app/categories/constants"
 import createCategory from "app/categories/mutations/createCategory"
 import { CreateCategory } from "app/categories/validations"
 import { Category } from "db"
-import { FunctionComponent } from "react"
+import { FunctionComponent, useState } from "react"
 import { useForm } from "react-hook-form"
 import { ModalComponentProps } from "types"
 import CategorySelectModal from "./CategorySelectModal"
@@ -44,6 +45,7 @@ const NewCategoryModal: FunctionComponent<ModalComponentProps<Category>> = ({
 
   const selectCategoryModal = useDisclosure()
   const [createCategoryMutation] = useMutation(createCategory)
+  const [selectedCategory, setSelectedCategory] = useState<Category>()
 
   return (
     <Portal>
@@ -70,12 +72,20 @@ const NewCategoryModal: FunctionComponent<ModalComponentProps<Category>> = ({
                 getError={() => errors[PARENT_FORM_KEY]}
                 helperText="Оберіть батьківську категорію (тобто якщо марка автомобілю, то батьківська категорія - автомобілі)"
               >
-                <Button onClick={selectCategoryModal.onOpen}>Обрати</Button>
+                {selectedCategory ? (
+                  <Tag size="lg">
+                    <TagLabel>{selectedCategory.name}</TagLabel>
+                    <TagCloseButton onClick={() => setSelectedCategory(undefined)} />
+                  </Tag>
+                ) : (
+                  <Button onClick={selectCategoryModal.onOpen}>Обрати</Button>
+                )}
                 <CategorySelectModal
                   canCreateNew
                   isOpen={selectCategoryModal.isOpen}
                   onClose={selectCategoryModal.onClose}
                   onFinish={(selectedCategory) => {
+                    setSelectedCategory(selectedCategory)
                     setValue(PARENT_FORM_KEY, selectedCategory.id)
                     trigger(PARENT_FORM_KEY)
                   }}
