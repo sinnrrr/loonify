@@ -5,6 +5,7 @@ import IndexLayout from "app/core/layouts/IndexLayout"
 import PostComponent from "app/posts/components/PostComponent"
 import getSearchedPosts from "app/posts/queries/getSearchedPosts"
 import { Category, Post } from "db"
+import { NextSeo } from "next-seo"
 import { ReactNode, useEffect, useState } from "react"
 import theme from "theme"
 
@@ -39,15 +40,41 @@ const Search: BlitzPage = () => {
   }, [query, isSearching, matchedPosts])
 
   return (
-    <VStack align="flex-start">
-      <MiddlePanel heading="Пошук" />
-      <VStack spacing={theme.space[8]}>{renderedComponent}</VStack>
-    </VStack>
+    <>
+      <NextSeo
+        title={`${query} - пошук | Loonify`}
+        description={"Пошук оголошень на сучсному бюро знахідок Loonify"}
+        canonical={window.location.href && window.location.href}
+        openGraph={{
+          url: window.location.href && window.location.href,
+          title: `${query} - пошук | Loonify`,
+          description: "Пошук оголошень на сучсному бюро знахідок Loonify",
+          images: [].concat.apply(
+            [],
+            // Foreach post
+            matchedPosts.map(
+              // Select post
+              (post) =>
+                post.images.map(
+                  // Foreach image
+                  (image) =>
+                    // Return seo object
+                    ({ url: image })
+                )
+            )
+          ),
+          site_name: "Loonify",
+        }}
+      />
+      <VStack align="flex-start">
+        <MiddlePanel heading="Пошук" />
+        <VStack spacing={theme.space[8]}>{renderedComponent}</VStack>
+      </VStack>
+    </>
   )
 }
 
-Search.authenticate = false
 Search.suppressFirstRenderFlicker = true
-Search.getLayout = (page) => <IndexLayout title="Home">{page}</IndexLayout>
+Search.getLayout = (page) => <IndexLayout>{page}</IndexLayout>
 
 export default Search

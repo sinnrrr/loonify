@@ -7,9 +7,9 @@ import MapPanel from "../components/MapPanel"
 import Map from "../components/Map"
 import { LayoutProps } from "../layouts/Layout"
 
-const IndexLayout = ({ children, title }: LayoutProps) => {
+const IndexLayout = ({ children }: LayoutProps) => {
   return (
-    <Layout title={title}>
+    <Layout>
       <Suspense fallback={<div>Loading...</div>}>
         <MapPanel>{children}</MapPanel>
         <Map

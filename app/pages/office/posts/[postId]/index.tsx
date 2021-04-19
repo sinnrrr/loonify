@@ -12,6 +12,7 @@ import { COLUMN_BREAKPOINT, ROW_BREAKPOINT } from "app/posts/constants"
 import { Button } from "@chakra-ui/button"
 import { ArrowBackIcon } from "@chakra-ui/icons"
 import { useBackRedirect } from "app/core/hooks/useBackRedirect"
+import { ArticleJsonLd, NextSeo } from "next-seo"
 
 const ShowPostPage: BlitzPage = () => {
   // Post id from query
@@ -24,6 +25,29 @@ const ShowPostPage: BlitzPage = () => {
 
   return (
     <>
+      <NextSeo
+        title={`${post.title} | Loonify`}
+        description={"Оголошення на бюро знахідок"}
+        canonical={window.location.href && window.location.href}
+        openGraph={{
+          url: window.location.href && window.location.href,
+          title: `${post.title} | Loonify`,
+          description: "Оголошення на бюро знахідок",
+          images: post.images.map((image) => ({ url: image })),
+          site_name: "Loonify",
+        }}
+      />
+      <ArticleJsonLd
+        url={window.location.href && window.location.href}
+        title={post.title}
+        images={post.images}
+        datePublished={post.createdAt.toISOString()}
+        dateModified={post.updatedAt.toISOString()}
+        authorName={[`${owner.firstName} ${owner.lastName}`]}
+        publisherName="Loonify"
+        publisherLogo="https://www.example.com/photos/logo.jpg"
+        description={post.description}
+      />
       <Flex
         grow={1}
         justify={{ [COLUMN_BREAKPOINT]: "start", [ROW_BREAKPOINT]: "center" }}
@@ -55,11 +79,10 @@ const ShowPostPage: BlitzPage = () => {
   )
 }
 
-ShowPostPage.authenticate = false
 ShowPostPage.suppressFirstRenderFlicker = true
 ShowPostPage.getLayout = (page) => (
   <Layout>
-    <Suspense fallback={<div>Loading...</div>}>{page} </Suspense>
+    <Suspense fallback={<div>Loading...</div>}>{page}</Suspense>
   </Layout>
 )
 
