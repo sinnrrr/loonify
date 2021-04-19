@@ -27,7 +27,7 @@ const AccountBlock: FunctionComponent<{ post: Post; account: User }> = ({ post, 
   const indexRedirect = useIndexRedirect()
   const viewerIsOwner = useAuthor(post.ownerId)
   const { onCopy, hasCopied } = useClipboard(window.location.href)
-  const [deletePostMutation] = useMutation(deletePost)
+  const [deletePostMutation, { isLoading: postIsDeleting }] = useMutation(deletePost)
   const [isOpen, setIsOpen] = useState(false)
   const cancelRef = useRef(null)
   const onClose = () => setIsOpen(false)
@@ -115,12 +115,17 @@ const AccountBlock: FunctionComponent<{ post: Post; account: User }> = ({ post, 
                 Відміна
               </Button>
               <Button
+                isLoading={postIsDeleting}
                 colorScheme="red"
                 onClick={() => {
                   deletePostMutation({ id: post.id })
                     .then(indexRedirect)
                     .then(() => {
-                      toast({ title: "Post have been deleted", status: "success", duration: 2000 })
+                      toast({
+                        title: "Оголошення було успішно видалене",
+                        status: "success",
+                        duration: 2000,
+                      })
                     })
                 }}
                 ml={3}

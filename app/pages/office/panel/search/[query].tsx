@@ -46,7 +46,6 @@ const Search: BlitzPage = () => {
   )
 }
 
-Search.authenticate = false
 Search.suppressFirstRenderFlicker = true
 Search.getLayout = (page) => <IndexLayout title="Home">{page}</IndexLayout>
 

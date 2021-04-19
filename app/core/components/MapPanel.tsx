@@ -38,7 +38,7 @@ const MapPanel: FunctionComponent<{ children: ReactNode }> = ({ children }) => {
   const openOnInit = useBreakpointValue({ base: false, sm: true })
 
   const { toggleColorMode } = useColorMode()
-  const [logoutMutation] = useMutation(logout)
+  const [logoutMutation, { isLoading: logoutIsLoading }] = useMutation(logout)
   const [searchQuery, setSearchQuery] = useState<string>()
 
   const { isOpen: panelIsOpen, onOpen: panelOnOpen, onClose: panelOnClose } = useDisclosure()
@@ -101,16 +101,18 @@ const MapPanel: FunctionComponent<{ children: ReactNode }> = ({ children }) => {
                     <MenuDivider />
                     <MenuItem onClick={toggleColorMode}>Переключити тему</MenuItem>
                     <MenuDivider />
-                    <MenuItem onClick={() => logoutMutation()}>Вийти з аккаунту</MenuItem>
+                    <MenuItem isDisabled={logoutIsLoading} onClick={() => logoutMutation()}>
+                      Вийти з аккаунту
+                    </MenuItem>
                   </MenuList>
                 </Menu>
               ) : (
                 <>
-                  <Button w="50%" onClick={() => router.push("/login")}>
+                  <Button w="40%" onClick={() => router.push("/login")}>
                     Увійти
                   </Button>
-                  <Button w="50%" onClick={() => router.push("/signup")}>
-                    Зареєструватись
+                  <Button w="60%" onClick={() => router.push("/signup")}>
+                    Реєстрація
                   </Button>
                 </>
               )}

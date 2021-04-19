@@ -34,7 +34,7 @@ const CategorySelectModal = dynamic(() => import("app/core/components/CategorySe
 
 const NewPostPage: BlitzPage = () => {
   // Mutations and requests
-  const [createPostMutation] = useMutation(createPost)
+  const [createPostMutation, { isLoading: postIsCreating }] = useMutation(createPost)
 
   // States
   const { isOpen, onOpen, onClose } = useDisclosure()
@@ -88,7 +88,7 @@ const NewPostPage: BlitzPage = () => {
             <FormComponent
               isRequired
               getError={() => errors[TYPE_FORM_KEY]}
-              label="Type"
+              label="Тип"
               helperText="Оберіть тип оголошення"
             >
               <Select name={TYPE_FORM_KEY} ref={register}>
@@ -127,14 +127,14 @@ const NewPostPage: BlitzPage = () => {
           </HStack>
           <FormComponent
             isRequired
-            label="Заголовок"
+            label="Заголовок оголошення"
             getError={() => errors[TITLE_FORM_KEY]}
             helperText="Придумайте короткий та зрозумілий заголовок"
-            field={{ formKey: TITLE_FORM_KEY, register, placeholder: "Title" }}
+            field={{ formKey: TITLE_FORM_KEY, register, placeholder: "Заголовок" }}
           />
           <FormComponent
             isRequired
-            label="Description"
+            label="Детальний опис"
             getError={() => errors[DESCRIPTION_FORM_KEY]}
             helperText="Складіть гарний опис, щоб залучити більше відвідувачів"
           >
@@ -158,7 +158,12 @@ const NewPostPage: BlitzPage = () => {
               style={{ height: "30vh" }}
             />
           </FormComponent>
-          <Button isFullWidth disabled={!isValid || isUploadingImages} onClick={submitForm}>
+          <Button
+            isFullWidth
+            isLoading={postIsCreating}
+            disabled={!isValid || isUploadingImages}
+            onClick={submitForm}
+          >
             Створити
           </Button>
         </VStack>
