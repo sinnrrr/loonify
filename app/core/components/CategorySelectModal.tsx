@@ -8,7 +8,7 @@ import {
   ModalHeader,
   ModalOverlay,
 } from "@chakra-ui/modal"
-import { FunctionComponent, useEffect, useState } from "react"
+import { FunctionComponent, useState } from "react"
 import { Button } from "@chakra-ui/button"
 import {
   Accordion,
@@ -22,12 +22,20 @@ import getCategories from "app/categories/queries/getCategories"
 import { Box, Text, VStack } from "@chakra-ui/layout"
 import { Category } from "db"
 import { Tag } from "@chakra-ui/tag"
+import { ModalComponentProps } from "types"
+import { AddIcon } from "@chakra-ui/icons"
+import { useDisclosure } from "@chakra-ui/hooks"
+import NewCategoryModal from "./NewCategoryModal"
 
-const CategorySelectModal: FunctionComponent<{
-  isOpen: boolean
-  onClose: () => void
-  onFinish: (category: Category) => void
-}> = ({ isOpen, onClose, onFinish }) => {
+export type CategorySelectModalProps = ModalComponentProps<Category> & { canCreateNew?: boolean }
+
+const CategorySelectModal: FunctionComponent<CategorySelectModalProps> = ({
+  isOpen,
+  onClose,
+  onFinish,
+  canCreateNew = false,
+}) => {
+  const newCategoryModal = useDisclosure()
   const [{ categories }] = useQuery(getCategories, {})
   const [selectedCategory, setSelectedCategory] = useState<Category>()
 
@@ -36,7 +44,27 @@ const CategorySelectModal: FunctionComponent<{
       <Modal isOpen={isOpen} onClose={onClose}>
         <ModalOverlay />
         <ModalContent>
-          <ModalHeader>Обрати категорію</ModalHeader>
+          <ModalHeader>
+            <Box>
+              <Text>Обрати категорію</Text>
+              {canCreateNew && (
+                <>
+                  <Button
+                    leftIcon={<AddIcon h={2} w={2} />}
+                    onClick={newCategoryModal.onOpen}
+                    variant="link"
+                  >
+                    Створити нову
+                  </Button>
+                  <NewCategoryModal
+                    isOpen={newCategoryModal.isOpen}
+                    onClose={newCategoryModal.onClose}
+                    onFinish={(data) => console.log(data)}
+                  />
+                </>
+              )}
+            </Box>
+          </ModalHeader>
           <ModalCloseButton />
           <ModalBody>
             <VStack align="flex-start" spacing={8}>
@@ -67,6 +95,7 @@ const CategorySelectModal: FunctionComponent<{
                     )
                 )}
               </Accordion>
+
               {!!selectedCategory && (
                 <Text>
                   Обрано: <Tag>{selectedCategory.name}</Tag>

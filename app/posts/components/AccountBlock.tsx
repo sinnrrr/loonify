@@ -96,7 +96,7 @@ const AccountBlock: FunctionComponent<{ post: Post; account: User }> = ({ post, 
                 window.open(account.phone ? `tel:${account.phone}` : `mailto:${account.email}`)
               }}
             >
-              Contact
+              Зв'язатись
             </Button>
           )}
         </HStack>
