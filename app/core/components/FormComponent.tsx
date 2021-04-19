@@ -6,7 +6,7 @@ import { FieldError } from "react-hook-form"
 export type FormComponentProps = {
   label: string
   helperText: string
-  isRequired: boolean
+  isRequired?: boolean
   getError: () => FieldError | undefined
   field?: {
     formKey: string
@@ -21,7 +21,7 @@ const FormComponent: FunctionComponent<FormComponentProps> = ({
   field,
   label,
   helperText,
-  isRequired,
+  isRequired = false,
 }) => {
   return (
     <FormControl isInvalid={!!getError()} isRequired={isRequired}>

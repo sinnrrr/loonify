@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react"
+import React, { useState } from "react"
 import { BlitzPage, usePaginatedQuery } from "blitz"
 import IndexLayout from "app/core/layouts/IndexLayout"
 import { Box, Text, VStack } from "@chakra-ui/layout"

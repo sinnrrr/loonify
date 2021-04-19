@@ -1,6 +1,6 @@
 import { Container, Flex } from "@chakra-ui/layout"
 import { Tab, TabList, TabPanel, TabPanels, Tabs } from "@chakra-ui/tabs"
-import { Image, useColorModeValue } from "@chakra-ui/react"
+import { Image } from "@chakra-ui/react"
 import theme from "@chakra-ui/theme"
 import Map from "../../core/components/Map"
 import { Post } from "db"

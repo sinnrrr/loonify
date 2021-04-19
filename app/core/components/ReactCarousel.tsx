@@ -1,8 +1,7 @@
 import "@brainhubeu/react-carousel/lib/style.css"
 import { FunctionComponent } from "react"
-import Carousel, { arrowsPlugin } from "@brainhubeu/react-carousel"
+import Carousel from "@brainhubeu/react-carousel"
 import { Image } from "@chakra-ui/image"
-import { Button } from "@chakra-ui/button"
 
 const ReactCarousel: FunctionComponent<{ images: string[] }> = ({ images }) => {
   return (

@@ -1,4 +1,4 @@
-import { BlitzPage, useParam, useQuery, useRouter } from "@blitzjs/core"
+import { BlitzPage, useParam, useQuery } from "@blitzjs/core"
 import { Image } from "@chakra-ui/image"
 import { Flex, Grid, GridItem, Heading, Text, VStack } from "@chakra-ui/layout"
 import { Tag } from "@chakra-ui/tag"

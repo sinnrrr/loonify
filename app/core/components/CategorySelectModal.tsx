@@ -36,7 +36,7 @@ const CategorySelectModal: FunctionComponent<CategorySelectModalProps> = ({
   canCreateNew = false,
 }) => {
   const newCategoryModal = useDisclosure()
-  const [{ categories }] = useQuery(getCategories, {})
+  const [result, { refetch }] = useQuery(getCategories, {})
   const [selectedCategory, setSelectedCategory] = useState<Category>()
 
   return (
@@ -59,7 +59,7 @@ const CategorySelectModal: FunctionComponent<CategorySelectModalProps> = ({
                   <NewCategoryModal
                     isOpen={newCategoryModal.isOpen}
                     onClose={newCategoryModal.onClose}
-                    onFinish={(data) => console.log(data)}
+                    onFinish={() => refetch()}
                   />
                 </>
               )}
@@ -69,31 +69,34 @@ const CategorySelectModal: FunctionComponent<CategorySelectModalProps> = ({
           <ModalBody>
             <VStack align="flex-start" spacing={8}>
               <Accordion w="100%" allowMultiple>
-                {categories.map(
-                  (category, index) =>
-                    category.parentId && (
-                      <AccordionItem key={index}>
-                        <h2>
-                          <AccordionButton onClick={() => setSelectedCategory(category)}>
-                            <Box flex="1" textAlign="left">
-                              {category.name}
-                            </Box>
-                            {!!category.parent && <AccordionIcon />}
-                          </AccordionButton>
-                        </h2>
-                        {category.parent && (
-                          <AccordionPanel pb={4}>
+                {result.categories
+                  .filter((category) => !!!category.parent)
+                  .map((parentCategory, index) => (
+                    <AccordionItem key={index}>
+                      <h2>
+                        <AccordionButton onClick={() => setSelectedCategory(parentCategory)}>
+                          <Box flex="1" textAlign="left">
+                            {parentCategory.name}
+                          </Box>
+                          {result.categories.filter(
+                            (category) => category.parent?.id === parentCategory.id
+                          ).length > 0 && <AccordionIcon />}
+                        </AccordionButton>
+                      </h2>
+                      {result.categories
+                        .filter((category) => category.parent?.id === parentCategory.id)
+                        .map((childCategory, index) => (
+                          <AccordionPanel key={index} pb={4}>
                             <Button
-                              onClick={() => setSelectedCategory(category.parent!)}
+                              onClick={() => setSelectedCategory(childCategory)}
                               variant="link"
                             >
-                              {category.parent.name}
+                              {childCategory.name}
                             </Button>
                           </AccordionPanel>
-                        )}
-                      </AccordionItem>
-                    )
-                )}
+                        ))}
+                    </AccordionItem>
+                  ))}
               </Accordion>
 
               {!!selectedCategory && (
