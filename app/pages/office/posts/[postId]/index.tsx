@@ -55,6 +55,7 @@ const ShowPostPage: BlitzPage = () => {
   )
 }
 
+ShowPostPage.authenticate = false
 ShowPostPage.suppressFirstRenderFlicker = true
 ShowPostPage.getLayout = (page) => (
   <Layout>

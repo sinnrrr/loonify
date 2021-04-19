@@ -47,6 +47,7 @@ const Home: BlitzPage = () => {
   )
 }
 
+Home.authenticate = false
 Home.suppressFirstRenderFlicker = true
 Home.getLayout = (page) => <IndexLayout title="Home">{page}</IndexLayout>
 

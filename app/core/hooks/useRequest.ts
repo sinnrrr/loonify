@@ -1,6 +1,6 @@
 import { getAntiCSRFToken } from "@blitzjs/core"
 
-export const API_PREFIX = "/api/" + (process.env.NEXT_PUBLIC_CURRENT_API_VERSION || "v1")
+export const API_PREFIX = "/api/" + (process.env.NEXT_PUBLIC_CURRENT_API_VERSION || "v0")
 
 export const generateApiUrl = (route: string) => {
   return (
