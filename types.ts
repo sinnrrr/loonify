@@ -1,6 +1,12 @@
 import { DefaultCtx, SessionContext, SimpleRolesIsAuthorized } from "blitz"
 import { User } from "db"
 
+export type ModalComponentProps<T = any> = {
+  isOpen: boolean
+  onClose: () => void
+  onFinish: (data: T) => void
+}
+
 // Note: You should switch to Postgres and then use a DB enum for role type
 export type Role = "ADMIN" | "USER"
 

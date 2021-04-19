@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react"
+import React, { useState } from "react"
 import { BlitzPage, usePaginatedQuery } from "blitz"
 import IndexLayout from "app/core/layouts/IndexLayout"
 import { Box, Text, VStack } from "@chakra-ui/layout"
@@ -30,12 +30,17 @@ const Home: BlitzPage = () => {
           Сортувати
         </Button>
       </Box>
-      <CategorySelectModal isOpen={isOpen} onClose={onClose} onFinish={setSelectedCategory} />
+      <CategorySelectModal
+        canCreateNew
+        isOpen={isOpen}
+        onClose={onClose}
+        onFinish={setSelectedCategory}
+      />
       <VStack>
         {posts.length > 0 ? (
           posts.map((post, index) => <PostComponent key={index} post={post} />)
         ) : (
-          <Text>No posts found</Text>
+          <Text>Не знайшов жодного оголошення за заданими критеріями :(</Text>
         )}
       </VStack>
     </VStack>

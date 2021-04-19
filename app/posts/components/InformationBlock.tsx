@@ -1,7 +1,7 @@
 import { useMutation } from "@blitzjs/core"
 import { Editable, EditableInput, EditablePreview } from "@chakra-ui/editable"
 import { FormControl, FormErrorMessage } from "@chakra-ui/form-control"
-import { Box, Container, Heading, Text, VStack } from "@chakra-ui/layout"
+import { Container, Heading, Text, VStack } from "@chakra-ui/layout"
 import { Tag } from "@chakra-ui/tag"
 import { Textarea } from "@chakra-ui/textarea"
 import theme from "@chakra-ui/theme"

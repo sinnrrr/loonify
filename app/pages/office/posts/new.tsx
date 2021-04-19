@@ -1,20 +1,11 @@
 import { BlitzPage, useAuthenticatedSession, useMutation } from "@blitzjs/core"
 import { Button } from "@chakra-ui/button"
-import { FormControl, FormErrorMessage, FormHelperText, FormLabel } from "@chakra-ui/form-control"
-import { Input } from "@chakra-ui/input"
 import { Container, Flex, Heading, HStack, VStack } from "@chakra-ui/layout"
 import { Textarea } from "@chakra-ui/textarea"
 import theme from "@chakra-ui/theme"
 import { zodResolver } from "@hookform/resolvers/zod"
 import Map from "../../../core/components/Map"
 import Layout from "app/core/layouts/Layout"
-import {
-  ALLOWED_POST_TYPES,
-  DESCRIPTION_FORM_KEY,
-  TITLE_FORM_KEY,
-  TYPE_FORM_KEY,
-  CATEGORY_FORM_KEY,
-} from "app/posts/constants"
 import { CreatePost } from "app/posts/validations"
 import { Suspense, useEffect, useState } from "react"
 import { useForm } from "react-hook-form"
@@ -24,10 +15,22 @@ import { usePostRedirect } from "app/core/hooks/usePostRedirect"
 import { Select } from "@chakra-ui/select"
 import { ArrowBackIcon } from "@chakra-ui/icons"
 import { useBackRedirect } from "app/core/hooks/useBackRedirect"
-import CategorySelectModal from "app/core/components/CategorySelectModal"
 import { useDisclosure } from "@chakra-ui/hooks"
 import { Category } from "db"
 import { Tag, TagCloseButton, TagLabel } from "@chakra-ui/tag"
+import {
+  ALLOWED_POST_TYPES,
+  CATEGORY_FORM_KEY,
+  DESCRIPTION_FORM_KEY,
+  LOCATION_FORM_KEY,
+  TITLE_FORM_KEY,
+  TYPE_FORM_KEY,
+} from "app/posts/constants"
+import FormComponent from "app/core/components/FormComponent"
+import dynamic from "next/dynamic"
+
+// Required, because without this map causes initialization error
+const CategorySelectModal = dynamic(() => import("app/core/components/CategorySelectModal"))
 
 const NewPostPage: BlitzPage = () => {
   // Mutations and requests
@@ -73,8 +76,6 @@ const NewPostPage: BlitzPage = () => {
     register({ name: "ownerId", value: activeSession.userId })
   })
 
-  setInterval(() => console.log(getValues()), 3000)
-
   return (
     <Flex grow={1} justify="center">
       <Container p={theme.space[4]} m={theme.space[4]} maxW={theme.sizes.container.md}>
@@ -84,8 +85,12 @@ const NewPostPage: BlitzPage = () => {
             <Heading>Create new post</Heading>
           </HStack>
           <HStack w="100%">
-            <FormControl isInvalid={!!errors[TYPE_FORM_KEY]} isRequired>
-              <FormLabel>Type</FormLabel>
+            <FormComponent
+              isRequired
+              getError={() => errors[TYPE_FORM_KEY]}
+              label="Type"
+              helperText="Choose type of post"
+            >
               <Select name={TYPE_FORM_KEY} ref={register}>
                 {ALLOWED_POST_TYPES.map((type, index) => (
                   <option key={index} value={type}>
@@ -93,14 +98,13 @@ const NewPostPage: BlitzPage = () => {
                   </option>
                 ))}
               </Select>
-              {errors[TYPE_FORM_KEY]?.message ? (
-                <FormErrorMessage>{errors[TYPE_FORM_KEY]?.message}</FormErrorMessage>
-              ) : (
-                <FormHelperText>Choose type of post</FormHelperText>
-              )}
-            </FormControl>
-            <FormControl isInvalid={!!errors[CATEGORY_FORM_KEY]} isRequired>
-              <FormLabel>Category</FormLabel>
+            </FormComponent>
+            <FormComponent
+              isRequired
+              getError={() => errors[CATEGORY_FORM_KEY]}
+              label="Category"
+              helperText="Category of post"
+            >
               {selectedCategory ? (
                 <Tag size="lg">
                   <TagLabel>{selectedCategory.name}</TagLabel>
@@ -119,36 +123,28 @@ const NewPostPage: BlitzPage = () => {
                   setUnregisteredValue("categoryId", category.id)
                 }}
               />
-              {errors[CATEGORY_FORM_KEY]?.message ? (
-                <FormErrorMessage>{errors[CATEGORY_FORM_KEY]?.message}</FormErrorMessage>
-              ) : (
-                <FormHelperText>Category of post</FormHelperText>
-              )}
-            </FormControl>
+            </FormComponent>
           </HStack>
-          <FormControl isInvalid={!!errors[TITLE_FORM_KEY]} isRequired>
-            <FormLabel>Title</FormLabel>
-            <Input name={TITLE_FORM_KEY} ref={register} placeholder="Title" />
-            {errors[TITLE_FORM_KEY]?.message ? (
-              <FormErrorMessage>{errors[TITLE_FORM_KEY]?.message}</FormErrorMessage>
-            ) : (
-              <FormHelperText>We'll never share your email</FormHelperText>
-            )}
-          </FormControl>
-          <FormControl isInvalid={!!errors[DESCRIPTION_FORM_KEY]} isRequired>
-            <FormLabel>Description</FormLabel>
+          <FormComponent
+            isRequired
+            label="Title"
+            getError={() => errors[TITLE_FORM_KEY]}
+            helperText="We'll never share your email"
+            field={{ formKey: TITLE_FORM_KEY, register, placeholder: "Title" }}
+          />
+          <FormComponent
+            isRequired
+            label="Description"
+            getError={() => errors[DESCRIPTION_FORM_KEY]}
+            helperText="Make a beautiful description to attract more visitors"
+          >
             <Textarea
-              name={DESCRIPTION_FORM_KEY}
-              ref={register}
               rows={8}
+              ref={register}
               placeholder="Description"
+              name={DESCRIPTION_FORM_KEY}
             />
-            {errors[DESCRIPTION_FORM_KEY]?.message ? (
-              <FormErrorMessage>{errors[DESCRIPTION_FORM_KEY]?.message}</FormErrorMessage>
-            ) : (
-              <FormHelperText>Make a beautiful description to attract more visitors</FormHelperText>
-            )}
-          </FormControl>
+          </FormComponent>
           <UploadBlock
             onStart={() => setIsUploadingImages(true)}
             onFinish={(images) => {
@@ -156,17 +152,18 @@ const NewPostPage: BlitzPage = () => {
               setIsUploadingImages(false)
             }}
           />
-          <FormControl isRequired>
-            <FormLabel>Location</FormLabel>
+          <FormComponent
+            isRequired
+            label="Location"
+            helperText="Select location on map (simply click on it) or remove location by right-clicking or
+              holding a tap on location"
+            getError={() => errors[LOCATION_FORM_KEY]}
+          >
             <Map
               onChange={(layers) => setUnregisteredValue("locations", layers)}
               style={{ height: "30vh" }}
             />
-            <FormHelperText>
-              Select location on map (simply click on it) or remove location by right-clicking or
-              holding a tap on location
-            </FormHelperText>
-          </FormControl>
+          </FormComponent>
           <Button isFullWidth disabled={!isValid || isUploadingImages} onClick={submitForm}>
             Submit
           </Button>

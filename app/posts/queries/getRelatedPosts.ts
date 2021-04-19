@@ -1,5 +1,5 @@
 import { resolver } from "blitz"
-import db, { Post } from "db"
+import db from "db"
 import * as z from "zod"
 
 export const GetBoundedPosts = z.object({
