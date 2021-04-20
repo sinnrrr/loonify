@@ -1,5 +1,6 @@
 import { FormControl, FormErrorMessage, FormHelperText, FormLabel } from "@chakra-ui/form-control"
 import { Input } from "@chakra-ui/input"
+import { Flex } from "@chakra-ui/layout"
 import { FunctionComponent, LegacyRef, ReactNode } from "react"
 import { FieldError } from "react-hook-form"
 
@@ -8,6 +9,7 @@ export type FormComponentProps = {
   helperText: string
   isRequired?: boolean
   children?: ReactNode
+  rightElement?: ReactNode
   getError: () => FieldError | undefined
   field?: {
     formKey: string
@@ -23,17 +25,15 @@ const FormComponent: FunctionComponent<FormComponentProps> = ({
   field,
   label,
   helperText,
+  rightElement,
   isRequired = false,
 }) => {
   return (
     <FormControl isInvalid={!!getError()} isRequired={isRequired}>
-      <FormLabel>
-        {label}
-        {/* <Flex justify="space-between">
-          <Text>{label}</Text>
-          {field?.rightElement}
-        </Flex> */}
-      </FormLabel>
+      <Flex justify="space-between">
+        <FormLabel>{label}</FormLabel>
+        {rightElement}
+      </Flex>
       {children ? (
         children
       ) : (

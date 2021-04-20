@@ -1,9 +1,12 @@
+import { useRouter } from "@blitzjs/core"
+import { Button } from "@chakra-ui/button"
+import { useColorModeValue } from "@chakra-ui/color-mode"
 import { ViewIcon, ViewOffIcon } from "@chakra-ui/icons"
 import { Input, InputGroup, InputRightElement } from "@chakra-ui/input"
 import FormComponent, { FormComponentProps } from "app/core/components/form/FormComponent"
-import { useState } from "react"
+import { ReactNode, useState } from "react"
 import { FormFieldProps } from "types"
-import { PASSWORD_FORM_KEY } from "../../../auth/constants"
+import { CONFIRMATION_FORM_KEY, PASSWORD_FORM_KEY } from "../../../auth/constants"
 
 export type PasswordFieldProps = FormFieldProps & {
   confirmal?: boolean
@@ -17,12 +20,15 @@ export const passwordFieldAsProps = ({
   passwordIsNew = false,
   showPassword,
   setShowPassword,
+  rightElement,
 }: PasswordFieldProps & {
   showPassword: boolean
   setShowPassword: (as: boolean) => void
+  rightElement?: ReactNode
 }): FormComponentProps => ({
   isRequired: true,
   getError,
+  rightElement,
   label: confirmal ? "Повторний пароль" : "Пароль",
   helperText: confirmal ? "Повторіть пароль" : "Пароль до аккаунту",
   children: (
@@ -30,7 +36,7 @@ export const passwordFieldAsProps = ({
       <Input
         type={showPassword ? "text" : "password"}
         autoComplete={confirmal || passwordIsNew ? "new-password" : "current-password"}
-        name={PASSWORD_FORM_KEY}
+        name={confirmal ? CONFIRMATION_FORM_KEY : PASSWORD_FORM_KEY}
         ref={register}
         placeholder={confirmal ? "Уведіть повторний пароль" : "Уведіть пароль"}
       />
@@ -45,7 +51,13 @@ export const passwordFieldAsProps = ({
   ),
 })
 
-const PasswordField = ({ getError, register }: PasswordFieldProps) => {
+const PasswordField = ({
+  getError,
+  register,
+  confirmal = false,
+  passwordIsNew = false,
+}: PasswordFieldProps) => {
+  const router = useRouter()
   const [showPassword, setShowPassword] = useState(false)
   const passwordFieldProps = passwordFieldAsProps({
     setShowPassword,
@@ -54,7 +66,22 @@ const PasswordField = ({ getError, register }: PasswordFieldProps) => {
     register,
   })
 
-  return <FormComponent {...passwordFieldProps} />
+  const ForgotPasswordButton = () => (
+    <Button
+      variant="link"
+      color={useColorModeValue("purple.600", "yellow.400")}
+      onClick={() => router.push("/forgot/password")}
+    >
+      Забули пароль?
+    </Button>
+  )
+
+  return (
+    <FormComponent
+      rightElement={!confirmal && !passwordIsNew && <ForgotPasswordButton />}
+      {...passwordFieldProps}
+    />
+  )
 }
 
 export default PasswordField

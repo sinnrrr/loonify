@@ -1,6 +1,6 @@
 import { Box, Heading, Text } from "@chakra-ui/layout"
 import { zodResolver } from "@hookform/resolvers/zod"
-import { Link } from "@chakra-ui/react"
+import { Button, Link, useColorModeValue } from "@chakra-ui/react"
 import { FunctionComponent, useState } from "react"
 import { useForm } from "react-hook-form"
 import { Signup } from "../validations"
@@ -11,7 +11,7 @@ import {
   PASSWORD_FORM_KEY,
 } from "../constants"
 import AuthForm from "./AuthForm"
-import { useMutation } from "@blitzjs/core"
+import { useMutation, useRouter } from "@blitzjs/core"
 import { passwordFieldAsProps } from "app/core/components/form/PasswordField"
 import signup from "../mutations/signup"
 import { emailFieldAsProps } from "app/core/components/form/EmailField"
@@ -20,6 +20,7 @@ import NextLink from "next/link"
 import { nameFieldAsProps } from "app/core/components/form/NameField"
 
 const SignupForm: FunctionComponent<SubmittableFormProps> = ({ onSuccess }) => {
+  const router = useRouter()
   const [showPassword, setShowPassword] = useState(false)
   const [signupMutation] = useMutation(signup)
 
@@ -39,9 +40,13 @@ const SignupForm: FunctionComponent<SubmittableFormProps> = ({ onSuccess }) => {
           <Heading>Створити новий аккаунт</Heading>
           <Text>
             Вже маєте аккаунт?{" "}
-            <Link color="purple.600" as={NextLink} href="/login">
-              Вхід
-            </Link>
+            <Button
+              variant="link"
+              color={useColorModeValue("purple.600", "yellow.400")}
+              onClick={() => router.push("/login")}
+            >
+              Увійти
+            </Button>
           </Text>
         </Box>
       }
