@@ -4,6 +4,7 @@
  * and then export it. That way you can import here and anywhere else
  * and use it straight away.
  */
+import { mailjetIntegration } from "integrations/mailjet"
 import previewEmail from "preview-email"
 
 type ResetPasswordMailer = {
@@ -17,15 +18,14 @@ export function forgotPasswordMailer({ to, token }: ResetPasswordMailer) {
   const resetUrl = `${origin}/reset-password?token=${token}`
 
   const msg = {
-    from: "TODO@example.com",
+    from: "dimasoltusyuk@gmail.com",
     to,
-    subject: "Your Password Reset Instructions",
+    subject: "Інструкція з відновлення паролю",
     html: `
-      <h1>Reset Your Password</h1>
-      <h3>NOTE: You must set up a production email integration in mailers/forgotPasswordMailer.ts</h3>
+      <h1>Відновити пароль</h1>
 
       <a href="${resetUrl}">
-        Click here to set a new password
+        Натисніть тут, щоб встановити новий пароль
       </a>
     `,
   }
@@ -33,9 +33,11 @@ export function forgotPasswordMailer({ to, token }: ResetPasswordMailer) {
   return {
     async send() {
       if (process.env.NODE_ENV === "production") {
-        // TODO - send the production email, like this:
-        // await postmark.sendEmail(msg)
-        throw new Error("No production email implementation in mailers/forgotPasswordMailer")
+        // throw new Error("No production email implementation in mailers/forgotPasswordMailer")
+
+        const transporter = mailjetIntegration()
+
+        transporter.sendMail(msg)
       } else {
         // Preview email in the browser
         await previewEmail(msg)
