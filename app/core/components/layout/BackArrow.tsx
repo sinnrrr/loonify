@@ -1,5 +1,5 @@
 import { ArrowBackIcon } from "@chakra-ui/icons"
-import { useBackRedirect } from "../hooks/useBackRedirect"
+import { useBackRedirect } from "app/core/hooks/useBackRedirect"
 
 const BackArrow = () => {
   const backRedirect = useBackRedirect()

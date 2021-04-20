@@ -3,8 +3,8 @@ import { PostType } from "db"
 
 export const TITLE_FORM_KEY = "title",
   DESCRIPTION_FORM_KEY = "description",
-  IMAGE_FORM_KEY = "image",
-  LOCATION_FORM_KEY = "location",
+  IMAGES_FORM_KEY = "images",
+  LOCATIONS_FORM_KEY = "locations",
   CATEGORY_FORM_KEY = "categoryId",
   TYPE_FORM_KEY = "type",
   MAX_FORM_IMAGES = 5

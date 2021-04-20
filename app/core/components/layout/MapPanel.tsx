@@ -13,7 +13,7 @@ import {
 } from "@chakra-ui/icons"
 import { useBreakpointValue } from "@chakra-ui/media-query"
 import { useMutation, useRouter } from "@blitzjs/core"
-import { useCurrentUser } from "../hooks/useCurrentUser"
+import { useCurrentUser } from "app/core/hooks/useCurrentUser"
 import { Avatar } from "@chakra-ui/avatar"
 import { Menu, MenuButton, MenuDivider, MenuItem, MenuList } from "@chakra-ui/menu"
 import logout from "app/auth/mutations/logout"
@@ -29,7 +29,7 @@ import {
   ModalOverlay,
 } from "@chakra-ui/modal"
 import { useDisclosure } from "@chakra-ui/hooks"
-import { usePostRedirect } from "../hooks/usePostRedirect"
+import { usePostRedirect } from "app/core/hooks/usePostRedirect"
 
 const MapPanel: FunctionComponent<{ children: ReactNode }> = ({ children }) => {
   const router = useRouter()

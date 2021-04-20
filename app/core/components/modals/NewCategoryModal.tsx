@@ -23,7 +23,7 @@ import { FunctionComponent, useState } from "react"
 import { useForm } from "react-hook-form"
 import { ModalComponentProps } from "types"
 import CategorySelectModal from "./CategorySelectModal"
-import FormComponent from "./FormComponent"
+import FormComponent from "../form/FormComponent"
 
 const NewCategoryModal: FunctionComponent<ModalComponentProps<Category>> = ({
   isOpen,

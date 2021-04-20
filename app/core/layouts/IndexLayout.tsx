@@ -3,8 +3,8 @@ import { invoke } from "blitz"
 import Layout from "app/core/layouts/Layout"
 import theme from "@chakra-ui/theme"
 import getBoundedPosts from "app/posts/queries/getBoundedPosts"
-import MapPanel from "../components/MapPanel"
-import Map from "../components/Map"
+import MapPanel from "../components/layout/MapPanel"
+import Map from "../components/map/Map"
 import { LayoutProps } from "../layouts/Layout"
 
 const IndexLayout = ({ children }: LayoutProps) => {
