@@ -23,7 +23,7 @@ import { FunctionComponent, useState } from "react"
 import { useForm } from "react-hook-form"
 import { ModalComponentProps } from "types"
 import CategorySelectModal from "./CategorySelectModal"
-import FormComponent from "./FormComponent"
+import FormComponent from "../form/FormComponent"
 
 const NewCategoryModal: FunctionComponent<ModalComponentProps<Category>> = ({
   isOpen,
@@ -44,7 +44,7 @@ const NewCategoryModal: FunctionComponent<ModalComponentProps<Category>> = ({
   })
 
   const selectCategoryModal = useDisclosure()
-  const [createCategoryMutation] = useMutation(createCategory)
+  const [createCategoryMutation, { isLoading }] = useMutation(createCategory)
   const [selectedCategory, setSelectedCategory] = useState<Category>()
 
   return (
@@ -63,6 +63,7 @@ const NewCategoryModal: FunctionComponent<ModalComponentProps<Category>> = ({
                 getError={() => errors[NAME_FORM_KEY]}
                 field={{
                   register,
+                  isLoading,
                   formKey: NAME_FORM_KEY,
                   placeholder: "Назва категорії",
                 }}

@@ -1,6 +1,6 @@
 import { BlitzPage, invoke, useParam } from "@blitzjs/core"
 import { Text, VStack } from "@chakra-ui/layout"
-import MiddlePanel from "app/core/components/MiddlePanel"
+import MiddlePanel from "app/core/components/layout/MiddlePanel"
 import IndexLayout from "app/core/layouts/IndexLayout"
 import PostComponent from "app/posts/components/PostComponent"
 import getSearchedPosts from "app/posts/queries/getSearchedPosts"

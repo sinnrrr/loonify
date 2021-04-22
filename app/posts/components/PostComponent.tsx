@@ -32,7 +32,7 @@ const PostComponent: FunctionComponent<{ post: Post & { category: Category } }> 
       <VStack align="flex-start">
         <Tag>{post.category.name}</Tag>
         <Text
-          fontSize={theme.fontSizes["3xl"]}
+          fontSize={theme.fontSizes["xl"]}
           fontWeight={theme.fontWeights.bold}
           wordBreak="break-word"
           whiteSpace="pre-wrap"

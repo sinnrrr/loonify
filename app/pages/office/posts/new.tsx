@@ -1,10 +1,8 @@
 import { BlitzPage, useAuthenticatedSession, useMutation } from "@blitzjs/core"
 import { Button } from "@chakra-ui/button"
 import { Container, Flex, Heading, HStack, VStack } from "@chakra-ui/layout"
-import { Textarea } from "@chakra-ui/textarea"
 import theme from "@chakra-ui/theme"
 import { zodResolver } from "@hookform/resolvers/zod"
-import Map from "../../../core/components/Map"
 import Layout from "app/core/layouts/Layout"
 import { CreatePost } from "app/posts/validations"
 import { Suspense, useEffect, useState } from "react"
@@ -12,34 +10,28 @@ import { useForm } from "react-hook-form"
 import createPost from "app/posts/mutations/createPost"
 import UploadBlock from "app/posts/components/UploadBlock"
 import { usePostRedirect } from "app/core/hooks/usePostRedirect"
-import { Select } from "@chakra-ui/select"
 import { ArrowBackIcon } from "@chakra-ui/icons"
 import { useBackRedirect } from "app/core/hooks/useBackRedirect"
-import { useDisclosure } from "@chakra-ui/hooks"
-import { Category } from "db"
-import { Tag, TagCloseButton, TagLabel } from "@chakra-ui/tag"
 import {
-  ALLOWED_POST_TYPES,
   CATEGORY_FORM_KEY,
   DESCRIPTION_FORM_KEY,
-  LOCATION_FORM_KEY,
   TITLE_FORM_KEY,
   TYPE_FORM_KEY,
+  LOCATIONS_FORM_KEY,
+  IMAGES_FORM_KEY,
 } from "app/posts/constants"
-import FormComponent from "app/core/components/FormComponent"
-import dynamic from "next/dynamic"
 import { NextSeo } from "next-seo"
-
-// Required, because without this map causes initialization error
-const CategorySelectModal = dynamic(() => import("app/core/components/CategorySelectModal"))
+import TypeField from "app/core/components/form/TypeField"
+import CategoryField from "app/core/components/form/CategoryField"
+import TitleField from "app/core/components/form/TitleField"
+import DescriptionField from "app/core/components/form/DescriptionField"
+import LocationField from "app/core/components/form/LocationField"
 
 const NewPostPage: BlitzPage = () => {
   // Mutations and requests
-  const [createPostMutation, { isLoading: postIsCreating }] = useMutation(createPost)
+  const [createPostMutation, { isLoading }] = useMutation(createPost)
 
   // States
-  const { isOpen, onOpen, onClose } = useDisclosure()
-  const [selectedCategory, setSelectedCategory] = useState<Category>()
   const [isUploadingImages, setIsUploadingImages] = useState<boolean>(false)
 
   // Hooks
@@ -98,82 +90,40 @@ const NewPostPage: BlitzPage = () => {
               <Heading>Створити нове оголошення</Heading>
             </HStack>
             <HStack w="100%">
-              <FormComponent
-                isRequired
+              <TypeField
+                isLoading={isLoading}
                 getError={() => errors[TYPE_FORM_KEY]}
-                label="Тип"
-                helperText="Оберіть тип оголошення"
-              >
-                <Select name={TYPE_FORM_KEY} ref={register}>
-                  {ALLOWED_POST_TYPES.map((type, index) => (
-                    <option key={index} value={type}>
-                      {type.charAt(0) + type.slice(1).toLowerCase()}
-                    </option>
-                  ))}
-                </Select>
-              </FormComponent>
-              <FormComponent
-                isRequired
+                register={register}
+              />
+              <CategoryField
+                isLoading={isLoading}
                 getError={() => errors[CATEGORY_FORM_KEY]}
-                label="Категорія"
-                helperText="Категорії оголошень забезпечують швидкий пошук"
-              >
-                {selectedCategory ? (
-                  <Tag size="lg">
-                    <TagLabel>{selectedCategory.name}</TagLabel>
-                    <TagCloseButton onClick={() => setSelectedCategory(undefined)} />
-                  </Tag>
-                ) : (
-                  <Button onClick={onOpen} isFullWidth>
-                    Оберіть категорію
-                  </Button>
-                )}
-                <CategorySelectModal
-                  isOpen={isOpen}
-                  onClose={onClose}
-                  onFinish={(category) => {
-                    setSelectedCategory(category)
-                    setUnregisteredValue("categoryId", category.id)
-                  }}
-                />
-              </FormComponent>
+                onFinish={(category) => setUnregisteredValue(CATEGORY_FORM_KEY, category.id)}
+              />
             </HStack>
-            <FormComponent
-              isRequired
-              label="Заголовок оголошення"
+            <TitleField
+              isLoading={isLoading}
+              register={register}
               getError={() => errors[TITLE_FORM_KEY]}
-              helperText="Придумайте короткий та зрозумілий заголовок"
-              field={{ formKey: TITLE_FORM_KEY, register, placeholder: "Заголовок" }}
             />
-            <FormComponent
-              isRequired
-              label="Детальний опис"
+            <DescriptionField
+              isLoading={isLoading}
+              register={register}
               getError={() => errors[DESCRIPTION_FORM_KEY]}
-              helperText="Складіть гарний опис, щоб залучити більше відвідувачів"
-            >
-              <Textarea rows={8} ref={register} placeholder="Опис" name={DESCRIPTION_FORM_KEY} />
-            </FormComponent>
+            />
+            <LocationField
+              onChange={(layers) => setUnregisteredValue(LOCATIONS_FORM_KEY, layers)}
+            />
             <UploadBlock
               onStart={() => setIsUploadingImages(true)}
               onFinish={(images) => {
-                setUnregisteredValue("images", images)
+                setUnregisteredValue(IMAGES_FORM_KEY, images)
                 setIsUploadingImages(false)
               }}
             />
-            <FormComponent
-              isRequired
-              label="Місцезнаходження"
-              helperText="Виберіть місце на карті (просто клацніть на карті) або видаліть маркер, клацнувши правою кнопкою миші або тримаючи палець на маркері"
-              getError={() => errors[LOCATION_FORM_KEY]}
-            >
-              <Map
-                onChange={(layers) => setUnregisteredValue("locations", layers)}
-                style={{ height: "30vh" }}
-              />
-            </FormComponent>
             <Button
               isFullWidth
-              isLoading={postIsCreating}
+              isLoading={isLoading}
               disabled={!isValid || isUploadingImages}
               onClick={submitForm}
             >

@@ -8,7 +8,7 @@ import { Box, Text, VStack } from "@chakra-ui/layout"
 import getPost from "app/posts/queries/getPost"
 import { BiImage } from "react-icons/bi"
 import { usePostRedirect } from "app/core/hooks/usePostRedirect"
-import MiddlePanel from "app/core/components/MiddlePanel"
+import MiddlePanel from "app/core/components/layout/MiddlePanel"
 import { NextSeo } from "next-seo"
 
 const Quick: BlitzPage = () => {

@@ -2,12 +2,12 @@ import React, { useState } from "react"
 import { BlitzPage, usePaginatedQuery } from "blitz"
 import IndexLayout from "app/core/layouts/IndexLayout"
 import { Box, Text, VStack } from "@chakra-ui/layout"
-import MiddlePanel from "app/core/components/MiddlePanel"
+import MiddlePanel from "app/core/components/layout/MiddlePanel"
 import { Button } from "@chakra-ui/button"
 import getPosts from "app/posts/queries/getPosts"
 import PostComponent from "app/posts/components/PostComponent"
 import { useDisclosure } from "@chakra-ui/hooks"
-import CategorySelectModal from "app/core/components/CategorySelectModal"
+import CategorySelectModal from "app/core/components/modals/CategorySelectModal"
 import { Category } from "db"
 import { Tag, TagCloseButton, TagLabel } from "@chakra-ui/tag"
 import { NextSeo } from "next-seo"
@@ -15,7 +15,10 @@ import { NextSeo } from "next-seo"
 const Home: BlitzPage = () => {
   const { isOpen, onOpen, onClose } = useDisclosure()
   const [selectedCategory, setSelectedCategory] = useState<Category>()
-  const [{ posts }] = usePaginatedQuery(getPosts, { where: { category: selectedCategory } })
+  const [{ posts }] = usePaginatedQuery(getPosts, {
+    where: { category: selectedCategory },
+    orderBy: { updatedAt: "desc" },
+  })
 
   return (
     <>

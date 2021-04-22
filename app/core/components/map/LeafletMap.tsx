@@ -9,14 +9,14 @@ import {
   useMapEvents,
   ZoomControl,
 } from "react-leaflet"
-import EditControl, { CircleLocation, EditProps } from "./EditControl"
-import { GetBoundedPosts } from "../../posts/queries/getBoundedPosts"
+import EditControl, { CircleLocation, EditProps } from "../map/EditControl"
+import { GetBoundedPosts } from "app/posts/queries/getBoundedPosts"
 import * as z from "zod"
 import { Post } from "db"
 import { LatLngBounds } from "leaflet"
 import { useList } from "react-use"
 import MarkerClusterGroup from "react-leaflet-markercluster"
-import { usePostRedirect } from "../hooks/usePostRedirect"
+import { usePostRedirect } from "app/core/hooks/usePostRedirect"
 
 export type Fetcher = (bounds: z.infer<typeof GetBoundedPosts>) => Promise<Post[]>
 

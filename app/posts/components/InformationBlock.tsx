@@ -1,7 +1,7 @@
 import { useMutation } from "@blitzjs/core"
 import { Editable, EditableInput, EditablePreview } from "@chakra-ui/editable"
 import { FormControl, FormErrorMessage } from "@chakra-ui/form-control"
-import { Container, Heading, Text, VStack } from "@chakra-ui/layout"
+import { Box, Container, Heading, Text, VStack } from "@chakra-ui/layout"
 import { Tag } from "@chakra-ui/tag"
 import { Textarea } from "@chakra-ui/textarea"
 import theme from "@chakra-ui/theme"
@@ -50,31 +50,33 @@ const InformationBlock: FunctionComponent<{ post: Post; category: Category }> = 
   return (
     <Container maxWidth={theme.sizes.container.md}>
       <VStack align="flex-start" mt={theme.space[6]}>
-        <Tag>{category.name}</Tag>
-        <FormControl isInvalid={!!errors[TITLE_FORM_KEY]}>
-          <Editable
-            as={Heading}
-            selectAllOnFocus={false}
-            isPreviewFocusable={isEditable}
-            startWithEditView={startWithEdit}
-            defaultValue={post[TITLE_FORM_KEY]}
-            submitOnBlur={!!!errors[TITLE_FORM_KEY]}
-            onSubmit={onCorrectSubmit}
-            placeholder="Заголовок"
-            wordBreak="break-word"
-          >
-            <EditablePreview />
-            <EditableInput
-              as={Textarea}
-              isInvalid={!!errors[TITLE_FORM_KEY]}
-              name={TITLE_FORM_KEY}
-              ref={register}
-            />
-          </Editable>
-          <FormErrorMessage mt={theme.space[0]} mb={theme.space[4]}>
-            {errors[TITLE_FORM_KEY]?.message}
-          </FormErrorMessage>
-        </FormControl>
+        <Box>
+          <Tag>{category.name}</Tag>
+          <FormControl isInvalid={!!errors[TITLE_FORM_KEY]}>
+            <Editable
+              as={Heading}
+              selectAllOnFocus={false}
+              isPreviewFocusable={isEditable}
+              startWithEditView={startWithEdit}
+              defaultValue={post[TITLE_FORM_KEY]}
+              submitOnBlur={!!!errors[TITLE_FORM_KEY]}
+              onSubmit={onCorrectSubmit}
+              placeholder="Заголовок"
+              wordBreak="break-word"
+            >
+              <EditablePreview />
+              <EditableInput
+                as={Textarea}
+                isInvalid={!!errors[TITLE_FORM_KEY]}
+                name={TITLE_FORM_KEY}
+                ref={register}
+              />
+            </Editable>
+            <FormErrorMessage mt={theme.space[0]} mb={theme.space[4]}>
+              {errors[TITLE_FORM_KEY]?.message}
+            </FormErrorMessage>
+          </FormControl>
+        </Box>
         <FormControl isInvalid={!!errors[DESCRIPTION_FORM_KEY]}>
           <Editable
             as={Text}
