@@ -55,15 +55,16 @@ const SignupForm: FunctionComponent<SubmittableFormProps> = ({ onSuccess }) => {
       }
       submitText="Зареєструватись"
       formFields={[
-        nameFieldAsProps({ getError: () => errors[FIRST_NAME_FORM_KEY], register }),
-        emailFieldAsProps({ getError: () => errors[EMAIL_FORM_KEY], register }),
-        phoneFieldAsProps({ getError: () => errors[PHONE_FORM_KEY], register }),
+        nameFieldAsProps({ getError: () => errors[FIRST_NAME_FORM_KEY], register, isLoading }),
+        emailFieldAsProps({ getError: () => errors[EMAIL_FORM_KEY], register, isLoading }),
+        phoneFieldAsProps({ getError: () => errors[PHONE_FORM_KEY], register, isLoading }),
         passwordFieldAsProps({
           register,
           showPassword,
           setShowPassword,
           passwordIsNew: true,
           getError: () => errors[PASSWORD_FORM_KEY],
+          isLoading,
         }),
         passwordFieldAsProps({
           register,
@@ -71,6 +72,7 @@ const SignupForm: FunctionComponent<SubmittableFormProps> = ({ onSuccess }) => {
           setShowPassword,
           confirmal: true,
           getError: () => errors[PASSWORD_FORM_KEY],
+          isLoading,
         }),
       ]}
     />

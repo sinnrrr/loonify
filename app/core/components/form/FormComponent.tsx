@@ -3,6 +3,7 @@ import { Input } from "@chakra-ui/input"
 import { Flex } from "@chakra-ui/layout"
 import { FunctionComponent, LegacyRef, ReactNode } from "react"
 import { FieldError } from "react-hook-form"
+import { Loadable } from "types"
 
 export type FormComponentProps = {
   label: string
@@ -11,9 +12,8 @@ export type FormComponentProps = {
   children?: ReactNode
   rightElement?: ReactNode
   getError: () => FieldError | undefined
-  field?: {
+  field?: Loadable & {
     formKey: string
-    isLoading: boolean
     placeholder: string
     autoComplete?: string
     register: LegacyRef<HTMLInputElement> | undefined

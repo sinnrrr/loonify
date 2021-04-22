@@ -1,6 +1,6 @@
 import { DefaultCtx, SessionContext, SimpleRolesIsAuthorized } from "blitz"
 import { User } from "db"
-import { LegacyRef, ReactNode } from "react"
+import { LegacyRef } from "react"
 import { FieldError } from "react-hook-form"
 
 export type ModalComponentProps<T = any> = {
@@ -11,12 +11,15 @@ export type ModalComponentProps<T = any> = {
 
 export type SubmittableFormProps = { onSuccess?: (...args: unknown[]) => void }
 
-export type UnregisteredFormFieldProps = {
+export type Loadable = {
+  isLoading: boolean
+}
+
+export type UnregisteredFormFieldProps = Loadable & {
   getError: () => FieldError | undefined
 }
 
-export type FormFieldProps = {
-  getError: () => FieldError | undefined
+export type FormFieldProps = UnregisteredFormFieldProps & {
   register: LegacyRef<HTMLInputElement>
 }
 

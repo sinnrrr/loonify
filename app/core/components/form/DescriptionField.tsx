@@ -9,19 +9,29 @@ export type DescriptionFieldProps = FormFieldProps & { register: LegacyRef<HTMLT
 export const descriptionFieldAsProps = ({
   getError,
   register,
+  isLoading,
 }: DescriptionFieldProps): FormComponentProps => ({
   isRequired: true,
   label: "Детальний опис",
   getError,
   helperText: "Складіть гарний опис, щоб залучити більше відвідувачів",
-  children: <Textarea rows={8} ref={register} placeholder="Опис" name={DESCRIPTION_FORM_KEY} />,
+  children: (
+    <Textarea
+      rows={8}
+      ref={register}
+      placeholder="Опис"
+      name={DESCRIPTION_FORM_KEY}
+      isDisabled={isLoading}
+    />
+  ),
 })
 
-const DescriptionField = ({ getError, register }: DescriptionFieldProps) => (
+const DescriptionField = ({ getError, register, isLoading }: DescriptionFieldProps) => (
   <FormComponent
     {...descriptionFieldAsProps({
       getError,
       register,
+      isLoading,
     })}
   />
 )

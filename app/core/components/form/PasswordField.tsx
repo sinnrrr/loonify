@@ -4,8 +4,8 @@ import { useColorModeValue } from "@chakra-ui/color-mode"
 import { ViewIcon, ViewOffIcon } from "@chakra-ui/icons"
 import { Input, InputGroup, InputRightElement } from "@chakra-ui/input"
 import FormComponent, { FormComponentProps } from "app/core/components/form/FormComponent"
-import { ReactNode, useState } from "react"
-import { FormFieldProps } from "types"
+import { FunctionComponent, ReactNode, useState } from "react"
+import { FormFieldProps, Loadable } from "types"
 import { CONFIRMATION_FORM_KEY, PASSWORD_FORM_KEY } from "../../../auth/constants"
 
 export type PasswordFieldProps = FormFieldProps & {
@@ -21,6 +21,7 @@ export const passwordFieldAsProps = ({
   showPassword,
   setShowPassword,
   rightElement,
+  isLoading,
 }: PasswordFieldProps & {
   showPassword: boolean
   setShowPassword: (as: boolean) => void
@@ -34,6 +35,7 @@ export const passwordFieldAsProps = ({
   children: (
     <InputGroup>
       <Input
+        isDisabled={isLoading}
         type={showPassword ? "text" : "password"}
         autoComplete={confirmal || passwordIsNew ? "new-password" : "current-password"}
         name={confirmal ? CONFIRMATION_FORM_KEY : PASSWORD_FORM_KEY}
@@ -56,6 +58,7 @@ const PasswordField = ({
   register,
   confirmal = false,
   passwordIsNew = false,
+  isLoading,
 }: PasswordFieldProps) => {
   const router = useRouter()
   const [showPassword, setShowPassword] = useState(false)
@@ -64,11 +67,13 @@ const PasswordField = ({
     showPassword,
     getError,
     register,
+    isLoading,
   })
 
-  const ForgotPasswordButton = () => (
+  const ForgotPasswordButton: FunctionComponent<Loadable> = ({ isLoading }) => (
     <Button
       variant="link"
+      isDisabled={isLoading}
       color={useColorModeValue("purple.600", "yellow.400")}
       onClick={() => router.push("/forgot/password")}
     >
@@ -78,7 +83,7 @@ const PasswordField = ({
 
   return (
     <FormComponent
-      rightElement={!confirmal && !passwordIsNew && <ForgotPasswordButton />}
+      rightElement={!confirmal && !passwordIsNew && <ForgotPasswordButton isLoading={isLoading} />}
       {...passwordFieldProps}
     />
   )

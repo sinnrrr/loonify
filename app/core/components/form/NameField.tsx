@@ -10,6 +10,7 @@ export const nameFieldAsProps = ({
   getError,
   register,
   isLast = false,
+  isLoading,
 }: NameFieldProps): FormComponentProps => ({
   getError,
   isRequired: !!!isLast,
@@ -17,18 +18,20 @@ export const nameFieldAsProps = ({
   helperText: isLast ? "Ваша фамілія" : "Ваше ім'я",
   field: {
     register,
+    isLoading,
     formKey: isLast ? LAST_NAME_FORM_KEY : FIRST_NAME_FORM_KEY,
     placeholder: isLast ? "Введіть фамілію" : "Введіть ім'я",
     autoComplete: isLast ? "family-name" : "given-name",
   },
 })
 
-const NameField = ({ getError, register, isLast }: NameFieldProps) => (
+const NameField = ({ getError, register, isLast, isLoading }: NameFieldProps) => (
   <FormComponent
     {...nameFieldAsProps({
       getError,
       register,
       isLast,
+      isLoading,
     })}
   />
 )

@@ -23,6 +23,7 @@ export const categoryFieldAsProps = ({
   modal,
   onFinish,
   getError,
+  isLoading,
   selectedCategory,
   setSelectedCategory,
 }: CategoryFieldProps & {
@@ -38,10 +39,10 @@ export const categoryFieldAsProps = ({
       {selectedCategory ? (
         <Tag size="lg">
           <TagLabel>{selectedCategory.name}</TagLabel>
-          <TagCloseButton onClick={() => setSelectedCategory!(undefined)} />
+          <TagCloseButton isDisabled={isLoading} onClick={() => setSelectedCategory!(undefined)} />
         </Tag>
       ) : (
-        <Button onClick={modal!.onOpen} isFullWidth>
+        <Button onClick={modal!.onOpen} isFullWidth isDisabled={isLoading}>
           Оберіть категорію
         </Button>
       )}
@@ -58,13 +59,14 @@ export const categoryFieldAsProps = ({
   ),
 })
 
-const CategoryField = ({ getError, onFinish }: CategoryFieldProps) => {
+const CategoryField = ({ getError, onFinish, isLoading }: CategoryFieldProps) => {
   const modal = useDisclosure()
   const [selectedCategory, setSelectedCategory] = useState<Category | undefined>()
   const passwordFieldProps = categoryFieldAsProps({
     modal,
     getError,
     onFinish,
+    isLoading,
     selectedCategory,
     setSelectedCategory,
   })

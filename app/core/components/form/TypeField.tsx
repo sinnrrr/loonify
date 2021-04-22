@@ -6,13 +6,17 @@ import { FormFieldProps } from "types"
 
 export type TypeFieldProps = FormFieldProps & { register: LegacyRef<HTMLSelectElement> }
 
-export const typeFieldAsProps = ({ getError, register }: TypeFieldProps): FormComponentProps => ({
+export const typeFieldAsProps = ({
+  getError,
+  register,
+  isLoading,
+}: TypeFieldProps): FormComponentProps => ({
   getError,
   isRequired: true,
   label: "Тип",
   helperText: "Оберіть тип оголошення",
   children: (
-    <Select name={TYPE_FORM_KEY} ref={register}>
+    <Select name={TYPE_FORM_KEY} ref={register} isDisabled={isLoading}>
       {ALLOWED_POST_TYPES.map((type, index) => (
         <option key={index} value={type}>
           {type.charAt(0) + type.slice(1).toLowerCase()}
@@ -22,11 +26,12 @@ export const typeFieldAsProps = ({ getError, register }: TypeFieldProps): FormCo
   ),
 })
 
-const TypeField = ({ getError, register }: TypeFieldProps) => (
+const TypeField = ({ getError, register, isLoading }: TypeFieldProps) => (
   <FormComponent
     {...typeFieldAsProps({
       getError,
       register,
+      isLoading,
     })}
   />
 )

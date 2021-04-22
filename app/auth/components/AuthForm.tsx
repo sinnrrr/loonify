@@ -3,10 +3,10 @@ import { Button, chakra, Image, Link, theme } from "@chakra-ui/react"
 import { FormEventHandler, FunctionComponent, ReactNode } from "react"
 import FormComponent, { FormComponentProps } from "app/core/components/form/FormComponent"
 import NextLink from "next/link"
+import { Loadable } from "types"
 
-export type AuthFormProps = {
+export type AuthFormProps = Loadable & {
   isValid: boolean
-  isLoading: boolean
   submitText: string
   headerChild: ReactNode
   formFields: FormComponentProps[]
