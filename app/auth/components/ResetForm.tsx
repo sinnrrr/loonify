@@ -31,6 +31,7 @@ const ResetForm: FunctionComponent<SubmittableFormProps> = ({ onSuccess }) => {
       submitText="Встановити"
       formFields={[
         passwordFieldAsProps({
+          isLoading,
           getError: () => errors[PASSWORD_FORM_KEY],
           register,
           passwordIsNew: true,
@@ -38,6 +39,7 @@ const ResetForm: FunctionComponent<SubmittableFormProps> = ({ onSuccess }) => {
           setShowPassword,
         }),
         passwordFieldAsProps({
+          isLoading,
           getError: () => errors[CONFIRMATION_FORM_KEY],
           register,
           confirmal: true,

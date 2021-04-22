@@ -30,7 +30,9 @@ const ForgotForm: FunctionComponent<SubmittableFormProps> = () => {
         forgotPasswordMutation(getValues())
       }}
       headerChild={<Heading>Відновити пароль</Heading>}
-      formFields={[emailFieldAsProps({ getError: () => errors[EMAIL_FORM_KEY], register })]}
+      formFields={[
+        emailFieldAsProps({ getError: () => errors[EMAIL_FORM_KEY], register, isLoading }),
+      ]}
     >
       {isSuccess && (
         <>

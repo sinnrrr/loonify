@@ -29,7 +29,7 @@ import LocationField from "app/core/components/form/LocationField"
 
 const NewPostPage: BlitzPage = () => {
   // Mutations and requests
-  const [createPostMutation, { isLoading: postIsCreating }] = useMutation(createPost)
+  const [createPostMutation, { isLoading }] = useMutation(createPost)
 
   // States
   const [isUploadingImages, setIsUploadingImages] = useState<boolean>(false)
@@ -90,14 +90,27 @@ const NewPostPage: BlitzPage = () => {
               <Heading>Створити нове оголошення</Heading>
             </HStack>
             <HStack w="100%">
-              <TypeField getError={() => errors[TYPE_FORM_KEY]} register={register} />
+              <TypeField
+                isLoading={isLoading}
+                getError={() => errors[TYPE_FORM_KEY]}
+                register={register}
+              />
               <CategoryField
+                isLoading={isLoading}
                 getError={() => errors[CATEGORY_FORM_KEY]}
                 onFinish={(category) => setUnregisteredValue(CATEGORY_FORM_KEY, category.id)}
               />
             </HStack>
-            <TitleField register={register} getError={() => errors[TITLE_FORM_KEY]} />
-            <DescriptionField register={register} getError={() => errors[DESCRIPTION_FORM_KEY]} />
+            <TitleField
+              isLoading={isLoading}
+              register={register}
+              getError={() => errors[TITLE_FORM_KEY]}
+            />
+            <DescriptionField
+              isLoading={isLoading}
+              register={register}
+              getError={() => errors[DESCRIPTION_FORM_KEY]}
+            />
             <LocationField
               onChange={(layers) => setUnregisteredValue(LOCATIONS_FORM_KEY, layers)}
             />
@@ -110,7 +123,7 @@ const NewPostPage: BlitzPage = () => {
             />
             <Button
               isFullWidth
-              isLoading={postIsCreating}
+              isLoading={isLoading}
               disabled={!isValid || isUploadingImages}
               onClick={submitForm}
             >
