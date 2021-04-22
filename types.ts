@@ -1,6 +1,6 @@
 import { DefaultCtx, SessionContext, SimpleRolesIsAuthorized } from "blitz"
 import { User } from "db"
-import { LegacyRef } from "react"
+import { LegacyRef, ReactNode } from "react"
 import { FieldError } from "react-hook-form"
 
 export type ModalComponentProps<T = any> = {

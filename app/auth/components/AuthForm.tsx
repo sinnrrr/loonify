@@ -5,6 +5,8 @@ import FormComponent, { FormComponentProps } from "app/core/components/form/Form
 import NextLink from "next/link"
 
 export type AuthFormProps = {
+  isValid: boolean
+  isLoading: boolean
   submitText: string
   headerChild: ReactNode
   formFields: FormComponentProps[]
@@ -12,10 +14,13 @@ export type AuthFormProps = {
 }
 
 const AuthForm: FunctionComponent<AuthFormProps> = ({
-  headerChild,
+  isValid,
+  children,
+  onSubmit,
+  isLoading,
   formFields,
   submitText,
-  onSubmit,
+  headerChild,
 }) => (
   <Container h="100vh" maxW={theme.sizes.md}>
     <VStack h="100%" spacing={12} justify="center">
@@ -27,12 +32,24 @@ const AuthForm: FunctionComponent<AuthFormProps> = ({
       {headerChild}
       <chakra.form onSubmit={onSubmit} w="100%">
         <VStack w="100%" spacing={8}>
-          {formFields.map((props, index) => (
-            <FormComponent key={index} {...props} />
-          ))}
-          <Button size="lg" isFullWidth type="submit">
-            {submitText}
-          </Button>
+          {children ? (
+            children
+          ) : (
+            <>
+              {formFields.map((props: FormComponentProps, index: number) => (
+                <FormComponent key={index} {...props} />
+              ))}
+              <Button
+                size="lg"
+                isLoading={isLoading}
+                isDisabled={!isValid}
+                isFullWidth
+                type="submit"
+              >
+                {submitText}
+              </Button>
+            </>
+          )}
         </VStack>
       </chakra.form>
     </VStack>

@@ -2,27 +2,30 @@ import { useMutation, useRouterQuery } from "@blitzjs/core"
 import { Heading } from "@chakra-ui/layout"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { passwordFieldAsProps } from "app/core/components/form/PasswordField"
-import { useState } from "react"
+import { FunctionComponent, useState } from "react"
 import { useForm } from "react-hook-form"
+import { SubmittableFormProps } from "types"
 import { CONFIRMATION_FORM_KEY, PASSWORD_FORM_KEY } from "../constants"
 import resetPassword from "../mutations/resetPassword"
 import { ResetPassword } from "../validations"
 import AuthForm from "./AuthForm"
 
-const ResetForm = () => {
+const ResetForm: FunctionComponent<SubmittableFormProps> = ({ onSuccess }) => {
   const query = useRouterQuery()
   const [showPassword, setShowPassword] = useState(false)
-  const [resetPasswordMutation] = useMutation(resetPassword)
-  const { errors, register, getValues } = useForm({
+  const [resetPasswordMutation, { isLoading }] = useMutation(resetPassword)
+  const { errors, register, getValues, formState } = useForm({
     mode: "onChange",
     resolver: zodResolver(ResetPassword),
   })
 
   return (
     <AuthForm
+      isValid={formState.isValid}
+      isLoading={isLoading}
       onSubmit={async (e) => {
         e.preventDefault()
-        resetPasswordMutation({ ...getValues(), token: query.token as string })
+        resetPasswordMutation({ ...getValues(), token: query.token as string }).then(onSuccess)
       }}
       headerChild={<Heading>Новий пароль</Heading>}
       submitText="Встановити"

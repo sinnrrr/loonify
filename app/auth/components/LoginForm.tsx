@@ -14,17 +14,18 @@ import { passwordFieldAsProps } from "app/core/components/form/PasswordField"
 
 const LoginForm: FunctionComponent<SubmittableFormProps> = ({ onSuccess }) => {
   const router = useRouter()
-  const [loginMutation] = useMutation(login)
+  const [loginMutation, { isLoading }] = useMutation(login)
   const [showPassword, setShowPassword] = useState(false)
 
-  const { errors, register, getValues, setError } = useForm({
+  const { errors, register, getValues, setError, formState } = useForm({
     mode: "onChange",
-    shouldUnregister: false,
     resolver: zodResolver(Login),
   })
 
   return (
     <AuthForm
+      isValid={formState.isValid}
+      isLoading={isLoading}
       onSubmit={(e) => {
         e.preventDefault()
 

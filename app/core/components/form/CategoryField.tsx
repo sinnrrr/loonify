@@ -46,6 +46,7 @@ export const categoryFieldAsProps = ({
         </Button>
       )}
       <CategorySelectModal
+        canCreateNew
         isOpen={modal!.isOpen}
         onClose={modal!.onClose}
         onFinish={(category) => {

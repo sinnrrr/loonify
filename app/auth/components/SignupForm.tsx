@@ -9,6 +9,7 @@ import {
   FIRST_NAME_FORM_KEY,
   LAST_NAME_FORM_KEY,
   PASSWORD_FORM_KEY,
+  PHONE_FORM_KEY,
 } from "../constants"
 import AuthForm from "./AuthForm"
 import { useMutation, useRouter } from "@blitzjs/core"
@@ -16,21 +17,23 @@ import { passwordFieldAsProps } from "app/core/components/form/PasswordField"
 import signup from "../mutations/signup"
 import { emailFieldAsProps } from "app/core/components/form/EmailField"
 import { SubmittableFormProps } from "types"
-import NextLink from "next/link"
 import { nameFieldAsProps } from "app/core/components/form/NameField"
+import { phoneFieldAsProps } from "app/core/components/form/PhoneField"
 
 const SignupForm: FunctionComponent<SubmittableFormProps> = ({ onSuccess }) => {
   const router = useRouter()
   const [showPassword, setShowPassword] = useState(false)
-  const [signupMutation] = useMutation(signup)
+  const [signupMutation, { isLoading }] = useMutation(signup)
 
-  const { errors, register, getValues } = useForm({
+  const { errors, register, getValues, formState } = useForm({
     mode: "onChange",
     resolver: zodResolver(Signup),
   })
 
   return (
     <AuthForm
+      isValid={formState.isValid}
+      isLoading={isLoading}
       onSubmit={(e) => {
         e.preventDefault()
         signupMutation(getValues()).then(onSuccess)
@@ -53,8 +56,8 @@ const SignupForm: FunctionComponent<SubmittableFormProps> = ({ onSuccess }) => {
       submitText="Зареєструватись"
       formFields={[
         nameFieldAsProps({ getError: () => errors[FIRST_NAME_FORM_KEY], register }),
-        // nameFieldAsProps({ getError: () => errors[LAST_NAME_FORM_KEY], register, isLast: true }),
         emailFieldAsProps({ getError: () => errors[EMAIL_FORM_KEY], register }),
+        phoneFieldAsProps({ getError: () => errors[PHONE_FORM_KEY], register }),
         passwordFieldAsProps({
           register,
           showPassword,

@@ -15,7 +15,10 @@ import { NextSeo } from "next-seo"
 const Home: BlitzPage = () => {
   const { isOpen, onOpen, onClose } = useDisclosure()
   const [selectedCategory, setSelectedCategory] = useState<Category>()
-  const [{ posts }] = usePaginatedQuery(getPosts, { where: { category: selectedCategory } })
+  const [{ posts }] = usePaginatedQuery(getPosts, {
+    where: { category: selectedCategory },
+    orderBy: { updatedAt: "desc" },
+  })
 
   return (
     <>

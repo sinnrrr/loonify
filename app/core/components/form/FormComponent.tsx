@@ -13,6 +13,7 @@ export type FormComponentProps = {
   getError: () => FieldError | undefined
   field?: {
     formKey: string
+    isLoading: boolean
     placeholder: string
     autoComplete?: string
     register: LegacyRef<HTMLInputElement> | undefined
@@ -38,6 +39,7 @@ const FormComponent: FunctionComponent<FormComponentProps> = ({
         children
       ) : (
         <Input
+          isDisabled={field!.isLoading}
           autoComplete={field!.autoComplete}
           name={field!.formKey}
           ref={field!.register}

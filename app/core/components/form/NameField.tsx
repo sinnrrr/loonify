@@ -14,7 +14,7 @@ export const nameFieldAsProps = ({
   getError,
   isRequired: !!!isLast,
   label: isLast ? "Фамілія" : "Ім'я",
-  helperText: "Ваша фамілія",
+  helperText: isLast ? "Ваша фамілія" : "Ваше ім'я",
   field: {
     register,
     formKey: isLast ? LAST_NAME_FORM_KEY : FIRST_NAME_FORM_KEY,

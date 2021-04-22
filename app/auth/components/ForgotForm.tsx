@@ -1,31 +1,47 @@
 import { useMutation } from "@blitzjs/core"
-import { Box, Heading, Link, Text } from "@chakra-ui/layout"
-import theme from "@chakra-ui/theme"
+import { Button } from "@chakra-ui/button"
+import { Heading, Text } from "@chakra-ui/layout"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { emailFieldAsProps } from "app/core/components/form/EmailField"
+import { useIndexRedirect } from "app/core/hooks/useIndexRedirect"
+import { FunctionComponent } from "react"
 import { useForm } from "react-hook-form"
+import { SubmittableFormProps } from "types"
 import { EMAIL_FORM_KEY } from "../constants"
 import forgotPassword from "../mutations/forgotPassword"
 import { ForgotPassword } from "../validations"
 import AuthForm from "./AuthForm"
 
-const ForgotForm = () => {
-  const [forgotPasswordMutation] = useMutation(forgotPassword)
-  const { errors, register, getValues } = useForm({
+const ForgotForm: FunctionComponent<SubmittableFormProps> = () => {
+  const indexRedirect = useIndexRedirect()
+  const [forgotPasswordMutation, { isLoading, isSuccess }] = useMutation(forgotPassword)
+  const { errors, register, getValues, formState } = useForm({
     mode: "onChange",
     resolver: zodResolver(ForgotPassword),
   })
 
   return (
     <AuthForm
+      isValid={formState.isValid}
+      submitText={isSuccess ? "Окей" : "Відновити"}
+      isLoading={isLoading}
       onSubmit={async (e) => {
         e.preventDefault()
         forgotPasswordMutation(getValues())
       }}
       headerChild={<Heading>Відновити пароль</Heading>}
-      submitText="Відновити"
       formFields={[emailFieldAsProps({ getError: () => errors[EMAIL_FORM_KEY], register })]}
-    />
+    >
+      {isSuccess && (
+        <>
+          <Text align="center">Інструкції з відновлення паролю була відправлена на вашу пошту</Text>
+
+          <Button size="lg" isFullWidth onClick={indexRedirect} type="submit">
+            Окей
+          </Button>
+        </>
+      )}
+    </AuthForm>
   )
 }
 
