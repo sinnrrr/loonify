@@ -38,7 +38,7 @@ const ForgotForm: FunctionComponent<SubmittableFormProps> = () => {
         <>
           <Text align="center">Інструкції з відновлення паролю була відправлена на вашу пошту</Text>
 
-          <Button size="lg" isFullWidth onClick={indexRedirect} type="submit">
+          <Button size="lg" isFullWidth onClick={indexRedirect} type="button">
             Окей
           </Button>
         </>
