@@ -1,13 +1,12 @@
 import { Box, Heading, Text } from "@chakra-ui/layout"
 import { zodResolver } from "@hookform/resolvers/zod"
-import { Button, Link, useColorModeValue } from "@chakra-ui/react"
+import { Button, useColorModeValue } from "@chakra-ui/react"
 import { FunctionComponent, useState } from "react"
 import { useForm } from "react-hook-form"
 import { Signup } from "../validations"
 import {
   EMAIL_FORM_KEY,
   FIRST_NAME_FORM_KEY,
-  LAST_NAME_FORM_KEY,
   PASSWORD_FORM_KEY,
   PHONE_FORM_KEY,
 } from "../constants"
