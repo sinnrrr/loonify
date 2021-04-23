@@ -69,7 +69,10 @@ const LoginForm: FunctionComponent<SubmittableFormProps> = ({ onSuccess }) => {
             <Button
               variant="link"
               color={useColorModeValue("purple.600", "yellow.400")}
-              onClick={() => router.push("/forgot/password")}
+              onClick={(e) => {
+                e.preventDefault()
+                router.push("/forgot/password")
+              }}
             >
               Забули пароль?
             </Button>
