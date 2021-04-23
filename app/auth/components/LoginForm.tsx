@@ -58,13 +58,19 @@ const LoginForm: FunctionComponent<SubmittableFormProps> = ({ onSuccess }) => {
       }
       submitText="Увійти"
       formFields={[
-        emailFieldAsProps({ getError: () => errors[EMAIL_FORM_KEY], register, isLoading }),
+        emailFieldAsProps({
+          getError: () => errors[EMAIL_FORM_KEY],
+          register,
+          isLoading,
+          tabIndex: 1,
+        }),
         passwordFieldAsProps({
           getError: () => errors[PASSWORD_FORM_KEY],
           register,
           showPassword,
           setShowPassword,
           isLoading,
+          tabIndex: 2,
           rightElement: (
             <Button
               variant="link"

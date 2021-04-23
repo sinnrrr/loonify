@@ -11,12 +11,14 @@ export const nameFieldAsProps = ({
   register,
   isLast = false,
   isLoading,
+  tabIndex = 0,
 }: NameFieldProps): FormComponentProps => ({
   getError,
   isRequired: !!!isLast,
   label: isLast ? "Фамілія" : "Ім'я",
   helperText: isLast ? "Ваша фамілія" : "Ваше ім'я",
   field: {
+    tabIndex,
     register,
     isLoading,
     formKey: isLast ? LAST_NAME_FORM_KEY : FIRST_NAME_FORM_KEY,
@@ -25,13 +27,14 @@ export const nameFieldAsProps = ({
   },
 })
 
-const NameField = ({ getError, register, isLast, isLoading }: NameFieldProps) => (
+const NameField = ({ getError, register, isLast, isLoading, tabIndex }: NameFieldProps) => (
   <FormComponent
     {...nameFieldAsProps({
       getError,
       register,
       isLast,
       isLoading,
+      tabIndex,
     })}
   />
 )

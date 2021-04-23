@@ -16,6 +16,7 @@ export type Loadable = {
 }
 
 export type UnregisteredFormFieldProps = Loadable & {
+  tabIndex?: number
   getError: () => FieldError | undefined
 }
 
