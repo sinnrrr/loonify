@@ -8,20 +8,22 @@ export const titleFieldAsProps = ({
   getError,
   register,
   isLoading,
+  tabIndex = 0,
 }: TitleFieldProps): FormComponentProps => ({
   isRequired: true,
   label: "Заголовок оголошення",
   getError,
   helperText: "Придумайте короткий та зрозумілий заголовок",
-  field: { formKey: TITLE_FORM_KEY, register, placeholder: "Заголовок", isLoading },
+  field: { formKey: TITLE_FORM_KEY, register, placeholder: "Заголовок", isLoading, tabIndex },
 })
 
-const TitleField = ({ getError, register, isLoading }: TitleFieldProps) => (
+const TitleField = ({ getError, register, isLoading, tabIndex }: TitleFieldProps) => (
   <FormComponent
     {...titleFieldAsProps({
       getError,
       register,
       isLoading,
+      tabIndex,
     })}
   />
 )

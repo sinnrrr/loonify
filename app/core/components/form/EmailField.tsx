@@ -8,6 +8,7 @@ export const emailFieldAsProps = ({
   getError,
   register,
   isLoading,
+  tabIndex = 0,
 }: EmailFieldProps): FormComponentProps => ({
   getError,
   isRequired: true,
@@ -16,18 +17,20 @@ export const emailFieldAsProps = ({
   field: {
     register,
     isLoading,
+    tabIndex,
     formKey: EMAIL_FORM_KEY,
     placeholder: "Пошта",
     autoComplete: "email",
   },
 })
 
-const EmailField = ({ getError, register, isLoading }: EmailFieldProps) => (
+const EmailField = ({ getError, register, isLoading, tabIndex }: EmailFieldProps) => (
   <FormComponent
     {...emailFieldAsProps({
       getError,
       register,
       isLoading,
+      tabIndex,
     })}
   />
 )

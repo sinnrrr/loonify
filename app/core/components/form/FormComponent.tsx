@@ -14,6 +14,7 @@ export type FormComponentProps = {
   getError: () => FieldError | undefined
   field?: Loadable & {
     formKey: string
+    tabIndex: number
     placeholder: string
     autoComplete?: string
     register: LegacyRef<HTMLInputElement> | undefined
@@ -39,6 +40,7 @@ const FormComponent: FunctionComponent<FormComponentProps> = ({
         children
       ) : (
         <Input
+          tabIndex={field!.tabIndex}
           isDisabled={field!.isLoading}
           autoComplete={field!.autoComplete}
           name={field!.formKey}

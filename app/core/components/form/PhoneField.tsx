@@ -8,12 +8,14 @@ export const phoneFieldAsProps = ({
   getError,
   register,
   isLoading,
+  tabIndex = 0,
 }: PhoneFieldProps): FormComponentProps => ({
   isRequired: true,
   label: "Телефон",
   getError,
   helperText: "Мобільний телефон",
   field: {
+    tabIndex,
     formKey: PHONE_FORM_KEY,
     register,
     isLoading,
@@ -22,12 +24,13 @@ export const phoneFieldAsProps = ({
   },
 })
 
-const PhoneField = ({ getError, register, isLoading }: PhoneFieldProps) => (
+const PhoneField = ({ getError, register, isLoading, tabIndex }: PhoneFieldProps) => (
   <FormComponent
     {...phoneFieldAsProps({
       getError,
       register,
       isLoading,
+      tabIndex,
     })}
   />
 )
