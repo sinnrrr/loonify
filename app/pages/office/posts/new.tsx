@@ -26,6 +26,7 @@ import CategoryField from "app/core/components/form/CategoryField"
 import TitleField from "app/core/components/form/TitleField"
 import DescriptionField from "app/core/components/form/DescriptionField"
 import LocationField from "app/core/components/form/LocationField"
+import { useBrandColor } from "app/core/hooks/useBrandColor"
 
 const NewPostPage: BlitzPage = () => {
   // Mutations and requests
@@ -123,6 +124,7 @@ const NewPostPage: BlitzPage = () => {
             />
             <Button
               isFullWidth
+              colorScheme={useBrandColor(true)}
               isLoading={isLoading}
               disabled={!isValid || isUploadingImages}
               onClick={submitForm}

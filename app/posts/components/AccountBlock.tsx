@@ -46,12 +46,7 @@ const AccountBlock: FunctionComponent<{ post: Post; account: User }> = ({ post, 
 
   return (
     <>
-      <VStack
-        align="start"
-        spacing={theme.space[4]}
-        mt={{ base: theme.space[8], md: theme.space[0] }}
-        mb={{ base: theme.space[8], md: theme.space[8] }}
-      >
+      <VStack w="100%" align="start" spacing={theme.space[4]}>
         <HStack justify="flex-start" spacing={theme.space[4]}>
           <Avatar size="md" />
           <Box>

@@ -1,6 +1,5 @@
 import { useRouter } from "@blitzjs/core"
 import { Button } from "@chakra-ui/button"
-import { useColorModeValue } from "@chakra-ui/color-mode"
 import { ViewIcon, ViewOffIcon } from "@chakra-ui/icons"
 import { Input, InputGroup, InputRightElement } from "@chakra-ui/input"
 import FormComponent, { FormComponentProps } from "app/core/components/form/FormComponent"

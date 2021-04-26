@@ -1,5 +1,5 @@
 import { usePaginatedQuery } from "@blitzjs/core"
-import { Heading, Text, VStack } from "@chakra-ui/layout"
+import { Heading, SimpleGrid, Text, VStack } from "@chakra-ui/layout"
 import theme from "@chakra-ui/theme"
 import { Post } from "db"
 import { FunctionComponent } from "react"
@@ -13,18 +13,16 @@ const RelatedBlock: FunctionComponent<{ post: Post }> = ({ post }) => {
     description: post.description,
   })
 
-  return (
+  return relatedPosts.length > 0 ? (
     <VStack align="flex-start" h="100%">
       <Heading>Схоже</Heading>
-      <VStack spacing={theme.space[8]} align="flex-start" overflowY="auto">
-        {relatedPosts.length > 0 ? (
-          relatedPosts.map((post, index) => <PostComponent key={index} post={post} />)
-        ) : (
-          <Text>Не схоже! Не знайшов подібних оголошень.</Text>
-        )}
-      </VStack>
+      <SimpleGrid columns={3} spacing={8}>
+        {relatedPosts.map((post, index) => (
+          <PostComponent key={index} post={post} />
+        ))}{" "}
+      </SimpleGrid>
     </VStack>
-  )
+  ) : null
 }
 
 export default RelatedBlock

@@ -1,6 +1,6 @@
 import { Box, Heading, Text } from "@chakra-ui/layout"
 import { zodResolver } from "@hookform/resolvers/zod"
-import { Button, useColorModeValue } from "@chakra-ui/react"
+import { Button } from "@chakra-ui/react"
 import { FunctionComponent, useState } from "react"
 import { useForm } from "react-hook-form"
 import { Login } from "../validations"
