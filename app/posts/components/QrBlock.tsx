@@ -7,7 +7,8 @@ const QrBlock = () => {
     <VStack align="flex-start" w="100%">
       <Heading>QR-код</Heading>
       <QRCode
-        size="100%"
+        width="100%"
+        height="min-content"
         renderAs="svg"
         fgColor={theme.colors.purple[400]}
         value={window.location.href}
