@@ -13,6 +13,7 @@ import { Button } from "@chakra-ui/button"
 import { ArrowBackIcon } from "@chakra-ui/icons"
 import { useBackRedirect } from "app/core/hooks/useBackRedirect"
 import { ArticleJsonLd, NextSeo } from "next-seo"
+import LogoBlock from "app/core/components/layout/LogoBlock"
 
 const ShowPostPage: BlitzPage = () => {
   // Post id from query
@@ -70,6 +71,7 @@ const ShowPostPage: BlitzPage = () => {
               [ROW_BREAKPOINT]: theme.sizes.sm,
             }}
           >
+            <LogoBlock />
             <AccountBlock post={post} account={owner} />
             <RelatedBlock post={post} />
           </Container>

@@ -24,6 +24,7 @@ import { useForm } from "react-hook-form"
 import { ModalComponentProps } from "types"
 import CategorySelectModal from "./CategorySelectModal"
 import FormComponent from "../form/FormComponent"
+import { useBrandColor } from "app/core/hooks/useBrandColor"
 
 const NewCategoryModal: FunctionComponent<ModalComponentProps<Category>> = ({
   isOpen,
@@ -100,7 +101,7 @@ const NewCategoryModal: FunctionComponent<ModalComponentProps<Category>> = ({
               Відміна
             </Button>
             <Button
-              colorScheme="blue"
+              colorScheme={useBrandColor(true)}
               isDisabled={!isValid}
               onClick={() => createCategoryMutation(getValues()).then(onFinish).then(onClose)}
             >

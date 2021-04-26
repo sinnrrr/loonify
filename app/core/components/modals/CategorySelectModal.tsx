@@ -26,6 +26,7 @@ import { ModalComponentProps } from "types"
 import { AddIcon } from "@chakra-ui/icons"
 import { useDisclosure } from "@chakra-ui/hooks"
 import NewCategoryModal from "./NewCategoryModal"
+import { useBrandColor } from "app/core/hooks/useBrandColor"
 
 export type CategorySelectModalProps = ModalComponentProps<Category> & { canCreateNew?: boolean }
 
@@ -112,7 +113,7 @@ const CategorySelectModal: FunctionComponent<CategorySelectModalProps> = ({
               Закрити
             </Button>
             <Button
-              colorScheme="blue"
+              colorScheme={useBrandColor(true)}
               isDisabled={!!!selectedCategory}
               onClick={() => {
                 onFinish(selectedCategory!)

@@ -18,6 +18,7 @@ import { emailFieldAsProps } from "app/core/components/form/EmailField"
 import { SubmittableFormProps } from "types"
 import { nameFieldAsProps } from "app/core/components/form/NameField"
 import { phoneFieldAsProps } from "app/core/components/form/PhoneField"
+import { useBrandColor } from "app/core/hooks/useBrandColor"
 
 const SignupForm: FunctionComponent<SubmittableFormProps> = ({ onSuccess }) => {
   const router = useRouter()
@@ -42,11 +43,7 @@ const SignupForm: FunctionComponent<SubmittableFormProps> = ({ onSuccess }) => {
           <Heading>Створити новий аккаунт</Heading>
           <Text>
             Вже маєте аккаунт?{" "}
-            <Button
-              variant="link"
-              color={useColorModeValue("purple.600", "yellow.400")}
-              onClick={() => router.push("/login")}
-            >
+            <Button variant="link" color={useBrandColor()} onClick={() => router.push("/login")}>
               Увійти
             </Button>
           </Text>
