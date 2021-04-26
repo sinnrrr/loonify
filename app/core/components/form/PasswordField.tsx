@@ -1,9 +1,9 @@
 import { useRouter } from "@blitzjs/core"
 import { Button } from "@chakra-ui/button"
-import { useColorModeValue } from "@chakra-ui/color-mode"
 import { ViewIcon, ViewOffIcon } from "@chakra-ui/icons"
 import { Input, InputGroup, InputRightElement } from "@chakra-ui/input"
 import FormComponent, { FormComponentProps } from "app/core/components/form/FormComponent"
+import { useBrandColor } from "app/core/hooks/useBrandColor"
 import { FunctionComponent, ReactNode, useState } from "react"
 import { FormFieldProps, Loadable } from "types"
 import { CONFIRMATION_FORM_KEY, PASSWORD_FORM_KEY } from "../../../auth/constants"
@@ -74,7 +74,7 @@ const PasswordField = ({
     <Button
       variant="link"
       isDisabled={isLoading}
-      color={useColorModeValue("purple.600", "yellow.400")}
+      color={useBrandColor()}
       onClick={() => router.push("/forgot/password")}
     >
       Забули пароль?

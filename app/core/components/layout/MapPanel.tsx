@@ -1,5 +1,5 @@
 import React, { FunctionComponent, ReactNode, useEffect, useState } from "react"
-import { Divider, Flex, HStack, Text, VStack } from "@chakra-ui/layout"
+import { Box, Divider, Flex, HStack, Text, VStack } from "@chakra-ui/layout"
 import { Button, IconButton } from "@chakra-ui/button"
 import theme from "@chakra-ui/theme"
 import { Slide } from "@chakra-ui/transition"
@@ -30,11 +30,14 @@ import {
 } from "@chakra-ui/modal"
 import { useDisclosure } from "@chakra-ui/hooks"
 import { usePostRedirect } from "app/core/hooks/usePostRedirect"
+import { useBrandColor } from "app/core/hooks/useBrandColor"
+import LogoBlock from "./LogoBlock"
 
 const MapPanel: FunctionComponent<{ children: ReactNode }> = ({ children }) => {
   const router = useRouter()
   const user = useCurrentUser()
   const postRedirect = usePostRedirect()
+  const brandColorScheme = useBrandColor(true)
   const openOnInit = useBreakpointValue({ base: false, sm: true })
 
   const { toggleColorMode } = useColorMode()
@@ -80,6 +83,9 @@ const MapPanel: FunctionComponent<{ children: ReactNode }> = ({ children }) => {
           {/* Upper panel */}
           {/* <Collapse in={upperIsOpen} animateOpacity> */}
           <VStack align="flex-start" p={theme.space[4]}>
+            <Box mb={2}>
+              <LogoBlock />
+            </Box>
             <HStack justify="space-between" w="100%">
               <IconButton
                 onClick={panelOnClose}
@@ -154,7 +160,7 @@ const MapPanel: FunctionComponent<{ children: ReactNode }> = ({ children }) => {
                 </Modal>
               </Portal>
             </HStack>
-            <Button isFullWidth onClick={() => postRedirect()}>
+            <Button isFullWidth colorScheme={brandColorScheme} onClick={() => postRedirect()}>
               Створити оголошення
             </Button>
           </VStack>

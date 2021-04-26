@@ -1,6 +1,6 @@
 import { Box, Heading, Text } from "@chakra-ui/layout"
 import { zodResolver } from "@hookform/resolvers/zod"
-import { Button, useColorModeValue } from "@chakra-ui/react"
+import { Button } from "@chakra-ui/react"
 import { FunctionComponent, useState } from "react"
 import { useForm } from "react-hook-form"
 import { Login } from "../validations"
@@ -11,9 +11,11 @@ import login from "../mutations/login"
 import { SubmittableFormProps } from "types"
 import { emailFieldAsProps } from "app/core/components/form/EmailField"
 import { passwordFieldAsProps } from "app/core/components/form/PasswordField"
+import { useBrandColor } from "app/core/hooks/useBrandColor"
 
 const LoginForm: FunctionComponent<SubmittableFormProps> = ({ onSuccess }) => {
   const router = useRouter()
+  const brandColorScheme = useBrandColor(true)
   const [loginMutation, { isLoading }] = useMutation(login)
   const [showPassword, setShowPassword] = useState(false)
 
@@ -48,7 +50,7 @@ const LoginForm: FunctionComponent<SubmittableFormProps> = ({ onSuccess }) => {
             Не маєте аккаунту?{" "}
             <Button
               variant="link"
-              color={useColorModeValue("purple.600", "yellow.400")}
+              colorScheme={brandColorScheme}
               onClick={() => router.push("/signup")}
             >
               Зареєструватись
@@ -74,7 +76,7 @@ const LoginForm: FunctionComponent<SubmittableFormProps> = ({ onSuccess }) => {
           rightElement: (
             <Button
               variant="link"
-              color={useColorModeValue("purple.600", "yellow.400")}
+              colorScheme={brandColorScheme}
               onClick={(e) => {
                 e.preventDefault()
                 router.push("/forgot/password")
