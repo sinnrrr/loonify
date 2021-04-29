@@ -137,7 +137,7 @@ const MapPanel: FunctionComponent<{ children: ReactNode }> = ({ children }) => {
                     const targetValue = e.target.value
 
                     setSearchQuery(targetValue)
-                    if (targetValue) router.replace("/office/posts/search/" + targetValue)
+                    if (targetValue) router.replace("/office/panel/search/" + targetValue)
                   }}
                 />
               </InputGroup>
