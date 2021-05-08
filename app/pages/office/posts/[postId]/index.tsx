@@ -6,8 +6,6 @@ import getPost from "app/posts/queries/getPost"
 import MediaBlock from "app/posts/components/MediaBlock"
 import InformationBlock from "app/posts/components/InformationBlock"
 import AccountBlock from "app/posts/components/AccountBlock"
-import RelatedBlock from "app/posts/components/RelatedBlock"
-import { Suspense } from "react"
 import { COLUMN_BREAKPOINT, ROW_BREAKPOINT } from "app/posts/constants"
 import { ArticleJsonLd, NextSeo } from "next-seo"
 import LogoBlock from "app/core/components/layout/LogoBlock"
@@ -80,10 +78,6 @@ const ShowPostPage: BlitzPage = () => {
 }
 
 ShowPostPage.suppressFirstRenderFlicker = true
-ShowPostPage.getLayout = (page) => (
-  <Layout>
-    <Suspense fallback={<div>Loading...</div>}>{page}</Suspense>
-  </Layout>
-)
+ShowPostPage.getLayout = (page) => <Layout>{page}</Layout>
 
 export default ShowPostPage

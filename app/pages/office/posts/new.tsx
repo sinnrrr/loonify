@@ -5,7 +5,7 @@ import theme from "@chakra-ui/theme"
 import { zodResolver } from "@hookform/resolvers/zod"
 import Layout from "app/core/layouts/Layout"
 import { CreatePost } from "app/posts/validations"
-import { Suspense, useEffect, useState } from "react"
+import { useEffect, useState } from "react"
 import { useForm } from "react-hook-form"
 import createPost from "app/posts/mutations/createPost"
 import UploadBlock from "app/posts/components/UploadBlock"
@@ -139,10 +139,6 @@ const NewPostPage: BlitzPage = () => {
 }
 
 NewPostPage.authenticate = true
-NewPostPage.getLayout = (page) => (
-  <Layout>
-    <Suspense fallback={<div>Loading...</div>}>{page}</Suspense>
-  </Layout>
-)
+NewPostPage.getLayout = (page) => <Layout>{page}</Layout>
 
 export default NewPostPage
