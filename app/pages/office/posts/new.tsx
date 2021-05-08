@@ -27,6 +27,7 @@ import TitleField from "app/core/components/form/TitleField"
 import DescriptionField from "app/core/components/form/DescriptionField"
 import LocationField from "app/core/components/form/LocationField"
 import { useBrandColor } from "app/core/hooks/useBrandColor"
+import LoadingSuspense from "app/core/components/layout/LoadingFallback"
 
 const NewPostPage: BlitzPage = () => {
   // Mutations and requests
@@ -139,10 +140,6 @@ const NewPostPage: BlitzPage = () => {
 }
 
 NewPostPage.authenticate = true
-NewPostPage.getLayout = (page) => (
-  <Layout>
-    <Suspense fallback={<div>Loading...</div>}>{page}</Suspense>
-  </Layout>
-)
+NewPostPage.getLayout = (page) => <Layout>{page}</Layout>
 
 export default NewPostPage

@@ -1,6 +1,5 @@
 import { usePaginatedQuery } from "@blitzjs/core"
-import { Heading, SimpleGrid, Text, VStack } from "@chakra-ui/layout"
-import theme from "@chakra-ui/theme"
+import { Heading, SimpleGrid, VStack } from "@chakra-ui/layout"
 import { Post } from "db"
 import { FunctionComponent } from "react"
 import getRelatedPosts from "../queries/getRelatedPosts"

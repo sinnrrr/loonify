@@ -1,4 +1,4 @@
-import React, { Suspense } from "react"
+import React from "react"
 import { invoke } from "blitz"
 import Layout from "app/core/layouts/Layout"
 import theme from "@chakra-ui/theme"
@@ -10,20 +10,18 @@ import { LayoutProps } from "../layouts/Layout"
 const IndexLayout = ({ children }: LayoutProps) => {
   return (
     <Layout>
-      <Suspense fallback={<div>Loading...</div>}>
-        <MapPanel>{children}</MapPanel>
-        <Map
-          fetcher={(bounds) => invoke(getBoundedPosts, bounds)}
-          style={{
-            zIndex: theme.zIndices.base,
-            position: "absolute",
-            top: 0,
-            bottom: 0,
-            left: 0,
-            right: 0,
-          }}
-        />
-      </Suspense>
+      <MapPanel>{children}</MapPanel>
+      <Map
+        fetcher={(bounds) => invoke(getBoundedPosts, bounds)}
+        style={{
+          zIndex: theme.zIndices.base,
+          position: "absolute",
+          top: 0,
+          bottom: 0,
+          left: 0,
+          right: 0,
+        }}
+      />
     </Layout>
   )
 }

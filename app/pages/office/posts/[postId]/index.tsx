@@ -11,6 +11,7 @@ import { Suspense } from "react"
 import { COLUMN_BREAKPOINT, ROW_BREAKPOINT } from "app/posts/constants"
 import { ArticleJsonLd, NextSeo } from "next-seo"
 import LogoBlock from "app/core/components/layout/LogoBlock"
+import LoadingSuspense from "app/core/components/layout/LoadingFallback"
 
 const QrBlock = dynamic(() => import("app/posts/components/QrBlock"), { ssr: false })
 
@@ -80,10 +81,6 @@ const ShowPostPage: BlitzPage = () => {
 }
 
 ShowPostPage.suppressFirstRenderFlicker = true
-ShowPostPage.getLayout = (page) => (
-  <Layout>
-    <Suspense fallback={<div>Loading...</div>}>{page}</Suspense>
-  </Layout>
-)
+ShowPostPage.getLayout = (page) => <Layout>{page}</Layout>
 
 export default ShowPostPage

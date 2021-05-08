@@ -1,17 +1,18 @@
 import { BlitzApiRequest, BlitzApiResponse } from "@blitzjs/core"
-import { chromium } from "playwright"
+import chromium from "chrome-aws-lambda"
 
 const generatePdf = async (req: BlitzApiRequest, res: BlitzApiResponse) => {
-  const browser = await chromium.launch()
+  const browser = await chromium.puppeteer.launch()
   const page = await browser.newPage()
 
   await page.goto(
     (process.env.NODE_ENV === "production"
       ? "https://loonify.rocks"
-      : `http://localhost:${process.env.PORT}`) + `/office/posts/${req.query.id}/pdf`
+      : `http://localhost:${process.env.PORT}`) + `/office/posts/${req.query.id}/pdf`,
+    {
+      waitUntil: "networkidle2",
+    }
   )
-
-  await page.waitForLoadState("networkidle")
 
   const pdf = await page.pdf({ format: "a4" })
 

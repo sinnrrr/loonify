@@ -75,10 +75,6 @@ const PostPdfPage: BlitzPage = () => {
 }
 
 PostPdfPage.suppressFirstRenderFlicker = true
-PostPdfPage.getLayout = (page) => (
-  <Layout>
-    <Suspense fallback={<div>Loading...</div>}>{page}</Suspense>
-  </Layout>
-)
+PostPdfPage.getLayout = (page) => <Layout>{page}</Layout>
 
 export default PostPdfPage
