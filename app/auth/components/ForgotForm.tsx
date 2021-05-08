@@ -3,6 +3,7 @@ import { Button } from "@chakra-ui/button"
 import { Heading, Text } from "@chakra-ui/layout"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { emailFieldAsProps } from "app/core/components/form/EmailField"
+import { useBrandColor } from "app/core/hooks/useBrandColor"
 import { useIndexRedirect } from "app/core/hooks/useIndexRedirect"
 import { FunctionComponent } from "react"
 import { useForm } from "react-hook-form"
@@ -14,6 +15,7 @@ import AuthForm from "./AuthForm"
 
 const ForgotForm: FunctionComponent<SubmittableFormProps> = () => {
   const indexRedirect = useIndexRedirect()
+  const brandScheme = useBrandColor(true)
   const [forgotPasswordMutation, { isLoading, isSuccess }] = useMutation(forgotPassword)
   const { errors, register, getValues, formState } = useForm({
     mode: "onChange",
@@ -38,7 +40,13 @@ const ForgotForm: FunctionComponent<SubmittableFormProps> = () => {
         <>
           <Text align="center">Інструкції з відновлення паролю була відправлена на вашу пошту</Text>
 
-          <Button size="lg" isFullWidth onClick={indexRedirect} type="button">
+          <Button
+            size="lg"
+            colorScheme={brandScheme}
+            isFullWidth
+            onClick={indexRedirect}
+            type="button"
+          >
             Окей
           </Button>
         </>
