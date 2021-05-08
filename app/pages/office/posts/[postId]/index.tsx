@@ -6,12 +6,9 @@ import getPost from "app/posts/queries/getPost"
 import MediaBlock from "app/posts/components/MediaBlock"
 import InformationBlock from "app/posts/components/InformationBlock"
 import AccountBlock from "app/posts/components/AccountBlock"
-import RelatedBlock from "app/posts/components/RelatedBlock"
-import { Suspense } from "react"
 import { COLUMN_BREAKPOINT, ROW_BREAKPOINT } from "app/posts/constants"
 import { ArticleJsonLd, NextSeo } from "next-seo"
 import LogoBlock from "app/core/components/layout/LogoBlock"
-import LoadingSuspense from "app/core/components/layout/LoadingFallback"
 
 const QrBlock = dynamic(() => import("app/posts/components/QrBlock"), { ssr: false })
 

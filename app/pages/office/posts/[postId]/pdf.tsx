@@ -7,7 +7,6 @@ import Map from "app/core/components/map/Map"
 import Layout from "app/core/layouts/Layout"
 import getPost from "app/posts/queries/getPost"
 import QRCode from "qrcode.react"
-import { Suspense } from "react"
 import { BiImage } from "react-icons/bi"
 
 const PostPdfPage: BlitzPage = () => {

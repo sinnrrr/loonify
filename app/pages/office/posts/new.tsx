@@ -5,7 +5,7 @@ import theme from "@chakra-ui/theme"
 import { zodResolver } from "@hookform/resolvers/zod"
 import Layout from "app/core/layouts/Layout"
 import { CreatePost } from "app/posts/validations"
-import { Suspense, useEffect, useState } from "react"
+import { useEffect, useState } from "react"
 import { useForm } from "react-hook-form"
 import createPost from "app/posts/mutations/createPost"
 import UploadBlock from "app/posts/components/UploadBlock"
@@ -27,7 +27,6 @@ import TitleField from "app/core/components/form/TitleField"
 import DescriptionField from "app/core/components/form/DescriptionField"
 import LocationField from "app/core/components/form/LocationField"
 import { useBrandColor } from "app/core/hooks/useBrandColor"
-import LoadingSuspense from "app/core/components/layout/LoadingFallback"
 
 const NewPostPage: BlitzPage = () => {
   // Mutations and requests
