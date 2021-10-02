@@ -13,7 +13,7 @@ const generatePdf = async (req: BlitzApiRequest, res: BlitzApiResponse) => {
 
   await page.goto(
     (process.env.NODE_ENV === "production"
-      ? "https://loonify.rocks"
+      ? "https://loonify.vercel.app"
       : `http://localhost:${process.env.PORT}`) + `/office/posts/${req.query.id}/pdf`,
     {
       waitUntil: "networkidle2",
