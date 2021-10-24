@@ -6,7 +6,6 @@ import Map from "../../core/components/map/Map"
 import { Post } from "db"
 import { FunctionComponent } from "react"
 import { ROW_BREAKPOINT, TYPE_MATCHED_COLOR } from "../constants"
-import Carousel from "app/core/components/layout/Carousel"
 
 const MediaBlock: FunctionComponent<{ post: Post }> = ({ post }) => (
   <Container maxW={theme.sizes.container.md} minW={{ [ROW_BREAKPOINT]: theme.sizes.container.sm }}>

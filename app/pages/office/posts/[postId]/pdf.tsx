@@ -1,7 +1,5 @@
 import { BlitzPage, useParam, useQuery } from "@blitzjs/core"
-import { Button, IconButton } from "@chakra-ui/button"
 import { useColorMode } from "@chakra-ui/color-mode"
-import { EmailIcon, PhoneIcon } from "@chakra-ui/icons"
 import { Image } from "@chakra-ui/image"
 import { Box, Flex, Grid, GridItem, Heading, Text, VStack } from "@chakra-ui/layout"
 import { Tag } from "@chakra-ui/tag"
