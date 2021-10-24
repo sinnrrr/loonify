@@ -88,7 +88,8 @@
     "prettier": "2.2.1",
     "prettier-plugin-prisma": "0.6.0",
     "pretty-quick": "3.1.0",
-    "preview-email": "3.0.4"
+    "preview-email": "3.0.4",
+    "puppeteer": "10.4.0"
   },
   "private": true
 }
