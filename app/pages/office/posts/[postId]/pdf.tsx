@@ -1,4 +1,5 @@
 import { BlitzPage, useParam, useQuery } from "@blitzjs/core"
+import { useColorMode } from "@chakra-ui/color-mode"
 import { Image } from "@chakra-ui/image"
 import { Flex, Grid, GridItem, Heading, Text, VStack } from "@chakra-ui/layout"
 import { Tag } from "@chakra-ui/tag"
@@ -10,6 +11,9 @@ import QRCode from "qrcode.react"
 import { BiImage } from "react-icons/bi"
 
 const PostPdfPage: BlitzPage = () => {
+  const { setColorMode } = useColorMode()
+  setColorMode("light")
+
   const id = useParam("postId", "number")
   const [post] = useQuery(getPost, { id })
 
@@ -18,7 +22,7 @@ const PostPdfPage: BlitzPage = () => {
       gap={8}
       p={theme.space[8]}
       width="21cm"
-      height="29.7cm"
+      height="29.6cm"
       templateColumns="7fr 4fr"
       templateRows="40% 1fr 1fr 40px"
     >
