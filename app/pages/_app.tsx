@@ -22,7 +22,6 @@ import LoginForm from "app/auth/components/LoginForm"
 
 import { ChakraProvider } from "@chakra-ui/react"
 import theme from "theme"
-import { DefaultSeo } from "next-seo"
 
 export default function App({ Component, pageProps }: AppProps) {
   const getLayout = Component.getLayout || ((page) => page)
@@ -39,25 +38,6 @@ export default function App({ Component, pageProps }: AppProps) {
           queryCache.resetErrorBoundaries()
         }}
       >
-        <DefaultSeo
-          openGraph={{
-            type: "website",
-            locale: "uk_UA",
-            url: "https://www.loonify.rocks/",
-            site_name: "Loonify",
-          }}
-          additionalLinkTags={[
-            { rel: "apple-touch-icon", sizes: "180x180", href: "/apple-touch-icon.png" },
-            { rel: "icon", type: "image/png", sizes: "32x32", href: "/favicon-32x32.png" },
-            { rel: "icon", type: "image/png", sizes: "16x16", href: "/favicon-16x16.png" },
-            { rel: "manifest", href: "/site.webmanifest" },
-            { rel: "mask-icon", href: "/safari-pinned-tab.svg", color: "#6b46c1" },
-          ]}
-          additionalMetaTags={[
-            { name: "msapplication-TileColor", content: "#ffc40d" },
-            { name: "theme-color", content: "#ffffff" },
-          ]}
-        />
         {getLayout(<Component {...pageProps} />)}
       </ErrorBoundary>
     </ChakraProvider>
