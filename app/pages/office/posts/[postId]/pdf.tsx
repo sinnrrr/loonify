@@ -1,9 +1,12 @@
 import { BlitzPage, useParam, useQuery } from "@blitzjs/core"
+import { Button, IconButton } from "@chakra-ui/button"
 import { useColorMode } from "@chakra-ui/color-mode"
+import { EmailIcon, PhoneIcon } from "@chakra-ui/icons"
 import { Image } from "@chakra-ui/image"
-import { Flex, Grid, GridItem, Heading, Text, VStack } from "@chakra-ui/layout"
+import { Box, Flex, Grid, GridItem, Heading, Text, VStack } from "@chakra-ui/layout"
 import { Tag } from "@chakra-ui/tag"
 import theme from "@chakra-ui/theme"
+import ContactOption from "app/core/components/layout/ContactOption"
 import Map from "app/core/components/map/Map"
 import Layout from "app/core/layouts/Layout"
 import getPost from "app/posts/queries/getPost"
@@ -38,12 +41,15 @@ const PostPdfPage: BlitzPage = () => {
       </GridItem>
       <GridItem>
         <VStack>
-          <Heading>Have found or seen anything?</Heading>
-          <Text>
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Aspernatur, tempora. Deleniti
-            maxime at amet adipisci, corrupti placeat, impedit iure incidunt illum fugit unde
-            inventore culpa dolorum delectus assumenda perspiciatis eum?
-          </Text>
+          <Heading>Знайшли чи бачили щось?</Heading>
+          <VStack spacing={theme.space[2]}>
+            <Text>Зв’яжіться зі мною за допомогою:</Text>
+            <Box>
+              <ContactOption variant="email" data={post.owner.email} />
+              {post.owner.phone && <ContactOption variant="phone" data={post.owner.phone} />}
+            </Box>
+            <Text>..або дізнайтесь більше інформації за QR-кодом нижче</Text>
+          </VStack>
         </VStack>
       </GridItem>
       <GridItem>
