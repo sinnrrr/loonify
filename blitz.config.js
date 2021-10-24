@@ -4,6 +4,7 @@ const withPWA = require("next-pwa")
 module.exports = withPWA({
   pwa: {
     dest: "public",
+    scope: "/office",
   },
   middleware: [
     sessionMiddleware({
@@ -18,14 +19,13 @@ module.exports = withPWA({
     return config
   },
   */
-  basePath: "/office",
-  // async redirects() {
-  //   return [
-  //     {
-  //       source: "/",
-  //       destination: "/office",
-  //       permanent: false,
-  //     },
-  //   ]
-  // },
+  async redirects() {
+    return [
+      {
+        source: "/",
+        destination: "/office",
+        permanent: false,
+      },
+    ]
+  },
 })
