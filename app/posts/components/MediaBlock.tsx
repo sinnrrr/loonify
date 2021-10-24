@@ -6,6 +6,7 @@ import Map from "../../core/components/map/Map"
 import { Post } from "db"
 import { FunctionComponent } from "react"
 import { ROW_BREAKPOINT, TYPE_MATCHED_COLOR } from "../constants"
+import Carousel from "app/core/components/layout/Carousel"
 
 const MediaBlock: FunctionComponent<{ post: Post }> = ({ post }) => (
   <Container maxW={theme.sizes.container.md} minW={{ [ROW_BREAKPOINT]: theme.sizes.container.sm }}>
@@ -30,7 +31,7 @@ const MediaBlock: FunctionComponent<{ post: Post }> = ({ post }) => (
             borderColor={TYPE_MATCHED_COLOR[post.type]}
             borderBottomRadius={theme.radii.md}
           >
-            <Image src={post.images[0]} />
+            <Image src={post.images[0]} maxH="400px" />
             {/* <Carousel images={post.images} /> */}
           </TabPanel>
         )}
