@@ -1,11 +1,11 @@
 const { sessionMiddleware, simpleRolesIsAuthorized } = require("blitz")
-const withPWA = require("next-pwa")
+// const withPWA = require("next-pwa")
 
-module.exports = withPWA({
-  pwa: {
-    dest: "public",
-    scope: "/office",
-  },
+module.exports = {
+  // pwa: {
+  //   dest: "public",
+  //   scope: "/office",
+  // },
   middleware: [
     sessionMiddleware({
       isAuthorized: simpleRolesIsAuthorized,
@@ -27,5 +27,5 @@ module.exports = withPWA({
         permanent: false,
       },
     ]
-  },
-})
+  }
+}
