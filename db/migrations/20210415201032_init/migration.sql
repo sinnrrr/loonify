@@ -12,7 +12,7 @@ CREATE TABLE "User" (
     "firstName" TEXT NOT NULL,
     "lastName" TEXT,
     "email" TEXT NOT NULL,
-    "phone" TEXT,
+    "phone" TEXT NOT NULL,
     "hashedPassword" TEXT,
     "role" TEXT NOT NULL DEFAULT E'USER',
 
