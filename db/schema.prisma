@@ -1,0 +1,97 @@
+datasource db {
+  provider          = "postgres"
+  url               = env("DATABASE_URL")
+  shadowDatabaseUrl = env("SHADOW_DATABASE_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+// --------------------------------------
+
+model User {
+  id             Int      @id @default(autoincrement())
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
+  firstName      String
+  lastName       String?
+  email          String   @unique
+  phone          String?  @unique
+  hashedPassword String?
+  role           String   @default("USER")
+
+  tokens   Token[]
+  sessions Session[]
+  posts    Post[]
+}
+
+model Session {
+  id                 Int       @id @default(autoincrement())
+  createdAt          DateTime  @default(now())
+  updatedAt          DateTime  @updatedAt
+  expiresAt          DateTime?
+  handle             String    @unique
+  hashedSessionToken String?
+  antiCSRFToken      String?
+  publicData         String?
+  privateData        String?
+
+  user   User? @relation(fields: [userId], references: [id])
+  userId Int?
+}
+
+model Token {
+  id          Int       @id @default(autoincrement())
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+  hashedToken String
+  type        TokenType
+  expiresAt   DateTime
+  sentTo      String
+
+  user   User @relation(fields: [userId], references: [id])
+  userId Int
+
+  @@unique([hashedToken, type])
+}
+
+enum TokenType {
+  RESET_PASSWORD
+}
+
+enum PostType {
+  LOST
+  FOUND
+  THEFT
+}
+
+model Post {
+  id          Int      @id @default(autoincrement())
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  title       String
+  description String
+  type        PostType
+  images      String[]
+  locations   Json[]
+
+  owner   User @relation(fields: [ownerId], references: [id])
+  ownerId Int
+
+  category   Category @relation("PostToCategory", fields: [categoryId], references: [id])
+  categoryId Int
+}
+
+model Category {
+  id        Int      @id @default(autoincrement())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  name     String
+  parentId Int?
+
+  parent  Category?  @relation("CategoryToCategory", fields: [parentId], references: [id])
+  parents Category[] @relation("CategoryToCategory")
+  Post    Post[]     @relation("PostToCategory")
+}
