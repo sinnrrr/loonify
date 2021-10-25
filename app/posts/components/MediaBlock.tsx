@@ -30,7 +30,7 @@ const MediaBlock: FunctionComponent<{ post: Post }> = ({ post }) => (
             borderColor={TYPE_MATCHED_COLOR[post.type]}
             borderBottomRadius={theme.radii.md}
           >
-            <Image src={post.images[0]} maxH="400px" />
+            <Image src={post.images[0]} maxH="400px" alt="Post image" />
             {/* <Carousel images={post.images} /> */}
           </TabPanel>
         )}

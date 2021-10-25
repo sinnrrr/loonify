@@ -12,8 +12,8 @@ const Carousel: FunctionComponent<{ images: string[] }> = ({ images }) => (
     onSwiper={(swiper) => console.log(swiper)}
     onSlideChange={() => console.log("slide change")}
   >
-    {images.map((imageUrl) => (
-      <SwiperSlide>
+    {images.map((imageUrl, index) => (
+      <SwiperSlide key={index}>
         <Image src={imageUrl} alt="Post image" />
       </SwiperSlide>
     ))}

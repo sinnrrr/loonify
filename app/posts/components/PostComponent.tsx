@@ -23,7 +23,7 @@ const PostComponent: FunctionComponent<{ post: Post & { category: Category } }> 
       onClick={() => postRedirect(post.id)}
     >
       {post.images.length > 0 ? (
-        <Image src={post.images[0]} />
+        <Image src={post.images[0]} alt="Post image" />
       ) : (
         <Box>
           <BiImage size="100%" />
