@@ -1,4 +1,14 @@
-import { Portal } from "@chakra-ui/portal"
+import {
+  Accordion,
+  AccordionButton,
+  AccordionIcon,
+  AccordionItem,
+  AccordionPanel,
+} from "@chakra-ui/accordion"
+import { Button } from "@chakra-ui/button"
+import { useDisclosure } from "@chakra-ui/hooks"
+import { AddIcon } from "@chakra-ui/icons"
+import { Box, Text, VStack } from "@chakra-ui/layout"
 import {
   Modal,
   ModalBody,
@@ -8,25 +18,15 @@ import {
   ModalHeader,
   ModalOverlay,
 } from "@chakra-ui/modal"
-import { FunctionComponent, useState } from "react"
-import { Button } from "@chakra-ui/button"
-import {
-  Accordion,
-  AccordionButton,
-  AccordionIcon,
-  AccordionItem,
-  AccordionPanel,
-} from "@chakra-ui/accordion"
-import { useQuery } from "@blitzjs/core"
-import getCategories from "app/categories/queries/getCategories"
-import { Box, Text, VStack } from "@chakra-ui/layout"
-import { Category } from "db"
+import { Portal } from "@chakra-ui/portal"
 import { Tag } from "@chakra-ui/tag"
-import { ModalComponentProps } from "types"
-import { AddIcon } from "@chakra-ui/icons"
-import { useDisclosure } from "@chakra-ui/hooks"
-import NewCategoryModal from "./NewCategoryModal"
+import getCategories from "app/categories/queries/getCategories"
 import { useBrandColor } from "app/core/hooks/useBrandColor"
+import { useQuery } from "blitz"
+import { Category } from "db"
+import { FunctionComponent, useState } from "react"
+import { ModalComponentProps } from "types"
+import NewCategoryModal from "./NewCategoryModal"
 
 export type CategorySelectModalProps = ModalComponentProps<Category> & { canCreateNew?: boolean }
 

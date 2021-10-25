@@ -1,24 +1,24 @@
 import { Box, Heading, Text } from "@chakra-ui/layout"
-import { zodResolver } from "@hookform/resolvers/zod"
 import { Button } from "@chakra-ui/react"
+import { zodResolver } from "@hookform/resolvers/zod"
+import { emailFieldAsProps } from "app/core/components/form/EmailField"
+import { nameFieldAsProps } from "app/core/components/form/NameField"
+import { passwordFieldAsProps } from "app/core/components/form/PasswordField"
+import { phoneFieldAsProps } from "app/core/components/form/PhoneField"
+import { useBrandColor } from "app/core/hooks/useBrandColor"
+import { useMutation, useRouter } from "blitz"
 import { FunctionComponent, useState } from "react"
 import { useForm } from "react-hook-form"
-import { Signup } from "../validations"
+import { SubmittableFormProps } from "types"
 import {
   EMAIL_FORM_KEY,
   FIRST_NAME_FORM_KEY,
   PASSWORD_FORM_KEY,
   PHONE_FORM_KEY,
 } from "../constants"
-import AuthForm from "./AuthForm"
-import { useMutation, useRouter } from "@blitzjs/core"
-import { passwordFieldAsProps } from "app/core/components/form/PasswordField"
 import signup from "../mutations/signup"
-import { emailFieldAsProps } from "app/core/components/form/EmailField"
-import { SubmittableFormProps } from "types"
-import { nameFieldAsProps } from "app/core/components/form/NameField"
-import { phoneFieldAsProps } from "app/core/components/form/PhoneField"
-import { useBrandColor } from "app/core/hooks/useBrandColor"
+import { Signup } from "../validations"
+import AuthForm from "./AuthForm"
 
 const SignupForm: FunctionComponent<SubmittableFormProps> = ({ onSuccess }) => {
   const router = useRouter()

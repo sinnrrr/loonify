@@ -1,4 +1,3 @@
-import { BlitzPage, useParam, useQuery } from "@blitzjs/core"
 import { useColorMode } from "@chakra-ui/color-mode"
 import { Image } from "@chakra-ui/image"
 import { Box, Flex, Grid, GridItem, Heading, Text, VStack } from "@chakra-ui/layout"
@@ -8,6 +7,7 @@ import ContactOption from "app/core/components/layout/ContactOption"
 import Map from "app/core/components/map/Map"
 import Layout from "app/core/layouts/Layout"
 import getPost from "app/posts/queries/getPost"
+import { BlitzPage, useParam, useQuery } from "blitz"
 import QRCode from "qrcode.react"
 import { BiImage } from "react-icons/bi"
 
@@ -28,7 +28,11 @@ const PostPdfPage: BlitzPage = () => {
       templateRows="40% 1fr 1fr 40px"
     >
       <GridItem colSpan={2}>
-        {post.images.length > 0 ? <Image h="100%" src={post.images[0]} /> : <BiImage size="100%" />}
+        {post.images.length > 0 ? (
+          <Image h="100%" src={post.images[0]} alt="Post image" />
+        ) : (
+          <BiImage size="100%" />
+        )}
       </GridItem>
       <GridItem>
         <VStack align="flex-start">

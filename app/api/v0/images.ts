@@ -1,6 +1,6 @@
-import { BlitzApiRequest, BlitzApiResponse } from "@blitzjs/core"
-import cloudinary from "cloudinary"
+import { BlitzApiRequest, BlitzApiResponse } from "blitz"
 import Busboy from "busboy"
+import cloudinary from "cloudinary"
 
 cloudinary.v2.config({
   cloud_name: process.env.STORAGE_NAME,

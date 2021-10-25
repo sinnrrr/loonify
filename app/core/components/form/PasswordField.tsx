@@ -1,9 +1,9 @@
-import { useRouter } from "@blitzjs/core"
 import { Button } from "@chakra-ui/button"
 import { ViewIcon, ViewOffIcon } from "@chakra-ui/icons"
 import { Input, InputGroup, InputRightElement } from "@chakra-ui/input"
 import FormComponent, { FormComponentProps } from "app/core/components/form/FormComponent"
 import { useBrandColor } from "app/core/hooks/useBrandColor"
+import { useRouter } from "blitz"
 import { FunctionComponent, ReactNode, useState } from "react"
 import { FormFieldProps, Loadable } from "types"
 import { CONFIRMATION_FORM_KEY, PASSWORD_FORM_KEY } from "../../../auth/constants"
@@ -43,11 +43,9 @@ export const passwordFieldAsProps = ({
         placeholder={confirmal ? "Уведіть повторний пароль" : "Уведіть пароль"}
       />
       {!confirmal && (
-        <InputRightElement
-          cursor="pointer"
-          children={showPassword ? <ViewOffIcon /> : <ViewIcon />}
-          onClick={() => setShowPassword(!showPassword)}
-        />
+        <InputRightElement cursor="pointer" onClick={() => setShowPassword(!showPassword)}>
+          {showPassword ? <ViewOffIcon /> : <ViewIcon />}
+        </InputRightElement>
       )}
     </InputGroup>
   ),

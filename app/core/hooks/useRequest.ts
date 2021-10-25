@@ -1,4 +1,4 @@
-import { getAntiCSRFToken } from "@blitzjs/core"
+import { getAntiCSRFToken } from "blitz"
 
 export const API_PREFIX = "/api/" + (process.env.NEXT_PUBLIC_CURRENT_API_VERSION || "v0")
 

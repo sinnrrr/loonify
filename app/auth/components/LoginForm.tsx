@@ -6,12 +6,12 @@ import { useForm } from "react-hook-form"
 import { Login } from "../validations"
 import { EMAIL_FORM_KEY, PASSWORD_FORM_KEY } from "../constants"
 import AuthForm from "./AuthForm"
-import { AuthenticationError, useMutation, useRouter } from "@blitzjs/core"
 import login from "../mutations/login"
 import { SubmittableFormProps } from "types"
 import { emailFieldAsProps } from "app/core/components/form/EmailField"
 import { passwordFieldAsProps } from "app/core/components/form/PasswordField"
 import { useBrandColor } from "app/core/hooks/useBrandColor"
+import { useMutation, useRouter, AuthenticationError } from "blitz"
 
 const LoginForm: FunctionComponent<SubmittableFormProps> = ({ onSuccess }) => {
   const router = useRouter()

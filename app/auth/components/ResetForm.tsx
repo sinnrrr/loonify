@@ -1,7 +1,7 @@
-import { useMutation, useRouterQuery } from "@blitzjs/core"
 import { Heading } from "@chakra-ui/layout"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { passwordFieldAsProps } from "app/core/components/form/PasswordField"
+import { useMutation, useRouterQuery } from "blitz"
 import { FunctionComponent, useEffect, useState } from "react"
 import { useForm } from "react-hook-form"
 import { SubmittableFormProps } from "types"

@@ -1,4 +1,4 @@
-import { useRouter } from "@blitzjs/core"
+import { useRouter } from "blitz"
 
 export type IndexRedirect = () => void
 

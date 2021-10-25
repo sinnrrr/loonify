@@ -1,6 +1,6 @@
 import { PostType } from ".prisma/client"
-import { SecurePassword } from "@blitzjs/core/server"
 import { ALLOWED_POST_TYPES } from "app/posts/constants"
+import { SecurePassword } from "blitz"
 import db from "db"
 import * as faker from "faker"
 

@@ -1,9 +1,7 @@
-import React, { FunctionComponent, ReactNode, useEffect, useState } from "react"
-import { Box, Divider, Flex, HStack, Text, VStack } from "@chakra-ui/layout"
+import { Avatar } from "@chakra-ui/avatar"
 import { Button, IconButton } from "@chakra-ui/button"
-import theme from "@chakra-ui/theme"
-import { Slide } from "@chakra-ui/transition"
-import { Input, InputGroup, InputLeftElement } from "@chakra-ui/input"
+import { useColorMode, useColorModeValue } from "@chakra-ui/color-mode"
+import { useDisclosure } from "@chakra-ui/hooks"
 import {
   ChevronDownIcon,
   CloseIcon,
@@ -11,14 +9,10 @@ import {
   QuestionOutlineIcon,
   SearchIcon,
 } from "@chakra-ui/icons"
+import { Input, InputGroup, InputLeftElement } from "@chakra-ui/input"
+import { Box, Divider, Flex, HStack, Text, VStack } from "@chakra-ui/layout"
 import { useBreakpointValue } from "@chakra-ui/media-query"
-import { useMutation, useRouter } from "@blitzjs/core"
-import { useCurrentUser } from "app/core/hooks/useCurrentUser"
-import { Avatar } from "@chakra-ui/avatar"
 import { Menu, MenuButton, MenuDivider, MenuItem, MenuList } from "@chakra-ui/menu"
-import logout from "app/auth/mutations/logout"
-import { useColorMode, useColorModeValue } from "@chakra-ui/color-mode"
-import { Portal } from "@chakra-ui/portal"
 import {
   Modal,
   ModalBody,
@@ -28,9 +22,15 @@ import {
   ModalHeader,
   ModalOverlay,
 } from "@chakra-ui/modal"
-import { useDisclosure } from "@chakra-ui/hooks"
-import { usePostRedirect } from "app/core/hooks/usePostRedirect"
+import { Portal } from "@chakra-ui/portal"
+import theme from "@chakra-ui/theme"
+import { Slide } from "@chakra-ui/transition"
+import logout from "app/auth/mutations/logout"
 import { useBrandColor } from "app/core/hooks/useBrandColor"
+import { useCurrentUser } from "app/core/hooks/useCurrentUser"
+import { usePostRedirect } from "app/core/hooks/usePostRedirect"
+import { useMutation, useRouter } from "blitz"
+import React, { FunctionComponent, ReactNode, useEffect, useState } from "react"
 import LogoBlock from "./LogoBlock"
 
 const MapPanel: FunctionComponent<{ children: ReactNode }> = ({ children }) => {
@@ -125,11 +125,9 @@ const MapPanel: FunctionComponent<{ children: ReactNode }> = ({ children }) => {
             </HStack>
             <HStack>
               <InputGroup>
-                <InputLeftElement
-                  zIndex={theme.zIndices.base}
-                  pointerEvents="none"
-                  children={<SearchIcon />}
-                />
+                <InputLeftElement zIndex={theme.zIndices.base} pointerEvents="none">
+                  <SearchIcon />
+                </InputLeftElement>
                 <Input
                   placeholder="Шукати"
                   defaultValue={searchQuery}

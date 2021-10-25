@@ -1,4 +1,4 @@
-import { useRouter } from "@blitzjs/core"
+import { useRouter } from "blitz"
 
 export const QuickMode = "quick" as const
 export const FullMode = "full" as const

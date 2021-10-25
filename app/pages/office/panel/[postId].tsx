@@ -1,15 +1,14 @@
-import { BlitzPage, useParam } from "@blitzjs/core"
-import IndexLayout from "app/core/layouts/IndexLayout"
-import { useQuery } from "@blitzjs/core"
 import { Alert, AlertIcon } from "@chakra-ui/alert"
 import { Button } from "@chakra-ui/button"
 import { Image } from "@chakra-ui/image"
 import { Box, Text, VStack } from "@chakra-ui/layout"
-import getPost from "app/posts/queries/getPost"
-import { BiImage } from "react-icons/bi"
-import { usePostRedirect } from "app/core/hooks/usePostRedirect"
 import MiddlePanel from "app/core/components/layout/MiddlePanel"
+import { usePostRedirect } from "app/core/hooks/usePostRedirect"
+import IndexLayout from "app/core/layouts/IndexLayout"
+import getPost from "app/posts/queries/getPost"
+import { BlitzPage, useParam, useQuery } from "blitz"
 import { NextSeo } from "next-seo"
+import { BiImage } from "react-icons/bi"
 
 const Quick: BlitzPage = () => {
   const postRedirect = usePostRedirect()
@@ -32,7 +31,7 @@ const Quick: BlitzPage = () => {
         <MiddlePanel heading="Оголошення" />
 
         {post.images.length > 0 ? (
-          <Image src={post.images[0]} />
+          <Image src={post.images[0]} alt="Post image" />
         ) : (
           <Box>
             <BiImage size="100%" />

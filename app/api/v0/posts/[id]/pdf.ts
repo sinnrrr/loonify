@@ -1,4 +1,4 @@
-import { BlitzApiRequest, BlitzApiResponse } from "@blitzjs/core"
+import { BlitzApiRequest, BlitzApiResponse } from "blitz"
 import chromium from "chrome-aws-lambda"
 
 const generatePdf = async (req: BlitzApiRequest, res: BlitzApiResponse) => {

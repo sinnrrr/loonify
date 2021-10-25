@@ -1,32 +1,32 @@
-import { BlitzPage, useAuthenticatedSession, useMutation } from "@blitzjs/core"
 import { Button } from "@chakra-ui/button"
+import { ArrowBackIcon } from "@chakra-ui/icons"
 import { Container, Flex, Heading, HStack, VStack } from "@chakra-ui/layout"
 import theme from "@chakra-ui/theme"
 import { zodResolver } from "@hookform/resolvers/zod"
-import Layout from "app/core/layouts/Layout"
-import { CreatePost } from "app/posts/validations"
-import { useEffect, useState } from "react"
-import { useForm } from "react-hook-form"
-import createPost from "app/posts/mutations/createPost"
-import UploadBlock from "app/posts/components/UploadBlock"
-import { usePostRedirect } from "app/core/hooks/usePostRedirect"
-import { ArrowBackIcon } from "@chakra-ui/icons"
+import CategoryField from "app/core/components/form/CategoryField"
+import DescriptionField from "app/core/components/form/DescriptionField"
+import LocationField from "app/core/components/form/LocationField"
+import TitleField from "app/core/components/form/TitleField"
+import TypeField from "app/core/components/form/TypeField"
 import { useBackRedirect } from "app/core/hooks/useBackRedirect"
+import { useBrandColor } from "app/core/hooks/useBrandColor"
+import { usePostRedirect } from "app/core/hooks/usePostRedirect"
+import Layout from "app/core/layouts/Layout"
+import UploadBlock from "app/posts/components/UploadBlock"
 import {
   CATEGORY_FORM_KEY,
   DESCRIPTION_FORM_KEY,
+  IMAGES_FORM_KEY,
+  LOCATIONS_FORM_KEY,
   TITLE_FORM_KEY,
   TYPE_FORM_KEY,
-  LOCATIONS_FORM_KEY,
-  IMAGES_FORM_KEY,
 } from "app/posts/constants"
+import createPost from "app/posts/mutations/createPost"
+import { CreatePost } from "app/posts/validations"
+import { BlitzPage, useAuthenticatedSession, useMutation } from "blitz"
 import { NextSeo } from "next-seo"
-import TypeField from "app/core/components/form/TypeField"
-import CategoryField from "app/core/components/form/CategoryField"
-import TitleField from "app/core/components/form/TitleField"
-import DescriptionField from "app/core/components/form/DescriptionField"
-import LocationField from "app/core/components/form/LocationField"
-import { useBrandColor } from "app/core/hooks/useBrandColor"
+import { useEffect, useState } from "react"
+import { useForm } from "react-hook-form"
 
 const NewPostPage: BlitzPage = () => {
   // Mutations and requests

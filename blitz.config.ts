@@ -1,13 +1,9 @@
-const { sessionMiddleware, simpleRolesIsAuthorized } = require("blitz")
-// const withPWA = require("next-pwa")
+import { BlitzConfig, sessionMiddleware, simpleRolesIsAuthorized } from "blitz"
 
-module.exports = {
-  // pwa: {
-  //   dest: "public",
-  //   scope: "/office",
-  // },
+const config: BlitzConfig = {
   middleware: [
     sessionMiddleware({
+      cookiePrefix: "loonify",
       isAuthorized: simpleRolesIsAuthorized,
     }),
   ],
@@ -27,5 +23,7 @@ module.exports = {
         permanent: false,
       },
     ]
-  }
+  },
 }
+
+module.exports = config

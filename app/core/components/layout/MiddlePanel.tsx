@@ -1,7 +1,7 @@
-import { FunctionComponent } from "react"
 import { Heading, HStack } from "@chakra-ui/layout"
-import { useRouter } from "@blitzjs/core"
 import theme from "@chakra-ui/theme"
+import { useRouter } from "blitz"
+import { FunctionComponent } from "react"
 import BackArrow from "./BackArrow"
 
 const MiddlePanel: FunctionComponent<{ heading: string }> = ({ heading }) => {

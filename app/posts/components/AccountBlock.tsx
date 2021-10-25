@@ -1,4 +1,3 @@
-import { useMutation } from "@blitzjs/core"
 import { Avatar } from "@chakra-ui/avatar"
 import { Button } from "@chakra-ui/button"
 import { useClipboard } from "@chakra-ui/hooks"
@@ -17,6 +16,7 @@ import theme from "@chakra-ui/theme"
 import { useToast } from "@chakra-ui/toast"
 import { useIndexRedirect } from "app/core/hooks/useIndexRedirect"
 import { generateApiUrl } from "app/core/hooks/useRequest"
+import { useMutation } from "blitz"
 import { Post, User } from "db"
 import { FunctionComponent, useEffect, useRef, useState } from "react"
 import { useAuthor } from "../hooks/useAuthor"
@@ -91,7 +91,7 @@ const AccountBlock: FunctionComponent<{ post: Post; account: User }> = ({ post, 
                 window.open(account.phone ? `tel:${account.phone}` : `mailto:${account.email}`)
               }}
             >
-              Зв'язатись
+              Зв&apos;язатись
             </Button>
           )}
         </HStack>
