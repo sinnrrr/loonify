@@ -29,14 +29,13 @@ const PostComponent: FunctionComponent<{ post: Post & { category: Category } }> 
           <BiImage size="100%" />
         </Box>
       )}
-      <VStack align="flex-start">
+      <VStack align="flex-start" w="100%">
         <Tag>{post.category.name}</Tag>
         <Text
           fontSize={theme.fontSizes["xl"]}
           fontWeight={theme.fontWeights.bold}
           wordBreak="break-word"
-          whiteSpace="pre-wrap"
-          isTruncated
+          w="100%"
         >
           {post.title}
         </Text>

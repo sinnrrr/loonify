@@ -69,7 +69,7 @@ const Home: BlitzPage = () => {
           onClose={onClose}
           onFinish={setSelectedCategory}
         />
-        <VStack>
+        <VStack w="100%">
           {posts.length > 0 ? (
             posts.map((post, index) => <PostComponent key={index} post={post} />)
           ) : (
