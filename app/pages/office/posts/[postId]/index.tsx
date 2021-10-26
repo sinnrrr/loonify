@@ -66,7 +66,7 @@ const ShowPostPage: BlitzPage = () => {
               [ROW_BREAKPOINT]: theme.sizes.sm,
             }}
           >
-            <VStack align="flex-start" spacing={8}>
+            <VStack align="flex-start" spacing={8} mt={{ base: 8, md: 0 }}>
               <AccountBlock post={post} account={owner} />
               <QrBlock />
             </VStack>
