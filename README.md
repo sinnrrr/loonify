@@ -9,6 +9,10 @@ Loonify is a web application, that helps you find lost things, or their owners p
 <img src="public/diploma.jpg" />
 <i>World-class championship, that took place in Mexico, but because of the quarantine restrictions was held online.</i>
 
+## Improvements
+
+If you have some ideas on how to improve the project, fire an issue, and I will be immediately available to talk about it more!
+
 ## Getting Started
 
 ### Environment variables
