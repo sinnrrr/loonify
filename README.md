@@ -1,46 +1,38 @@
-[![Blitz.js](https://raw.githubusercontent.com/blitz-js/art/master/github-cover-photo.png)](https://blitzjs.com)
+![Loonify](public/apple-touch-icon.png)
 
-This is a [Blitz.js](https://github.com/blitz-js/blitz) app.
+# Loonify — Lost and Found of the Future
 
-# **name**
+Loonify is a web application, that helps you find lost things, or their owners pretty quickly and easily. It has aesthetic interface, great functionalities and modern technologies.
 
 ## Getting Started
 
-Run your app in the development mode.
+### Environment variables
+
+Pull the environment variables from [Dotenv Vault](https://www.dotenv.org/) with the following command:
+
+```bash
+npx dotenv-vault pull development .env.local
+```
+
+By the way, you can view the `.env.example` [here](https://vault.dotenv.org/project/vlt_c1eda61c374a4396b8650043a8a002592ad8619551d1bbdaa405fa8eaff69ad5/example).
+
+### Dependencies
+
+```bash
+yarn install
+```
+
+### Start the development server
 
 ```
-blitz dev
+yarn dev
 ```
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-## Environment Variables
-
-Ensure the `.env.local` file has required environment variables:
-
-```
-DATABASE_URL=postgresql://<YOUR_DB_USERNAME>@localhost:5432/loonify
-```
-
-Ensure the `.env.test.local` file has required environment variables:
-
-```
-DATABASE_URL=postgresql://<YOUR_DB_USERNAME>@localhost:5432/loonify_test
-```
-
-## Tests
-
-Runs your tests using Jest.
-
-```
-yarn test
-```
-
-Blitz comes with a test setup using [Jest](https://jestjs.io/) and [react-testing-library](https://testing-library.com/).
-
 ## Commands
 
-Blitz comes with a powerful CLI that is designed to make development easy and fast. You can install it with `npm i -g blitz`
+This project is built using [Blitz.js](https://blitzjs.com/) and it comes with a powerful CLI that is designed to make development easy and fast. You use it with the following command: `yarn blitz`.
 
 ```
   blitz [COMMAND]
@@ -57,79 +49,11 @@ Blitz comes with a powerful CLI that is designed to make development easy and fa
 
 You can read more about it on the [CLI Overview](https://blitzjs.com/docs/cli-overview) documentation.
 
-## What's included?
+## What's inside?
 
-Here is the starting structure of your app.
+- The `app/` folder is a container for most of the project. This is where you’ll put any pages or API routes.
 
-```
-loonify
-├── app/
-│   ├── api/
-│   ├── auth/
-│   │   ├── components/
-│   │   │   ├── LoginForm.tsx
-│   │   │   └── SignupForm.tsx
-│   │   ├── mutations/
-│   │   │   ├── changePassword.ts
-│   │   │   ├── forgotPassword.test.ts
-│   │   │   ├── forgotPassword.ts
-│   │   │   ├── login.ts
-│   │   │   ├── logout.ts
-│   │   │   ├── resetPassword.test.ts
-│   │   │   ├── resetPassword.ts
-│   │   │   └── signup.ts
-│   │   ├── pages/
-│   │   │   ├── forgot-password.tsx
-│   │   │   ├── login.tsx
-│   │   │   ├── reset-password.tsx
-│   │   │   └── signup.tsx
-│   │   └── validations.ts
-│   ├── core/
-│   │   ├── components/
-│   │   │   ├── Form.tsx
-│   │   │   └── LabeledTextField.tsx
-│   │   ├── hooks/
-│   │   │   └── useCurrentUser.ts
-│   │   └── layouts/
-│   │       └── Layout.tsx
-│   ├── pages/
-│   │   ├── 404.tsx
-│   │   ├── _app.tsx
-│   │   ├── _document.tsx
-│   │   ├── index.test.tsx
-│   │   └── index.tsx
-│   └── users/
-│       └── queries/
-│           └── getCurrentUser.ts
-├── db/
-│   ├── index.ts
-│   ├── schema.prisma
-│   └── seeds.ts
-├── integrations/
-├── mailers/
-│   └── forgotPasswordMailer.ts
-├── public/
-│   ├── favicon.ico*
-│   └── logo.png
-├── test/
-│   ├── setup.ts
-│   └── utils.tsx
-├── README.md
-├── babel.config.js
-├── blitz.config.js
-├── jest.config.js
-├── package.json
-├── tsconfig.json
-├── types.d.ts
-├── types.ts
-└── yarn.lock
-```
-
-These files are:
-
-- The `app/` folder is a container for most of your project. This is where you’ll put any pages or API routes.
-
-- `db/` is where your database configuration goes. If you’re writing models or checking migrations, this is where to go.
+- `db/` is where database configuration goes. If you’re writing models or checking migrations, this is where to go.
 
 - `public/` is a folder where you will put any static assets. If you have images, files, or videos which you want to use in your app, this is where to put them.
 
@@ -148,16 +72,3 @@ These files are:
 - `jest.config.js` contains config for Jest tests. You can [customize it if needed](https://jestjs.io/docs/en/configuration).
 
 You can read more about it in the [File Structure](https://blitzjs.com/docs/file-structure) section of the documentation.
-
-## Learn more
-
-Read the [Blitz.js Documentation](https://blitzjs.com/docs/getting-started) to learn more.
-
-The Blitz community is warm, safe, diverse, inclusive, and fun! Feel free to reach out to us in any of our communication channels.
-
-- [Website](https://blitzjs.com/)
-- [Discord](https://discord.blitzjs.com/)
-- [Report an issue](https://github.com/blitz-js/blitz/issues/new/choose)
-- [Forum discussions](https://github.com/blitz-js/blitz/discussions)
-- [How to Contribute](https://blitzjs.com/docs/contributing)
-- [Sponsor or donate](https://github.com/blitz-js/blitz#sponsors-and-donations)
