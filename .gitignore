@@ -20,9 +20,10 @@ blitz-log.log
 .DS_Store
 
 # local env files
-.env.local
-.env.*.local
+.env.*
 .envrc
+!.env
+!.env.vault
 
 # Logs
 logs
@@ -53,3 +54,7 @@ lib-cov
 .vscode-test
 
 .vercel
+
+.env*
+!.env.project
+!.env.vault
