@@ -4,6 +4,11 @@
 
 Loonify is a web application, that helps you find lost things, or their owners pretty quickly and easily. It has aesthetic interface, great functionalities and modern technologies.
 
+## Awards
+
+<img src="public/diploma.jpg" />
+<i>World-class championship, that took place in Mexico, but because of the quarantine restrictions was held online.</i>
+
 ## Getting Started
 
 ### Environment variables
@@ -22,6 +27,14 @@ By the way, you can view the `.env.example` [here](https://vault.dotenv.org/proj
 yarn install
 ```
 
+### Database
+
+```bash
+yarn blitz prisma db push
+```
+
+This applies migration to DB.
+
 ### Start the development server
 
 ```
@@ -32,7 +45,7 @@ Open [http://localhost:3000](http://localhost:3000) with your browser to see the
 
 ## Commands
 
-This project is built using [Blitz.js](https://blitzjs.com/) and it comes with a powerful CLI that is designed to make development easy and fast. You use it with the following command: `yarn blitz`.
+This project is built using [Blitz.js fullstack framework](https://blitzjs.com/), and it comes with a powerful CLI that is designed to make development easy and fast. You use it with the following command: `yarn blitz`.
 
 ```
   blitz [COMMAND]
@@ -55,7 +68,7 @@ You can read more about it on the [CLI Overview](https://blitzjs.com/docs/cli-ov
 
 - `db/` is where database configuration goes. If you’re writing models or checking migrations, this is where to go.
 
-- `public/` is a folder where you will put any static assets. If you have images, files, or videos which you want to use in your app, this is where to put them.
+- `public/` is a folder where you will put any static assets. If you have images, files or videos, which you want to use in your app, this is where to put them.
 
 - `integrations/` is a folder to put all third-party integrations like with Stripe, Sentry, etc.
 
