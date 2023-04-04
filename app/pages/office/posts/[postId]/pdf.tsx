@@ -44,7 +44,7 @@ const PostPdfPage: BlitzPage = () => {
             <Text>Зв’яжіться зі мною за допомогою:</Text>
             <Box>
               <ContactOption variant="email" data={post.owner.email} />
-              {post.owner.phone && <ContactOption variant="phone" data={post.owner.phone} />}
+              <ContactOption variant="phone" data={post.owner.phone} />
             </Box>
             <Text>..або дізнайтесь більше інформації за QR-кодом нижче</Text>
           </VStack>

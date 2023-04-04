@@ -8,7 +8,7 @@ export const Signup = z.object({
   password: password.nonempty(),
   passwordConfirmation: password,
   firstName: z.string().nonempty(),
-  phone: z.string(),
+  phone: z.string().nonempty(),
 })
 
 export const Login = z.object({

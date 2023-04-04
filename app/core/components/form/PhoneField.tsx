@@ -10,7 +10,7 @@ export const phoneFieldAsProps = ({
   isLoading,
   tabIndex = 0,
 }: PhoneFieldProps): FormComponentProps => ({
-  isRequired: false,
+  isRequired: true,
   label: "Телефон",
   getError,
   helperText: "Мобільний телефон",
