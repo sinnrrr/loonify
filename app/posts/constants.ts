@@ -18,3 +18,9 @@ export const TYPE_MATCHED_COLOR = {
 
 export const COLUMN_BREAKPOINT = "base",
   ROW_BREAKPOINT = "md"
+
+export const postTypeToName: { [x in PostType]: string } = {
+  LOST: "Загублено",
+  FOUND: "Знайдено",
+  THEFT: "Крадіжка",
+}

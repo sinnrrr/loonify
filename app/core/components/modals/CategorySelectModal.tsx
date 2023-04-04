@@ -23,7 +23,6 @@ import { Box, Text, VStack } from "@chakra-ui/layout"
 import { Category } from "db"
 import { Tag } from "@chakra-ui/tag"
 import { ModalComponentProps } from "types"
-import { AddIcon } from "@chakra-ui/icons"
 import { useDisclosure } from "@chakra-ui/hooks"
 import NewCategoryModal from "./NewCategoryModal"
 import { useBrandColor } from "app/core/hooks/useBrandColor"
@@ -50,13 +49,13 @@ const CategorySelectModal: FunctionComponent<CategorySelectModalProps> = ({
               <Text>Обрати категорію</Text>
               {canCreateNew && (
                 <>
-                  <Button
-                    leftIcon={<AddIcon h={2} w={2} />}
-                    onClick={newCategoryModal.onOpen}
-                    variant="link"
-                  >
-                    Створити нову
-                  </Button>
+                  {/* <Button */}
+                  {/*   leftIcon={<AddIcon h={2} w={2} />} */}
+                  {/*   onClick={newCategoryModal.onOpen} */}
+                  {/*   variant="link" */}
+                  {/* > */}
+                  {/*   Створити нову */}
+                  {/* </Button> */}
                   <NewCategoryModal
                     isOpen={newCategoryModal.isOpen}
                     onClose={newCategoryModal.onClose}

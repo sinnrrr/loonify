@@ -72,7 +72,7 @@ const NewCategoryModal: FunctionComponent<ModalComponentProps<Category>> = ({
               <FormComponent
                 label="Залежність"
                 getError={() => errors[PARENT_FORM_KEY]}
-                helperText="Оберіть батьківську категорію (тобто якщо марка автомобілю, то батьківська категорія - автомобілі)"
+                helperText="Оберіть батьківську категорію (тобто якщо назва категорії - смартфон, то батьківська категорія - техніка чи електроніка)"
               >
                 {selectedCategory ? (
                   <Tag size="lg">

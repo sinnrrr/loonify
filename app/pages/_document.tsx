@@ -20,7 +20,7 @@ class MyDocument extends Document {
             title: "Loonify",
             description: "Lost and Found of the Future",
             locale: "uk_UA",
-            url: "https://www.loonify.vercel.app/",
+            url: "https://www.loonify.co",
             site_name: "Loonify",
           }}
           twitter={{

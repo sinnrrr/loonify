@@ -94,7 +94,7 @@ const UploadBlock: FunctionComponent<{
           <>
             <FormLabel>
               <Flex justify="space-between">
-                <Text>Image</Text>
+                <Text>Зображення</Text>
                 {!!images.length && (
                   <Button
                     size="xs"
@@ -165,7 +165,9 @@ const UploadBlock: FunctionComponent<{
                 </Droppable>
               </DragDropContext>
             </Box>
-            <FormHelperText>Posts with image get a 50% more visitors</FormHelperText>
+            <FormHelperText>
+              Оголошення з картинками в середньому отримують на 60% більше уваги
+            </FormHelperText>
           </>
         )}
       </ImageUploading>
