@@ -6,8 +6,10 @@ Loonify is a web application, that helps you find lost things, or their owners p
 
 ## Awards
 
-<img src="public/diploma.jpg" />
-<i>World-class championship, that took place in Mexico, but because of the quarantine restrictions was held online.</i>
+| **Achievement**                                 | **Source/Verification**                                                                                                                                                                                                                                                                                                                                                                                                                                            | **Details**                                     |
+| ----------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ----------------------------------------------- |
+| **Silver medal @ InfoMarix 2021 World Finals**  | <ul><li>[**ENGLISH** \| News Article Published by LPNU (My University)](https://lpnu.ua/en/news/university-student-won-silver-medal-international-computer-project-competition-infomatrix-2021)</li><li>[**UKRAINIAN** \| Ministry of Education and Science of Ukraine (Governmental Structure)](https://mon.gov.ua/ua/news/ukrayina-zdobula-chergovu-peremogu-na-svitovomu-finali-infomatrix-2021) -- might not be available due to political situation</li></ul> | ![Diploma](public/informatrix-diploma.jpg)      |
+| **Pride of Ukraine (Issued by the Government)** | <ul><li>[**UKRAINIAN** \| National Government-funded Youth Scientific Center](https://nenc.gov.ua/wp-content/uploads/2020/01/2021-11-83_2.pdf)</li>                                                                                                                                                                                                                                                                                                                | ![Diploma](public/pride-of-ukraine-diploma.jpg) |
 
 ## Improvements
 
